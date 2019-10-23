@@ -1,0 +1,151 @@
+.slider {
+    position: relative;
+    color: #fff;
+    height: 400px;
+    overflow: hidden;
+}
+
+.slider-item {
+    display: none;
+    position: absolute;
+    height: 400px;
+    width: 100%;
+}
+
+.slider-active {
+    display: block;
+}
+
+.slider-arrow {
+    position: absolute;
+    top: calc(50% - 90px);
+    cursor: pointer;
+    font-size: 100px;
+    color: #ccc;
+    z-index: 3;
+
+    display: none;
+}
+
+.slider:hover .slider-arrow{
+    display: block;
+}
+
+.slider-arrow:hover {
+    color: #fff;
+}
+
+#slider-next {
+    right: 15px;
+}
+
+#slider-prev {
+    left: 15px;
+}
+
+.slider-points {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding-right: 20px;
+    padding-bottom: 10px;
+}
+
+.slider-point {
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 2px;
+    padding: 1px;
+    background: #888;
+    /*border: 1px solid #000;*/
+    color: #fff;
+    height: 22px;
+    width: 22px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.slider-point:hover {
+    color: #888;
+    background: #fff;
+}
+
+.slider-point-active{
+    color: #888;
+    background: #fff;
+}
+
+.slider-point-active:hover{
+    cursor: default;
+}
+
+
+/***
+------------------------------------------------------------------------
+ */
+
+.manufacturers{
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 150px;
+    overflow: hidden;
+}
+
+.manufacturer-next, .manufacturer-prev{
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    height: 150px;
+    width: 28px;
+    font-size: 40px;
+    background: #888;
+    color: #fff;
+    padding-top: 38px;
+}
+.manufacturer-next:hover, .manufacturer-prev:hover {
+    background: #5a6268;
+    color: #ddd;
+    cursor: pointer;
+}
+
+
+.manufacturer-next{
+    right: 0;
+    padding-left: 7px;
+}
+
+.manufacturer-prev{
+    left: 0;
+    padding-left: 7px;
+}
+
+.manufacturer-items{
+    margin-right: 10px;
+    position: absolute;
+    left: 30px;
+    width: calc(100% - 60px);
+    white-space: nowrap;
+    right: 30px;
+}
+
+.manufacturer{
+    margin-left: -2px;
+    display: inline-block;
+    height: 150px;
+    width: 300px;
+    background: #0f6674;
+}
+
+.manufacturer > a{
+    background-position: center;
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    display: block;
+    background-size: contain;
+}
+
+.manufacturer > a > img{
+    width: 100%;
+}

@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Http\Controllers\Bridge;
+
+use App\Library\BaseConnection;
+use App\Http\Controllers\Controller;
+use App\Models\Characteristic;
+
+class CharacteristicsSyncController extends Controller
+{
+    public function section_main(BaseConnection $connection)
+    {
+        $characteristics = $connection->request('settings', 'characteristics_sync');
+
+        Characteristic::truncate();
+
+        foreach (\GuzzleHttp\json_decode($characteristics) as $item) {
+            Characteristic::create((array)$item);
+        }
+
+        return redirect()
+            ->route('bridge')
+            ->with('message', 'Характеристики вдало синхронізовані!');
+    }
+}
