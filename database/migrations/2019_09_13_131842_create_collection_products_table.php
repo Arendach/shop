@@ -14,9 +14,11 @@ class CreateCollectionProductsTable extends Migration
     {
         Schema::create('collection_products', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('collection_id');
-            $table->integer('product_id');
-            $table->softDeletes();
+            $table->integer('collection_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+
+            $table->foreign('collection_id')->references('id')->on('collections');
+            $table->foreign('product_id')->references('id')->on('products');
         });
     }
 

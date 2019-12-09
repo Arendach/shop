@@ -2,10 +2,13 @@
 
 namespace App\Providers;
 
+use App\Services\BaseConnectionService;
+use App\Services\CategoryFilterService;
 use App\Services\CheckoutService;
 use App\Services\DeliveryService;
 use App\Services\NewPostService;
 use App\Services\OrderStatusService;
+use App\Services\SettingsService;
 use App\Services\StaticPageService;
 use App\Services\UserService;
 use App\Services\CartService;
@@ -41,6 +44,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('Banner', 'App\\Services\\BannerService');
         $this->app->bind('Pay', 'App\\Services\\PayService');
 
+        $this->app->bind(BaseConnectionService::class, BaseConnectionService::class);
+
         $this->app->singleton(CartService::class, CartService::class);
         $this->app->singleton(DeliveryService::class, DeliveryService::class);
         $this->app->singleton(CheckoutService::class, CheckoutService::class);
@@ -48,5 +53,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(UserService::class, UserService::class);
         $this->app->singleton(OrderStatusService::class, OrderStatusService::class);
         $this->app->singleton(StaticPageService::class, StaticPageService::class);
+        $this->app->singleton(CategoryFilterService::class, CategoryFilterService::class);
+        $this->app->singleton(SettingsService::class, SettingsService::class);
     }
 }

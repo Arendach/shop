@@ -90,3 +90,14 @@ function params(array $parameters): string
     return trim(parameters($parameters), '?');
 }
 
+/**
+ * @param $data
+ * @param int $status
+ * @param array $headers
+ * @param int $option
+ * @return \Illuminate\Http\JsonResponse
+ */
+function json($data, $status = 200, $headers = [], $option = 0)
+{
+    return response()->json($data, $status, $headers, $option);
+}

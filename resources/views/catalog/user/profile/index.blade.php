@@ -42,14 +42,14 @@
                 <hr>
             @endif
 
-            <a href="{{ route('profile.viewed') }}">
+           {{-- <a href="{{ route('profile.viewed') }}">
                 <i class="fa fa-eye"></i> Переглянуті товари
-            </a>
+            </a>--}}
 
-            <hr>
+           {{-- <hr>--}}
 
-            <a href="{{ route('profile.liked') }}">
-                <i class="fa fa-heart"></i> Вибрані товари
+            <a href="{{ route('profile.desire') }}">
+                <i class="fa fa-heart"></i> Вибрані товари (<b>{{ user()->desire_products->count() }}</b>)
             </a>
 
             <hr>

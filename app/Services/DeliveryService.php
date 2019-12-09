@@ -257,20 +257,20 @@ class DeliveryService
      */
     private function writeSending(CheckoutRequest $request, Order $order): Order
     {
-        $warehouse_name = NewPost::getWarehouseNameLocale($request->sending_city_key, $request->sending_warehouse);
-        $city_name = NewPost::getCityNameLocale($request->sending_city_key);
+        $warehouse = NewPost::getWarehouseNameLocale($request->sending_city_key, $request->sending_warehouse);
+        $city = NewPost::getCityNameLocale($request->sending_city_key);
 
         // таблиця з інформацією по доставці
         $sending = new OrderSending;
 
         // Запис даних в таблицю
         $sending->city_key = $request->sending_city_key;
-        $sending->city_name_uk = $city_name['uk'];
-        $sending->city_name_ru = $city_name['ru'];
+        $sending->city_name_uk = $city['name_uk'];
+        $sending->city_name_ru = $city['name_ru'];
 
         $sending->warehouse_key = $request->sending_warehouse;
-        $sending->warehouse_name_uk = $warehouse_name['uk'];
-        $sending->warehouse_name_ru = $warehouse_name['ru'];
+        $sending->warehouse_name_uk = $warehouse['name_uk'];
+        $sending->warehouse_name_ru = $warehouse['name_ru'];
 
         $sending->order_id = $order->id;
 

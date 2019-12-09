@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -56,6 +57,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\ProductCollection withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\ProductCollection withoutTrashed()
  * @mixin \Eloquent
+ * @property string|null $description_uk
+ * @property string|null $description_ru
+ * @property-read mixed $description
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductCollection whereDescriptionRu($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductCollection whereDescriptionUk($value)
  */
 class ProductCollection extends Model
 {
@@ -85,21 +91,30 @@ class ProductCollection extends Model
 
     protected $table = 'collections';
 
+    public static function getTableName()
+    {
+        return with(new static)->table;
+    }
+
     public function items()
     {
-        return $this->hasMany('App\\Models\\ProductCollectionItems', 'collection_id')
-            ->with('product');
+        return $this->belongsToMany(Product::class, ProductCollectionItems::class, 'collection_id')
+            ->orderBy('products.on_storage', 'desc');
+    }
+
+    public function root()
+    {
+        return ProductCollection::where('parent_id', 0)->get();
     }
 
     public function child()
     {
-        return $this->hasMany('App\\Models\\ProductCollection', 'parent_id', 'id')
-            ->with('items');
+        return $this->hasMany(ProductCollection::class, 'parent_id', 'id');
     }
 
     public function parent()
     {
-        return $this->hasOne('App\\Models\\ProductCollection', 'id', 'parent_id');
+        return $this->hasOne(ProductCollection::class, 'id', 'parent_id');
     }
 
     public function getNameAttribute()
@@ -122,10 +137,39 @@ class ProductCollection extends Model
         return $this->{"meta_description_" . config('locale.current')};
     }
 
+    public function getDescriptionAttribute()
+    {
+        return $this->{"description_" . config('locale.current')};
+    }
+
     public function getImageAttribute($value)
     {
         if (is_file(public_path($value))) return asset($value);
         elseif (preg_match('@^http@', $value)) return $value;
         else return asset('catalog/img/not-found-350x150.png');
     }
+
+    /**
+     * @param $request
+     * @return Product[]|Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection
+     */
+    public function getSearchedProducts($request)
+    {
+        $collection = ProductCollection::findOrFail($request->collection_id)
+            ->items()
+            ->pluck('product_id')
+            ->toArray();
+
+        $products = Product::whereNotIn('id', $collection)
+            ->where(function (Builder $query) use ($request) {
+                $query->where('name_uk', 'like', "%$request->field%")
+                    ->orWhere('name_ru', 'like', "%$request->field%")
+                    ->orWhere('article', 'like', "%$request->field%");
+            })
+            ->limit(20)
+            ->get();
+
+        return $products;
+    }
+
 }

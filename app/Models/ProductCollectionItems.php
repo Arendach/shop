@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\ProductCollectionItems
@@ -29,8 +28,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class ProductCollectionItems extends Model
 {
-    use SoftDeletes;
-
     protected $fillable = [
         'product_id',
         'collection_id'
@@ -40,8 +37,8 @@ class ProductCollectionItems extends Model
 
     protected $table = 'collection_products';
 
-    public function product()
+    /*public function product()
     {
         return $this->belongsTo('App\\Models\\Product')->with('characteristics');
-    }
+    }*/
 }

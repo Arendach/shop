@@ -60,7 +60,8 @@ class OrderController extends CatalogController
 
         return response()->json([
             'success' => true,
-            'message' => '',
+            'message' => __('order.checkout.success_message'),
+            'title' => __('order.checkout.success_title'),
             'redirectRoute' => route('profile.orders.view', $id)
         ]);
     }

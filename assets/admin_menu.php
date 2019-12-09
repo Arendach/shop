@@ -3,7 +3,7 @@
 return [
     'Продажі' => [
         [
-            'url' => '#',
+            'url' => route('admin.get', ['orders', 'default', 'main']),
             'text' => __('admin.routes.orders'),
             'icon' => 'orders',
             'key' => 'orders'
@@ -27,7 +27,14 @@ return [
             'text' => __('admin.routes.products'),
             'icon' => 'products',
             'key' => 'products'
-        ]
+        ],
+        [
+            'url' => route('admin.get', ['product', 'collection', 'main']),
+            'text' => __('admin.routes.collections'),
+            'icon' => 'collections',
+            'key' => 'products'
+        ],
+
     ],
     'Інше' => [
         [

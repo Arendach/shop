@@ -9,9 +9,11 @@
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#photo">@lang('category.admin.photo')</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#links">@lang('category.admin.links')</a>
-        </li>
+        @if($category->parent_id != 0)
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#links">@lang('category.admin.links')</a>
+            </li>
+        @endif
     </ul>
 
     <div class="tab-content">
@@ -226,56 +228,59 @@
 
         </div>
 
-        <div class="tab-pane fade" id="links">
+        @if($category->parent_id != 0)
+            <div class="tab-pane fade" id="links">
 
-            <div class="right mb">
-                <button data-type="get_form"
-                        data-url="{{ route('admin.post', ['category', 'link', 'create_form']) }}"
-                        data-post="{{ params(['category_id' => $category->id]) }}"
-                        class="btn btn-outline-success">
-                    @lang('category.admin.new_link')
-                </button>
-            </div>
+                <div class="right mb">
+                    <button data-type="get_form"
+                            data-url="{{ route('admin.post', ['category', 'link', 'create_form']) }}"
+                            data-post="{{ params(['category_id' => $category->id]) }}"
+                            class="btn btn-outline-success">
+                        @lang('category.admin.new_link')
+                    </button>
+                </div>
 
-            @if($category->links->count())
-                <table class="table table-bordered">
-                    <tr>
-                        <th>@lang('category.admin.name')</th>
-                        <th>@lang('category.admin.url')</th>
-                        <th class="action2">@lang('common.actions')</th>
-                    </tr>
-                    @foreach($category->links as $item)
+                @if($category->links->count())
+                    <table class="table table-bordered">
                         <tr>
-                            <td>{{ $item->name }}</td>
-                            <td><a href="{{ url($item->url) }}">{{ $item->url }}</a></td>
-                            <td class="action2">
-                                <button data-type="get_form"
-                                        data-url="{{ route('admin.post', ['category', 'link', 'update_form']) }}"
-                                        data-post="{{ params(['id' => $item->id]) }}"
-                                        title="@lang('common.edit')"
-                                        class="btn btn-outline-primary btn-sm">
-                                    <i class="fa fa-pencil"></i>
-                                </button>
-
-                                <button data-type="delete"
-                                        data-url="{{ route('admin.post', ['category', 'link', 'delete']) }}"
-                                        data-id="{{ $item->id }}"
-                                        data-after="remove"
-                                        title="@lang('common.del')"
-                                        class="btn btn-outline-danger btn-sm">
-                                    <i class="fa fa-remove"></i>
-                                </button>
-                            </td>
+                            <th>@lang('category.admin.name')</th>
+                            <th>@lang('category.admin.url')</th>
+                            <th class="action2">@lang('common.actions')</th>
                         </tr>
-                    @endforeach
-                </table>
-                
+                        @foreach($category->links as $item)
+                            <tr>
+                                <td>{{ $item->name }}</td>
+                                <td><a href="{{ url($item->url) }}">{{ $item->url }}</a></td>
+                                <td class="action2">
+                                    <button data-type="get_form"
+                                            data-url="{{ route('admin.post', ['category', 'link', 'update_form']) }}"
+                                            data-post="{{ params(['id' => $item->id]) }}"
+                                            title="@lang('common.edit')"
+                                            class="btn btn-outline-primary btn-sm">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+
+                                    <button data-type="delete"
+                                            data-url="{{ route('admin.post', ['category', 'link', 'delete']) }}"
+                                            data-id="{{ $item->id }}"
+                                            data-after="remove"
+                                            title="@lang('common.del')"
+                                            class="btn btn-outline-danger btn-sm">
+                                        <i class="fa fa-remove"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </table>
+
                 @else
-                
-                <h4 class="centered">@lang('common.empty')</h4>
-                
-            @endif
-        </div>
+
+                    <h4 class="centered">@lang('common.empty')</h4>
+
+                @endif
+            </div>
+        @endif
+
     </div>
 
 @endsection

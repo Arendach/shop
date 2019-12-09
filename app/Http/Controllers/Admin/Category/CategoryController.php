@@ -82,7 +82,7 @@ class CategoryController extends AdminController
         $data = [
             'title' => __('category.admin.page_title'),
             'breadcrumbs' => [
-                [__('category.admin.page_title'), route('categories.index')],
+                [__('category.admin.page_title'), route('admin.get', ['category', 'category', 'main'])],
                 [__('category.admin.new_category')]
             ],
             'root_categories' => Category::where('parent_id', 0)->get()

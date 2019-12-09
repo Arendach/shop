@@ -34,6 +34,10 @@ class ProductController extends AdminController
             ->with('child')
             ->get();
 
+        if ($product->characteristics->pluck('id')){
+
+        }
+
         $data = [
             'title' => __('products.admin.page_title'),
             'breadcrumbs' => [

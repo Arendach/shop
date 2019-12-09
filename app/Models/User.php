@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\OrderScopes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -46,10 +47,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
  * @property-read int|null $orders_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $desire_products
+ * @property-read int|null $desire_products_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User desc()
  */
 class User extends Authenticatable
 {
     use Notifiable;
+    use OrderScopes;
 
     /**
      * The attributes that are mass assignable.
@@ -83,6 +88,12 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class)
-            ->with(['products', 'self', 'sending', 'delivery']);
+            ->orderByDesc('id')
+            ->with(['products', 'self', 'sending', '_delivery']);
+    }
+
+    public function desire_products()
+    {
+        return $this->belongsToMany(Product::class, DesireProduct::class);
     }
 }

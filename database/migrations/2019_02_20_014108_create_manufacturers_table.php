@@ -13,13 +13,13 @@ class CreateManufacturersTable extends Migration
     public function up()
     {
         Schema::create('manufacturers', function (Blueprint $table) {
-            $table->integer('id')->unique();
+            $table->increments('id');
 
-            $table->string('name_uk', 256);
-            $table->string('name_ru', 256);
+            $table->string('name_uk', 256)->nullable();
+            $table->string('name_ru', 256)->nullable();
 
-            $table->text('photo_uk');
-            $table->text('photo_ru');
+            $table->text('photo_uk')->nullable();
+            $table->text('photo_ru')->nullable();
         });
     }
 

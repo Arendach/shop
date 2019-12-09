@@ -32,8 +32,6 @@ class CollectionController extends CatalogController
             ->where(is_numeric($slug) ? 'id' : 'slug', $slug)
             ->firstOrFail();
 
-
-
         $data = [
             'title' => $collection->meta_title,
             'meta_keywords' => $collection->meta_keywords,
@@ -41,7 +39,7 @@ class CollectionController extends CatalogController
             'collection' => $collection
         ];
 
-        if ($collection->parent_id == 0){
+        if ($collection->parent_id == 0) {
             $data['breadcrumbs'] = [
                 [__('collection.meta.title'), route('collections')],
                 [$collection->name]

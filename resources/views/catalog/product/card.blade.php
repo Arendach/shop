@@ -11,7 +11,8 @@
                             </a>
                             <div class="product-body">
 
-                                <div style="margin-top: 10px">{!! $item->product->available !!}</div>
+                                <div style="margin-top: 10px">
+                                    {!! $item->product->available !!}</div>
 
                                 <div class="product-stars">
                                     {!! $item->product->stars !!}

@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Traits\Models\SeoMultiLang;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Filters\CategoryProductFilter;
+use Illuminate\Http\Request;
 
 /**
  * App\Models\Category
@@ -71,6 +74,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Category extends Model
 {
     use SoftDeletes;
+    use SeoMultiLang;
 
     protected $fillable = [
         'name_uk',
@@ -127,21 +131,6 @@ class Category extends Model
         return $this->{"description_" . config('locale.current')};
     }
 
-    public function getMetaTitleAttribute()
-    {
-        return $this->{"meta_title_" . config('locale.current')};
-    }
-
-    public function getMetaDescriptionAttribute()
-    {
-        return $this->{"meta_description_" . config('locale.current')};
-    }
-
-    public function getMetaKeywordsAttribute()
-    {
-        return $this->{"meta_keywords_" . config('locale.current')};
-    }
-
     public function getSmallImageAttribute()
     {
         if (is_file(public_path($this->small))) return asset($this->small);
@@ -168,5 +157,32 @@ class Category extends Model
         $this->child()->delete();
 
         return parent::delete();
+    }
+
+    /**
+     * @param int $category_id
+     * @param Request $request
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder
+     */
+    public function filterProducts(int $category_id, Request $request)
+    {
+        $items = in_array($request->get('items', null), [20, 50, 70, 100])
+            ? $request->items
+            : config('app.items');
+
+        $products = Product::where('category_id', $category_id)
+            ->with('characteristics')
+            ->orderBy('on_storage', 'desc');
+
+        if (!$request->has('order'))
+            $products->orderBy('id', 'desc');
+
+        $products = (new CategoryProductFilter($products, $request))
+            ->apply()
+            ->paginate($items);
+
+        $products->appends($request->all());
+
+        return $products;
     }
 }

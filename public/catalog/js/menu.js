@@ -62,3 +62,11 @@ $(document).on('mouseleave', '.drop-down', function () {
 
     $('#' + id).hide();
 });
+
+$(document).on('click', '#search_button', function (event) {
+    event.preventDefault();
+
+    let value = $('#search_string').val();
+
+    window.location.href = JS.searchRoute + '/' + value;
+});

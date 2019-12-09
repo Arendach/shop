@@ -7,6 +7,14 @@ body {
     min-width: 1200px;
 }
 
+h1.page-header {
+    color: #e31837;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e31837;
+    padding-bottom: 10px;
+    font-size: 32px;
+}
+
 .banner {
     width: 100%;
 }
@@ -16,7 +24,6 @@ body {
     background: #f8f8f8;
     height: 36px;
 }
-
 
 .top-menu .drop-element {
     display: inline-block;
@@ -73,7 +80,6 @@ body {
     cursor: pointer;
 }
 
-
 .top-menu .drop-element .drop-items a:hover {
     color: #e31837;
     background: #f8f8f8;
@@ -93,7 +99,6 @@ body {
 .top-menu .drop-element:hover .drop-bridge {
     display: block;
 }
-
 
 .social-links {
     text-align: center;
@@ -155,7 +160,6 @@ body {
     position: relative;
     z-index: 9;
 }
-
 
 .category-title {
     cursor: pointer;
@@ -241,7 +245,7 @@ body {
 
 }
 
-.category-item:last-child:hover a{
+.category-item:last-child:hover a {
     border-bottom: none;
 }
 
@@ -301,11 +305,26 @@ footer a:hover {
 }
 
 .catalog-admin-section {
-    box-shadow: 0 0 5px #e31837;
+    box-shadow: 0 0 10px #eee;
     padding: 10px;
     margin-top: 15px;
 }
 
-.catalog-admin-section h3 {
+.catalog-admin-section h4 {
     color: #e31837
+}
+
+.catalog-admin-section a {
+    color: #e31837
+}
+
+.page {
+    box-shadow: 0 0 5px #ccc;
+    padding: 20px;
+}
+
+.page h3 {
+    color: #e31837;
+    border-bottom: 1px solid #e31837;
+    margin-bottom: 20px;
 }

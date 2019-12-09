@@ -14,4 +14,6 @@
     JS.successTitle = '@lang('common.success_title')';
     JS.successText = '@lang('common.success_text')';
 
+    JS.searchRoute = '{{ route('search', '') }}';
+
 </script>

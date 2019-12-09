@@ -97,7 +97,11 @@
 
 @section('script')
 
-    <script>
+    <script type="module">
+        import CommonClass from '{{ asset('adm/js/classes/common.class.js') }}';
+
+        let Common = new CommonClass;
+
         $(document).ready(function () {
 
             let file = null;

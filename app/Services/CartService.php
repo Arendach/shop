@@ -23,6 +23,10 @@ class CartService
      */
     private $count_products = 0;
 
+    /**
+     * CartService constructor.
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         if (is_null($request->getSession())) return null;
@@ -32,6 +36,9 @@ class CartService
         $this->boot();
     }
 
+    /**
+     * Загрузка сервіса
+     */
     private function boot(): void
     {
         if (is_auth()) {
@@ -47,6 +54,11 @@ class CartService
         $this->count_products = is_null($this->cart) ? 0 : $this->cart->products->count();
     }
 
+    /**
+     * Отримати обєкт корзини, створити якщо не існує
+     *
+     * @return Cart
+     */
     private function getOrCreate(): Cart
     {
         if (is_null($this->cart)) {
@@ -61,6 +73,12 @@ class CartService
         return $this->cart;
     }
 
+    /**
+     * Додати товар у корзину / збільшити кількість якщо вже в корзині
+     *
+     * @param array $data
+     * @return bool
+     */
     private function setCartProduct(array $data): bool
     {
         if (CartProduct::where('cart_id', $data['cart_id'])->where('product_id', $data['product_id'])->count())
@@ -69,16 +87,32 @@ class CartService
             return CartProduct::insert($data);
     }
 
+    /**
+     * Получити корзину
+     *
+     * @return Cart|null
+     */
     public function get()
     {
         return $this->cart;
     }
 
+    /**
+     * Кількість товарів у корзині
+     *
+     * @return int
+     */
     public function countProducts(): int
     {
         return $this->count_products;
     }
 
+    /**
+     * Додати товар до корзини
+     *
+     * @param int $product_id
+     * @return bool
+     */
     public function add(int $product_id): bool
     {
         $cart = $this->getOrCreate();
@@ -94,6 +128,13 @@ class CartService
         return $result;
     }
 
+    /**
+     * Оновити кількість товару у корзині
+     *
+     * @param int $id
+     * @param int $amount
+     * @return bool
+     */
     public function change_amount(int $id, int $amount): bool
     {
         $result = CartProduct::where('cart_id', $this->cart->id)
@@ -106,6 +147,11 @@ class CartService
         return $result;
     }
 
+    /**
+     * Видалити корзину
+     *
+     * @param $id
+     */
     public function remove($id): void
     {
         CartProduct::destroy($id);
@@ -113,15 +159,29 @@ class CartService
         $this->boot();
     }
 
+    /**
+     * Сума по товарах у корзині
+     *
+     * @return float
+     */
     public function getProductsSum(): float
     {
+        if (!$this->productsIsSet()) return 0;
+
         return (float)$this->cart->products->sum(function ($cart_product) {
             return $cart_product->product->getOriginal('price') * $cart_product->amount;
         });
     }
 
+    /**
+     * Маса товарів у корзині
+     *
+     * @return float
+     */
     public function getProductsWeight(): float
     {
+        if (!$this->productsIsSet()) return 0;
+
         return (float)$this->cart->products->sum(function ($cart_product) {
             return $cart_product->product->getOriginal('weight') * $cart_product->amount;
         });
@@ -150,5 +210,36 @@ class CartService
     public function cleanCart(): void
     {
         $this->cart->delete();
+    }
+
+    /**
+     * @param int $product_id
+     * @return bool
+     */
+    public function hasProduct(int $product_id): bool
+    {
+        if (is_null($this->cart)) return false;
+
+        if (is_null($this->cart->products)) return false;
+
+        return in_array($product_id, $this->cart->products->pluck('product_id')->toArray());
+    }
+
+    /**
+     * @return bool
+     */
+    private function cartIsSet(): bool
+    {
+        return !is_null($this->cart);
+    }
+
+    /**
+     * @return bool
+     */
+    private function productsIsSet(): bool
+    {
+        if (!$this->cartIsSet()) return false;
+
+        return !is_null($this->cart->products);
     }
 }

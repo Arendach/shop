@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'slug_must_unique' => 'Псевдонім повинен бути унікальним!',
     'phone' => 'Заповніть номер телефону в форматі ххх-ххх-хх-хх',
     'max' => [
         'numeric' => 'The :attribute may not be greater than :max.',

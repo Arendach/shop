@@ -7,10 +7,10 @@ return [
     'items' => 20,
 
     // адреса бази
-    'base_url' => 'http://skyfire.pp.ua',
+    'base_url' => env('BASE_URL', 'http://skyfire.pp.ua'),
 
     // Тривалість життя куків
-    'cookie_life' => 60 * 60,
+    'cookie_life' => 60 * 60 * 24 * 365,
 
     // Спосіб доставки за замовчуванням
     'main_order_type' => 'delivery',
@@ -269,7 +269,8 @@ return [
         'User' => App\Facades\User::class,
         'Pay' => App\Facades\Pay::class,
         'OrderStatus' => App\Facades\OrderStatusFacade::class,
-        'StaticPage'=> App\Facades\StaticPageFacade::class,
+        'StaticPage' => App\Facades\StaticPageFacade::class,
+        'CategoryFilter' => App\Facades\CategoryFilterFacade::class,
 
     ],
 

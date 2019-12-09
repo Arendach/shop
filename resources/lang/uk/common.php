@@ -25,6 +25,10 @@ return [
         'success_text' => 'Дані успішно збережені!',
         'success_title' => 'Виконано!'
     ],
+    'update' => [
+        'success_text' => 'Дані успішно оновлені!',
+        'success_title' => 'Виконано!'
+    ],
     'seo' => [
         'title' => 'Заголовок (Title)',
         'keywords' => 'Ключові слова (Keywords)',

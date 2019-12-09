@@ -124,7 +124,7 @@ class NewPostService
         $result = [];
         foreach ($warehouses as $warehouse) {
             $result[] = [
-                'name' => $warehouse["name" . config('locale.current')],
+                'name' => $warehouse["name_" . config('locale.current')],
                 'key' => $warehouse['key'],
                 'max_weight' => $warehouse['max_weight']
             ];
@@ -156,9 +156,10 @@ class NewPostService
      */
     public function getWarehouseNameLocale(string $city, string $warehouse): array
     {
-        $warehouses = $this->getWarehouses($city);
+        $warehouses = $this->getWarehousesLocale($city);
 
         $warehouses = collect($warehouses);
+
 
         $find = $warehouses->where('key', $warehouse)->first();
 
@@ -183,16 +184,16 @@ class NewPostService
         // Якщо не знайдено
         if ($request['success'] == false)
             return [
-                'uk' => 'undefined',
-                'ru' => 'undefined'
+                'name_uk' => 'undefined',
+                'name_ru' => 'undefined'
             ];
 
         // Получаємо масив даних з інф. про місто
         $city = $request['data'][0];
 
         return [
-            'uk' => $city['SettlementTypeDescription'] . ' ' . $city['Description'],
-            'ru' => $city['SettlementTypeDescriptionRu'] . ' ' . $city['DescriptionRu']
+            'name_uk' => $city['SettlementTypeDescription'] . ' ' . $city['Description'],
+            'name_ru' => $city['SettlementTypeDescriptionRu'] . ' ' . $city['DescriptionRu']
         ];
     }
 

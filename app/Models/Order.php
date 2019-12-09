@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\OrderScopes;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -44,12 +45,31 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\OrderProduct[] $products
  * @property-read int|null $products_count
  * @property-read mixed $sum
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order desc()
  */
 class Order extends Model
 {
+    use OrderScopes;
+
     protected $table = 'orders';
 
-    public function delivery()
+    protected $dates = ['created_at', 'updated_at', 'date_delivery'];
+
+    protected $fillable = [
+        'name',
+        'phone',
+        'email',
+        'delivery',
+        'comment',
+        'pay_method',
+        'user_id',
+        'status',
+        'date_delivery',
+        'base_id',
+        'admin'
+    ];
+
+    public function _delivery()
     {
         return $this->belongsTo(OrderDelivery::class, 'id', 'order_id');
     }
@@ -66,14 +86,21 @@ class Order extends Model
 
     public function products()
     {
-        return $this->hasMany(OrderProduct::class)
-            ->with('product');
+        return $this->belongsToMany(Product::class, OrderProduct::class)
+            ->withPivot('amount', 'price', 'storage');
     }
 
     public function getSumAttribute()
     {
         return number_format($this->products->sum(function ($item) {
-            return $item->price * $item->amount;
+            return $item->pivot->price * $item->pivot->amount;
         }), 2);
+    }
+
+    public function sum()
+    {
+        return $this->products->sum(function($product){
+            return $product->pivot->amount * $product->pivot->price;
+        });
     }
 }

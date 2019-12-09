@@ -14,9 +14,12 @@
     <link rel="stylesheet" href="{{ asset('css/vendor/font-awesome.css') }}">
     <link rel="stylesheet" href="{{ asset('css/vendor/toastr.css') }}">
     <link rel="stylesheet" href="{{ asset('css/vendor/sweetalert.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/vendor/elements.css') }}">
     <link rel="stylesheet" href="{{ asset('adm/css/common.css') }}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-    @isset($components)
+
+@isset($components)
         @foreach($components as $component)
             @if(is_file(public_path("css/components/$item/$item.css")))
                 <link rel="stylesheet" href="{{ asset("css/components/$item/$item.css") }}">
@@ -36,7 +39,6 @@
 
     @yield('style')
 
-
     {{--  Скрипти  --}}
     @include('common.JavaScriptVars')
 
@@ -48,6 +50,7 @@
     <script src="{{ asset('js/vendor/vue.js') }}"></script>
     <script src="{{ asset('js/vendor/sweetalert.js') }}"></script>
     <script src="{{ asset('js/elements.js') }}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     @include('admin.javascript')
 

@@ -25,7 +25,9 @@ class ProductCollectionSeeder extends Seeder
                 'meta_keywords_ru' => 'мета кейвордс на русском',
                 'meta_description_uk' => 'мета дескріпшен українською',
                 'meta_description_ru' => 'мета дескрипшн на русском',
-                'image' => null
+                'image' => null,
+                'description_uk' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
+                'description_ru' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
             ], [
                 'parent_id' => 0,
                 'name_uk' => 'Колекція номер 2',
@@ -37,7 +39,9 @@ class ProductCollectionSeeder extends Seeder
                 'meta_keywords_ru' => 'мета кейвордс на русском',
                 'meta_description_uk' => 'мета дескріпшен українською',
                 'meta_description_ru' => 'мета дескрипшн на русском',
-                'image' => null
+                'image' => null,
+                'description_uk' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
+                'description_ru' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
             ], [
                 'parent_id' => 0,
                 'name_uk' => 'Колекція номер 3',
@@ -49,7 +53,9 @@ class ProductCollectionSeeder extends Seeder
                 'meta_keywords_ru' => 'мета кейвордс на русском',
                 'meta_description_uk' => 'мета дескріпшен українською',
                 'meta_description_ru' => 'мета дескрипшн на русском',
-                'image' => null
+                'image' => null,
+                'description_uk' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
+                'description_ru' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
             ], [
                 'parent_id' => 0,
                 'name_uk' => 'Колекція номер 4',
@@ -61,9 +67,10 @@ class ProductCollectionSeeder extends Seeder
                 'meta_keywords_ru' => 'мета кейвордс на русском',
                 'meta_description_uk' => 'мета дескріпшен українською',
                 'meta_description_ru' => 'мета дескрипшн на русском',
-                'image' => null
+                'image' => null,
+                'description_uk' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
+                'description_ru' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
             ],
-
 
 
             [
@@ -77,7 +84,9 @@ class ProductCollectionSeeder extends Seeder
                 'meta_keywords_ru' => 'мета кейвордс на русском child',
                 'meta_description_uk' => 'мета дескріпшен українською child',
                 'meta_description_ru' => 'мета дескрипшн на русском child',
-                'image' => null
+                'image' => null,
+                'description_uk' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
+                'description_ru' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
             ],
             [
                 'parent_id' => 1,
@@ -90,7 +99,9 @@ class ProductCollectionSeeder extends Seeder
                 'meta_keywords_ru' => 'мета кейвордс на русском child',
                 'meta_description_uk' => 'мета дескріпшен українською child',
                 'meta_description_ru' => 'мета дескрипшн на русском child',
-                'image' => null
+                'image' => null,
+                'description_uk' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
+                'description_ru' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
             ],
             [
                 'parent_id' => 1,
@@ -103,7 +114,9 @@ class ProductCollectionSeeder extends Seeder
                 'meta_keywords_ru' => 'мета кейвордс на русском child',
                 'meta_description_uk' => 'мета дескріпшен українською child',
                 'meta_description_ru' => 'мета дескрипшн на русском child',
-                'image' => null
+                'image' => null,
+                'description_uk' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
+                'description_ru' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
             ],
             [
                 'parent_id' => 1,
@@ -116,7 +129,9 @@ class ProductCollectionSeeder extends Seeder
                 'meta_keywords_ru' => 'мета кейвордс на русском child',
                 'meta_description_uk' => 'мета дескріпшен українською child',
                 'meta_description_ru' => 'мета дескрипшн на русском child',
-                'image' => null
+                'image' => null,
+                'description_uk' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
+                'description_ru' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
             ],
             [
                 'parent_id' => 1,
@@ -129,10 +144,10 @@ class ProductCollectionSeeder extends Seeder
                 'meta_keywords_ru' => 'мета кейвордс на русском child',
                 'meta_description_uk' => 'мета дескріпшен українською child',
                 'meta_description_ru' => 'мета дескрипшн на русском child',
-                'image' => null
+                'image' => null,
+                'description_uk' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
+                'description_ru' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
             ],
-
-
 
 
             [
@@ -146,7 +161,9 @@ class ProductCollectionSeeder extends Seeder
                 'meta_keywords_ru' => 'мета кейвордс на русском child',
                 'meta_description_uk' => 'мета дескріпшен українською child',
                 'meta_description_ru' => 'мета дескрипшн на русском child',
-                'image' => null
+                'image' => null,
+                'description_uk' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
+                'description_ru' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
             ],
             [
                 'parent_id' => 2,
@@ -159,7 +176,9 @@ class ProductCollectionSeeder extends Seeder
                 'meta_keywords_ru' => 'мета кейвордс на русском child',
                 'meta_description_uk' => 'мета дескріпшен українською child',
                 'meta_description_ru' => 'мета дескрипшн на русском child',
-                'image' => null
+                'image' => null,
+                'description_uk' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
+                'description_ru' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
             ],
             [
                 'parent_id' => 2,
@@ -172,7 +191,9 @@ class ProductCollectionSeeder extends Seeder
                 'meta_keywords_ru' => 'мета кейвордс на русском child',
                 'meta_description_uk' => 'мета дескріпшен українською child',
                 'meta_description_ru' => 'мета дескрипшн на русском child',
-                'image' => null
+                'image' => null,
+                'description_uk' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
+                'description_ru' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
             ],
             [
                 'parent_id' => 2,
@@ -185,7 +206,9 @@ class ProductCollectionSeeder extends Seeder
                 'meta_keywords_ru' => 'мета кейвордс на русском child',
                 'meta_description_uk' => 'мета дескріпшен українською child',
                 'meta_description_ru' => 'мета дескрипшн на русском child',
-                'image' => null
+                'image' => null,
+                'description_uk' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
+                'description_ru' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
             ],
             [
                 'parent_id' => 2,
@@ -198,7 +221,9 @@ class ProductCollectionSeeder extends Seeder
                 'meta_keywords_ru' => 'мета кейвордс на русском child',
                 'meta_description_uk' => 'мета дескріпшен українською child',
                 'meta_description_ru' => 'мета дескрипшн на русском child',
-                'image' => null
+                'image' => null,
+                'description_uk' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
+                'description_ru' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
             ],
         ]);
 

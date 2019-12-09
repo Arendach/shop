@@ -3,12 +3,8 @@
 namespace App\Http\Controllers\Catalog;
 
 use App\Models\BannerImage;
-use App\Models\Discount;
-use App\Models\Manufacturer;
 use App\Models\Product;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Auth;
+use App\Models\ProductCollection;
 use Locale;
 
 class MainController extends CatalogController
@@ -30,7 +26,7 @@ class MainController extends CatalogController
         $data = [
             'images' => BannerImage::all(),
             'new_products' => $new_products,
-            'manufacturers' => Manufacturer::all(),
+            'collections' => ProductCollection::where('parent_id', 0)->get(),
             'recommended_products' => $recommended_products,
             'discount_products' => $discount_products,
             'title' => 'My shop',
@@ -38,7 +34,7 @@ class MainController extends CatalogController
             'css' => ['slider', 'products']
         ];
 
-        return $this->blade('pages.main', $data);
+        return view('catalog.pages.main', $data);
     }
 
     public function locale($locale)

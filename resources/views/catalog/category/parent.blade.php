@@ -51,7 +51,7 @@
             color: #0f6674;
         }
     </style>
-@endsection('style')
+@endsection
 
 @section('content')
 

@@ -115,7 +115,14 @@
                     $this.find('input, button, textarea, select').attr('disabled', false);
                     $this.find('button').find('i.fa').remove();
 
-                    // window.location.href = answer.redirectRoute;
+                    swal({
+                        type: 'success',
+                        title: answer.title,
+                        text: answer.message,
+                        closeOnConfirm: false
+                    }, function () {
+                        window.location.href = answer.redirectRoute;
+                    });
                 },
                 error: function (answer) {
                     $this.find('input, button, textarea, select').attr('disabled', false);

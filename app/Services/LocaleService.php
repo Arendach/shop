@@ -101,7 +101,7 @@ class LocaleService
 
         // Запрос
         $query = $url['query'] ?? '';
-        $query = $query == '' ? '' : '?' . $query;
+        $query = $query == '' ? '' : "?$query";
 
         // якщо локаль не підтримується то дефолт, защита від дурака
         $locale = in_array($locale, $this->support) ? $locale : $this->default;
@@ -137,7 +137,8 @@ class LocaleService
 
     public function setUserLocale(string $locale): void
     {
-        setcookie('locale', $locale, time() + config('app.cookie_life'));
+        $this->request->session()->put('locale', $locale);
+
         user()->update(['locale' => $locale]);
     }
 

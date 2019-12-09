@@ -7,21 +7,29 @@ class CommonClass {
     setAfter(action) {
         if (typeof action != 'undefined')
             this.after = action;
+
+        return this;
     }
 
     setRedirectRoute(route) {
         if (typeof route != 'undefined')
             this.redirectRoute = route;
+
+        return this;
     }
 
     setSuccessDriver(driver) {
         if (typeof driver != 'undefined')
             this.successDriver = driver;
+
+        return this;
     }
 
     setErrorDriver(driver) {
         if (typeof driver != 'undefined')
             this.errorDriver = driver;
+
+        return this;
     }
 
     errorHandler(answer, driver) {
@@ -75,6 +83,8 @@ class CommonClass {
         $form.find('select').attr('disabled', true);
         $form.find('textarea').attr('disabled', true);
         $form.find('button').attr('disabled', true).prepend('<i class="fa fa-spinner fa-pulse fa-fw"></i> ');
+
+        return this;
     }
 
     enableForm(form) {
@@ -82,7 +92,9 @@ class CommonClass {
         $form.find('input').attr('disabled', false);
         $form.find('select').attr('disabled', false);
         $form.find('textarea').attr('disabled', false);
-        $form.find('button').attr('disabled', false).find('i.fa').remove();
+        $form.find('button').attr('disabled', false).find('i.fa-spinner').remove();
+
+        return this;
     }
 
     appendErrors(errors) {
@@ -93,17 +105,23 @@ class CommonClass {
                 .addClass('invalid-feedback')
                 .html(errors[i])
                 .show();
+
+        return this;
     }
 
     removeErrors(form) {
         let $form = $(form);
         $form.find('.form-control').removeClass('is-invalid');
         $form.find('.feedback').removeClass('invalid-feedback').hide();
+
+        return this;
     }
 
     openModal(html) {
         $('body').append(html);
         $('.modal').modal();
+
+        return this;
     }
 
     closeModal() {
@@ -112,6 +130,8 @@ class CommonClass {
         setTimeout(function () {
             $('#modal').css('display', 'none');
         }, 400);
+
+        return this;
     }
 }
 

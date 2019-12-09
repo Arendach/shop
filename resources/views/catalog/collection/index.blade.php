@@ -18,10 +18,19 @@
 
 @section('admin')
 
-    <h3>Меню адміністратора:</h3>
+    <h4>Меню адміністратора:</h4>
     <a href="{{ route('admin.get', ['product', 'collection', 'main'])}}">
-        <i class="fa fa-pencil"></i> Управління колекціями
+        <i class="fa fa-pencil"></i> Колекції товарів
+    </a> <br>
+
+    <a href="{{ route('admin.get', ['product', 'product', 'main'])}}">
+        <i class="fa fa-pencil"></i> Товари
+    </a> <br>
+
+    <a href="{{ route('admin.index')}}">
+        <i class="fa fa-pencil"></i> Адмінка
     </a>
+
 
 @endsection
 

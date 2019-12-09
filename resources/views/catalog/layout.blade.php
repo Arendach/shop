@@ -5,14 +5,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <meta name="description" content="{{ $meta_description ?? '' }}">
     <meta name="keywords" content="{{ $meta_keywords ?? '' }}">
 
-    {{--    @include('catalog.javascript')--}}
+        @include('catalog.javascript')
 
     <script src="{{ asset('catalog/js/jquery.js') }}"></script>
     <script src="{{ asset('catalog/js/jquery.serializeJSON.js') }}"></script>
@@ -57,7 +55,7 @@
     @yield('script')
 
 </head>
-<body>
+<body style="min-width: 1200px">
 
 <header>
     @if($banner->isActive())
@@ -119,7 +117,7 @@
         <div class="bottom-menu">
             <div class="categories">
                 <div class="category-title">
-                    <i class="fa fa-list"></i> Каталог товарів
+                    <i class="fa fa-list"></i> @lang('main.category_list')
                 </div>
 
                 <div class="category-list match-height">
@@ -159,9 +157,15 @@
 
             <div class="search-block">
                 <div class="input-group input-group-sm">
-                    <input class="form-control" placeholder="Пошук товарів" id="search_field" style="height: 30px">
+                    <input class="form-control"
+                           placeholder="@lang('search.search_placeholder')"
+                           id="search_string"
+                           value="{{ $search_string ?? '' }}"
+                           style="height: 30px">
                     <div class="input-group-append">
-                        <button style="height: 30px" class="btn btn-outline-primary" type="button">Шукати</button>
+                        <button style="height: 30px" id="search_button" class="btn btn-outline-primary" type="button">
+                            @lang('search.button')
+                        </button>
                     </div>
                 </div>
             </div>
@@ -178,7 +182,7 @@
                 @endif
 
                 <a href="{{ route('cart') }}">
-                    <i class="fa fa-shopping-cart"></i> Корзина <b class="text-danger" id="cart_products_count">
+                    <i class="fa fa-shopping-cart"></i> @lang('main.cart') <b class="text-danger" id="cart_products_count">
                         {{ $cart_count_products }}
                     </b>
                 </a>
@@ -258,16 +262,16 @@
                 <a href="{{ route('page', 'articles') }}">
                     {{ StaticPage::getName('articles') }}
                 </a>
-
+{{--
                 <br>
 
                 <a href="#">
                     Відгуки
-                </a>
+                </a>--}}
             </div>
 
             <div class="col-4">
-                <h5>Корисна інформація</h5>
+                <h5>@lang('main.info')</h5>
                 <a href="{{ route('page', 'discounts') }}">
                     {{ StaticPage::getName('discounts') }}
                 </a>
@@ -275,13 +279,13 @@
                 <br>
 
                 <a href="{{ route('cart') }}">
-                    Корзина
+                    @lang('main.cart')
                 </a>
 
                 <br>
 
                 <a href="{{ route('profile.viewed') }}">
-                    Переглянуті товари
+                    @lang('main.viewed')
                 </a>
             </div>
         </div>

@@ -10,12 +10,24 @@ return [
     // ключ = base_id
     '1' => [
         // Назва магазину
-        'name_uk' => __('assets/shops.1.name'),
+        'name' => __('assets/shops.1.name'),
 
         // Адреса
         'address' => __('assets/shops.1.address'),
 
         // Ідентифікатор магазину в спільній базі
         'base_id' => 1
+    ],
+
+    // ключ = base_id
+    '2' => [
+        // Назва магазину
+        'name' => 'Test shop',
+
+        // Адреса
+        'address' => 'Test shop address',
+
+        // Ідентифікатор магазину в спільній базі
+        'base_id' => 2
     ]
 ];

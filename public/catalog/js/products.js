@@ -1,3 +1,4 @@
+/*
 $(document).ready(function () {
     function heights() {
         $('.products .row').each(function () {
@@ -34,4 +35,4 @@ $(document).ready(function () {
     setTimeout(heights, 10000);
     setTimeout(heights, 15000);
     setTimeout(heights, 30000);
-});
+});*/

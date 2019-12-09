@@ -49,6 +49,12 @@ $(document).on('submit', '[data-type="ajax"]', function (event) {
 
 $(document).on('click', '[data-type="delete"]', function () {
     let $this = $(this);
+    let data = $this.data('post') != undefined ? $this.data('post') : '';
+
+    data += '&_method=DELETE';
+
+    if ($this.data('id') != undefined)
+        data += '&id=' + $this.data('id');
 
     swal({
         type: 'warning',
@@ -61,10 +67,7 @@ $(document).on('click', '[data-type="delete"]', function () {
         $.ajax({
             type: 'post',
             url: $this.data('url'),
-            data: {
-                _method: 'DELETE',
-                id: $this.data('id')
-            },
+            data: data,
             success() {
                 swal({
                     type: 'success',

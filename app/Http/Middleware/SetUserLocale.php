@@ -13,8 +13,8 @@ class SetUserLocale
         if ($request->isMethod('get')) {
             if (is_auth()) {
                 $lang = user()->locale;
-            } elseif (isset($_COOKIE['locale']) && in_array($_COOKIE['locale'], config('locale.support'))) {
-                $lang = $_COOKIE['locale'];
+            } elseif ($request->session()->has('locale') && in_array($request->session()->get('locale'), ['uk', 'ru'])) {
+                $lang = $request->session()->get('locale');
             } else {
                 $lang = substr($request->server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
                 $lang = in_array($lang, Locale::getSupport()) ? $lang : Locale::getDefault();

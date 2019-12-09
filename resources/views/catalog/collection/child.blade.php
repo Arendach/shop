@@ -15,9 +15,22 @@
 
 @section('admin')
 
-    <h3>Меню адміністратора:</h3>
+    <h4>Меню адміністратора:</h4>
+
     <a href="{{ route('admin.get', ['product', 'collection', 'update']) . parameters(['id' => $collection->id])}}">
         <i class="fa fa-pencil"></i> Редагувати колекцію
+    </a> <br><br>
+
+    <a href="{{ route('admin.get', ['product', 'collection', 'main'])}}">
+        <i class="fa fa-pencil"></i> Колекції товарів
+    </a> <br>
+
+    <a href="{{ route('admin.get', ['product', 'product', 'main'])}}">
+        <i class="fa fa-pencil"></i> Товари
+    </a> <br>
+
+    <a href="{{ route('admin.index')}}">
+        <i class="fa fa-pencil"></i> Адмінка
     </a>
 
 @endsection
@@ -26,60 +39,13 @@
 
     <div class="container">
         <div class="products">
+
+            <h1 class="page-header">{{ $collection->name }}</h1>
+
             @forelse($collection->items->chunk(4) as $chunk)
                 <div class="row" {!! !$loop->last ? 'style="margin-bottom: 30px"' : '' !!}>
                     @foreach($chunk as $item)
-                        <div class="col-3">
-                            <div class="product">
-                                <div class="product-top">
-                                    <a href="{{ route('product.view', $item->product->slug) }}">
-                                        <img width="100%" src="{{ $item->product->small }}" alt="{{ $item->product->name }}">
-                                    </a>
-                                    <div class="product-body">
-
-                                        <div style="margin-top: 10px">{!! $item->product->available !!}</div>
-
-                                        <div class="product-stars">
-                                            {!! $item->product->stars !!}
-                                        </div>
-
-                                        <div class="product-name">
-                                            <a href="{{ route('product.view', $item->product->slug) }}">
-                                                {{ $item->product->name }}
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="product-bottom">
-                                    <div class="price">
-                                        @if(is_null($item->product->discount))
-                                            <span class="new-price">{{ $item->product->price }}</span>
-                                        @else
-                                            <span class="new-price">{{ $item->product->discount }}</span>
-                                            <span class="old-price">{{ $item->product->price }}</span>
-                                        @endif
-                                    </div>
-
-                                    <div class="buy-buttons">
-                                        <div class="btn-group btn-group">
-                                            <button class="btn btn-outline-primary">
-                                                <i class="fa fa-shopping-bag"></i> @lang('collection.to_cart')
-                                            </button>
-                                            <button class="btn btn-outline-primary" data-toggle="tooltip"
-                                                    title="@lang('collection.to_favorites')">
-                                                <i class="fa fa-heart-o"></i>
-                                            </button>
-
-                                            <button class="btn btn-outline-primary" data-toggle="tooltip"
-                                                    title="@lang('collection.to_comparison')">
-                                                <i class="fa fa-balance-scale"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @include('catalog.product.chunk', ['chunks' => '3', 'item' => $item])
                     @endforeach
                 </div>
             @empty
@@ -92,11 +58,6 @@
 
 @section('script')
 
-    <script>
-        $(document).ready(function () {
-
-        });
-
-    </script>
+    @include('catalog.assets.cart_scripts')
 
 @endsection

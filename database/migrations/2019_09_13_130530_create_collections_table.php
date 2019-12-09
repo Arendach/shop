@@ -20,6 +20,9 @@ class CreateCollectionsTable extends Migration
             $table->string('name_ru', 32);
             $table->string('slug', 32)->unique();
 
+            $table->text('description_uk')->nullable();
+            $table->text('description_ru')->nullable();
+
             $table->string('meta_title_uk', 100)->nullable();
             $table->string('meta_title_ru', 100)->nullable();
             $table->string('meta_keywords_uk', 100)->nullable();

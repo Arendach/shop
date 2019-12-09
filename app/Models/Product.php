@@ -2,7 +2,12 @@
 
 namespace App\Models;
 
+use App\Abstraction\Models\SeoMultiLangInterface;
+use App\Abstraction\Models\TwoImageInterface;
+use App\Traits\Models\SeoMultiLang;
+use App\Traits\Models\TwoImage;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * App\Models\Product
@@ -84,9 +89,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property float|null $weight
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereWeight($value)
  * @property-read float $now_price
+ * @property-read \App\Models\Manufacturer|null $manufacturer
  */
-class Product extends Model
+class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
 {
+    use SeoMultiLang;
+    use TwoImage;
+
     public $fillable = [
         'article',
         'category_id',
@@ -127,6 +136,11 @@ class Product extends Model
             ->with('characteristic');
     }
 
+    public function manufacturer()
+    {
+        return $this->belongsTo(Manufacturer::class);
+    }
+
     public function getNameAttribute()
     {
         $name = $this->{"name_" . config('locale.current')};
@@ -136,24 +150,6 @@ class Product extends Model
     public function getDescriptionAttribute()
     {
         return $this->{"description_" . config('app.locale')};
-    }
-
-    public function getMetaTitleAttribute()
-    {
-        return $this->{"meta_title_" . config('app.locale')};
-    }
-
-    public function getMetaKeywordsAttribute()
-    {
-        return $this->{"meta_keywords_" . config('app.locale')};
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMetaDescriptionAttribute()
-    {
-        return $this->{"meta_description_" . config('app.locale')};
     }
 
     /**
@@ -181,29 +177,14 @@ class Product extends Model
     }
 
     /**
-     * Актуальна цына да даний час
+     * Актуальна ціна да даний час
      *
      * @return float
      */
     public function getNowPriceAttribute(): float
     {
-        if (is_null($this->discount)) return (float)$this->getOriginal('price');
+        if (is_null($this->getOriginal('discount'))) return (float)$this->getOriginal('price');
         else return (float)$this->getOriginal('discount');
-    }
-
-    public function getSmallImageAttribute()
-    {
-        if (is_file(public_path($this->small))) return asset($this->small);
-        elseif (preg_match('/^http/', $this->small)) return $this->small;
-        else return asset(config('default.image.product_small'));
-    }
-
-
-    public function getBigImageAttribute()
-    {
-        if (is_file(public_path($this->big))) return asset($this->big);
-        elseif (preg_match('/^http/', $this->big)) return $this->big;
-        else return asset(config('default.image.product_big'));
     }
 
     public function images()
@@ -254,5 +235,18 @@ class Product extends Model
             return '<span class="text-success"><i class="fa fa-check"></i> ' . __('products.available_true') . '</span>';
         else
             return '<span class="text-danger"><i class="fa fa-remove"></i> ' . __('products.available_false') . '</span>';
+    }
+
+    /**
+     * @param string $value
+     * @return LengthAwarePaginator
+     */
+    public function getSearchProducts(string $value): LengthAwarePaginator
+    {
+        return Product::where('name_uk', 'like', "%$value%")
+            ->orWhere('name_ru', 'like', "%$value%")
+            ->orWhere('article', 'like', "%$value%")
+            ->orderBy('on_storage', 'desc')
+            ->paginate(config('app.items'));
     }
 }

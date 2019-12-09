@@ -17,6 +17,7 @@ return [
         'password' => 'Пароль',
         'password_confirm' => 'Повторіть пароль',
         'enter' => 'Зареєструватись',
+        'success_message' => 'Ви вдало зареєструвались!'
     ],
     'validation' => [
         'name' => [
@@ -39,5 +40,10 @@ return [
     'auth' => [
         'login' => 'Такого телефону або E-Mail не знайдено.',
         'password' => 'Пароль не вірний.'
+    ],
+    'profile' => [
+        'title' => 'Профіль',
+        'orders' => 'Мої замовлення',
+        'order' => 'Замовлення №:id'
     ]
 ];

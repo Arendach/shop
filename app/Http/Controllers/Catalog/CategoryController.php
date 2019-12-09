@@ -3,18 +3,15 @@
 namespace App\Http\Controllers\Catalog;
 
 use App\Models\Category;
-use App\Models\Product;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Str;
+use CategoryFilter;
 
 class CategoryController extends CatalogController
 {
-    public function show($slug)
+    public function show($slug, Request $request, Category $categoryModel)
     {
-        $category = Category::with('parent')
-            ->with('child')
-            ->where(is_integer($slug) ? 'id' : 'slug', $slug)
+        $category = Category::with('parent', 'child')
+            ->where('slug', $slug)
             ->firstOrFail();
 
         $data = [
@@ -24,26 +21,26 @@ class CategoryController extends CatalogController
             'category' => $category
         ];
 
-        if ($category->parent_id == 0){
+        if ($category->parent_id == 0) {
             $data = array_merge($data, [
                 'breadcrumbs' => [[$category->name]]
             ]);
 
             return view('catalog.category.parent', $data);
         } else {
+            $products = $categoryModel->filterProducts($category->id, $request);
+
             $data = array_merge($data, [
-                'breadcrumbs' =>  [
+                'breadcrumbs' => [
                     [$category->parent->name, route('category.show', $category->parent->slug)],
                     [$category->name]
                 ],
-                'products' => Product::where('category_id', $category->id)
-                    ->orderBy('on_storage', 'desc')
-                    ->orderBy('id', 'desc')
-                    ->with('characteristics')
-                    ->paginate(config('app.items'))
+                'products' => $products,
+                'filter' => CategoryFilter::get($category->id),
+                'requestFields' => $request->all()
             ]);
 
-             return view('catalog.category.child', $data);
+            return view('catalog.category.child', $data);
         }
     }
 }

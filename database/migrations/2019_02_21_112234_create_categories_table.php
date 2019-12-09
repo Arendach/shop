@@ -34,7 +34,7 @@ class CreateCategoriesTable extends Migration
             $table->text('small')->nullable();
             $table->text('big')->nullable();
 
-            $table->string('slug', 256)->unique();
+            $table->string('slug', 128)->unique();
         });
     }
 

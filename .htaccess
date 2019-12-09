@@ -1,16 +1,30 @@
+#AddDefaultCharset utf-8
+###
+###RewriteEngine on
+###Options +FollowSymlinks
+###RewriteBase /public/
+###
+###RewriteRule ^index\.php$ - [L]
+###
+###RewriteCond %{REQUEST_FILENAME} !-f
+###
+###RewriteRule ^(.*)$ public/$1 [L]
+##
+##
+##RewriteEngine On
+###RewriteRule ^$ public/ [L]
+##RewriteRule ((?s).*) public/$1 [L]
+
 AddDefaultCharset utf-8
-#
-#RewriteEngine on
-#Options +FollowSymlinks
-#RewriteBase /public/
-#
-#RewriteRule ^index\.php$ - [L]
-#
-#RewriteCond %{REQUEST_FILENAME} !-f
-#
-#RewriteRule ^(.*)$ public/$1 [L]
 
+RewriteEngine on
+#RewriteCond %{HTTPS} !=on
+#RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
+Options +FollowSymlinks
+RewriteBase /
 
-RewriteEngine On
-RewriteRule ^$ public/ [L]
-RewriteRule ((?s).*) public/$1 [L]
+RewriteRule ^index\.php$ - [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule ^(.*)$ public/$1 [L]

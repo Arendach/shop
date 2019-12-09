@@ -52,6 +52,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Page withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Page withoutTrashed()
  * @mixin \Eloquent
+ * @property int $static
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Page whereStatic($value)
  */
 class Page extends Model
 {

@@ -5,5 +5,6 @@ return [
     'hide_default' => true,
     'support' => ['uk', 'ru'],
     'current' => 'uk',
-    'prefix' => ''
+    'prefix' => '',
+    'locale'
 ];

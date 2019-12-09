@@ -95,9 +95,15 @@ Route::group(['middleware' => ['loadCategories', 'onlyLogged'], 'prefix' => 'pro
     /**
      * Вибрані товари
      */
-    Route::get('liked', 'UserController@liked')->name('profile.liked');
+    Route::get('desire', 'DesireController@index')->name('profile.desire');
 });
 
+/**
+ * Пошук товарів по сайту
+ */
+Route::get('search/{value}', 'SearchController@index')
+    ->middleware('loadCategories')
+    ->name('search');
 
 /**
  * Вихід з профіля(Розлогінення)

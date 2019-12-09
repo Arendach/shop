@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Exception;
 use Auth;
 use Hash;
+use Illuminate\Support\Collection;
 
 class UserService
 {
@@ -22,7 +23,15 @@ class UserService
      */
     private $request;
 
+    /**
+     * @var User
+     */
     private $user;
+
+    /**
+     * @var Collection
+     */
+    private $desire_products;
 
     /**
      * UserService constructor.
@@ -130,5 +139,13 @@ class UserService
         }
     }
 
+    public function hasDesireProduct(int $product_id): bool
+    {
+        if (!is_auth()) return false;
 
+        if (is_null($this->desire_products))
+            $this->desire_products = user()->desire_products;
+
+        return in_array($product_id, $this->desire_products->pluck('id')->toArray());
+    }
 }
