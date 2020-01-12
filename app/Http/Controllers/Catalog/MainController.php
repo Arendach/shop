@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Catalog;
 
 use App\Models\BannerImage;
+use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductCollection;
 use Locale;
@@ -23,15 +24,20 @@ class MainController extends CatalogController
             ->where('on_storage', 1)
             ->get();
 
+        $page = Page::where('uri_name', 'index')->first();
+
         $data = [
-            'images' => BannerImage::all(),
-            'new_products' => $new_products,
-            'collections' => ProductCollection::where('parent_id', 0)->get(),
+            'images'               => BannerImage::all(),
+            'new_products'         => $new_products,
+            'collections'          => ProductCollection::where('parent_id', 0)->get(),
             'recommended_products' => $recommended_products,
-            'discount_products' => $discount_products,
-            'title' => 'My shop',
-            'js' => ['slider'],
-            'css' => ['slider', 'products']
+            'discount_products'    => $discount_products,
+            'title'                => $page->meta_title ?? 'ENTER TITLE',
+            'js'                   => ['slider'],
+            'css'                  => ['slider', 'products'],
+            'meta_description'     => $page->meta_description ?? '',
+            'meta_keywords'        => $page->meta_keywords ?? '',
+            'page'                 => $page
         ];
 
         return view('catalog.pages.main', $data);

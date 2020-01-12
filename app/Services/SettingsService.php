@@ -25,6 +25,8 @@ class SettingsService
     {
         $this->settings = $settings;
 
+        Cache::forget('settings');
+
         if (Cache::has('settings'))
             $this->storage = Cache::get('settings');
         else
@@ -38,18 +40,25 @@ class SettingsService
     {
         $this->storage = Settings::all();
 
-        Cache::put('settings', $this->storage);
+        Cache::forever('settings', $this->storage);
     }
 
     public function get($key)
     {
-        return $this->storage->where('key', $key)->first()->value;
+        if (is_null($this->storage->where('key', $key)->first())) return null;
+        else return $this->storage->where('key', $key)->first()->value;
     }
 
     public function set($key, array $values)
     {
         if (Settings::where('key', $key)->count()) {
             Settings::where('key', $key)->update([
+                'value_uk' => $values['value_uk'],
+                'value_ru' => $values['value_ru']
+            ]);
+        } else {
+            Settings::create([
+                'key' => $key,
                 'value_uk' => $values['value_uk'],
                 'value_ru' => $values['value_ru']
             ]);

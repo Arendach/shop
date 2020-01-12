@@ -139,6 +139,12 @@
             @endforelse
         </div>
 
+        @if(!is_null($page))
+            <div class="products" style="margin-top: 50px">
+                {!! $page->content ?? '' !!}
+            </div>
+        @endif
+
     </div>
 
 @endsection
