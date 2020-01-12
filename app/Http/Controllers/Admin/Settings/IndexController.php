@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
-    //
+    public function section_main()
+    {
+        dd(1);
+    }
 }

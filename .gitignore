@@ -2,9 +2,5 @@
 vendor/
 storage/debugbar/
 storage/logs/
-storage/framework/views/
-storage/framework/testing/
-storage/framework/sessions/
-storage/framework/cache/
 .phpstorm.meta.php
 _ide_helper.php
