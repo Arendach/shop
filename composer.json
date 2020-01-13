@@ -19,7 +19,8 @@
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
         "lis-dev/nova-poshta-api-2": "^0.1.1",
-        "rinvex/laravel-attributes": "^3.0"
+        "rinvex/laravel-attributes": "^3.0",
+        "spatie/laravel-sitemap": "^5.5"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

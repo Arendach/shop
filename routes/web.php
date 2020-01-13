@@ -44,6 +44,8 @@ if (!function_exists('simple_routing_admin')) {
  */
 Route::get('locale/{locale}', 'Catalog\\MainController@locale')->name('locale');
 
+Route::get('sitemap.xml', 'Api\SitemapController@show');
+
 /**
  * START LOAD ROUTES
  */
