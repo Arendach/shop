@@ -32,11 +32,11 @@
 
     <div class="container">
         <div class="page">
-            <h3>Профіль</h3>
+            <h3>@translate('Профіль')</h3>
 
             @if (is_admin())
                 <a href="{{ route('admin.index') }}">
-                    <i class="fa fa-cogs"></i> Адмінка
+                    <i class="fa fa-cogs"></i> @translate('Адмінка')
                 </a>
 
                 <hr>
@@ -49,25 +49,25 @@
            {{-- <hr>--}}
 
             <a href="{{ route('profile.desire') }}">
-                <i class="fa fa-heart"></i> Вибрані товари (<b>{{ user()->desire_products->count() }}</b>)
+                <i class="fa fa-heart"></i> @translate('Вибрані товари') (<b>{{ user()->desire_products->count() }}</b>)
             </a>
 
             <hr>
 
             <a href="{{ route('profile.orders') }}">
-                <i class="fa fa-dollar"></i> Мої замовлення
+                <i class="fa fa-dollar"></i> @translate('Мої замовлення')
             </a>
 
             <hr>
 
             <a href="{{ route('cart') }}">
-                <i class="fa fa-shopping-bag"></i> Моя корзина (<b>{{ Cart::countProducts() }}</b>)
+                <i class="fa fa-shopping-bag"></i> @translate('Моя корзина') (<b>{{ Cart::countProducts() }}</b>)
             </a>
 
             <hr>
 
             <a href="{{ route('exit') }}">
-                <i class="fa fa-sign-out"></i> Вийти з профілю
+                <i class="fa fa-sign-out"></i> @translate('Вийти з профілю')
             </a>
 
         </div>

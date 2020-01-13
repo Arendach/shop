@@ -28,6 +28,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\Product $product
  * @property float $price
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderProduct wherePrice($value)
+ * @property int $storage
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderProduct whereStorage($value)
  */
 class OrderProduct extends Model
 {

@@ -200,7 +200,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ValidateExtendsServiceProvider::class,
-        \App\Providers\ExtendsBladeProvider::class
+        App\Providers\BladeExtendsServiceProvider::class
 
     ],
 
@@ -271,8 +271,7 @@ return [
         'OrderStatus'    => App\Facades\OrderStatusFacade::class,
         'StaticPage'     => App\Facades\StaticPageFacade::class,
         'CategoryFilter' => App\Facades\CategoryFilterFacade::class,
-        'Settings'       => App\Facades\SettingsFacade::class
-
+        'Settings'       => App\Facades\SettingsFacade::class,
+        'Translate'      => App\Facades\TranslateFacade::class,
     ],
-
 ];

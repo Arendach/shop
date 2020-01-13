@@ -50,6 +50,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $desire_products
  * @property-read int|null $desire_products_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User desc()
+ * @property int $access_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereAccessId($value)
  */
 class User extends Authenticatable
 {

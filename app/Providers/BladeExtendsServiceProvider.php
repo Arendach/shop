@@ -2,30 +2,25 @@
 
 namespace App\Providers;
 
+use App\Directives\TranslateDirective;
 use Illuminate\Support\ServiceProvider;
 use Blade;
 
 class BladeExtendsServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     *
-     * @return void
-     */
+    private $directives = [
+        TranslateDirective::class
+    ];
+
     public function register()
     {
-        //
     }
 
-    /**
-     * Bootstrap services.
-     *
-     * @return void
-     */
     public function boot()
     {
-        /*Blade::directive('choice', function ($key, $count) {
-            return "<?php echo trans_choice($key, $count); ?>";
-        });*/
+        foreach ($this->directives as $directive){
+            (new $directive)->register();
+        }
+
     }
 }

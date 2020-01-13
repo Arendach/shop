@@ -15,32 +15,32 @@
     <div class="container">
         <form class="login">
             <div class="form-group">
-                <h2>Авторизація</h2>
+                <h2>@translate('Авторизація')</h2>
             </div>
 
             <div class="form-group">
-                <label>Телефон або електронна пошта</label>
+                <label>@translate('Телефон або електронна пошта')</label>
                 <input class="form-control" name="login">
                 <div class="feedback text-danger"></div>
             </div>
 
             <div class="form-group">
-                <label>Пароль</label>
+                <label>@translate('Пароль')</label>
                 <input type="password" class="form-control" name="password">
                 <div class="feedback text-danger"></div>
             </div>
 
             <div class="form-group">
                 <label>
-                    <input type="checkbox" name="remember" checked> Запамятати мене
+                    <input type="checkbox" name="remember" checked> @translate('Запамятати мене')
                 </label>
             </div>
 
             <div class="form-group">
-                <button class="btn btn-outline-primary">Авторизація</button>
+                <button class="btn btn-outline-primary">@translate('Авторизація')</button>
             </div>
 
-            Ще не зареєстровані? Тоді <a href="{{ route('register') }}">реєструйтесь тут</a>!
+            @translate('Ще не зареєстровані? Тоді') <a href="{{ route('register') }}">@translate('реєструйтесь тут')</a>!
         </form>
     </div>
 

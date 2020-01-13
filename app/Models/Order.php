@@ -46,6 +46,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $products_count
  * @property-read mixed $sum
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order desc()
+ * @property int|null $admin
+ * @property float $delivery_costs
+ * @property float $discount
+ * @property-read \App\Models\OrderDelivery $_delivery
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereAdmin($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereDeliveryCosts($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereDiscount($value)
  */
 class Order extends Model
 {
