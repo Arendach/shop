@@ -6,6 +6,7 @@
 /_ide_helper.php
 /_ide_helper_models.php
 /composer.lock
+/package-lock.json
 /public/explorer/
 /public/phpmyadmin/
 /node_modules/
