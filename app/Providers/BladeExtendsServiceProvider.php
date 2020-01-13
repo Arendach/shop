@@ -2,14 +2,15 @@
 
 namespace App\Providers;
 
+use App\Directives\AdminDirective;
 use App\Directives\TranslateDirective;
 use Illuminate\Support\ServiceProvider;
-use Blade;
 
 class BladeExtendsServiceProvider extends ServiceProvider
 {
     private $directives = [
-        TranslateDirective::class
+        TranslateDirective::class,
+        AdminDirective::class
     ];
 
     public function register()

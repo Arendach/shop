@@ -44,14 +44,14 @@
                 </div>
             </div>
         </div>
-        @if(is_admin())
+        @admin
             <hr style="margin-bottom: 0">
             <div style="padding: 5px">
                 <a target="_blank" href="{{ route('admin.get', ['product', 'product', 'update']) . parameters(['id' => $item->id]) }}">
                     <i class="fa fa-pencil"></i> @translate('Редагувати товар')
                 </a>
             </div>
-        @endif
+        @endadmin
 
     </div>
 </div>

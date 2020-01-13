@@ -1,4 +1,4 @@
-А@inject('str', 'Illuminate\Support\Str')
+@inject('str', 'Illuminate\Support\Str')
 
 @extends('catalog.layout')
 

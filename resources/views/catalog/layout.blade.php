@@ -1,7 +1,7 @@
 @inject('str', "Illuminate\\Support\\Str")
 @inject('banner', "App\\Services\\BannerService")
 
-<!doctype html>
+        <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,7 @@
     <meta name="description" content="{{ $meta_description ?? '' }}">
     <meta name="keywords" content="{{ $meta_keywords ?? '' }}">
 
-        @include('catalog.javascript')
+    @include('catalog.javascript')
 
     <script src="{{ asset('catalog/js/jquery.js') }}"></script>
     <script src="{{ asset('catalog/js/jquery.serializeJSON.js') }}"></script>
@@ -182,7 +182,8 @@
                 @endif
 
                 <a href="{{ route('cart') }}">
-                    <i class="fa fa-shopping-cart"></i> @translate('Корзина') <b class="text-danger" id="cart_products_count">
+                    <i class="fa fa-shopping-cart"></i> @translate('Корзина') <b class="text-danger"
+                                                                                 id="cart_products_count">
                         {{ $cart_count_products }}
                     </b>
                 </a>
@@ -262,12 +263,12 @@
                 <a href="{{ route('page', 'articles') }}">
                     {{ StaticPage::getName('articles') }}
                 </a>
-{{--
-                <br>
+                {{--
+                                <br>
 
-                <a href="#">
-                    Відгуки
-                </a>--}}
+                                <a href="#">
+                                    Відгуки
+                                </a>--}}
             </div>
 
             <div class="col-4">
