@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-6">
                 <a data-id="{{ $review->id }}" class="review-answer-button" href="#">
-                    Відповісти
+                    @translate('Відповісти')
                 </a>
                 <div class="review-answer-place"></div>
             </div>

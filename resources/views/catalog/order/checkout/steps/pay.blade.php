@@ -1,7 +1,7 @@
-<h3 style="margin-top: 20px">Оплата</h3>
+<h3 style="margin-top: 20px">@translate('Оплата')</h3>
 
 <div class="form-group">
-    <label><i class="text-danger">*</i> Виберіть зручний варіант оплати</label>
+    <label><i class="text-danger">*</i> @translate('Виберіть зручний варіант оплати')</label>
     <select class="form-control" name="pay">
         @foreach(asset_data('pay_methods') as $key => $item)
             <option {{ Checkout::getField('pay') == $key ? 'selected' : '' }} value="{{ $key }}">

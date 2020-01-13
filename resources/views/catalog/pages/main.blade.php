@@ -1,4 +1,4 @@
-@inject('str', 'Illuminate\Support\Str')
+А@inject('str', 'Illuminate\Support\Str')
 
 @extends('catalog.layout')
 
@@ -100,7 +100,7 @@
 
 
         <div class="products" style="margin-top: 50px">
-            <h2>@lang('main.new_products')</h2>
+            <h2>@translate('Новинки')</h2>
 
             @forelse($new_products->chunk(4) as $chunk)
                 <div class="row" {!! !$loop->last ? 'style="margin-bottom: 30px"' : '' !!}>
@@ -109,12 +109,12 @@
                     @endforeach
                 </div>
             @empty
-                <h4 class="centered">@lang('common.empty')</h4>
+                <h4 class="centered">@translate('Тут порожньо')</h4>
             @endforelse
         </div>
 
         <div class="products" style="margin-top: 50px">
-            <h2>@lang('main.recommended_products')</h2>
+            <h2>@translate('Рекоменовані товари')</h2>
             @forelse($recommended_products->chunk(4) as $chunk)
                 <div class="row" {!! !$loop->last ? 'style="margin-bottom: 30px"' : '' !!}>
                     @foreach($chunk as $item)
@@ -122,12 +122,12 @@
                     @endforeach
                 </div>
             @empty
-                <h4 class="centered">@lang('common.empty')</h4>
+                <h4 class="centered">@translate('Тут порожньо')</h4>
             @endforelse
         </div>
 
         <div class="products" style="margin-top: 50px">
-            <h2>@lang('main.discount_products')</h2>
+            <h2>@translate('Товари зі знижкою')</h2>
             @forelse($discount_products->chunk(4) as $chunk)
                 <div class="row" {!! !$loop->last ? 'style="margin-bottom: 30px"' : '' !!}>
                     @foreach($chunk as $item)
@@ -135,7 +135,7 @@
                     @endforeach
                 </div>
             @empty
-                <h4 class="centered">@lang('common.empty')</h4>
+                <h4 class="centered">@translate('Тут порожньо')</h4>
             @endforelse
         </div>
 

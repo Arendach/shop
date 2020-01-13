@@ -39,9 +39,9 @@
 
 
                 <div class="filter">
-                    <h3>Фільтр</h3>
+                    <h3>@translate('Фільтр')</h3>
 
-                    <label><b>Ціна:</b></label>
+                    <label><b>@translate('Ціна'):</b></label>
                     <div class="filter-price">
                         <div>
                             <input id="min_price" class="form-control form-control-sm"
@@ -60,7 +60,7 @@
 
                     <hr>
 
-                    <label><b>Виробник:</b></label>
+                    <label><b>@translate('Виробник'):</b></label>
                     <div class="filter-manufacturers">
                         @foreach($filter['manufacturers'] as $item)
                             <label>
@@ -101,7 +101,7 @@
                     @endforeach
 
                     <button class="btn btn-primary filter_products">
-                        Фільтрувати
+                        @translate('Фільтрувати')
                     </button>
 
                 </div>
@@ -113,34 +113,34 @@
                     <div class="row">
                         <div class="col-6">
                             <label>
-                                Сортування:
+                                @translate('Сортування'):
                             </label>
                             <select class="form-control form-control-sm order" onchange="filterProducts()">
                                 <option {{ isset($requestFields['order']) && $requestFields['order'] == 'date,desc' ? 'selected' : '' }}
                                         value="date,desc">
-                                    Новинки
+                                    @translate('Новинки')
                                 </option>
 
                                 <option {{ isset($requestFields['order']) && $requestFields['order'] == 'rating,desc' ? 'selected' : '' }}
                                         value="rating,desc">
-                                    За рейтингом
+                                    @translate('За рейтингом')
                                 </option>
 
                                 <option {{ isset($requestFields['order']) && $requestFields['order'] == 'price,desc' ? 'selected' : '' }}
                                         value="price,desc">
-                                    Від дорогих до дешевих
+                                    @translate('Від дорогих до дешевих')
                                 </option>
 
                                 <option {{ isset($requestFields['order']) && $requestFields['order'] == 'price,asc' ? 'selected' : '' }}
                                         value="price,asc">
-                                    Від дешевих до дорогих
+                                    @translate('Від дешевих до дорогих')
                                 </option>
                             </select>
                         </div>
 
                         <div class="col-6">
                             <label for="">
-                                Показувати по:
+                                @translate('Показувати по'):
                             </label>
                             <select onchange="filterProducts()" class="form-control form-control-sm items">
                                 <option {{ Request::get('items', null) == 20 ? 'selected' : '' }} value="20">
@@ -172,10 +172,10 @@
                             @endforeach
                         </div>
                     @empty
-                        <h4 class="centered">@lang('common.empty')</h4>
+                        <h4 class="centered">@translate('Тут порожньо')</h4>
                     @endforelse
 
-                        {{ $products->links('catalog.pagination.default') }}
+                    {{ $products->links('catalog.pagination.default') }}
 
                 </div>
             </div>

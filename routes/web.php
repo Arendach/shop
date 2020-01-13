@@ -20,7 +20,7 @@ if (!function_exists('simple_routing')) {
 
         abort_if(!method_exists($object, $action_prefix . $action), 404, __('common.errors.post_404'));
 
-        return app()->call([new $namespace, $action_prefix . $action]);
+        return app()->call([new $namespace, $action_prefix . $action], request()->all());
     }
 }
 

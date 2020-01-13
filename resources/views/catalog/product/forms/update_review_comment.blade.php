@@ -9,13 +9,13 @@
         </div>
 
         <div class="form-group">
-            <label for="comment">Коментар:</label>
+            <label for="comment">@translate('Коментар'):</label>
             <textarea id="comment" name="comment" class="form-control">{{ $comment->comment }}</textarea>
             <div class="feedback"></div>
         </div>
 
         <div class="form-group" style="margin-bottom: 0;">
-            <button class="btn btn-outline-primary">Зберегти</button>
+            <button class="btn btn-outline-primary">@translate('Зберегти')</button>
         </div>
     </form>
 

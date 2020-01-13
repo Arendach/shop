@@ -12,7 +12,7 @@
 
         <div class="products">
 
-            <h1 class="page-header">@lang('search.results'): "<strong class="text-primary">{{ $search_string }}</strong>"</h1>
+            <h1 class="page-header">@translate('Результати пошуку'): "<strong class="text-primary">{{ $search_string }}</strong>"</h1>
 
 
             @forelse($products->chunk(4) as $chunk)
@@ -22,7 +22,7 @@
                     @endforeach
                 </div>
             @empty
-                <h4 class="centered">@lang('common.empty')</h4>
+                <h4 class="centered">@translate('Тут порожньо')</h4>
             @endforelse
 
 

@@ -15,45 +15,45 @@
     <div class="container">
 
         <div class="page">
-            <h3>@lang('user.profile.order', ['id' => $order->id])</h3>
+            <h3>@translate('Замовлення') #{{ $order->id }}</h3>
 
             <table class="table">
                 <tr>
-                    <th>@lang('order.date')</th>
+                    <th>@translate('Дата оформлення')</th>
                     <td>{{ $order->created_at->format('d / m / Y H:i') }}</td>
                 </tr>
 
                 @if(!is_null($order->date_delivery))
                     <tr>
-                        <th>@lang('order.date_delivery')</th>
+                        <th>@translate('Бажана дата доставки')</th>
                         <td>{{ $order->date_delivery->format('d / m / Y') }}</td>
                     </tr>
                 @endif
 
                 <tr>
-                    <th>@lang('order.name')</th>
+                    <th>@translate('Ваше імя')</th>
                     <td>{{ $order->name }}</td>
                 </tr>
 
                 <tr>
-                    <th>@lang('order.phone')</th>
+                    <th>@translate('Номер телефону')</th>
                     <td>{{ $order->phone }}</td>
                 </tr>
 
                 <tr>
-                    <th>@lang('order.email')</th>
+                    <th>@translate('Електронна пошта')</th>
                     <td>{{ $order->email }}</td>
                 </tr>
             </table>
 
-            <h3>@lang('order.products')</h3>
+            <h3>@translate('Товари')</h3>
 
             <table class="table">
                 <tr>
-                    <th colspan="2">@lang('order.product')</th>
-                    <th>@lang('order.category')</th>
-                    <th>@lang('order.amount')</th>
-                    <th>@lang('order.price')</th>
+                    <th colspan="2">@translate('Товар')</th>
+                    <th>@translate('Категорія')</th>
+                    <th>@translate('Кількість')</th>
+                    <th>@translate('Ціна')</th>
                 </tr>
                 @foreach($order->products as $item)
                     <tr>
@@ -80,7 +80,7 @@
 
                 <tr>
                     <td colspan="4" style="text-align: right">
-                        @lang('order.sum'): <span class="text-primary">{{ $order->sum }}</span>грн
+                        @translate('Сума'): <span class="text-primary">{{ $order->sum }}</span>грн
                     </td>
                 </tr>
             </table>

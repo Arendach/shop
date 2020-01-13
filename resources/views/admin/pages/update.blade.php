@@ -139,4 +139,15 @@
         </div>
     </form>
 
-@endsection('content')
+@endsection
+
+@section('script')
+
+    <script>
+        $(document).ready(function () {
+            CKEDITOR.replace('content_uk')
+            CKEDITOR.replace('content_ru')
+        })
+    </script>
+
+@stop

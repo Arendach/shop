@@ -50,7 +50,7 @@
     <div class="container">
 
         <div class="page">
-            <h3>Мої замовлення</h3>
+            <h3>@translate('Мої замовлення')</h3>
 
 
             @forelse($orders as $item)
@@ -67,7 +67,7 @@
                         <div class="col-4">
                             <b>{{ $item->products->count() }}</b>
                             @choice('products.products', $item->products->count())
-                            на суму <b>{{ $item->sum }}</b> грн
+                            @translate('на суму') <b>{{ $item->sum }}</b> грн
                         </div>
 
                         <div class="col-4">

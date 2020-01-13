@@ -34,11 +34,11 @@
             <div class="buy-buttons">
                 <div class="btn-group btn-group w-100">
                     <button class="btn {{ Cart::hasProduct($item->id) ? 'btn-primary' : 'btn-outline-primary' }} add_to_cart">
-                        <i class="fa fa-shopping-bag"></i> @lang('collection.to_cart')
+                        <i class="fa fa-shopping-bag"></i> @translate('В корзину')
                     </button>
                     <a href="{{ !is_auth() ? route('login') : '#' }}"
                        class="btn {{ User::hasDesireProduct($item->id) ? 'btn-primary' : 'btn-outline-primary' }} {{ is_auth() ? 'add_to_desire' : '' }}"
-                       title="@if(!User::hasDesireProduct($item->id)) @lang('collection.to_favorites') @else @lang('collection.un_favorites') @endif">
+                       title="@if(!User::hasDesireProduct($item->id)) @translate('Додати до вибраного') @else @translate('Видалити з вибраного') @endif">
                         <i class="fa fa-heart-o"></i>
                     </a>
                 </div>
@@ -48,7 +48,7 @@
             <hr style="margin-bottom: 0">
             <div style="padding: 5px">
                 <a target="_blank" href="{{ route('admin.get', ['product', 'product', 'update']) . parameters(['id' => $item->id]) }}">
-                    <i class="fa fa-pencil"></i> Редагувати товар
+                    <i class="fa fa-pencil"></i> @translate('Редагувати товар')
                 </a>
             </div>
         @endif

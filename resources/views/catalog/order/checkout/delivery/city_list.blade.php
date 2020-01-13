@@ -12,7 +12,7 @@
                 {{ $item->get('description') }}
         </li>
     @empty
-        <li style="padding: 5px 10px" class="list-group-item">Не знайдено</li>
+        <li style="padding: 5px 10px" class="list-group-item">@translate('Не знайдено')</li>
     @endforelse
 
 

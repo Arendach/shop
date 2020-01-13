@@ -115,9 +115,9 @@
                 <hr>
 
                 <div class="cart-products-sum right">
-                    Товарів:
+                    @translate('Товарів'):
                     <span class="text-primary cart_products_count">{{ $cart->products->count() }}</span><br>
-                    На суму:
+                    @translate('На суму'):
                     <span class="text-primary" id="cart_products_sum">
                         {{ number_format(\Cart::getProductsSum(), 2) }}
                     </span>
@@ -125,11 +125,11 @@
                     <br>
                     <a href="{{ route('checkout', 'contacts') }}" style="margin-top: 10px"
                        class="btn btn-outline-primary">
-                        Оформимти замовлення
+                        @translate('Оформимти замовлення')
                     </a>
                 </div>
             @else
-                <h4>@lang('cart.empty')</h4>
+                <h4>@translate('Тут порожньо')</h4>
             @endif
         </div>
     </div>

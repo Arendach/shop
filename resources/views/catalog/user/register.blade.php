@@ -15,43 +15,43 @@
     <div class="container">
         <form class="register">
             <div class="form-group">
-                <h2>Реєстрація</h2>
+                <h2>@translate('Реєстрація')</h2>
             </div>
 
             <div class="form-group">
-                <label> <i class="text-danger">*</i> Прізвище та імя</label>
+                <label> <i class="text-danger">*</i> @translate('Прізвище та імя')</label>
                 <input class="form-control" name="name" required>
                 <div class="feedback text-danger"></div>
             </div>
 
             <div class="form-group">
-                <label> <i class="text-danger">*</i> Телефон</label>
+                <label> <i class="text-danger">*</i> @translate('Телефон')</label>
                 <input class="form-control" name="phone" required id="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}">
                 <div class="feedback text-danger"></div>
             </div>
             <div class="form-group">
-                <label> <i class="text-danger">*</i> Email</label>
+                <label> <i class="text-danger">*</i> @translate('Email')</label>
                 <input type="email" class="form-control" name="email" required>
                 <div class="feedback text-danger"></div>
             </div>
 
             <div class="form-group">
-                <label> <i class="text-danger">*</i> Пароль</label>
+                <label> <i class="text-danger">*</i> @translate('Пароль')</label>
                 <input type="password" class="form-control" name="password" required>
                 <div class="feedback text-danger"></div>
             </div>
 
             <div class="form-group">
-                <label> <i class="text-danger">*</i> Повторний пароль</label>
+                <label> <i class="text-danger">*</i> @translate('Повторний пароль')</label>
                 <input type="password" class="form-control" name="password_confirmation" required>
                 <div class="feedback text-danger"></div>
             </div>
 
             <div class="form-group">
-                <button class="btn btn-outline-primary">Реєстрація</button>
+                <button class="btn btn-outline-primary">@translate('Реєстрація')</button>
             </div>
 
-            Вже зареєстровані? Тоді <a href="{{ route('login') }}">авторизуйтесь тут</a>!
+            @translate('Вже зареєстровані? Тоді ')<a href="{{ route('login') }}">@translate('авторизуйтесь тут')</a>!
         </form>
     </div>
 

@@ -4,25 +4,25 @@
 
     <form class="login">
         <div class="form-group">
-            <label>Телефон або електронна пошта</label>
+            <label>@translate('Телефон або електронна пошта')</label>
             <input class="form-control" name="login">
             <div class="feedback text-danger"></div>
         </div>
 
         <div class="form-group">
-            <label>Пароль</label>
+            <label>@translate('Пароль')</label>
             <input type="password" class="form-control" name="password">
             <div class="feedback text-danger"></div>
         </div>
 
         <div class="form-group">
             <label style="margin-bottom: 0">
-                <input type="checkbox" name="remember" checked> Запамятати мене
+                <input type="checkbox" name="remember" checked> @translate('Запамятати мене')
             </label>
         </div>
 
         <div class="form-group" style="margin-bottom: 0">
-            <button class="btn btn-outline-primary">Авторизація</button>
+            <button class="btn btn-outline-primary">@translate('Авторизація')</button>
         </div>
     </form>
 

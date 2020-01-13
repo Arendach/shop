@@ -4,7 +4,7 @@
     <form id="update_review">
         <input type="hidden" name="id" value="{{ $review->id }}">
         <div class="form-group">
-            <label>Ваша оцінка</label>
+            <label>@translate('Ваша оцінка')</label>
             <div class="stars" data-it="{{ $review->rating }}">
                 @for($i = 1; $i <= 5; $i++)
                     <span class="star" data-it="{{ $i }}">
@@ -20,22 +20,22 @@
         </div>
 
         <div class="form-group">
-            <label for="plus">Достоїнства товару</label>
+            <label for="plus">@translate('Достоїнства товару')</label>
             <input name="plus" class="form-control" value="{{ $review->plus }}">
         </div>
 
         <div class="form-group">
-            <label for="minus">Недоліки товару</label>
+            <label for="minus">@translate('Недоліки товару')</label>
             <input name="minus" class="form-control" value="{{ $review->minus }}">
         </div>
 
         <div class="form-group">
-            <label for="comment">Коментар</label>
+            <label for="comment">@translate('Коментар')</label>
             <textarea name="comment" class="form-control">{{ $review->comment }}</textarea>
         </div>
 
         <div class="form-group" style="margin-bottom: 0;">
-            <button class="btn btn-outline-primary">Зберегти</button>
+            <button class="btn btn-outline-primary">@translate('Зберегти')</button>
         </div>
     </form>
 

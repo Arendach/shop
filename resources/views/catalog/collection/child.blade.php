@@ -15,22 +15,22 @@
 
 @section('admin')
 
-    <h4>Меню адміністратора:</h4>
+    <h4>@translate('Меню адміністратора'):</h4>
 
     <a href="{{ route('admin.get', ['product', 'collection', 'update']) . parameters(['id' => $collection->id])}}">
-        <i class="fa fa-pencil"></i> Редагувати колекцію
+        <i class="fa fa-pencil"></i> @translate('Редагувати колекцію')
     </a> <br><br>
 
     <a href="{{ route('admin.get', ['product', 'collection', 'main'])}}">
-        <i class="fa fa-pencil"></i> Колекції товарів
+        <i class="fa fa-pencil"></i> @translate('Колекції товарів')
     </a> <br>
 
     <a href="{{ route('admin.get', ['product', 'product', 'main'])}}">
-        <i class="fa fa-pencil"></i> Товари
+        <i class="fa fa-pencil"></i> @translate('Товари')
     </a> <br>
 
     <a href="{{ route('admin.index')}}">
-        <i class="fa fa-pencil"></i> Адмінка
+        <i class="fa fa-pencil"></i> @translate('Адмінка')
     </a>
 
 @endsection
@@ -49,7 +49,7 @@
                     @endforeach
                 </div>
             @empty
-                <h4 class="centered">@lang('common.empty')</h4>
+                <h4 class="centered">@translate('Тут порожньо')</h4>
             @endforelse
         </div>
     </div>

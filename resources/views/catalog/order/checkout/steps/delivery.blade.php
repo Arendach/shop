@@ -9,7 +9,7 @@
     }
 </style>
 
-<h3 style="margin-top: 20px">Доставка</h3>
+<h3 style="margin-top: 20px">@translate('Доставка')</h3>
 
 <div class="form-group">
     @foreach($order_types as $k => $item)

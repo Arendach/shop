@@ -7,6 +7,11 @@ function is_auth(): bool
     return \Auth::is_auth();
 }
 
+function translate($text)
+{
+    return Translate::get($text);
+}
+
 
 function user(int $id = 0)
 {

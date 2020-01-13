@@ -73,7 +73,7 @@ class TranslateService
         });
     }
 
-    private function forgetCache()
+    public function forgetCache()
     {
         Cache::forget($this->cacheKey);
     }

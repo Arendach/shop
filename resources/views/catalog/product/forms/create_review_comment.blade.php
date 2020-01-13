@@ -1,10 +1,10 @@
 <form id="create_review">
     <div class="form-group">
-        <label for="comment">Коментар</label>
+        <label for="comment">@translate('Коментар')</label>
         <textarea name="comment" class="form-control"></textarea>
     </div>
     <div class="form-group" style="margin-bottom: 0;">
-        <button class="btn btn-outline-primary">Надіслати</button>
+        <button class="btn btn-outline-primary">@translate('Надіслати')</button>
     </div>
 </form>
 
@@ -26,7 +26,7 @@
                     parent.find('.review-comments').append(answer);
                     parent.find('.review-answer-place').html('');
 
-                    toastr.success('Ваше повідомлення прийняте!', 'Виконано!');
+                    toastr.success('@translate('Ваше повідомлення прийняте!')', '@translate('Виконано!')');
                 },
                 error(answer) {
                     Common.errorHandler(answer);

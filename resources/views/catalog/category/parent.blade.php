@@ -83,8 +83,8 @@
                 @endforeach
             </div>
         @else
-            <h1>Тут пусто!</h1>
+            <h1>@translate('Тут порожньо')</h1>
         @endif
     </div>
 
-@endsection('content')
+@endsection

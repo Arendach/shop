@@ -8,4 +8,5 @@
 /composer.lock
 /public/explorer/
 /public/phpmyadmin/
+/node_modules/
 /.env

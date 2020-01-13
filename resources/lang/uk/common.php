@@ -35,7 +35,6 @@ return [
         'description' => 'Опис (Description)',
         '' => '',
     ],
-    'empty' => 'Тут пусто :(',
     'errors' => [
         'post_404' => 'Такої адреси не знайдено!'
     ]

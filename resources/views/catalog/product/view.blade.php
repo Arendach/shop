@@ -330,15 +330,15 @@
 
         <ul class="nav nav-pills nav-justified">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#main">Опис товару</a>
+                <a class="nav-link active" data-toggle="tab" href="#main">@translate('Опис товару')</a>
             </li>
             @if(count($product->characteristics))
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#characteristics">Характеристики</a>
+                    <a class="nav-link" data-toggle="tab" href="#characteristics">@translate('Характеристики')</a>
                 </li>
             @endif
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#comments">Відгуки</a>
+                <a class="nav-link" data-toggle="tab" href="#comments">@translate('Відгуки')</a>
             </li>
         </ul>
 
@@ -394,21 +394,21 @@
                                     <div class="on-storage">
                                         @if($product->on_storage)
                                             <span class="text-success">
-                                        <i class="fa fa-check"></i> В наявності
+                                        <i class="fa fa-check"></i> @translate('В наявності')
                                     </span>
                                         @else
                                             <span class="text-danger">
-                                        <i class="fa fa-remove"></i> Немає в наявності
+                                        <i class="fa fa-remove"></i> @translate('Немає в наявності')
                                     </span>
                                         @endif
                                     </div>
 
                                     <div class="to-buy">
-                                        <button class="btn btn-primary btn-block">В корзину</button>
+                                        <button class="btn btn-primary btn-block">@translate('В корзину')</button>
                                     </div>
 
                                     <div class="to-buy-click">
-                                        <a href="#" data-toggle="modal" data-target="#simple-buy">Купити в один клік</a>
+                                        <a href="#" data-toggle="modal" data-target="#simple-buy">@translate('Купити в один клік')</a>
                                     </div>
                                 </div>
                             </div>
@@ -425,17 +425,17 @@
                     <div class="col-3">
 
                         <div class="delivery-pay">
-                            Минимальный заказ НА ДОСТАВКУ <br> <span class="text-primary">300грн</span> (без доставки)
+                            @translate('Мінімальна сума замовлення НА ДОСТАВКУ') <br> <span class="text-primary">@translate('300грн')</span> (@translate('без доставки')
                             <hr>
-                            Доставка <span class="text-success">с 10:00 до 20:00</span> <br> <span class="text-primary">80грн</span>
-                            (<span class="text-primary">от 1000 - 0грн</span>)
+                            @translate('Доставка') <span class="text-success">@translate('с 10:00 до 20:00')</span> <br> <span class="text-primary">@translate('80грн')</span>
+                            (<span class="text-primary">@translate('от 1000 - 0грн')</span>)
                             <hr>
-                            Доставка <span class="text-success">с 8:00 до 10:00</span> и <span class="text-success">с 20:00 до 22:00</span>
-                            <br> <span class="text-primary">100грн</span> (<span
-                                    class="text-primary">от 1000 - 70грн</span>)
+                            @translate('Доставка') <span class="text-success">@translate('с 8:00 до 10:00')</span> и <span class="text-success">@translate('с 20:00 до 22:00')</span>
+                            <br> <span class="text-primary">@translate('100грн')</span> (<span
+                                    class="text-primary">@translate('от 1000 - 70грн')</span>)
                             <hr>
-                            Доставка <span class="text-success">с 22:00 до 8:00</span> <br> <span class="text-primary">ОТ 200грн</span>
-                            (<span class="text-primary">от 1000 - 100грн</span>)
+                            @translate('Доставка') <span class="text-success">@translate('с 22:00 до 8:00')</span> <br> <span class="text-primary">@translate('ОТ 200грн')</span>
+                            (<span class="text-primary">@translate('от 1000 - 100грн')</span>)
                         </div>
                     </div>
                 </div>
@@ -460,11 +460,11 @@
                     <div class="reviews-head">
                         <div class="row">
                             <div class="col-9">
-                                <h4>Відгуки та запитання: {{ $product->name }}</h4>
+                                <h4>@translate('Відгуки та запитання'): {{ $product->name }}</h4>
                             </div>
 
                             <div class="col-3 right">
-                                <a href="#review-create-form" class="btn btn-outline-primary">Написати відгук</a>
+                                <a href="#review-create-form" class="btn btn-outline-primary">@translate('Написати відгук')</a>
                             </div>
                         </div>
                     </div>
@@ -510,7 +510,7 @@
                                     @endif
                                     @if(!empty($item->plus))
                                         <div class="review-plus">
-                                            Достоїнства:
+                                            @translate('Достоїнства'):
                                             <span class="text-success">
                                                 {{ $item->plus }}
                                             </span>
@@ -519,20 +519,20 @@
 
                                     @if(!empty($item->minus))
                                         <div class="review-minus">
-                                            Недоліки:
+                                            @translate('Недоліки'):
                                             <span class="text-warning">{{ $item->minus }}</span>
                                         </div>
                                     @endif
 
                                     <div class="review-comment-text">
-                                        Коментар:
+                                        @translate('Коментар'):
                                         <span class="text-info">{{ $item->comment }}</span>
                                     </div>
                                     <div class="review-answer">
                                         <div class="row">
                                             <div class="col-6">
                                                 <a data-id="{{ $item->id }}" class="review-answer-button" href="#">
-                                                    Відповісти
+                                                    @translate('Відповісти')
                                                 </a>
                                                 <div class="review-answer-place"></div>
                                             </div>
@@ -573,13 +573,13 @@
                                                         <span class="review-actions">
                                                             <span onclick="getForm('{{ $comment->id }}', '{{ route('catalog.post', ['product', 'review_comment_update_form']) }}')"
                                                                   class="review-action review-action-edit"
-                                                                  title="Редагувати"
+                                                                  title="@translate('Редагувати')"
                                                                   data-toggle="tooltip">
                                                                 <i class="fa fa-pencil"></i>
                                                             </span>
                                                             <span onclick="deleteReviewComment({{ $comment->id }})"
                                                                   class="review-action review-action-remove"
-                                                                  title="Видалити"
+                                                                  title="@translate('Видалити')"
                                                                   data-toggle="tooltip">
                                                                 <i class="fa fa-remove"></i>
                                                             </span>
@@ -596,7 +596,7 @@
                         @endforeach
                     @else
                         <div class="reviews-not-found">
-                            Відгуки не знайдені! Ви можете написати першим!
+                            @translate('Відгуки не знайдені! Ви можете написати першим!')
                         </div>
                     @endif
                 </div>
@@ -605,7 +605,7 @@
                     <a href="" id="review-create-form"></a>
 
                     <div class="form-group">
-                        <label>Ваша оцінка</label>
+                        <label>@translate('Ваша оцінка')</label>
                         <div class="stars" data-it="1">
                             <span class="star" data-it="1">
                                 <img src="{{ asset('catalog/img/star-active.png') }}">
@@ -629,17 +629,17 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="plus">Достоїнства товару</label>
+                        <label for="plus">@translate('Достоїнства товару')</label>
                         <input id="plus" name="plus" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label for="minus">Недоліки товару</label>
+                        <label for="minus">@translate('Недоліки товару')</label>
                         <input id="minus" name="minus" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label for="comment">Коментар</label>
+                        <label for="comment">@translate('Коментар')</label>
                         <textarea id="comment" name="comment" class="form-control"></textarea>
                     </div>
 
@@ -648,13 +648,13 @@
                             @if(!is_auth())
                                 <i class="fa fa-lock"></i>
                             @endif
-                            Написати
+                            @translate('Написати')
                         </button>
                     </div>
 
                     @if(!is_auth())
                         <div style="margin-bottom: 0;" class="form-group">
-                            Для того щоб написати відгук необхідно <a href="{{ route('login') }}">авторизуватись!</a>
+                            @translate('Для того щоб написати відгук необхідно ') <a href="{{ route('login') }}">@translate('авторизуватись!')</a>
                         </div>
                     @endif
                 </form>
@@ -666,7 +666,7 @@
     @if($product->relation->count())
         <div class="container">
             <div class="relation-products">
-                <h2>Рекомендуємо також:</h2>
+                <h2>@translate('Рекомендуємо також:')</h2>
                 <div class="row">
                     @foreach($product->relation as $relation)
                         <div class="col-3">
@@ -746,17 +746,17 @@
                     <form id="simple-buy-form">
                         <input type="hidden" name="id" value="{{ $product->id }}">
                         <div class="form-group">
-                            <label>Імя</label>
+                            <label>@translate('Імя')</label>
                             <input class="form-control form-control-sm" name="name" required>
                         </div>
 
                         <div class="form-group">
-                            <label>Телефон</label>
+                            <label>@translate('Телефон')</label>
                             <input class="form-control form-control-sm" name="phone" required>
                         </div>
 
                         <div style="margin-bottom: 0;" class="form-group">
-                            <button class="btn btn-outline-primary btn-sm">Оформити</button>
+                            <button class="btn btn-outline-primary btn-sm">@translate('Оформити')</button>
                         </div>
                     </form>
                 </div>

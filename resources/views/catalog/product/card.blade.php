@@ -39,15 +39,15 @@
                             <div class="buy-buttons">
                                 <div class="btn-group btn-group">
                                     <button class="btn btn-outline-primary">
-                                        <i class="fa fa-shopping-bag"></i> @lang('collection.to_cart')
+                                        <i class="fa fa-shopping-bag"></i> @translate('В корзину')
                                     </button>
                                     <button class="btn btn-outline-primary" data-toggle="tooltip"
-                                            title="@lang('collection.to_favorites')">
+                                            title="@translate('Додати до вибраного')">
                                         <i class="fa fa-heart-o"></i>
                                     </button>
 
                                     <button class="btn btn-outline-primary" data-toggle="tooltip"
-                                            title="@lang('collection.to_comparison')">
+                                            title="@translate('Додати в порівняння')">
                                         <i class="fa fa-balance-scale"></i>
                                     </button>
                                 </div>
@@ -58,6 +58,6 @@
             @endforeach
         </div>
     @empty
-        <h4 class="centered">@lang('common.empty')</h4>
+        <h4 class="centered">@translate('Тут порожньо')</h4>
     @endforelse
 </div>

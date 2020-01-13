@@ -1,4 +1,4 @@
-<h3>Корзина</h3>
+<h3>@translate('Корзина')</h3>
 
 <table>
     @foreach($cart->products as $item)
@@ -35,7 +35,7 @@
 
 <table style="width: 100%">
     <tr>
-        <td style="color: #e31837;"><b>Сума:</b></td>
+        <td style="color: #e31837;"><b>@translate('Сума'):</b></td>
         <td class="right" style="color: #e31837;">
             {{ number_format(\Cart::getProductsSum(), 2) }} грн
         </td>

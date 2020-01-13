@@ -28,9 +28,9 @@
 
 @section('admin')
 
-    <h3>Меню адміністратора:</h3>
+    <h3>@translate('Меню адміністратора'):</h3>
     <a href="{{ route('admin.get', ['product', 'collection', 'main'])}}">
-        <i class="fa fa-pencil"></i> Управління колекціями
+        <i class="fa fa-pencil"></i> @translate('Управління колекціями')
     </a>
 
 @endsection
@@ -63,7 +63,7 @@
                                         <hr>
                                         <div>
                                             <a href="{{ route('admin.get', ['product', 'collection', 'update']) . parameters(['id' => $item->id]) }}">
-                                                <i class="fa fa-pencil"></i> Редагувати колекцію
+                                                <i class="fa fa-pencil"></i> @translate('Редагувати колекцію')
                                             </a>
                                         </div>
                                     @endif
@@ -73,7 +73,7 @@
                     </div>
                 @endforeach
             @else
-                <h4 class="centered">@lang('common.empty')</h4>
+                <h4 class="centered">@translate('Тут порожньо')</h4>
             @endif
         </div>
     </div>

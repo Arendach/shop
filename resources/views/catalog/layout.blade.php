@@ -1,7 +1,7 @@
 @inject('str', "Illuminate\\Support\\Str")
 @inject('banner', "App\\Services\\BannerService")
 
-        <!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -117,7 +117,7 @@
         <div class="bottom-menu">
             <div class="categories">
                 <div class="category-title">
-                    <i class="fa fa-list"></i> @lang('main.category_list')
+                    <i class="fa fa-list"></i> @translate('Категорії товарів')
                 </div>
 
                 <div class="category-list match-height">
@@ -158,13 +158,13 @@
             <div class="search-block">
                 <div class="input-group input-group-sm">
                     <input class="form-control"
-                           placeholder="@lang('search.search_placeholder')"
+                           placeholder="@translate('Пошук товарів')"
                            id="search_string"
                            value="{{ $search_string ?? '' }}"
                            style="height: 30px">
                     <div class="input-group-append">
                         <button style="height: 30px" id="search_button" class="btn btn-outline-primary" type="button">
-                            @lang('search.button')
+                            @translate('Шукати')
                         </button>
                     </div>
                 </div>
@@ -173,16 +173,16 @@
             <div class="right-block">
                 @if(is_auth())
                     <a href="{{ route('profile') }}">
-                        <i class="fa fa-user"></i> @lang('main.profile')
+                        <i class="fa fa-user"></i> @translate('Профіль')
                     </a>
                 @else
                     <a href="{{ route('login') }}">
-                        <i class="fa fa-user"></i> @lang('main.profile')
+                        <i class="fa fa-user"></i> @translate('Профіль')
                     </a>
                 @endif
 
                 <a href="{{ route('cart') }}">
-                    <i class="fa fa-shopping-cart"></i> @lang('main.cart') <b class="text-danger" id="cart_products_count">
+                    <i class="fa fa-shopping-cart"></i> @translate('Корзина') <b class="text-danger" id="cart_products_count">
                         {{ $cart_count_products }}
                     </b>
                 </a>
@@ -271,7 +271,7 @@
             </div>
 
             <div class="col-4">
-                <h5>@lang('main.info')</h5>
+                <h5>@translate('Корисна інформація')</h5>
                 <a href="{{ route('page', 'discounts') }}">
                     {{ StaticPage::getName('discounts') }}
                 </a>
@@ -279,13 +279,13 @@
                 <br>
 
                 <a href="{{ route('cart') }}">
-                    @lang('main.cart')
+                    @translate('Корзина')
                 </a>
 
                 <br>
 
                 <a href="{{ route('profile.viewed') }}">
-                    @lang('main.viewed')
+                    @translate('Переглянуті товари')
                 </a>
             </div>
         </div>

@@ -130,8 +130,8 @@
 
                     answer = answer.responseJSON;
 
-                    let title = 'title' in answer ? answer.title : '@lang('common.error')';
-                    let message = 'message' in answer ? answer.message : '@lang('common.unknown_error')';
+                    let title = 'title' in answer ? answer.title : '@translate('Помилка')';
+                    let message = 'message' in answer ? answer.message : '@translate('Невідома помилка')';
 
                     toastr.error(message, title);
 

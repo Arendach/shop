@@ -2,17 +2,17 @@
 
     const JS = {};
 
-    JS.deleteSuccessTitle = '@lang('common.delete.success_title')';
-    JS.deleteSuccessText = '@lang('common.delete.success_text')';
-    JS.deleteConfirmTitle = '@lang('common.delete.confirm_title')';
-    JS.deleteConfirmText = '@lang('common.delete.confirm_text')';
+    JS.deleteSuccessTitle = '@translate('Видалено!')';
+    JS.deleteSuccessText = '@translate('Дані успішно видалені!')';
+    JS.deleteConfirmTitle = '@translate('Видалити?')';
+    JS.deleteConfirmText = '@translate('Дані відновити буде не можливо!')';
 
-    JS.cancel = '@lang('common.cancel')';
-    JS.error = '@lang('common.error')';
-    JS.unknown_error = '@lang('common.unknown_error')';
+    JS.cancel = '@translate('Відміна')';
+    JS.error = '@translate('Помилка')';
+    JS.unknown_error = '@translate('Невідома помилка')';
 
-    JS.successTitle = '@lang('common.success_title')';
-    JS.successText = '@lang('common.success_text')';
+    JS.successTitle = '@translate('Виконано!')';
+    JS.successText = '@translate('Дія виконана вдало!')';
 
     JS.searchRoute = '{{ route('search', '') }}';
 
