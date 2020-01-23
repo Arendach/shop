@@ -15,10 +15,8 @@ class TopController extends AdminController
     public function section_main()
     {
         $data = [
-            'title' => 'Верхній баннер',
-            'breadcrumbs' => [
-                [__('banner.admin.top_banner_title')]
-            ]
+            'title' => translate('Верхній баннер'),
+            'breadcrumbs' => [[translate('Верхній банер')]]
         ];
 
         return view('admin.banner.top.main', $data);

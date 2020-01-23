@@ -61,7 +61,7 @@
                 @foreach($category->child as $item)
                     <div class="cat-item">
                         <div class="cat-image">
-                            <div style="background-image: url('{{ $item->image_min }}')"></div>
+                            <div style="background-image: url('{{ $item->small }}')"></div>
                         </div>
 
                         <div class="cat-name">

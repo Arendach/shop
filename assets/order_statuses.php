@@ -3,36 +3,35 @@
 /**
  * Всі поля являються обовязковими
  */
-
 return [
-    'new_order' => [
+    'new_order'  => [
         // назва статуса
-        'name' => __('assets/order_statuses.new_order'),
+        'name'   => translate('Нове замовлення'),
 
         // чи можна після даного статусу обновляти замовлення true|false
         'update' => true,
 
         // Колір тексту статусу
-        'color' => '#0f0',
+        'color'  => '#fff',
     ],
     'in_process' => [
-        'name' => __('assets/order_statuses.in_process'),
+        'name'   => translate('Обробляється менеджером'),
         'update' => true,
-        'color' => '#0f0'
+        'color'  => '#ffe9e9'
     ],
-    'accepted' => [
-        'name' => __('assets/order_statuses.accepted'),
+    'accepted'   => [
+        'name'   => translate('Прийнято менеджером'),
         'update' => true,
-        'color' => '#0f0',
+        'color'  => '#fff',
     ],
-    'canceled' => [
-        'name' => __('assets/order_statuses.canceled'),
+    'canceled'   => [
+        'name'   => translate('Відмінено'),
         'update' => true,
-        'color' => '#0f0',
+        'color'  => '#fff',
     ],
-    'success' => [
-        'name' => __('assets/order_statuses.success'),
+    'success'    => [
+        'name'   => translate('Виконано'),
         'update' => true,
-        'color' => '#0f0',
+        'color'  => '#fff',
     ]
 ];

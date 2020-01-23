@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Attribute
@@ -27,12 +28,13 @@ class Attribute extends Model
 
     public $timestamps = false;
 
-    public function getNameAttribute()
+    public function getNameAttribute(): ?string
     {
         return $this->{"name_" . config('app.locale')};
     }
 
-    public function product_attributes(){
+    public function product_attributes(): HasMany
+    {
         return $this->hasMany('App\Models\ProductAttribute', 'attribute_id', 'id');
     }
 }

@@ -1,83 +1,83 @@
 <?php
 
 return [
-    'Продажі' => [
+    translate('Продажі') => [
         [
             'url' => route('admin.get', ['orders', 'default', 'main']),
-            'text' => __('admin.routes.orders'),
+            'text' => translate('Замовлення'),
             'icon' => 'orders',
             'key' => 'orders'
         ],
         [
             'url' => route('admin.get', ['orders', 'simple_orders', 'main']),
-            'text' => __('admin.routes.simple_orders'),
+            'text' => translate('Швидкі замовлення'),
             'icon' => 'simple_orders',
             'key' => 'orders'
         ]
     ],
-    'Каталог' => [
+    translate('Каталог') => [
         [
             'url' => route('admin.get', ['category', 'category', 'main']),
-            'text' => __('admin.routes.categories'),
+            'text' => translate('Категорії'),
             'icon' => 'categories',
             'key' => 'categories'
         ],
         [
             'url' => route('admin.get', ['product', 'product', 'main']),
-            'text' => __('admin.routes.products'),
+            'text' => translate('Товари'),
             'icon' => 'products',
             'key' => 'products'
         ],
         [
             'url' => route('admin.get', ['product', 'collection', 'main']),
-            'text' => __('admin.routes.collections'),
+            'text' => translate('Колекції'),
             'icon' => 'collections',
             'key' => 'products'
         ],
 
     ],
-    'Інше' => [
+    translate('Інше') => [
         [
             'url' => route('admin.get', ['banner', 'banner', 'main']),
-            'text' => __('admin.routes.banner'),
+            'text' => translate('Банер'),
             'icon' => 'banner',
             'key' => 'banner'
         ],
-        [
-            'url' => route('discounts.index'),
-            'text' => __('admin.routes.discounts'),
-            'icon' => 'discounts',
-            'key' => 'banner'
-        ],
+//        [
+//            'url' => route('discounts.index'),
+//            'text' => __('admin.routes.discounts'),
+//            'icon' => 'discounts',
+//            'key' => 'banner'
+//        ],
         [
             'url' => route('pages.index'),
-            'text' => __('admin.routes.pages'),
+            'text' => translate('Сторінки'),
             'icon' => 'pages',
             'key' => 'pages'
         ],
         [
             'url' => route('admin.get', ['banner', 'top', 'main']),
-            'text' => __('admin.routes.banner_top'),
+            'text' => translate('Верхній банер'),
             'icon' => 'ad',
             'key' => 'banner'
         ],
     ],
-    'Адміністрування' => [
+    translate('Адміністрування') => [
         [
             'url' => route('bridge'),
-            'text' => __('admin.routes.bridge'),
+            'text' => translate('Синхронізація'),
             'icon' => 'bridge',
             'key' => 'bridge'
         ],
         [
             'url' => '#',
-            'text' => __('admin.routes.users'),
+            'text' => translate('Користувачі(адм.)'),
             'icon' => 'users',
             'key' => 'users'
         ],
         [
             'url' => '#',
-            'text' => __('admin.routes.settings'),
+            'text' => translate('Налаштування сайту'),
             'icon' => 'settings',
             'key' => 'settings'
         ],

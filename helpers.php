@@ -34,6 +34,7 @@ function user(int $id = 0)
  */
 function access($key, $user_id = 0): bool
 {
+    return is_admin();
     if (!is_auth()) return false;
 
     $user = user($user_id);

@@ -58,7 +58,7 @@
         {{ $orders->links() }}
     @else
         <h4 class="centered">
-            @lang('common.empty')
+            @translate('Тут порожньо')
         </h4>
     @endif
 
