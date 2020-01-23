@@ -73,7 +73,7 @@ class UserService
         $user->email = $data->get('email');
         $user->password = Auth::hashMake($data->get('password'));
         $user->phone = $data->get('phone');
-        $user->access = 0;
+        $user->access_id = 0;
         $user->save();
 
         return $user;
