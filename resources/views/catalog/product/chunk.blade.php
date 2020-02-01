@@ -1,4 +1,4 @@
-<div class="col-{{ $chunks }} product-card">
+<div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 col-{{ $chunks }} product-card">
     <div class="product" data-id="{{ $item->id }}">
         <div class="product-top">
             <a href="{{ route('product.view', $item->slug) }}" class="product-image">

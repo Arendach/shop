@@ -41,6 +41,7 @@
 @section('content')
 
     <div class="container" style="margin-top: 20px">
+{{--
 
         @if($images->count())
             <div class="slider">
@@ -98,6 +99,7 @@
             </div>
         @endif
 
+--}}
 
         <div class="products" style="margin-top: 50px">
             <h2>@translate('Новинки')</h2>

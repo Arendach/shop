@@ -13,7 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         factory(\App\Models\Category::class, 10)->create();
         factory(\App\Models\Product::class, 50)->create();
-        factory(\App\Models\User::class, 4)->create();
         factory(\App\Models\BannerImage::class, 8)->create();
         factory(\App\Models\Discount::class, 10)->create();
         factory(\App\Models\Manufacturer::class, 15)->create();

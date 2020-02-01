@@ -295,26 +295,27 @@
             /*border-radius: 5px;*/
             padding: 10px;
         }
+
         .relation-product:hover {
             border: 1px solid #ccc;
             box-shadow: 0 0 10px #ccc;
         }
 
-        .relation-product .relation-old-price{
+        .relation-product .relation-old-price {
             text-decoration: line-through;
             color: #cccc;
         }
 
-        .relation-product .relation-new-price{
+        .relation-product .relation-new-price {
             font-size: 23px;
             color: #e31837;
         }
 
-        .relation-price{
+        .relation-price {
             margin: 0;
         }
 
-        .relation-name{
+        .relation-name {
             margin: 10px 0 0 0;
             font-size: 18px;
         }
@@ -408,7 +409,8 @@
                                     </div>
 
                                     <div class="to-buy-click">
-                                        <a href="#" data-toggle="modal" data-target="#simple-buy">@translate('Купити в один клік')</a>
+                                        <a href="#" data-toggle="modal" data-target="#simple-buy">@translate('Купити в
+                                            один клік')</a>
                                     </div>
                                 </div>
                             </div>
@@ -425,16 +427,20 @@
                     <div class="col-3">
 
                         <div class="delivery-pay">
-                            @translate('Мінімальна сума замовлення НА ДОСТАВКУ') <br> <span class="text-primary">@translate('300грн')</span> (@translate('без доставки')
+                            @translate('Мінімальна сума замовлення НА ДОСТАВКУ') <br> <span class="text-primary">@translate('300грн')</span>
+                            (@translate('без доставки')
                             <hr>
-                            @translate('Доставка') <span class="text-success">@translate('с 10:00 до 20:00')</span> <br> <span class="text-primary">@translate('80грн')</span>
+                            @translate('Доставка') <span class="text-success">@translate('с 10:00 до 20:00')</span> <br>
+                            <span class="text-primary">@translate('80грн')</span>
                             (<span class="text-primary">@translate('от 1000 - 0грн')</span>)
                             <hr>
-                            @translate('Доставка') <span class="text-success">@translate('с 8:00 до 10:00')</span> и <span class="text-success">@translate('с 20:00 до 22:00')</span>
+                            @translate('Доставка') <span class="text-success">@translate('с 8:00 до 10:00')</span> и
+                            <span class="text-success">@translate('с 20:00 до 22:00')</span>
                             <br> <span class="text-primary">@translate('100грн')</span> (<span
                                     class="text-primary">@translate('от 1000 - 70грн')</span>)
                             <hr>
-                            @translate('Доставка') <span class="text-success">@translate('с 22:00 до 8:00')</span> <br> <span class="text-primary">@translate('ОТ 200грн')</span>
+                            @translate('Доставка') <span class="text-success">@translate('с 22:00 до 8:00')</span> <br>
+                            <span class="text-primary">@translate('ОТ 200грн')</span>
                             (<span class="text-primary">@translate('от 1000 - 100грн')</span>)
                         </div>
                     </div>
@@ -464,7 +470,8 @@
                             </div>
 
                             <div class="col-3 right">
-                                <a href="#review-create-form" class="btn btn-outline-primary">@translate('Написати відгук')</a>
+                                <a href="#review-create-form" class="btn btn-outline-primary">@translate('Написати
+                                    відгук')</a>
                             </div>
                         </div>
                     </div>
@@ -472,11 +479,11 @@
                         @foreach($product->reviews as $item)
                             <div class="review" id="review-{{ $item->id }}">
                                 <div class="review-body">
-                                    <span class="review-user">{{ $item->user->name }}</span>
+                                    <span class="review-user">{{ $item->user->name ?? '' }}</span>
                                     ●
                                     <span class="review-date">{{ $item->created_at->diffForHumans() }}</span>
 
-                                    @if(access('product') || user()->id == $item->user->id)
+                                    @if(access('product') || user()->id == $item->user_id)
                                         <span class="pull-right">
                                             <span class="review-actions">
                                                  <span onclick="getForm('{{ $item->id }}', '{{ route('catalog.post', ['product', 'review_update_form']) }}')"
@@ -499,12 +506,12 @@
                                         <div class="review-rating">
                                             @for($i = 1; $i <= 5; $i++)
                                                 <span>
-                                                @if($i <= $item->rating)
+                                                    @if($i <= $item->rating)
                                                         <img src="{{ asset('catalog/img/star-active.png') }}">
                                                     @else
                                                         <img src="{{ asset('catalog/img/star-no-active.png') }}">
                                                     @endif
-                                            </span>
+                                                </span>
                                             @endfor
                                         </div>
                                     @endif
@@ -564,11 +571,11 @@
                                     @if($item->comments->count())
                                         @foreach($item->comments as $comment)
                                             <div class="review-comment" id="review-comment-{{ $comment->id }}">
-                                                <span class="review-user">{{ $comment->user->name }}</span>
+                                                <span class="review-user">{{ $comment->user->name ?? '' }}</span>
                                                 ●
                                                 <span class="review-date">{{ $comment->created_at->diffForHumans() }}</span>
 
-                                                @if(access('product') || user()->id == $comment->user->id)
+                                                @if(access('product') || user()->id == $comment->user_id)
                                                     <span class="pull-right">
                                                         <span class="review-actions">
                                                             <span onclick="getForm('{{ $comment->id }}', '{{ route('catalog.post', ['product', 'review_comment_update_form']) }}')"

@@ -16,7 +16,7 @@
 
     <div class="container">
         <div class="page">
-            {{ $page->content }}
+            {!! $page->content !!}
         </div>
     </div>
 
