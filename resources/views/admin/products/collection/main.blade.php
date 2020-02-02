@@ -2,6 +2,12 @@
 
 @section('content')
 
+    <div class="right form-group">
+        <a href="{{ route('admin.get', ['product', 'collection', 'create']) }}" class="btn btn-outline-primary">
+            @translate('Нова колекція')
+        </a>
+    </div>
+
     <table class="table table-bordered">
         <tr>
             <td>Назва</td>
@@ -60,7 +66,7 @@
         @empty
             <tr>
                 <td colspan="4" class="centered">
-                    <h4>@lang('common.empty')</h4>
+                    <h4>@translate('Тут порожньо')</h4>
                 </td>
             </tr>
         @endforelse

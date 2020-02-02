@@ -21,7 +21,7 @@ class CollectionController extends AdminController
             ->get();
 
         $data = [
-            'title' => 'Collections',
+            'title'       => 'Collections',
             'breadcrumbs' => [
                 ['Товари', route('admin.get', ['product', 'product', 'main'])],
                 ['Колекції']
@@ -43,8 +43,8 @@ class CollectionController extends AdminController
         $collections = $productCollection->root();
 
         $data = [
-            'title' => 'Колекції',
-            'collection' => $collection,
+            'title'       => 'Колекції',
+            'collection'  => $collection,
             'collections' => $collections,
             'breadcrumbs' => [
                 ['Товари', route('admin.get', ['product', 'product', 'main'])],
@@ -61,7 +61,7 @@ class CollectionController extends AdminController
         ProductCollection::findOrFail($request->id)->update($request->all());
 
         return json([
-            'title' => __('common.update.success_title'),
+            'title'   => __('common.update.success_title'),
             'message' => __('common.update.success_text')
         ]);
 
@@ -72,7 +72,7 @@ class CollectionController extends AdminController
         ProductCollection::findOrFail($request->id)->update($request->all());
 
         return json([
-            'title' => __('common.update.success_title'),
+            'title'   => __('common.update.success_title'),
             'message' => __('common.update.success_text')
         ]);
     }
@@ -84,7 +84,7 @@ class CollectionController extends AdminController
             ->detach($request->product_id);
 
         return json([
-            'title' => __('common.delete.success_title'),
+            'title'   => __('common.delete.success_title'),
             'message' => __('common.delete.success_text')
         ]);
     }
@@ -96,7 +96,7 @@ class CollectionController extends AdminController
             ->attach($request->ids);
 
         return json([
-            'title' => __('common.store.success_title'),
+            'title'   => __('common.store.success_title'),
             'message' => __('common.store.success_text')
         ]);
     }
@@ -126,4 +126,29 @@ class CollectionController extends AdminController
         return json(['message' => 'Фото успішно оновлено!']);
     }
 
+    public function section_create(ProductCollection $productCollection)
+    {
+        $collections = $productCollection->root();
+
+        $data = [
+            'title'       => 'Колекції',
+            'collections' => $collections,
+            'breadcrumbs' => [
+                ['Товари', route('admin.get', ['product', 'product', 'main'])],
+                ['Колекції', route('admin.get', ['product', 'collection', 'main'])],
+            ]
+        ];
+
+        return view('admin.products.collection.create', $data);
+    }
+
+    public function action_create(Request $request)
+    {
+        $id = ProductCollection::create($request->all())->id;
+
+        return response()->json([
+            'action'        => 'redirect',
+            'redirectRoute' => route('admin.get', ['product', 'collection', 'update']) . parameters(['id' => $id])
+        ]);
+    }
 }
