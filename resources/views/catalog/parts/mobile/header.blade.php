@@ -123,59 +123,42 @@
         </div>
 
         <div class="container">
-            <div class="bottom-menu">
-                <div class="categories">
-                    <div class="category-title">
-                        <i class="fa fa-list"></i> @translate('Категорії товарів')
-                    </div>
+            <div class="accordion" id="category-accordion">
+                @foreach($categories as $item)
+                    <div class="card">
+                        <div class="card-header">
+                            <span href="#cat-{{ $item->id }}" data-toggle="collapse">
+                                {{ $item->name }}
+                            </span>
+                        </div>
 
-                    <div class="category-list match-height">
-
-                        @foreach($categories as $item)
-                            <div class="category-item" data-id="{{ $item->id }}">
-                                <a href="{{ route('category.show', $item->slug) }}">
-                                    {{ $item->name }}
-                                </a>
-                            </div>
-                        @endforeach
-
-                    </div>
-
-                    <div class="category-inner-container">
-
-                        @foreach($categories as $item)
-                            <div class="category-inner" data-id="{{ $item->id }}">
-
-                                <span class="white-bridge" style="top: {{ $loop->index * 34 }}px"></span>
-
+                        <div class="collapse" id="cat-{{ $item->id }}" data-parent="#category-accordion">
+                            <div class="card-body">
                                 @foreach($item->child as $category_inner)
-                                    <div class="category-inner-item">
-                                        <a href="{{ route('category.show', $category_inner->slug) }}">
-                                            {{ $category_inner->name }}
-                                        </a><br>
-                                        @foreach($category_inner->links as $link)
-                                            <a href="{{ $link->url }}">- {{ $link->name }}</a><br>
-                                        @endforeach
-                                    </div>
+                                    <a href="{{ route('category.show', $category_inner->slug) }}">
+                                        {{ $category_inner->name }}
+                                    </a><br>
+                                    @foreach($category_inner->links as $link)
+                                        <a href="{{ $link->url }}">- {{ $link->name }}</a><br>
+                                    @endforeach
                                 @endforeach
-
                             </div>
-                        @endforeach
+                        </div>
                     </div>
-                </div>
+                @endforeach
+            </div>
 
 
-                <div class="right-block">
-                    @if(is_auth())
-                        <a href="{{ route('profile') }}">
-                            <i class="fa fa-user"></i> @translate('Профіль')
-                        </a>
-                    @else
-                        <a href="{{ route('login') }}">
-                            <i class="fa fa-user"></i> @translate('Профіль')
-                        </a>
-                    @endif
-                </div>
+            <div class="right-block">
+                @if(is_auth())
+                    <a href="{{ route('profile') }}">
+                        <i class="fa fa-user"></i> @translate('Профіль')
+                    </a>
+                @else
+                    <a href="{{ route('login') }}">
+                        <i class="fa fa-user"></i> @translate('Профіль')
+                    </a>
+                @endif
             </div>
         </div>
     </div>

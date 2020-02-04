@@ -39,6 +39,8 @@ if (!function_exists('simple_routing_admin')) {
     }
 }
 
+Route::view('mobile', 'mobile');
+
 /**
  * Зміна мови сайту
  */

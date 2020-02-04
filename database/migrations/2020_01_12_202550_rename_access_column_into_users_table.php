@@ -15,7 +15,7 @@ class RenameAccessColumnIntoUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->renameColumn('access_ids', 'access');
+            $table->renameColumn('access_id', 'access');
         });
     }
 }
