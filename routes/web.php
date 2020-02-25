@@ -52,7 +52,7 @@ Route::get('sitemap.xml', 'Api\SitemapController@show');
  * START LOAD ROUTES
  */
 Route::group([
-    'prefix' => Locale::getPrefix(),
+    'prefix' => Locales::getPrefix(),
     'middleware' => [
         'setUserLocale',
         'cart'
@@ -63,10 +63,10 @@ Route::group([
      *
      * admin.php
      */
-    Route::prefix('admin')
-        ->namespace('Admin')
-        ->middleware('adminAccessDetect')
-        ->group(base_path('routes/admin.php'));
+//    Route::prefix('admin')
+//        ->namespace('Admin')
+//        ->middleware('adminAccessDetect')
+//        ->group(base_path('routes/admin.php'));
 
     /**
      * Маршрути моста

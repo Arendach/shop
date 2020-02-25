@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Locale;
+use Locales;
 
 class SetUserLocale
 {
@@ -17,11 +17,11 @@ class SetUserLocale
                 $lang = $request->session()->get('locale');
             } else {
                 $lang = substr($request->server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
-                $lang = in_array($lang, Locale::getSupport()) ? $lang : Locale::getDefault();
+                $lang = in_array($lang, Locales::getSupport()) ? $lang : Locales::getDefault();
             }
 
-            if ($lang != Locale::getLocale()) {
-                return redirect(Locale::localizeUrl($lang, $request->url()));
+            if ($lang != Locales::getLocale()) {
+                return redirect(Locales::localizeUrl($lang, $request->url()));
             }
         }
 

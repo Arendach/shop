@@ -4,8 +4,6 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
@@ -28,31 +26,50 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
+    /**
+     * Report or log an exception.
+     *
+     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
+     *
+     * @param \Exception $exception
+     *
+     * @return void
+     */
     public function report(Exception $exception)
     {
         parent::report($exception);
     }
 
-    public function render($request, Exception $exception)
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Exception               $exception
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function render($request, Exception $e)
     {
-        if ($request->ajax() || $request->wantsJson()) {
-            if ($exception instanceof ValidationException) {
-                $format_errors = [];
-
-                foreach ($exception->errors() as $k => $error) {
-                    $format_errors[$k] = implode('<br>', $error);
-                }
-
-                $json = [
-                    'success' => false,
-                    'message' => __('common.data_not_valid'),
-                    'errors' => $format_errors,
-                ];
-
-                return response()->json($json, 400);
-            }
+        if ($e instanceof NotFoundHttpException) {
+            return response()->view('admin::errors.404', [], 404);
         }
 
-        return parent::render($request, $exception);
+        if (($request->is('admin/*') && $request->isXmlHttpRequest())
+            || (env('APP_ENV') == 'testing')
+        ) {
+            $data = [
+                'status'  => 'error',
+                'code'    => $e->getCode(),
+                'message' => class_basename($e).' in '.basename($e->getFile()).' line '.$e->getLine().': '.$e->getMessage(),
+            ];
+
+            return response()->json($data, 500);
+        }
+
+        if ($this->isHttpException($e)) {
+            return $this->renderHttpException($e);
+        }
+
+        return parent::render($request, $e);
     }
 }

@@ -6,7 +6,7 @@ $factory->define(App\Models\BannerImage::class, function (Faker $faker) {
     return [
         'created_at' => date('Y-m-d H:i:s', time() - rand(100, 100 * 100)),
         'updated_at' => date('Y-m-d H:i:s', time() - rand(100, 100 * 50)),
-        'path' => $faker->imageUrl(1100, 400, 'nightlife', true, 'Faker'),
+        'path' => $faker->imageUrl(1450, 750),
         'title_uk' => $faker->text(rand(20, 32)),
         'title_ru' => $faker->text(rand(20, 32)),
         'description_uk' => $faker->text(rand(100, 1000)),

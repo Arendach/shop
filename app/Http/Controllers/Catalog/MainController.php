@@ -6,7 +6,7 @@ use App\Models\BannerImage;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductCollection;
-use Locale;
+use Locales;
 
 class MainController extends CatalogController
 {
@@ -27,10 +27,10 @@ class MainController extends CatalogController
         $page = Page::where('uri_name', 'index')->first();
 
         $data = [
-            'images'               => BannerImage::all(),
+            'banners'              => BannerImage::all(),
             'new_products'         => $new_products,
-            'collections'          => ProductCollection::where('parent_id', 0)->get(),
-            'recommended_products' => $recommended_products,
+            'collections'          => ProductCollection::where('parent_id', 0)->paginate(3),
+            'recommendedProducts' => $recommended_products,
             'discount_products'    => $discount_products,
             'title'                => $page->meta_title ?? 'ENTER TITLE',
             'js'                   => ['slider'],
@@ -40,13 +40,13 @@ class MainController extends CatalogController
             'page'                 => $page
         ];
 
-        return view('catalog.pages.main', $data);
+        return view('catalog.pages.home', $data);
     }
 
     public function locale($locale)
     {
-        Locale::setUserLocale($locale);
+        Locales::setUserLocale($locale);
 
-        return redirect(Locale::localizeUrl($locale));
+        return redirect(Locales::localizeUrl($locale));
     }
 }

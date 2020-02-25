@@ -121,6 +121,11 @@ class Category extends Model
         return $this->hasOne('App\Models\Category', 'id', 'parent_id');
     }
 
+    public function getUrlAttribute(): string
+    {
+        return route('category.show', $this->slug);
+    }
+
     public function getNameAttribute()
     {
         return $this->{"name_" . config('locale.current')};

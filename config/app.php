@@ -4,7 +4,7 @@ return [
     'controller'                    => '',
 
     // кількість пунктів на сторінку
-    'items'                         => 20,
+    'items'                         => 10,
 
     // адреса бази
     'base_url'                      => env('BASE_URL', 'http://skyfire.pp.ua'),
@@ -99,7 +99,7 @@ return [
     |
     */
 
-    'locale' => 'uk',
+    'locale' => 'ua',
 
     /*
     |--------------------------------------------------------------------------
@@ -198,6 +198,7 @@ return [
         App\Providers\LocaleServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        App\Providers\NovaServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ValidateExtendsServiceProvider::class,
         App\Providers\BladeExtendsServiceProvider::class
@@ -256,12 +257,13 @@ return [
         'Image'          => Intervention\Image\Facades\Image::class,
         'Agent'          => Jenssegers\Agent\Facades\Agent::class,
         'Debugbar'       => Barryvdh\Debugbar\Facade::class,
+        // 'Jarboe'         => Vis\Builder\Facades\Jarboe::class,
 
         /**
          * My Facades
          */
         'Auth'           => App\Facades\Auth::class,
-        'Locale'         => App\Facades\Locale::class,
+        'Locales'         => App\Facades\Locale::class,
         'Cart'           => App\Facades\Cart::class,
         'Delivery'       => App\Facades\Delivery::class,
         'Checkout'       => App\Facades\Checkout::class,

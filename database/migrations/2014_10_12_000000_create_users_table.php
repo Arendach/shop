@@ -20,13 +20,13 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->string('phone', 32);
-            $table->integer('access');
+            $table->string('phone', 32)->nullable();
+            $table->integer('access_id')->nullable();
             $table->string('locale', 10)->default('uk');
 
             $table->string('role', 10)->default('user');
 
-            $table->integer('base_id')->default(1);
+            $table->integer('base_id')->default(0);
         });
     }
 

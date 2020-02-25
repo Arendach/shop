@@ -59,14 +59,14 @@ Route::get('category/{slug}', 'CategoryController@show')
 /**
  * Сторінка авторизації
  */
-Route::get('login', 'UserController@login')
+Route::get('user/login', 'UserController@login')
     ->middleware('loadCategories')
     ->name('login');
 
 /**
  * Сторінка реєстрації
  */
-Route::get('register', 'UserController@register')
+Route::get('user/register', 'UserController@register')
     ->middleware('loadCategories')
     ->name('register');
 

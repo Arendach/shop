@@ -2,9 +2,13 @@
 
 namespace App\Models;
 
+use Encore\Admin\Traits\AdminBuilder;
+use Encore\Admin\Traits\ModelTree;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Translatable\HasTranslations;
 
 /**
  * App\Models\ProductCollection
@@ -66,6 +70,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ProductCollection extends Model
 {
     use SoftDeletes;
+    use HasTranslations;
+
+    public $translatable = [
+        'name',
+        'description',
+        'meta_title',
+        'meta_keywords',
+        'meta_description',
+    ];
 
     protected $fillable = [
         'parent_id',
@@ -96,10 +109,9 @@ class ProductCollection extends Model
         return with(new static)->table;
     }
 
-    public function items()
+    public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, ProductCollectionItems::class, 'collection_id')
-            ->orderBy('products.on_storage', 'desc');
+        return $this->belongsToMany(Product::class, 'collection_products', 'collection_id');
     }
 
     public function root()
@@ -146,13 +158,9 @@ class ProductCollection extends Model
     {
         if (is_file(public_path($value))) return asset($value);
         elseif (preg_match('@^http@', $value)) return $value;
-        else return asset('catalog/img/not-found-350x150.png');
+        else return asset('catalog/img/collection-default.jpg');
     }
 
-    /**
-     * @param $request
-     * @return Product[]|Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Query\Builder[]|\Illuminate\Support\Collection
-     */
     public function getSearchedProducts($request)
     {
         $collection = ProductCollection::findOrFail($request->collection_id)

@@ -40,7 +40,7 @@ class CategoryController extends CatalogController
                 'requestFields' => $request->all()
             ]);
 
-            return view('catalog.category.child', $data);
+            return view('catalog.category.show-products', $data);
         }
     }
 }
