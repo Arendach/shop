@@ -150,7 +150,7 @@
 
 
             <div class="right-block">
-                @if(is_auth())
+                @if(isuth())
                     <a href="{{ route('profile') }}">
                         <i class="fa fa-user"></i> @translate('Профіль')
                     </a>

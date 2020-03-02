@@ -1,6 +1,6 @@
 <h3>@translate('Контакти')</h3>
 
-@if (!is_auth())
+@if (!isAuth())
     <div class="form-group">
         <button id="btn-reg-user" type="button" class="btn btn-outline-info w-100">@translate('Авторизуватись')</button>
 
@@ -15,7 +15,7 @@
 <div class="form-group">
     <label> <i class="text-danger">*</i> @translate('Ваше імя')</label>
     <input class="form-control form-control-sm" name="name"
-           value="{{ is_auth() ? user()->name : Checkout::getField('name') }}">
+           value="{{ isAuth() ? user()->name : Checkout::getField('name') }}">
     <div class="feedback"></div>
 </div>
 

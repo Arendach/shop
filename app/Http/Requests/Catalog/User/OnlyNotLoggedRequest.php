@@ -13,7 +13,7 @@ class OnlyNotLoggedRequest extends FormRequest
      */
     public function authorize()
     {
-        return !is_auth();
+        return !isAuth();
     }
 
     public function rules()

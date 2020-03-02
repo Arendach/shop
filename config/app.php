@@ -194,9 +194,7 @@ return [
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
         App\Providers\LocaleServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\NovaServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
@@ -257,13 +255,12 @@ return [
         'Image'          => Intervention\Image\Facades\Image::class,
         'Agent'          => Jenssegers\Agent\Facades\Agent::class,
         'Debugbar'       => Barryvdh\Debugbar\Facade::class,
-        // 'Jarboe'         => Vis\Builder\Facades\Jarboe::class,
 
         /**
          * My Facades
          */
         'Auth'           => App\Facades\Auth::class,
-        'Locales'         => App\Facades\Locale::class,
+        'Locales'        => App\Facades\Locale::class,
         'Cart'           => App\Facades\Cart::class,
         'Delivery'       => App\Facades\Delivery::class,
         'Checkout'       => App\Facades\Checkout::class,

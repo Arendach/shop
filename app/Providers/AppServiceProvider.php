@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\AuthService;
 use App\Services\BaseConnectionService;
 use App\Services\CategoryFilterService;
 use App\Services\CheckoutService;
@@ -24,21 +25,11 @@ class AppServiceProvider extends ServiceProvider
        //  CartInterface::class => CartService::class
     ];
 
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
     public function boot()
     {
         \Spatie\NovaTranslatable\Translatable::defaultLocales(['uk', 'ru']);
     }
 
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
     public function register()
     {
         $this->app->bind('Banner', 'App\\Services\\BannerService');
@@ -46,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(BaseConnectionService::class, BaseConnectionService::class);
 
+        $this->app->singleton(AuthService::class, AuthService::class);
         $this->app->singleton(CartService::class, CartService::class);
         $this->app->singleton(DeliveryService::class, DeliveryService::class);
         $this->app->singleton(CheckoutService::class, CheckoutService::class);

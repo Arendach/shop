@@ -11,36 +11,21 @@ use App\Services\UserService;
 use Auth;
 use Cart;
 
-class UserController extends CatalogController
+class CustomerController extends CatalogController
 {
     public function profile()
     {
-        $data = [
-            'title' => __('user.profile.title'),
-            'breadcrumbs' => [[__('user.profile.title')]]
-        ];
-
-        return view('catalog.user.profile.index', $data);
+        return view('catalog.user.profile.index');
     }
 
     public function login(OnlyNotLoggedRequest $request)
     {
-        $data = [
-            'title' => __('user.login.title'),
-            'breadcrumbs' => [[__('user.login.title')]]
-        ];
-
-        return view('catalog.user.login', $data);
+        return view('catalog.user.login');
     }
 
     public function register(OnlyNotLoggedRequest $request)
     {
-        $data = [
-            'title' => __('user.register.title'),
-            'breadcrumbs' => [[__('user.register.title')]]
-        ];
-
-        return view('catalog.user.register', $data);
+        return view('catalog.user.register');
     }
 
     public function action_register(RegisterRequest $request, UserService $userService, AuthService $authService)
@@ -97,12 +82,12 @@ class UserController extends CatalogController
     public function orders()
     {
         $data = [
-            'title' => __('user.profile.orders'),
+            'title'       => __('user.profile.orders'),
             'breadcrumbs' => [
                 [__('user.profile.title'), route('profile')],
                 [__('user.profile.orders')]
             ],
-            'orders' => user()->orders
+            'orders'      => user()->orders
         ];
 
         return view('catalog.user.profile.orders', $data);
@@ -117,8 +102,8 @@ class UserController extends CatalogController
         $order->products->load('category');
 
         $data = [
-            'title' => '',
-            'order' => $order,
+            'title'       => '',
+            'order'       => $order,
             'breadcrumbs' => [
                 [__('user.profile.title'), route('profile')],
                 [__('user.profile.orders'), route('profile.orders')],

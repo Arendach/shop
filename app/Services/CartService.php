@@ -28,7 +28,7 @@ class CartService
 
     private function boot(): void
     {
-        if (is_auth()) {
+        if (isAuth()) {
             $this->cart = Cart::where('user_id', user()->id)
                 ->with('products')
                 ->latest()->first();
@@ -47,7 +47,7 @@ class CartService
         if (is_null($this->cart)) {
             $this->cart = new Cart;
 
-            $this->cart->user_id = is_auth() ? user()->id : null;
+            $this->cart->user_id = isAuth() ? user()->id : null;
             $this->cart->session = $this->session_id;
 
             $this->cart->save();
@@ -149,7 +149,7 @@ class CartService
     public function importProductsFromSession(): void
     {
         // якщо користувач автентифікований
-        if (is_auth()) {
+        if (isAuth()) {
 
             // получаємо найновішу корзину відповідно сесії
             $cart = Cart::where('session', $this->session_id)->latest()->first();

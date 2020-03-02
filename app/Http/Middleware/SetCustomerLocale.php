@@ -6,13 +6,13 @@ use Closure;
 use Illuminate\Http\Request;
 use Locales;
 
-class SetUserLocale
+class SetCustomerLocale
 {
     public function handle(Request $request, Closure $next)
     {
         if ($request->isMethod('get')) {
-            if (is_auth()) {
-                $lang = user()->locale;
+            if (isAuth()) {
+                $lang = customer()->locale;
             } elseif ($request->session()->has('locale') && in_array($request->session()->get('locale'), ['uk', 'ru'])) {
                 $lang = $request->session()->get('locale');
             } else {

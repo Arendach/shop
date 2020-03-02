@@ -8,13 +8,6 @@ use Closure;
 
 class LoadCategories
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
     public function handle($request, Closure $next)
     {
         view()->share('categories', Category::where('parent_id', 0)->with('child')->get());

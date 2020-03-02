@@ -1,5 +1,7 @@
 @extends('catalog.layout')
 
+@section('title', 'Home')
+
 @section('css')
     <link href="{{ asset('catalog/css/home_1.css') }}" rel="stylesheet">
 @endsection

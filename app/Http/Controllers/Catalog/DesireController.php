@@ -8,7 +8,7 @@ class DesireController extends CatalogController
 {
     public function index()
     {
-        if (!is_auth()) return redirect()->route('login');
+        if (!isAuth()) return redirect()->route('login');
 
         $data = [
             'title' => 'Вибрані товари',

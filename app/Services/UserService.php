@@ -13,19 +13,8 @@ use Illuminate\Support\Collection;
 
 class UserService
 {
-    /**
-     * @var bool
-     */
-    private $auth = false;
-
-    /**
-     * @var Request
-     */
     private $request;
 
-    /**
-     * @var User
-     */
     private $user;
 
     /**
@@ -126,7 +115,7 @@ class UserService
      */
     public function makeLoginAfterCheckout($request)
     {
-        if (!is_auth()){
+        if (!isAuth()){
 
             // запускаємо валідацію даних для реєстрації
             app(RegisterRequest::class);
@@ -141,7 +130,7 @@ class UserService
 
     public function hasDesireProduct(int $product_id): bool
     {
-        if (!is_auth()) return false;
+        if (!isAuth()) return false;
 
         if (is_null($this->desire_products))
             $this->desire_products = user()->desire_products;

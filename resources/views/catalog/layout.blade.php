@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="Ansonika">
-    <title>{{ $title ?? 'Enter title' }}</title>
+    <title>@yield('title', 'Enter Title')</title>
 
     <!-- Favicons-->
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
@@ -229,11 +229,11 @@
                             </li>
                             <li>
                                 <div class="dropdown dropdown-access">
-                                    <a href="{{ is_auth() ? route('profile') : route('login') }}" class="access_link">
+                                    <a href="{{ isAuth() ? route('profile') : route('login') }}" class="access_link">
                                         <span>@translate('Профіль')</span>
                                     </a>
                                     <div class="dropdown-menu">
-                                        <a href="{{ is_auth() ? route('profile') : route('login') }}" class="btn_1">
+                                        <a href="{{ isAuth() ? route('profile') : route('login') }}" class="btn_1">
                                             @translate('Профіль')
                                         </a>
                                         <ul>

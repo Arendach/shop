@@ -15,7 +15,7 @@ class RegisterRequest extends FormRequest
      */
     public function authorize()
     {
-        return !is_auth();
+        return !isAuth();
     }
 
     /**
