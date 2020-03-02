@@ -15,7 +15,6 @@ class Cart
     public function handle($request, Closure $next)
     {
         view()->share('cart', CartFacade::get());
-        view()->share('cart_count_products', CartFacade::countProducts());
 
         return $next($request);
     }

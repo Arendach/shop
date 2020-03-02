@@ -11,30 +11,24 @@ class CartController extends CatalogController
     public function index(CartService $cartService)
     {
         $data = [
-            'title' => __('cart.title'),
+            'title'       => __('cart.title'),
             'breadcrumbs' => [[__('cart.title')]],
-            'cart' => $cartService->get()
+            'cart'        => $cartService->get()
         ];
 
         return view('catalog.pages.cart', $data);
     }
 
-    public function action_add(Request $request, CartService $cartService)
+    public function action_attach(int $id, CartService $cartService)
     {
-        $result = $cartService->add($request->id);
+        $cartService->attach($id);
 
-        if ($result)
-            return response()->json([
-                'title' => __('cart.product_added_title'),
-                'message' => __('cart.product_added_message'),
-                'cart_products_count' => $cartService->countProducts()
-            ], 200);
-        else
-            return response()->json([
-                'title' => __('cart.product_not_added_title'),
-                'message' => __('cart.product_not_added_message'),
-                'cart_products_count' => $cartService->countProducts()
-            ], 500);
+        return response()->json([
+            'title'       => translate('Виконано'),
+            'message'     => translate('Товар вдало доданий в корзину'),
+            'cartContent' => view('catalog.parts.dropdown-cart')->render()
+        ]);
+
     }
 
     public function action_change_amount(ChangeAmountRequest $request, CartService $cartService)
@@ -44,27 +38,26 @@ class CartController extends CatalogController
         if ($result)
             return response()->json([
                 'cart_products_count' => $cartService->countProducts(),
-                'cart_products_sum' => number_format($cartService->getProductsSum(), 2)
+                'cart_products_sum'   => number_format($cartService->getProductsSum(), 2)
             ], 200);
         else
             return response()->json([
-                'title' => __('cart.product_not_change_amount_title'),
-                'message' => __('cart.product_not_change_amount_message'),
+                'title'               => __('cart.product_not_change_amount_title'),
+                'message'             => __('cart.product_not_change_amount_message'),
                 'cart_products_count' => $cartService->countProducts(),
-                'cart_products_sum' => number_format($cartService->getProductsSum(), 2)
+                'cart_products_sum'   => number_format($cartService->getProductsSum(), 2)
             ], 500);
     }
 
-    public function action_remove(Request $request, CartService $cartService)
+    public function action_detach(Request $request, CartService $cartService)
     {
-        $cartService->remove($request->id);
+        $cartService->detach($request->id);
 
         return response()->json([
-            'title' => __('cart.product_deleted_title'),
-            'message' => __('cart.product_deleted_message'),
-            'cart_products_count' => $cartService->countProducts(),
-            'cart_products_sum' => number_format($cartService->getProductsSum(), 2)
-        ], 200);
+            'title'       => translate('Виконано'),
+            'message'     => translate('Товар видалений з корзини'),
+            'cartContent' => view('catalog.parts.dropdown-cart')->render()
+        ]);
     }
 
 }

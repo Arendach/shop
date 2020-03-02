@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="Ansonika">
     <title>{{ $title ?? 'Enter title' }}</title>
 
@@ -24,6 +25,7 @@
     <!-- BASE CSS -->
     <link href="{{ asset('catalog/css/bootstrap.custom.min.css') }}" rel="stylesheet">
     <link href="{{ asset('catalog/css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
     <!-- SPECIFIC CSS -->
     @yield('css')
@@ -219,38 +221,8 @@
                     </div>
                     <div class="col-xl-3 col-lg-2 col-md-3">
                         <ul class="top_tools">
-                            <li>
-                                <div class="dropdown dropdown-cart">
-                                    <a href="cart.html" class="cart_bt"><strong>2</strong></a>
-                                    <div class="dropdown-menu">
-                                        <ul>
-                                            <li>
-                                                <a href="product-detail-1.html">
-                                                    <figure><img src="img/products/product_placeholder_square_small.jpg"
-                                                                 data-src="img/products/shoes/thumb/1.jpg" alt=""
-                                                                 width="50" height="50" class="lazy"></figure>
-                                                    <strong><span>1x Armor Air x Fear</span>$90.00</strong>
-                                                </a>
-                                                <a href="#0" class="action"><i class="ti-trash"></i></a>
-                                            </li>
-                                            <li>
-                                                <a href="product-detail-1.html">
-                                                    <figure><img src="img/products/product_placeholder_square_small.jpg"
-                                                                 data-src="img/products/shoes/thumb/2.jpg" alt=""
-                                                                 width="50" height="50" class="lazy"></figure>
-                                                    <strong><span>1x Armor Okwahn II</span>$110.00</strong>
-                                                </a>
-                                                <a href="0" class="action"><i class="ti-trash"></i></a>
-                                            </li>
-                                        </ul>
-                                        <div class="total_drop">
-                                            <div class="clearfix"><strong>Total</strong><span>$200.00</span></div>
-                                            <a href="cart.html" class="btn_1 outline">View Cart</a><a
-                                                    href="checkout.html" class="btn_1">Checkout</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /dropdown-cart-->
+                            <li id="cart-content">
+                                @include('catalog.parts.dropdown-cart')
                             </li>
                             <li>
                                 <a href="#0" class="wishlist"><span>Wishlist</span></a>
@@ -434,6 +406,8 @@
 <!-- COMMON SCRIPTS -->
 <script src="{{ asset('catalog/js/common_scripts.min.js') }}"></script>
 <script src="{{ asset('catalog/js/main.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="{{ asset('js/cart.js') }}"></script>
 @yield('js')
 </body>
 </html>

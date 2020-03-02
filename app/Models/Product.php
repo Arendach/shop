@@ -6,6 +6,7 @@ use App\Abstraction\Models\SeoMultiLangInterface;
 use App\Abstraction\Models\TwoImageInterface;
 use App\Traits\Models\SeoMultiLang;
 use App\Traits\Models\TwoImage;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -162,5 +163,21 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
             ->orWhere('article', 'like', "%$value%")
             ->orderBy('on_storage', 'desc')
             ->paginate(config('app.items'));
+    }
+
+
+    public function scopeOnStorage(Builder $builder, bool $onStorage = true)
+    {
+        $builder->where('on_storage', $onStorage);
+    }
+
+    public function scopeHome(Builder $builder, bool $isHome = true): void
+    {
+        $builder->where('is_home', $isHome);
+    }
+
+    public function scopeRecommended(Builder $builder, bool $isRecommended = true): void
+    {
+        $builder->where('is_recommended', $isRecommended);
     }
 }

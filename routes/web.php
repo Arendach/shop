@@ -18,7 +18,7 @@ if (!function_exists('simple_routing')) {
 
         $object = new $namespace;
 
-        abort_if(!method_exists($object, $action_prefix . $action), 404, __('common.errors.post_404'));
+        abort_if(!method_exists($object, $action_prefix . $action), 404, translate('404! Сторінка не знайдена!'));
 
         return app()->call([new $namespace, $action_prefix . $action], request()->all());
     }

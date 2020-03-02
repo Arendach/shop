@@ -11,19 +11,23 @@
             <div class="owl-carousel owl-theme">
                 @foreach($banners as $banner)
                     {{-- Дописати логіку для баннерів (ліво прао по центру) --}}
-                    <div class="owl-slide cover" style="background-image: url({{ $banner->image}});">
+                    <div class="owl-slide cover" style="background-image: url({{ $banner->getImage() }})">
                         <div class="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.5)">
                             <div class="container">
-                                <div class="row justify-content-center justify-content-md-end">
-                                    <div class="col-lg-6 static">
-                                        <div class="slide-text text-right white">
-                                            <h2 class="owl-slide-animated owl-slide-title">{{ $banner->title }}</h2>
+                                <div class="row justify-content-center justify-content-md-{{ $banner->position == 'right' ? 'end' : 'start' }}">
+                                    <div class="{{ $banner->position == 'center' ? 'col-lg-12' : 'col-lg-6' }} static">
+                                        <div class="slide-text text-{{ $banner->position }}"
+                                             style="color: {{ $banner->color }}">
+                                            <h2 class="owl-slide-animated owl-slide-title"
+                                                style="color: {{ $banner->color }}">
+                                                {{ $banner->title }}
+                                            </h2>
                                             <p class="owl-slide-animated owl-slide-subtitle">
                                                 {{ $banner->description }}
                                             </p>
                                             <div class="owl-slide-animated owl-slide-cta">
                                                 <a class="btn_1" href="{{ $banner->url }}" role="link">
-                                                    Shop Now
+                                                    {{ $banner->button }}
                                                 </a>
                                             </div>
                                         </div>
@@ -42,10 +46,11 @@
             @foreach($collections as $collection)
                 <li>
                     <a href="{{ route('collection', $collection->slug) }}" class="img_container">
-                        <img src="{{ $collection->image }}" data-src="" alt="" class="lazy">
+                        <img src="{{ $collection->image }}" data-src="{{ $collection->image }}"
+                             alt="{{ $collection->name }}" class="lazy">
                         <div class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
                             <h3>{{ $collection->name }}</h3>
-                            <div><span class="btn_1">Shop Now</span></div>
+                            <div><span class="btn_1">@translate('Детальніше')</span></div>
                         </div>
                     </a>
                 </li>
@@ -60,7 +65,7 @@
                 <p>@translate('Товари які користуються популярністю в наших покупців')</p>
             </div>
             <div class="row small-gutters">
-                @foreach($recommendedProducts as $product)
+                @foreach($productsHome as $product)
                     <div class="col-6 col-md-4 col-xl-3">
                         <div class="grid_item">
                             <figure>
@@ -132,183 +137,72 @@
                 </div>
             </div>
         </div>
-        <!-- /featured -->
+
 
         <div class="container margin_60_35">
             <div class="main_title">
-                <h2>Featured</h2>
-                <span>Products</span>
-                <p>Cum doctus civibus efficiantur in imperdiet deterruisset</p>
+                <h2>@translate('Рекомендовані')</h2>
+                <span>@translate('Товари')</span>
+                <p>@translate('Товари які рекомендує наш магазин')</p>
             </div>
             <div class="owl-carousel owl-theme products_carousel">
-                <div class="item">
-                    <div class="grid_item">
-                        <span class="ribbon new">New</span>
-                        <figure>
-                            <a href="product-detail-1.html">
-                                <img class="owl-lazy" src="img/products/product_placeholder_square_medium.jpg"
-                                     data-src="img/products/shoes/4.jpg" alt="">
+                @foreach($recommended as $product)
+                    <div class="item">
+                        <div class="grid_item">
+                            @if($product->is_discounted)
+                                <span class="ribbon off">-{{ $product->discount_percent }}%</span>
+                            @elseif($product->is_new)
+                                <span class="ribbon new">@translate('Новинка')</span>
+                            @elseif($product->is_recommended)
+                                <span class="ribbon hot">@translate('Рекомендовано')</span>
+                            @endif
+                            <figure>
+                                <a href="{{ $product->url }}">
+                                    <img class="owl-lazy" src="{{ $product->small_image }}"
+                                         data-src="{{ $product->big_image }}" alt="{{ $product->name }}">
+                                </a>
+                            </figure>
+                            <div class="rating">{!! $product->stats !!}</div>
+                            <a href="{{ $product->url }}">
+                                <h3>{{ $product->name }}</h3>
                             </a>
-                        </figure>
-                        <div class="rating"><i class="icon-star voted"></i><i class="icon-star voted"></i><i
-                                    class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star"></i>
+                            <div class="price_box">
+                                <span class="new_price">{{ $product->new_price }}</span>
+                                @if($product->is_discounted)
+                                    <span class="old_price">{{ $product->old_price }}</span>
+                                @endif
+                            </div>
+                            <ul>
+                                <li>
+                                    <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
+                                       title="Add to favorites">
+                                        <i class="ti-heart"></i><span>Add to favorites</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
+                                       title="Add to compare">
+                                        <i class="ti-control-shuffle"></i><span>Add to compare</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" onclick="Cart.add('{{ $product->id }}', this)"
+                                       class="tooltip-1"
+                                       data-toggle="tooltip" data-placement="left" title="@translate('Додати в корзину')">
+                                        <i class="ti-shopping-cart"></i> <span>@translate('Додати в корзину')</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
-                        <a href="product-detail-1.html">
-                            <h3>ACG React Terra</h3>
-                        </a>
-                        <div class="price_box">
-                            <span class="new_price">$110.00</span>
-                        </div>
-                        <ul>
-                            <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                   title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a>
-                            </li>
-                            <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                   title="Add to compare"><i class="ti-control-shuffle"></i><span>Add to compare</span></a>
-                            </li>
-                            <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                   title="Add to cart"><i class="ti-shopping-cart"></i><span>Add to cart</span></a></li>
-                        </ul>
+                        <!-- /grid_item -->
                     </div>
-                    <!-- /grid_item -->
-                </div>
-                <!-- /item -->
-                <div class="item">
-                    <div class="grid_item">
-                        <span class="ribbon new">New</span>
-                        <figure>
-                            <a href="product-detail-1.html">
-                                <img class="owl-lazy" src="img/products/product_placeholder_square_medium.jpg"
-                                     data-src="img/products/shoes/5.jpg" alt="">
-                            </a>
-                        </figure>
-                        <div class="rating"><i class="icon-star voted"></i><i class="icon-star voted"></i><i
-                                    class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star"></i>
-                        </div>
-                        <a href="product-detail-1.html">
-                            <h3>Air Zoom Alpha</h3>
-                        </a>
-                        <div class="price_box">
-                            <span class="new_price">$140.00</span>
-                        </div>
-                        <ul>
-                            <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                   title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a>
-                            </li>
-                            <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                   title="Add to compare"><i class="ti-control-shuffle"></i><span>Add to compare</span></a>
-                            </li>
-                            <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                   title="Add to cart"><i class="ti-shopping-cart"></i><span>Add to cart</span></a></li>
-                        </ul>
-                    </div>
-                    <!-- /grid_item -->
-                </div>
-                <!-- /item -->
-                <div class="item">
-                    <div class="grid_item">
-                        <span class="ribbon hot">Hot</span>
-                        <figure>
-                            <a href="product-detail-1.html">
-                                <img class="owl-lazy" src="img/products/product_placeholder_square_medium.jpg"
-                                     data-src="img/products/shoes/8.jpg" alt="">
-                            </a>
-                        </figure>
-                        <div class="rating"><i class="icon-star voted"></i><i class="icon-star voted"></i><i
-                                    class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star"></i>
-                        </div>
-                        <a href="product-detail-1.html">
-                            <h3>Air Color 720</h3>
-                        </a>
-                        <div class="price_box">
-                            <span class="new_price">$120.00</span>
-                        </div>
-                        <ul>
-                            <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                   title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a>
-                            </li>
-                            <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                   title="Add to compare"><i class="ti-control-shuffle"></i><span>Add to compare</span></a>
-                            </li>
-                            <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                   title="Add to cart"><i class="ti-shopping-cart"></i><span>Add to cart</span></a></li>
-                        </ul>
-                    </div>
-                    <!-- /grid_item -->
-                </div>
-                <!-- /item -->
-                <div class="item">
-                    <div class="grid_item">
-                        <span class="ribbon off">-30%</span>
-                        <figure>
-                            <a href="product-detail-1.html">
-                                <img class="owl-lazy" src="img/products/product_placeholder_square_medium.jpg"
-                                     data-src="img/products/shoes/2.jpg" alt="">
-                            </a>
-                        </figure>
-                        <div class="rating"><i class="icon-star voted"></i><i class="icon-star voted"></i><i
-                                    class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star"></i>
-                        </div>
-                        <a href="product-detail-1.html">
-                            <h3>Okwahn II</h3>
-                        </a>
-                        <div class="price_box">
-                            <span class="new_price">$90.00</span>
-                            <span class="old_price">$170.00</span>
-                        </div>
-                        <ul>
-                            <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                   title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a>
-                            </li>
-                            <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                   title="Add to compare"><i class="ti-control-shuffle"></i><span>Add to compare</span></a>
-                            </li>
-                            <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                   title="Add to cart"><i class="ti-shopping-cart"></i><span>Add to cart</span></a></li>
-                        </ul>
-                    </div>
-                    <!-- /grid_item -->
-                </div>
-                <!-- /item -->
-                <div class="item">
-                    <div class="grid_item">
-                        <span class="ribbon off">-50%</span>
-                        <figure>
-                            <a href="product-detail-1.html">
-                                <img class="owl-lazy" src="img/products/product_placeholder_square_medium.jpg"
-                                     data-src="img/products/shoes/3.jpg" alt="">
-                            </a>
-                        </figure>
-                        <div class="rating"><i class="icon-star voted"></i><i class="icon-star voted"></i><i
-                                    class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star"></i>
-                        </div>
-                        <a href="product-detail-1.html">
-                            <h3>Air Wildwood ACG</h3>
-                        </a>
-                        <div class="price_box">
-                            <span class="new_price">$75.00</span>
-                            <span class="old_price">$155.00</span>
-                        </div>
-                        <ul>
-                            <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                   title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a>
-                            </li>
-                            <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                   title="Add to compare"><i class="ti-control-shuffle"></i><span>Add to compare</span></a>
-                            </li>
-                            <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                   title="Add to cart"><i class="ti-shopping-cart"></i><span>Add to cart</span></a></li>
-                        </ul>
-                    </div>
-                    <!-- /grid_item -->
-                </div>
-                <!-- /item -->
+                @endforeach
             </div>
-            <!-- /products_carousel -->
         </div>
-        <!-- /container -->
 
-        <div class="bg_gray">
+
+        {{-- TODO: дописати виробників чи ше шось --}}
+        {{--<div class="bg_gray">
             <div class="container margin_30">
                 <div id="brands" class="owl-carousel owl-theme">
                     <div class="item">
@@ -337,10 +231,11 @@
                     </div><!-- /item -->
                 </div><!-- /carousel -->
             </div><!-- /container -->
-        </div>
-        <!-- /bg_gray -->
+        </div>--}}
 
-        <div class="container margin_60_35">
+
+        {{-- TODO: створити блог і вивести --}}
+        {{--<div class="container margin_60_35">
             <div class="main_title">
                 <h2>Latest News</h2>
                 <span>Blog</span>
@@ -417,10 +312,10 @@
                 <!-- /box_news -->
             </div>
             <!-- /row -->
-        </div>
-        <!-- /container -->
+        </div>--}}
+
+
     </main>
-    <!-- /main -->
 
 @endsection
 
