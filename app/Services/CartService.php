@@ -29,7 +29,7 @@ class CartService
     private function boot(): void
     {
         if (isAuth()) {
-            $this->cart = Cart::where('user_id', user()->id)
+            $this->cart = Cart::where('user_id', customer()->id)
                 ->with('products')
                 ->latest()->first();
         } else {
@@ -47,7 +47,7 @@ class CartService
         if (is_null($this->cart)) {
             $this->cart = new Cart;
 
-            $this->cart->user_id = isAuth() ? user()->id : null;
+            $this->cart->user_id = isAuth() ? customer()->id : null;
             $this->cart->session = $this->session_id;
 
             $this->cart->save();
@@ -156,7 +156,7 @@ class CartService
 
             // якщо вона існує то привязуємо до неї користувача
             if (!is_null($cart)) {
-                $cart->user_id = user()->id;
+                $cart->user_id = customer()->id;
 
                 $cart->save();
             }

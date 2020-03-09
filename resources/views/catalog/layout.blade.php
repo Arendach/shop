@@ -28,9 +28,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
     <!-- SPECIFIC CSS -->
-    @yield('css')
+@yield('css')
 
-    <!-- YOUR CUSTOM CSS -->
+<!-- YOUR CUSTOM CSS -->
     <link href="{{ asset('catalog/css/custom.css') }}" rel="stylesheet">
 </head>
 
@@ -44,7 +44,7 @@
                 <div class="row small-gutters">
                     <div class="col-xl-3 col-lg-3 d-lg-flex align-items-center">
                         <div id="logo">
-                            <a href="index.html"><img src="{{ asset('catalog/img/logo.svg') }}" width="100" height="35"></a>
+                            <a href="index.html"><img src="{{ $globalData->logo_image }}" width="100" height="35"></a>
                         </div>
                     </div>
                     <nav class="col-xl-6 col-lg-7">
@@ -58,7 +58,8 @@
                         <!-- Mobile menu button -->
                         <div class="main-menu">
                             <div id="header_menu">
-                                <a href="index.html"><img src="{{ asset('catalog/img/logo_black.svg') }}" alt="" width="100" height="35"></a>
+                                <a href="index.html"><img src="{{ asset('catalog/img/logo_black.svg') }}" alt=""
+                                                          width="100" height="35"></a>
                                 <a href="#" class="open_close" id="close_in"><i class="ti-close"></i></a>
                             </div>
                             <ul>
@@ -72,7 +73,8 @@
                                     </ul>
                                 </li>
                                 <li class="megamenu submenu">
-                                    <a href="javascript:void(0);" class="show-submenu-mega">@translate('Колекції товарів')</a>
+                                    <a href="javascript:void(0);"
+                                       class="show-submenu-mega">@translate('Колекції товарів')</a>
                                     <div class="menu-wrapper">
                                         <div class="row small-gutters">
                                             <div class="col-lg-3">
@@ -124,7 +126,8 @@
                                                 <div class="banner_menu">
                                                     <a href="#0">
                                                         <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                                                             data-src="img/banner_menu.jpg" width="400" height="550"
+                                                             data-src="{{ asset('catalog/img/banner_menu.jpg') }}"
+                                                             width="400" height="550"
                                                              alt="" class="img-fluid lazy">
                                                     </a>
                                                 </div>
@@ -161,8 +164,14 @@
                         <!--/main-menu -->
                     </nav>
                     <div class="col-xl-3 col-lg-2 d-lg-flex align-items-center justify-content-end text-right">
-                        <a class="phone_top" href="tel://9438843343"><strong><span>@translate('Потрібна допомога?')</span>+94
-                                423-23-221</strong></a>
+                        <a class="phone_top" href="tel://{{ $globalData->phone('header_phone') }}">
+                            <strong>
+                                <span>
+                                    @translate('Потрібна допомога?')
+                                </span>
+                                {{ $globalData->header_phone }}
+                            </strong>
+                        </a>
                     </div>
                 </div>
                 <!-- /row -->
@@ -245,7 +254,7 @@
                                             <li>
                                                 <a href="{{ route('profile.orders') }}">
                                                     <i class="ti-package"></i>@translate('Мої замовлення')
-                                                 </a>
+                                                </a>
                                             </li>
                                             <li>
                                                 <a href="{{ route('profile') }}">
@@ -257,13 +266,22 @@
                                                     <i class="ti-help-alt"></i>@translate('Допомога і Faq')
                                                 </a>
                                             </li>
+
+                                            @if(isAuth())
+                                                <li>
+                                                    <a href="{{ route('customer.logout') }}">
+                                                        <i class="ti-close"></i>@translate('Покинути профіль')
+                                                    </a>
+                                                </li>
+                                            @endif
                                         </ul>
                                     </div>
                                 </div>
                                 <!-- /dropdown-access-->
                             </li>
                             <li>
-                                <a href="javascript:void(0);" class="btn_search_mob"><span>@translate('Пошук')</span></a>
+                                <a href="javascript:void(0);"
+                                   class="btn_search_mob"><span>@translate('Пошук')</span></a>
                             </li>
                             <li>
                                 <a href="#menu" class="btn_cat_mob">
@@ -299,12 +317,13 @@
                     <h3 data-target="#collapse_1">@translate('Швидка навігація')</h3>
                     <div class="collapse dont-collapse-sm links" id="collapse_1">
                         <ul>
-                            <li><a href="about.html">@translate('Про нас')</a></li>
-                            <li><a href="help.html">Faq</a></li>
-                            <li><a href="help.html">Help</a></li>
-                            <li><a href="account.html">My account</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contacts.html">Contacts</a></li>
+                            @foreach($fastNavigation as $page)
+                                <li>
+                                    <a href="{{ $page->url }}">
+                                        {{ $page->name }}
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -322,9 +341,9 @@
                     <h3 data-target="#collapse_3">@translate('Котакти')</h3>
                     <div class="collapse dont-collapse-sm contacts" id="collapse_3">
                         <ul>
-                            <li><i class="ti-home"></i>@translate('вул. Бориспільська 26 "З"')<br>@translate('м. Київ')</li>
-                            <li><i class="ti-headphone-alt"></i>+94 423-23-221</li>
-                            <li><i class="ti-email"></i><a href="#0">info@allaia.com</a></li>
+                            <li><i class="ti-home"></i>{!! $globalData->footer_address !!}</li>
+                            <li><i class="ti-headphone-alt"></i>{{ $globalData->formatPhone('footer_phone') }}</li>
+                            <li><i class="ti-email"></i><a href="#0">{{ $globalData->footer_email }}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -378,14 +397,20 @@
                     <ul class="footer-selector clearfix">
                         <li>
                             <div class="styled-select lang-selector">
-                                <select>
-                                    <option value="English" selected>@translate('Українська')</option>
-                                    <option value="Russian">@translate('Російська')</option>
+                                <select onchange="window.location.href = this.value">
+                                    <option {{ config('locale.current') == "uk" ? 'selected': '' }} value="{{ route('locale', 'uk') }}">
+                                        @translate('Українська')
+                                    </option>
+                                    <option {{ config('locale.current') == "ru" ? 'selected': '' }} value="{{ route('locale', 'ru') }}">
+                                        @translate('Російська')
+                                    </option>
                                 </select>
                             </div>
                         </li>
                         <li>
-                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="img/cards_all.svg" alt="" width="198" height="30" class="lazy"></li>
+                            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                 data-src="{{ asset('catalog/img/cards_all.svg') }}" alt="" width="198" height="30"
+                                 class="lazy"></li>
                     </ul>
                 </div>
                 <div class="col-lg-6">
@@ -407,6 +432,7 @@
 <script src="{{ asset('catalog/js/common_scripts.min.js') }}"></script>
 <script src="{{ asset('catalog/js/main.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/cart.js') }}"></script>
 @yield('js')
 </body>

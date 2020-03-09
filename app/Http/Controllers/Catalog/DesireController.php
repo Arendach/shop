@@ -16,7 +16,7 @@ class DesireController extends CatalogController
                 ['Профіль', route('profile')],
                 ['Вибрані товари']
             ],
-            'products' => user()->desire_products
+            'products' => customer()->desire_products
         ];
 
         return view('catalog.desire.index', $data);
@@ -24,7 +24,7 @@ class DesireController extends CatalogController
 
     public function action_add(AddRequest $request)
     {
-        $desire = user()->desire_products();
+        $desire = customer()->desire_products();
 
         if ($desire->where('product_id', $request->product_id)->count()) {
             $desire->detach($request->product_id);

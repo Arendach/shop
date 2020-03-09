@@ -12,7 +12,6 @@
         <div id="carousel-home">
             <div class="owl-carousel owl-theme">
                 @foreach($banners as $banner)
-                    {{-- Дописати логіку для баннерів (ліво прао по центру) --}}
                     <div class="owl-slide cover" style="background-image: url({{ $banner->getImage() }})">
                         <div class="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.5)">
                             <div class="container">
@@ -120,6 +119,8 @@
             </div>
         </div>
 
+        {{-- Придумати що зробити з цим баннером --}}
+        @if(false)
         <div class="featured lazy" data-bg="url(img/featured_home.jpg)">
             <div class="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.5)">
                 <div class="container margin_60">
@@ -139,6 +140,7 @@
                 </div>
             </div>
         </div>
+        @endif
 
 
         <div class="container margin_60_35">

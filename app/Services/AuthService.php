@@ -17,8 +17,8 @@ class AuthService
 
     public function __construct(Request $request)
     {
-        if ($request->hasCookie('session')) {
-            $this->session = $request->cookie('session');
+        if (isset($_COOKIE['customer_session'])) {
+            $this->session = $_COOKIE['customer_session'];
         }
 
         $this->boot($request);
@@ -32,6 +32,7 @@ class AuthService
             if ($customer->count()) {
                 $this->customer = $customer->first();
                 $this->valid = true;
+                return;
             }
         }
 
@@ -55,12 +56,12 @@ class AuthService
 
     public function make(Customer $customer): void
     {
-        setcookie('session', $customer->session, time() + config('app.cookie_life'));
+        setcookie('customer_session', $customer->session, time() + 3600 * 24 * 385, '/');
     }
 
-    public function exit(): void
+    public function logout(): void
     {
-        setcookie('session', '', time() - 3600 * 24 * 385, '/');
+        setcookie('customer_session', '', time() - 3600 * 24 * 385, '/');
     }
 
 }

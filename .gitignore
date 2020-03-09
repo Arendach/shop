@@ -11,3 +11,4 @@
 /public/phpmyadmin/
 /node_modules/
 /.env
+/public/mix-manifest.json

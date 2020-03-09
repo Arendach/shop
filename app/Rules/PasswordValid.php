@@ -3,7 +3,7 @@
 namespace App\Rules;
 
 use App\Models\User;
-use App\Services\UserService;
+use App\Services\CustomerService;
 use Illuminate\Contracts\Validation\Rule;
 use Request;
 use Auth;
@@ -24,7 +24,7 @@ class PasswordValid implements Rule
      */
     public function passes($attribute, $value)
     {
-       return app(UserService::class)
+       return app(CustomerService::class)
            ->userIsValid((string)Request::get('login'), (string)Request::get('password'));
     }
 

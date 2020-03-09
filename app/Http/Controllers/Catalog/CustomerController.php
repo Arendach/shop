@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Catalog;
 
 use App\Http\Requests\Catalog\User\LoginRequest;
-use App\Http\Requests\Catalog\User\OnlyNotLoggedRequest;
 use App\Http\Requests\Catalog\User\RegisterRequest;
 use App\Models\Order;
 use App\Services\AuthService;
-use App\Services\UserService;
+use App\Services\CustomerService;
 use Auth;
 use Cart;
 
@@ -18,33 +17,32 @@ class CustomerController extends CatalogController
         return view('catalog.user.profile.index');
     }
 
-    public function login(OnlyNotLoggedRequest $request)
+    public function login()
     {
-        return view('catalog.user.login');
+        if (isAuth()) {
+            return redirect()->route('index');
+        }
+
+        return view('catalog.customer.login');
     }
 
-    public function register(OnlyNotLoggedRequest $request)
-    {
-        return view('catalog.user.register');
-    }
-
-    public function action_register(RegisterRequest $request, UserService $userService, AuthService $authService)
+    public function action_register(RegisterRequest $request, CustomerService $customerService, AuthService $authService)
     {
         // реєстрація користувача
-        $user = $userService->register($request->only(['name', 'email', 'password', 'phone']));
+        $customer = $customerService->register($request->all());
 
         // запамятовуємо користувача
-        $authService->make($user, $request, true);
+        $authService->make($customer);
 
-        Cart::importProductsFromSession();
+        // Cart::importProductsFromSession();
 
         // Відповідаємо
         return response()->json([
-            'message' => __('user.register.success_message')
+            'message' => translate('Реєстрація пройшла успішно')
         ], 200);
     }
 
-    public function action_login(LoginRequest $request, UserService $userService)
+    public function action_login(LoginRequest $request, CustomerService $userService)
     {
         if ($userService->userIsValid($request->login, $request->password)) {
             Auth::make($userService->get($request->login), $request, $request->remember == 'true');
@@ -72,9 +70,9 @@ class CustomerController extends CatalogController
         ], 200);
     }
 
-    public function exit()
+    public function logout(AuthService $authService)
     {
-        Auth::exit();
+        $authService->logout();
 
         return redirect()->route('index');
     }
@@ -87,7 +85,7 @@ class CustomerController extends CatalogController
                 [__('user.profile.title'), route('profile')],
                 [__('user.profile.orders')]
             ],
-            'orders'      => user()->orders
+            'orders'      => customer()->orders
         ];
 
         return view('catalog.user.profile.orders', $data);
@@ -97,7 +95,7 @@ class CustomerController extends CatalogController
     {
         $order = Order::with('products')->findOrFail($id);
 
-        abort_if($order->user_id != user()->id, 403);
+        abort_if($order->user_id != customer()->id, 403);
 
         $order->products->load('category');
 

@@ -45,8 +45,8 @@ class ReviewComment extends Model
 
     public $timestamps = true;
 
-    public function user()
+    public function customer()
     {
-        return $this->belongsTo('App\\Models\\User');
+        return $this->belongsTo(Customer::class);
     }
 }

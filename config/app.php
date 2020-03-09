@@ -199,7 +199,9 @@ return [
         App\Providers\NovaServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ValidateExtendsServiceProvider::class,
-        App\Providers\BladeExtendsServiceProvider::class
+        App\Providers\BladeExtendsServiceProvider::class,
+        App\Providers\EloquentServiceProvider::class,
+        App\Providers\GlobalDataServiceProvider::class,
 
     ],
 

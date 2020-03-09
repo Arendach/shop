@@ -244,7 +244,7 @@ class CheckoutService
         $order->email = $request->email;
         $order->delivery = $request->delivery;
         $order->comment = $request->comment;
-        $order->user_id = user()->id;
+        $order->user_id = customer()->id;
         $order->status = 'new_order';
         $order->pay_method = $request->pay;
 

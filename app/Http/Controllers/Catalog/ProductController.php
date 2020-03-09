@@ -68,7 +68,7 @@ class ProductController extends CatalogController
     {
         $review = new Review;
 
-        $review->user_id = user()->id;
+        $review->user_id = customer()->id;
         $review->product_id = $request->product_id;
         $review->rating = $request->rating;
         $review->comment = $request->comment;
@@ -152,14 +152,14 @@ class ProductController extends CatalogController
     {
         $review = Review::findOrFail($request->review_id);
 
-        $review_thumb = ReviewThumb::where('user_id', user()->id)
+        $review_thumb = ReviewThumb::where('user_id', customer()->id)
             ->where('review_id', $request->review_id)
             ->first();
 
         if ($review_thumb == null) {
             $review_thumb = new ReviewThumb;
 
-            $review_thumb->user_id = user()->id;
+            $review_thumb->user_id = customer()->id;
             $review_thumb->review_id = $request->review_id;
         }
 

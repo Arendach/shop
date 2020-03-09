@@ -77,7 +77,7 @@ class Review extends Model
     public function thumb()
     {
         return $this->hasOne('App\\Models\\ReviewThumb')
-            ->where('user_id', user()->id);
+            ->where('user_id', customer()->id);
     }
 
     public function delete()

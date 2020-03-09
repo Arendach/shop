@@ -59,7 +59,7 @@ Route::get('category/{slug}', 'CategoryController@show')
 /**
  * Сторінка авторизації
  */
-Route::get('user/login', 'UserController@login')
+Route::get('customer/login', 'CustomerController@login')
     ->middleware('loadCategories')
     ->name('login');
 
@@ -108,9 +108,9 @@ Route::get('search/{value}', 'SearchController@index')
 /**
  * Вихід з профіля(Розлогінення)
  */
-Route::get('exit', 'UserController@exit')
+Route::get('customer/logout', 'CustomerController@logout')
     ->middleware('loadCategories')
-    ->name('exit');
+    ->name('customer.logout');
 
 /**
  * Універсальний маршрут для запросів типу POST
