@@ -101,16 +101,34 @@
                                 @endif
                             </div>
                             <ul>
-                                <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                       title="Add to favorites"><i
-                                                class="ti-heart"></i><span>Add to favorites</span></a>
+                                <li>
+                                    <a href="javascript:void(0)"
+                                       onclick="Cart.switchDesire('{{ $product->id }}', this)"
+                                       class="tooltip-1 {{ customer()->hasDesire($product->id) ? 'desire-attached' : '' }}"
+                                       data-toggle="tooltip"
+                                       data-placement="left"
+                                       title="@translate('Додати в список бажаних')">
+                                        <i class="ti-heart"></i>
+                                        <span>@translate('Додати в список бажаних')</span>
+                                    </a>
                                 </li>
-                                <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                       title="Add to compare"><i
-                                                class="ti-control-shuffle"></i><span>Add to compare</span></a>
+                                <li>
+                                    <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
+                                       title="Add to compare">
+                                        <i class="ti-control-shuffle"></i>
+                                        <span>Add to compare</span>
+                                    </a>
                                 </li>
-                                <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                       title="Add to cart"><i class="ti-shopping-cart"></i><span>Add to cart</span></a>
+                                <li>
+                                    <a href="javascript:void(0)"
+                                       class="tooltip-1"
+                                       @tooltip(translate('Додати в корзину'), 'left')
+                                       data-type="cart_attach"
+                                       data-id="{{ $product->id }}"
+                                    >
+                                        <i class="ti-shopping-cart"></i>
+                                        <span>@translate('Додати в корзину')</span>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -121,25 +139,25 @@
 
         {{-- Придумати що зробити з цим баннером --}}
         @if(false)
-        <div class="featured lazy" data-bg="url(img/featured_home.jpg)">
-            <div class="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.5)">
-                <div class="container margin_60">
-                    <div class="row justify-content-center justify-content-md-start">
-                        <div class="col-lg-6 wow" data-wow-offset="150">
-                            <h3>Armor<br>Air Color 720</h3>
-                            <p>Lightweight cushioning and durable support with a Phylon midsole</p>
-                            <div class="feat_text_block">
-                                <div class="price_box">
-                                    <span class="new_price">$90.00</span>
-                                    <span class="old_price">$170.00</span>
+            <div class="featured lazy" data-bg="url(img/featured_home.jpg)">
+                <div class="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+                    <div class="container margin_60">
+                        <div class="row justify-content-center justify-content-md-start">
+                            <div class="col-lg-6 wow" data-wow-offset="150">
+                                <h3>Armor<br>Air Color 720</h3>
+                                <p>Lightweight cushioning and durable support with a Phylon midsole</p>
+                                <div class="feat_text_block">
+                                    <div class="price_box">
+                                        <span class="new_price">$90.00</span>
+                                        <span class="old_price">$170.00</span>
+                                    </div>
+                                    <a class="btn_1" href="listing-grid-1-full.html" role="button">Shop Now</a>
                                 </div>
-                                <a class="btn_1" href="listing-grid-1-full.html" role="button">Shop Now</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         @endif
 
 
@@ -178,9 +196,14 @@
                             </div>
                             <ul>
                                 <li>
-                                    <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                       title="Add to favorites">
-                                        <i class="ti-heart"></i><span>Add to favorites</span>
+                                    <a href="javascript:void(0)"
+                                       data-type="cart_attach"
+                                       class="tooltip-1 {{ customer()->hasDesire($product->id) ? 'desire-attached' : '' }}"
+                                       data-toggle="tooltip"
+                                       data-placement="left"
+                                       title="@translate('Додати в список бажаних')">
+                                        <i class="ti-heart"></i>
+                                        <span>@translate('Додати в список бажаних')</span>
                                     </a>
                                 </li>
                                 <li>
@@ -190,9 +213,12 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)" onclick="Cart.add('{{ $product->id }}', this)"
+                                    <a href="javascript:void(0)"
+                                       data-type="cart_attach"
+                                       data-id="{{ $product->id }}"
                                        class="tooltip-1"
-                                       data-toggle="tooltip" data-placement="left" title="@translate('Додати в корзину')">
+                                            @tooltip(translate('Додати в корзину'), 'left')
+                                    >
                                         <i class="ti-shopping-cart"></i> <span>@translate('Додати в корзину')</span>
                                     </a>
                                 </li>

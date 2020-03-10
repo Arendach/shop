@@ -63,34 +63,27 @@ Route::get('customer/login', 'CustomerController@login')
     ->middleware('loadCategories')
     ->name('login');
 
-/**
- * Сторінка реєстрації
- */
-Route::get('user/register', 'UserController@register')
-    ->middleware('loadCategories')
-    ->name('register');
-
 Route::group(['middleware' => ['loadCategories', 'onlyLogged'], 'prefix' => 'profile'], function () {
 
     /**
      * Сторінка профілю
      */
-    Route::get('/', 'UserController@profile')->name('profile');
+    Route::get('/', 'CustomerController@profile')->name('profile');
 
     /**
      * Мої замовлення
      */
-    Route::get('orders', 'UserController@orders')->name('profile.orders');
+    Route::get('orders', 'CustomerController@orders')->name('profile.orders');
 
     /**
      * Перегляд замовлення
      */
-    Route::get('orders/{id}', 'UserController@order_view')->name('profile.orders.view');
+    Route::get('orders/{id}', 'CustomerController@order_view')->name('profile.orders.view');
 
     /**
      * Переглянуті товари
      */
-    Route::get('viewed', 'UserController@viewed')->name('profile.viewed');
+    Route::get('viewed', 'CustomerController@viewed')->name('profile.viewed');
 
     /**
      * Вибрані товари

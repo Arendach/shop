@@ -19,14 +19,14 @@ class DesireController extends CatalogController
             'products' => customer()->desire_products
         ];
 
-        return view('catalog.desire.index', $data);
+        return view('catalog.customer.profile.desire', $data);
     }
 
-    public function action_add(AddRequest $request)
+    public function action_switch(AddRequest $request)
     {
         $desire = customer()->desire_products();
 
-        if ($desire->where('product_id', $request->product_id)->count()) {
+        if (customer()->hasDesire($request->product_id)) {
             $desire->detach($request->product_id);
 
             $message = 'Товар видалено з списку бажаних!';

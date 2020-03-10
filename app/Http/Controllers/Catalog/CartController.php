@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Catalog;
 
 use App\Http\Requests\Catalog\Cart\ChangeAmountRequest;
+use App\Models\Product;
 use App\Services\CartService;
 use Illuminate\Http\Request;
 
@@ -24,11 +25,12 @@ class CartController extends CatalogController
         $cartService->attach($id);
 
         return response()->json([
-            'title'       => translate('Виконано'),
-            'message'     => translate('Товар вдало доданий в корзину'),
-            'cartContent' => view('catalog.parts.dropdown-cart')->render()
+            'title'            => translate('Виконано'),
+            'message'          => translate('Товар вдало доданий в корзину'),
+            'productsListHtml' => $cartService->getProductsListHtml(),
+            'cartSumProducts'  => number_format($cartService->getProductsSum()),
+            'cartContProducts' => $cartService->countProducts()
         ]);
-
     }
 
     public function action_change_amount(ChangeAmountRequest $request, CartService $cartService)
@@ -49,14 +51,16 @@ class CartController extends CatalogController
             ], 500);
     }
 
-    public function action_detach(Request $request, CartService $cartService)
+    public function action_detach(int $id, CartService $cartService)
     {
-        $cartService->detach($request->id);
+        $cartService->detach($id);
 
         return response()->json([
-            'title'       => translate('Виконано'),
-            'message'     => translate('Товар видалений з корзини'),
-            'cartContent' => view('catalog.parts.dropdown-cart')->render()
+            'title'            => translate('Виконано'),
+            'message'          => translate('Товар видалений з корзини'),
+            'productsListHtml' => $cartService->getProductsListHtml(),
+            'cartSumProducts'  => number_format($cartService->getProductsSum()),
+            'cartContProducts' => $cartService->countProducts()
         ]);
     }
 

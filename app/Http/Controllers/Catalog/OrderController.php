@@ -29,7 +29,7 @@ class OrderController extends CatalogController
             'order_types' => include base_path('assets/order_types.php')
         ];
 
-        return view('catalog.order.checkout.main', $data);
+        return view('catalog.pages.checkout', $data);
     }
 
     public function action_checkout_input(Request $request)

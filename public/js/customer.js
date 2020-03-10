@@ -13296,10 +13296,18 @@ var Customer = /** @class */ (function () {
                             method: form.method,
                             url: form.action,
                             data: new FormData(form)
-                        }).then(function (response) {
-                            console.log(response);
-                        }).catch(function (response) {
-                            console.log(response);
+                        }).then(function () {
+                            var url = new URL(window.location.href);
+                            var redirect = url.searchParams.get('redirect');
+                            if (redirect) {
+                                window.location.href = redirect;
+                            }
+                            else {
+                                window.location.href = '/';
+                            }
+                        }).catch(function (errors) {
+                            var _a;
+                            new form_validation_1.default(form).showErrors((_a = errors.response.data.errors) !== null && _a !== void 0 ? _a : {});
                         })];
                     case 1:
                         _a.sent();

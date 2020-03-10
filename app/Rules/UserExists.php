@@ -16,6 +16,6 @@ class UserExists implements Rule
 
     public function message()
     {
-        return __('user.auth.login');
+        return translate('Такий покупець не зареєстрований');
     }
 }

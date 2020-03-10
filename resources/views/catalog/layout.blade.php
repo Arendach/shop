@@ -32,19 +32,22 @@
 
 <!-- YOUR CUSTOM CSS -->
     <link href="{{ asset('catalog/css/custom.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 </head>
 
 <body>
 
 <div id="page">
     <header class="version_1">
-        <div class="layer"></div><!-- Mobile menu overlay mask -->
+        <div class="layer"></div>
         <div class="main_header">
             <div class="container">
                 <div class="row small-gutters">
                     <div class="col-xl-3 col-lg-3 d-lg-flex align-items-center">
                         <div id="logo">
-                            <a href="index.html"><img src="{{ $globalData->logo_image }}" width="100" height="35"></a>
+                            <a href="{{ route('index') }}">
+                                <img src="{{ $globalData->logo_image }}" width="100" height="35">
+                            </a>
                         </div>
                     </div>
                     <nav class="col-xl-6 col-lg-7">
@@ -58,9 +61,12 @@
                         <!-- Mobile menu button -->
                         <div class="main-menu">
                             <div id="header_menu">
-                                <a href="index.html"><img src="{{ asset('catalog/img/logo_black.svg') }}" alt=""
-                                                          width="100" height="35"></a>
-                                <a href="#" class="open_close" id="close_in"><i class="ti-close"></i></a>
+                                <a href="{{ route('index') }}">
+                                    <img src="{{ $globalData->logo_image }}" width="100" height="35">
+                                </a>
+                                <a href="#" class="open_close" id="close_in">
+                                    <i class="ti-close"></i>
+                                </a>
                             </div>
                             <ul>
                                 <li class="submenu">
@@ -230,34 +236,77 @@
                     </div>
                     <div class="col-xl-3 col-lg-2 col-md-3">
                         <ul class="top_tools">
-                            <li id="cart-content">
-                                @include('catalog.parts.dropdown-cart')
+                            <li>
+                                <div class="dropdown dropdown-cart">
+                                    <a href="{{ route('cart') }}" class="cart_bt">
+                                        <strong class="dropdown-cart-count">
+                                            {{ Cart::countProducts() }}
+                                        </strong>
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        @if(Cart::hasProducts())
+                                            <ul class="dropdown-cart-products">
+                                                @foreach(Cart::getProducts() as $product)
+                                                    @include('catalog.parts.dropdown-cart-product')
+                                                @endforeach
+                                            </ul>
+                                            <div class="total_drop">
+                                                <div class="clearfix">
+                                                    <strong>
+                                                        @translate('Сума')
+                                                    </strong>
+                                                    <span class="dropdown-cart-sum">
+                                                        {{ Cart::getProductsSum() }}
+                                                    </span>
+                                                </div>
+                                                <a href="{{ route('cart') }}" class="btn_1 outline">
+                                                    @translate('Переглянути корзину')
+                                                </a>
+                                                <a href="checkout.html" class="btn_1">
+                                                    @translate('Оформити замовлення')
+                                                </a>
+                                            </div>
+                                        @else
+                                            <div class="">
+                                                @translate('В корзині немає товарів')
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
                             </li>
                             <li>
-                                <a href="#0" class="wishlist"><span>Wishlist</span></a>
+                                <a href="{{ isAuth() ? route('profile.desire') : route('login', ['redirect' => route('profile.desire')]) }}"
+                                   rel="nofollow"
+                                   class="wishlist">
+                                    <span>Wishlist</span>
+                                </a>
                             </li>
                             <li>
                                 <div class="dropdown dropdown-access">
-                                    <a href="{{ isAuth() ? route('profile') : route('login') }}" class="access_link">
+                                    <a href="{{ isAuth() ? route('profile') : route('login', ['redirect' => route('profile')]) }}"
+                                       rel="nofollow"
+                                       class="access_link">
                                         <span>@translate('Профіль')</span>
                                     </a>
                                     <div class="dropdown-menu">
-                                        <a href="{{ isAuth() ? route('profile') : route('login') }}" class="btn_1">
+                                        <a href="{{ isAuth() ? route('profile') : route('login', ['redirect' => route('profile')]) }}"
+                                           rel="nofollow"
+                                           class="btn_1">
                                             @translate('Профіль')
                                         </a>
                                         <ul>
                                             <li>
-                                                <a href="#">
+                                                <a href="#" rel="nofollow">
                                                     <i class="ti-truck"></i>@translate('Відслідкувати замовлення')
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('profile.orders') }}">
+                                                <a href="{{ route('profile.orders') }}" rel="nofollow">
                                                     <i class="ti-package"></i>@translate('Мої замовлення')
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('profile') }}">
+                                                <a href="{{ route('profile') }}" rel="nofollow">
                                                     <i class="ti-user"></i>@translate('Мій профіль')
                                                 </a>
                                             </li>
@@ -269,7 +318,7 @@
 
                                             @if(isAuth())
                                                 <li>
-                                                    <a href="{{ route('customer.logout') }}">
+                                                    <a href="{{ route('customer.logout') }}" rel="nofollow">
                                                         <i class="ti-close"></i>@translate('Покинути профіль')
                                                     </a>
                                                 </li>
@@ -277,7 +326,6 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <!-- /dropdown-access-->
                             </li>
                             <li>
                                 <a href="javascript:void(0);"
@@ -417,7 +465,7 @@
                     <ul class="additional_links">
                         <li><a href="#0">Terms and conditions</a></li>
                         <li><a href="#0">Privacy</a></li>
-                        <li><span>©2020 Skyfire</span></li>
+                        <li><span>©2020 {{ $globalData->copyright }}</span></li>
                     </ul>
                 </div>
             </div>

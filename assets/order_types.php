@@ -3,14 +3,14 @@
 return [
     'delivery' => [
         'name' => __('assets/order_types.delivery'),
-        'form' => Delivery::getDeliveryForm()
+        // 'form' => Delivery::getDeliveryForm()
     ],
     'sending' => [
         'name' => __('assets/order_types.sending'),
-        'form' => Delivery::getSendingForm()
+        // 'form' => Delivery::getSendingForm()
     ],
     'self' => [
         'name' => __('assets/order_types.self'),
-        'form' => Delivery::getSelfForm()
+        // 'form' => Delivery::getSelfForm()
     ],
 ];

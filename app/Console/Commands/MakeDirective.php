@@ -40,7 +40,7 @@ class MakeDirective extends Command
             public function register(): void
             {
                 Blade::directive('$lower', function (\$expression) {
-                    return "<?php echo \App\Directives\\{$name}Directive::apply(\$expression)); ?>";
+                    return "<?php echo \App\Directives\\{$name}Directive::apply(\$expression); ?>";
                 });
             }
         

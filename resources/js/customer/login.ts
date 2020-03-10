@@ -17,10 +17,16 @@ class Customer {
             method: form.method,
             url: form.action,
             data: new FormData(form)
-        }).then(response => {
-            console.log(response)
-        }).catch(response => {
-            console.log(response)
+        }).then(() => {
+            let url = new URL(window.location.href)
+            let redirect = url.searchParams.get('redirect')
+            if (redirect) {
+                window.location.href = redirect
+            } else {
+                window.location.href = '/'
+            }
+        }).catch(errors => {
+            new FormValidation(form).showErrors(errors.response.data.errors ?? {})
         })
     }
 

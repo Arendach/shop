@@ -1,38 +1,78 @@
+import axios from 'axios'
+
 window.Cart = {
-    attach(id, selector) {
+    async attach(id, selector) {
         selector.disabled = true
 
-        $.ajax({
-            type: 'post',
-            url: '/catalog/cart/attach',
-            data: {id},
-            success(answer) {
-                $('#cart_products_count').html(answer.cart_products_count)
-                toastr.success(answer.message, answer.title)
-                selector.disabled = false
-            },
-            error(answer) {
-                toastr.error(answer.responseJSON.message ?? 'dajlsjl', answer.responseJSON.title ?? 'saksp');
-                $this.attr('disabled', false);
-            }
-        });
+        await axios.post('/catalog/cart/attach', {id}).then((response) => {
+            $('#cart-content').html(response.data.cartContent)
+            toastr.success(response.data.message ?? '', response.data.title ?? undefined)
+            selector.disabled = false
+        })
     },
 
     async detach(id, selector) {
+        if (selector.disabled) {
+            return
+        }
+
         selector.disabled = true
 
-        let response = await fetch('/catalog/cart/detach', {
-            method: 'post',
-            headers: {"Content-Type": 'application/json'},
-            body: JSON.stringify({id: id}),
+        await axios.post('/catalog/cart/detach', {id}).then(response => {
+            $(selector).parents('li').remove()
+            toastr.success(response.data.message ?? '', response.data.title ?? undefined)
+            selector.disabled = false
         })
+    },
 
-        if (response.ok) {
-            toastr.success(response.json().message)
-            selector.disabled = false
-        } else {
-            toastr.error(response.json().message ?? 'Error')
-            selector.disabled = false
+    async switchDesire(product_id, selector) {
+        if (selector.disabled) {
+            return
         }
+
+        selector.disabled = true
+
+        await axios.post('catalog/desire/switch', {product_id}).then(response => {
+            selector.disabled = false
+            toastr.success(response.data.message, response.data.title)
+        })
     }
 }
+
+// init add to cart button
+$(document).on('click', '[data-type="cart_attach"]', function () {
+    let id = $(this).data('id')
+
+    axios.post('/catalog/cart/attach', {id}).then((response) => {
+        $('.dropdown-cart-count').html(response.data.cartContProducts)
+        $('.dropdown-cart-products').html(response.data.productsListHtml)
+        $('.dropdown-cart-sum').html(response.data.cartSumProducts)
+        toastr.success(response.data.message ?? '', response.data.title ?? undefined)
+    })
+})
+
+$(document).on('click', '[data-type="cart_detach"]', function () {
+    let id = $(this).data('id')
+
+    axios.post('/catalog/cart/detach', {id}).then((response) => {
+        $('.dropdown-cart-count').html(response.data.cartContProducts)
+        $('.dropdown-cart-products').html(response.data.productsListHtml)
+        $('.dropdown-cart-sum').html(response.data.cartSumProducts)
+        toastr.success(response.data.message ?? '', response.data.title ?? undefined)
+    })
+})
+
+$(document).on('click', '[data-type="cart_page_detach"]', function () {
+    let id = $(this).data('id')
+
+    axios.post('/catalog/cart/detach', {id}).then((response) => {
+        $(this).parents('tr').remove()
+        $('.dropdown-cart-count').html(response.data.cartContProducts)
+        $('.dropdown-cart-sum').html(response.data.cartSumProducts)
+        toastr.success(response.data.message ?? '', response.data.title ?? undefined)
+    })
+})
+
+$(document).on('input', '[data-type="cart_change_amount"]', function () {
+    alert(2)
+})

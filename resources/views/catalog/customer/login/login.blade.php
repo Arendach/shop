@@ -11,9 +11,11 @@
     <div class="divider"><span>@translate('Або')</span></div>
     <div class="form-group">
         <input class="form-control" name="login" placeholder="@translate('Номер телефону або Email')">
+        <small class="form-text text-danger" style="display: none"></small>
     </div>
     <div class="form-group">
         <input type="password" class="form-control" name="password" placeholder="@translate('Пароль')">
+        <small class="form-text text-danger" style="display: none"></small>
     </div>
     <div class="clearfix add_bottom_15">
         <div class="checkboxes float-left">

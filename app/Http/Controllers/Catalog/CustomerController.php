@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Catalog;
 
 use App\Http\Requests\Catalog\User\LoginRequest;
 use App\Http\Requests\Catalog\User\RegisterRequest;
+use App\Models\Customer;
 use App\Models\Order;
 use App\Services\AuthService;
+use App\Services\CartService;
 use App\Services\CustomerService;
 use Auth;
 use Cart;
@@ -14,7 +16,7 @@ class CustomerController extends CatalogController
 {
     public function profile()
     {
-        return view('catalog.user.profile.index');
+        return view('catalog.customer.profile.profile');
     }
 
     public function login()
@@ -42,22 +44,18 @@ class CustomerController extends CatalogController
         ], 200);
     }
 
-    public function action_login(LoginRequest $request, CustomerService $userService)
+    public function action_login(LoginRequest $request, AuthService $authService, CartService $cartService)
     {
-        if ($userService->userIsValid($request->login, $request->password)) {
-            Auth::make($userService->get($request->login), $request, $request->remember == 'true');
+        $customer = Customer::where('email', $request->login)
+            ->orWhere('phone', $request->phone)
+            ->firstOrFail();
 
-            Cart::importProductsFromSession();
-        } else {
-            return response()->json([
+        $authService->make($customer);
 
-            ], 400);
-        }
-
-        return response()->json([], 200);
+        $cartService->importProductsFromSession($customer);
     }
 
-    public function action_login_form(OnlyNotLoggedRequest $request)
+    public function action_login_form()
     {
         $data = [
             'title' => __('user.login.title')
@@ -88,7 +86,7 @@ class CustomerController extends CatalogController
             'orders'      => customer()->orders
         ];
 
-        return view('catalog.user.profile.orders', $data);
+        return view('catalog.customer.profile.orders', $data);
     }
 
     public function order_view($id)

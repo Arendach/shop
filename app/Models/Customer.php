@@ -17,8 +17,18 @@ class Customer extends Model
         'locale'
     ];
 
+    public function desire_products()
+    {
+        return $this->belongsToMany(Product::class, 'desire_products');
+    }
+
     public function getNameAttribute(): string
     {
         return "$this->first_name $this->last_name";
+    }
+
+    public function hasDesire(int $product_id): bool
+    {
+        return $this->desire_products->where('id', $product_id)->count();
     }
 }

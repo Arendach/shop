@@ -2,15 +2,12 @@
 
 namespace App\Services;
 
-use App\Http\Requests\Catalog\Order\CheckoutRequest;
 use App\Http\Requests\Catalog\User\RegisterRequest;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Exception;
 use Auth;
-use Hash;
-use Illuminate\Support\Collection;
 
 class CustomerService
 {
@@ -18,15 +15,8 @@ class CustomerService
 
     private $user;
 
-    /**
-     * @var Collection
-     */
     private $desire_products;
 
-    /**
-     * CustomerService constructor.
-     * @param Request $request
-     */
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -34,10 +24,6 @@ class CustomerService
         $this->boot($request);
     }
 
-    /**
-     * @param Request $request
-     * @return void
-     */
     private function boot(Request $request): void
     {
 
@@ -53,10 +39,6 @@ class CustomerService
         return Customer::create($data->all());
     }
 
-    /**
-     * @param string $login
-     * @return bool
-     */
     public function userExists(string $login): bool
     {
         return User::where('phone', $login)
@@ -64,25 +46,19 @@ class CustomerService
             ->count();
     }
 
-    public function userIsValid(string $login, string $password)
+    public function userIsValid(string $login, string $password): bool
     {
-        $user = User::where('phone', $login)
+        $user = Customer::where('phone', $login)
             ->orWhere('email', $login)
             ->first();
 
-        if (is_null($user)) return false;
+        if (is_null($user)) {
+            return false;
+        }
 
-        $valid = Hash::check($password, $user->password);
-
-        if ($valid) $this->user = $user;
-
-        return $valid;
+        return $user->password == md5($password);
     }
 
-    /**
-     * @param string $login
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
-     */
     public function get(string $login)
     {
         if (!is_null($this->user)) return $this->user;
@@ -94,10 +70,6 @@ class CustomerService
         return $user;
     }
 
-    /**
-     * @param $request CheckoutRequest
-     * @throws Exception
-     */
     public function makeLoginAfterCheckout($request)
     {
         if (!isAuth()) {
