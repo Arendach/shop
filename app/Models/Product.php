@@ -47,7 +47,9 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
 
     public function category()
     {
-        return $this->belongsTo('App\Models\Category');
+        return $this->belongsTo(Category::class)->withDefault([
+            'name' => translate('Без категорії')
+        ]);
     }
 
     public function characteristics()
@@ -68,11 +70,7 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
 
     public function reviews()
     {
-        return $this->hasMany('App\\Models\\Review')
-            ->orderByDesc('id')
-            ->with('comments')
-            ->with('thumb')
-            ->with('user');
+        return $this->hasMany(Review::class)->with('customer');
     }
 
     public function related()

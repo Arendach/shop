@@ -1,5 +1,7 @@
 @extends('catalog.layout')
 
+@section('title', $category->name)
+
 @section('css')
     <link href="{{ asset('catalog/css/listing.css') }}" rel="stylesheet">
 @endsection

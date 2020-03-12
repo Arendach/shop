@@ -3,24 +3,36 @@
 <head>
     <meta charset="UTF-8">
 
-    <link rel="stylesheet" href="{{ asset('css/vendor/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/vendor/elements.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/vendor/toastr.css') }}">
+    <link rel="stylesheet" href="{{ asset('bridge-assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('bridge-assets/css/elements.css') }}">
+    <link rel="stylesheet" href="{{ asset('bridge-assets/css/toastr.css') }}">
 
     @yield('style')
 
     <title>{{ $title ?? 'Enter Title' }}</title>
 
-    @include('common.JavaScriptVars')
-    @include('admin.javascript')
+    @include('bridge.javascript-vars')
+    <script>
+        const JS = {};
+        JS.deleteSuccessTitle = '@lang('common.delete.success_title')';
+        JS.deleteSuccessText = '@lang('common.delete.success_text')';
+        JS.deleteConfirmTitle = '@lang('common.delete.confirm_title')';
+        JS.deleteConfirmText = '@lang('common.delete.confirm_text')';
+        JS.cancel = '@lang('common.cancel')';
+        JS.error = '@lang('common.error')';
+        JS.unknown_error = '@lang('common.unknown_error')';
+        JS.successTitle = '@lang('common.success_title')';
+        JS.successText = '@lang('common.success_text')';
+    </script>
 
-    <script src="{{ asset('js/vendor/jquery.js') }}"></script>
-    <script src="{{ asset('js/vendor/bootstrap.js') }}"></script>
-    <script src="{{ asset('js/vendor/jquery.serializeJSON.js') }}"></script>
-    <script src="{{ asset('js/vendor/popper.js') }}"></script>
-    <script src="{{ asset('js/elements.js') }}"></script>
-    <script src="{{ asset('js/vendor/toastr.js') }}"></script>
-    <script src="{{ asset('adm/js/common.js') }}" type="module"></script>
+    <script src="{{ asset('bridge-assets/js/jquery.js') }}"></script>
+    <script src="{{ asset('bridge-assets/js/popper.js') }}"></script>
+    <script src="{{ asset('bridge-assets/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('bridge-assets/js/jquery.serializeJSON.js') }}"></script>
+    <script src="{{ asset('bridge-assets/js/elements.js') }}"></script>
+    <script src="{{ asset('bridge-assets/js/toastr.js') }}"></script>
+    <script src="{{ asset('bridge-assets/js/custom/common.js') }}" type="module"></script>
+
 
     @yield('script')
 </head>
@@ -37,7 +49,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ route('admin.index') }}">Адмінка</a>
+                    <a class="nav-link" href="/nova">Адмінка</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Features</a>

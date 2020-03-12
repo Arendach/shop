@@ -33,8 +33,8 @@ class ProductController extends CatalogController
             'meta_description' => $product->meta_description,
             'product'          => $product,
             'breadcrumbs'      => [
-                [$product->category->parent->name, $product->category->parent->url],
-                [$product->category->name, $product->category->url],
+                [$product->category->parent->name ?? '', $product->category->parent->url ?? ''],
+                [$product->category->name ?? '', $product->category->url ?? ''],
                 [$product->name]
             ]
         ];

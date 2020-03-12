@@ -14,6 +14,8 @@ class CategoryController extends CatalogController
             ->where('slug', $slug)
             ->firstOrFail();
 
+        abort_if($category->parent_id == 0, 404);
+
         $data = [
             'title' => $category->meta_title,
             'meta_description' => $category->meta_description,

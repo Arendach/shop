@@ -207,7 +207,7 @@
                                             @foreach($categories as $category)
                                                 <li>
                                                     <span>
-                                                        <a href="{{ route('category.show', $category->slug) }}">
+                                                        <a href="javascript:void(0)">
                                                             {{ $category->name }}
                                                         </a>
                                                     </span>

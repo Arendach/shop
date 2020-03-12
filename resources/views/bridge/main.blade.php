@@ -33,4 +33,4 @@
         Імпорт товарів
     </a><br>
 
-@endsection('content')
+@endsection
