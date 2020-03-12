@@ -23,6 +23,7 @@ class Kernel extends HttpKernel
         \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
         \Illuminate\Session\Middleware\StartSession::class,
         \App\Http\Middleware\DateConfig::class,
+        \App\Http\Middleware\GlobalDataMiddleware::class,
     ];
 
     /**
