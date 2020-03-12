@@ -14,6 +14,7 @@ use App\Services\StaticPageService;
 use App\Services\CustomerService;
 use App\Services\CartService;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Schema\Builder;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \Spatie\NovaTranslatable\Translatable::defaultLocales(['uk', 'ru']);
+
+        Builder::defaultStringLength(191); // Update defaultStringLength
     }
 
     public function register()
