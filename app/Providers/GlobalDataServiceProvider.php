@@ -15,15 +15,15 @@ class GlobalDataServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $data = [
-            'globalData'     => Cache::rememberForever('globalData', function () {
-                return Index::where('is_main', true)->first();
-            }),
-            'fastNavigation' => Cache::rememberForever('fastNavigation', function () {
-                return Page::where('is_fast_navigation', true)->get();
-            })
-        ];
-
-        view()->share($data);
+//        $data = [
+//            'globalData'     => Cache::rememberForever('globalData', function () {
+//                return Index::where('is_main', true)->first();
+//            }),
+//            'fastNavigation' => Cache::rememberForever('fastNavigation', function () {
+//                return Page::where('is_fast_navigation', true)->get();
+//            })
+//        ];
+//
+//        view()->share($data);
     }
 }
