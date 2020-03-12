@@ -11,6 +11,9 @@ trait TwoImage
      */
     public function getSmallImageAttribute(): string
     {
+        if (config('app.debug')) {
+            return asset('catalog/img/product.jpg');
+        }
         // если файл найдень в публической директории
         // то возвращаем к нему полный путь
         if (is_file(public_path($this->small))) return asset($this->small);
@@ -29,6 +32,10 @@ trait TwoImage
      */
     public function getBigImageAttribute(): string
     {
+        if (config('app.debug')) {
+            return asset('catalog/img/product.jpg');
+        }
+
         if (is_file(public_path($this->big))) return asset($this->big);
         elseif (preg_match('/^http/', $this->big)) return $this->big;
         else return asset(config('default.image.product_big'));

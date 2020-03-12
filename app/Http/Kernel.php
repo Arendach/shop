@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\SetCustomerLocale;
 use App\Http\Middleware\SetUserLocale;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -52,16 +53,14 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-        'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'setUserLocale' => SetUserLocale::class,
-        'cart' => \App\Http\Middleware\Cart::class,
-        'loadCategories' => \App\Http\Middleware\LoadCategories::class,
-        'onlyLogged' => \App\Http\Middleware\OnlyLogged::class,
-
-        'adminAccessDetect' => \App\Http\Middleware\AdminAccessDetect::class
+        'bindings'          => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'cache.headers'     => \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        'signed'            => \Illuminate\Routing\Middleware\ValidateSignature::class,
+        'throttle'          => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'setUserLocale'     => SetCustomerLocale::class,
+        'cart'              => \App\Http\Middleware\Cart::class,
+        'loadCategories'    => \App\Http\Middleware\LoadCategories::class,
+        'onlyLogged'        => \App\Http\Middleware\OnlyLogged::class,
     ];
 
     /**

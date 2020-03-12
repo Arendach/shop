@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\AuthService;
 use App\Services\BaseConnectionService;
 use App\Services\CategoryFilterService;
 use App\Services\CheckoutService;
@@ -10,7 +11,7 @@ use App\Services\NewPostService;
 use App\Services\OrderStatusService;
 use App\Services\SettingsService;
 use App\Services\StaticPageService;
-use App\Services\UserService;
+use App\Services\CustomerService;
 use App\Services\CartService;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,21 +25,11 @@ class AppServiceProvider extends ServiceProvider
        //  CartInterface::class => CartService::class
     ];
 
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
     public function boot()
     {
-        //
+        \Spatie\NovaTranslatable\Translatable::defaultLocales(['uk', 'ru']);
     }
 
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
     public function register()
     {
         $this->app->bind('Banner', 'App\\Services\\BannerService');
@@ -46,11 +37,12 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(BaseConnectionService::class, BaseConnectionService::class);
 
+        $this->app->singleton(AuthService::class, AuthService::class);
         $this->app->singleton(CartService::class, CartService::class);
         $this->app->singleton(DeliveryService::class, DeliveryService::class);
         $this->app->singleton(CheckoutService::class, CheckoutService::class);
         $this->app->singleton(NewPostService::class, NewPostService::class);
-        $this->app->singleton(UserService::class, UserService::class);
+        $this->app->singleton(CustomerService::class, CustomerService::class);
         $this->app->singleton(OrderStatusService::class, OrderStatusService::class);
         $this->app->singleton(StaticPageService::class, StaticPageService::class);
         $this->app->singleton(CategoryFilterService::class, CategoryFilterService::class);

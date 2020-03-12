@@ -6,47 +6,34 @@ use App\Models\BannerImage;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductCollection;
-use Locale;
+use Locales;
 
 class MainController extends CatalogController
 {
     public function index()
     {
-        $recommended_products = Product::where('is_recommended', 1)
-            ->where('on_storage', 1)
-            ->get();
-
-        $discount_products = Product::where('discount', '!=', 'NULL')
-            ->where('on_storage', 1)
-            ->get();
-
-        $new_products = Product::where('is_new', 1)
-            ->where('on_storage', 1)
-            ->get();
-
+        $recommended = Product::recommended()->onStorage()->get();
+        $productsHome = Product::home()->onStorage()->get();
         $page = Page::where('uri_name', 'index')->first();
 
         $data = [
-            'images'               => BannerImage::all(),
-            'new_products'         => $new_products,
-            'collections'          => ProductCollection::where('parent_id', 0)->get(),
-            'recommended_products' => $recommended_products,
-            'discount_products'    => $discount_products,
-            'title'                => $page->meta_title ?? 'ENTER TITLE',
-            'js'                   => ['slider'],
-            'css'                  => ['slider', 'products'],
-            'meta_description'     => $page->meta_description ?? '',
-            'meta_keywords'        => $page->meta_keywords ?? '',
-            'page'                 => $page
+            'banners'          => BannerImage::all(),
+            'collections'      => ProductCollection::root()->paginate(3),
+            'recommended'      => $recommended,
+            'productsHome'     => $productsHome,
+            'title'            => $page->meta_title ?? 'ENTER TITLE',
+            'meta_description' => $page->meta_description ?? '',
+            'meta_keywords'    => $page->meta_keywords ?? '',
+            'page'             => $page
         ];
 
-        return view('catalog.pages.main', $data);
+        return view('catalog.pages.home', $data);
     }
 
     public function locale($locale)
     {
-        Locale::setUserLocale($locale);
+        Locales::setUserLocale($locale);
 
-        return redirect(Locale::localizeUrl($locale));
+        return redirect(Locales::localizeUrl($locale));
     }
 }

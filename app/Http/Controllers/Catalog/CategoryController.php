@@ -14,6 +14,8 @@ class CategoryController extends CatalogController
             ->where('slug', $slug)
             ->firstOrFail();
 
+        abort_if($category->parent_id == 0, 404);
+
         $data = [
             'title' => $category->meta_title,
             'meta_description' => $category->meta_description,
@@ -40,7 +42,7 @@ class CategoryController extends CatalogController
                 'requestFields' => $request->all()
             ]);
 
-            return view('catalog.category.child', $data);
+            return view('catalog.category.show-products', $data);
         }
     }
 }

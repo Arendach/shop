@@ -45,6 +45,7 @@ class DeliveryService
      * Валідація форми доставки при заведенні замовлення
      * @param $request
      * @return void
+     * @throws ValidationException
      */
     public function validate($request): void
     {

@@ -3,46 +3,35 @@
 namespace App\Services;
 
 use App\Models\CartProduct;
+use App\Models\Customer;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 
 class CartService
 {
-    /**
-     * @var string
-     */
     private $session_id = '';
 
-    /**
-     * @var null|Cart
-     */
+    /** @var Cart */
     private $cart;
 
-    /**
-     * @var int
-     */
     private $count_products = 0;
 
-    /**
-     * CartService constructor.
-     * @param Request $request
-     */
+    private $products = [];
+
     public function __construct(Request $request)
     {
-        if (is_null($request->getSession())) return null;
+        if (is_null($request->getSession())) return;
 
         $this->session_id = $request->getSession()->getId() ?? '';
 
         $this->boot();
     }
 
-    /**
-     * Загрузка сервіса
-     */
     private function boot(): void
     {
-        if (is_auth()) {
-            $this->cart = Cart::where('user_id', user()->id)
+        if (isAuth()) {
+            $this->cart = Cart::where('customer_id', customer()->id)
                 ->with('products')
                 ->latest()->first();
         } else {
@@ -54,17 +43,13 @@ class CartService
         $this->count_products = is_null($this->cart) ? 0 : $this->cart->products->count();
     }
 
-    /**
-     * Отримати обєкт корзини, створити якщо не існує
-     *
-     * @return Cart
-     */
+    /** Отримати обєкт корзини, створити якщо не існує */
     private function getOrCreate(): Cart
     {
         if (is_null($this->cart)) {
             $this->cart = new Cart;
 
-            $this->cart->user_id = is_auth() ? user()->id : null;
+            $this->cart->customer_id = isAuth() ? customer()->id : null;
             $this->cart->session = $this->session_id;
 
             $this->cart->save();
@@ -73,59 +58,25 @@ class CartService
         return $this->cart;
     }
 
-    /**
-     * Додати товар у корзину / збільшити кількість якщо вже в корзині
-     *
-     * @param array $data
-     * @return bool
-     */
-    private function setCartProduct(array $data): bool
-    {
-        if (CartProduct::where('cart_id', $data['cart_id'])->where('product_id', $data['product_id'])->count())
-            return CartProduct::where('cart_id', $data['cart_id'])->where('product_id', $data['product_id'])->increment('amount');
-        else
-            return CartProduct::insert($data);
-    }
-
-    /**
-     * Получити корзину
-     *
-     * @return Cart|null
-     */
+    /** Получити корзину */
     public function get()
     {
         return $this->cart;
     }
 
-    /**
-     * Кількість товарів у корзині
-     *
-     * @return int
-     */
-    public function countProducts(): int
-    {
-        return $this->count_products;
-    }
-
-    /**
-     * Додати товар до корзини
-     *
-     * @param int $product_id
-     * @return bool
-     */
-    public function add(int $product_id): bool
+    // Додати товар до корзини
+    public function attach(int $product_id): void
     {
         $cart = $this->getOrCreate();
 
-        $result = $this->setCartProduct([
-            'cart_id' => $cart->id,
-            'product_id' => $product_id,
-            'amount' => 1
-        ]);
+        if ($cart->products->where('id', $product_id)->count()) {
+            $cart->products->where('id', $product_id)->first()->pivot->amount++;
+            $cart->products->where('id', $product_id)->first()->pivot->save();
+        } else {
+            $cart->products()->attach($product_id);
+        }
 
         $this->boot();
-
-        return $result;
     }
 
     /**
@@ -147,11 +98,7 @@ class CartService
         return $result;
     }
 
-    /**
-     * Видалити корзину
-     *
-     * @param $id
-     */
+    /** Видалити корзину */
     public function remove($id): void
     {
         CartProduct::destroy($id);
@@ -159,25 +106,25 @@ class CartService
         $this->boot();
     }
 
-    /**
-     * Сума по товарах у корзині
-     *
-     * @return float
-     */
+    /** Видалити товар з корзини */
+    public function detach(int $product_id): void
+    {
+        if ($this->cartIsSet()) {
+            $this->cart->products()->detach($product_id);
+        }
+    }
+
+    /** Сума по товарах у корзині */
     public function getProductsSum(): float
     {
         if (!$this->productsIsSet()) return 0;
 
-        return (float)$this->cart->products->sum(function ($cart_product) {
-            return $cart_product->product->getOriginal('price') * $cart_product->amount;
+        return $this->cart->products->sum(function (Product $product) {
+            return $product->new_price * $product->pivot->amount;
         });
     }
 
-    /**
-     * Маса товарів у корзині
-     *
-     * @return float
-     */
+    /** Маса товарів у корзині */
     public function getProductsWeight(): float
     {
         if (!$this->productsIsSet()) return 0;
@@ -187,20 +134,33 @@ class CartService
         });
     }
 
-    public function importProductsFromSession(): void
+    /** Список товарів для випадаючого меню */
+    public function getProductsListHtml(): string
     {
-        // якщо користувач автентифікований
-        if (is_auth()) {
+        $result = '';
+        $this->cart->products->each(function (Product $product) use (&$result) {
+            $result .= view('catalog.parts.dropdown-cart-product', compact('product'))->render();
+        });
 
-            // получаємо найновішу корзину відповідно сесії
-            $cart = Cart::where('session', $this->session_id)->latest()->first();
+        return $result;
+    }
 
-            // якщо вона існує то привязуємо до неї користувача
-            if (!is_null($cart)) {
-                $cart->user_id = user()->id;
+    /** Вартість доставки */
+    public function getDeliverySum(): float
+    {
+        return 100;
+    }
 
-                $cart->save();
-            }
+    public function importProductsFromSession(Customer $customer): void
+    {
+        // получаємо найновішу корзину відповідно сесії
+        $cart = Cart::where('session', $this->session_id)->latest()->first();
+
+        // якщо вона існує то привязуємо до неї користувача
+        if (!is_null($cart)) {
+            $cart->customer_id = $customer->id;
+
+            $cart->save();
         }
 
         // перезагружаємо корзину
@@ -225,21 +185,30 @@ class CartService
         return in_array($product_id, $this->cart->products->pluck('product_id')->toArray());
     }
 
-    /**
-     * @return bool
-     */
     private function cartIsSet(): bool
     {
         return !is_null($this->cart);
     }
 
-    /**
-     * @return bool
-     */
     private function productsIsSet(): bool
     {
         if (!$this->cartIsSet()) return false;
 
         return !is_null($this->cart->products);
+    }
+
+    public function getProducts()
+    {
+        return $this->cart->products ?? [];
+    }
+
+    public function hasProducts(): bool
+    {
+        return count($this->cart->products ?? []);
+    }
+
+    public function countProducts(): int
+    {
+        return count($this->cart->products ?? []);
     }
 }

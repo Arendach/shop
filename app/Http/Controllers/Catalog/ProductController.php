@@ -16,29 +16,30 @@ use Illuminate\Support\Str;
 
 class ProductController extends CatalogController
 {
-    public function view(Str $str, $slug)
+    public function view($slug)
     {
-        $product = Product::with('images')
-            ->with('reviews')
-            ->with('relation')
-            ->where(is_numeric($slug) ? 'id' : 'slug', $slug)
-            ->firstOrFail();
-
-        $category = Category::with('parent')->find($product->category_id);
+        $product = Product::with([
+            'images',
+            'reviews',
+            'related',
+            'category',
+            'category.parent',
+            'characteristics'
+        ])->where(is_numeric($slug) ? 'id' : 'slug', $slug)->firstOrFail();
 
         $data = [
-            'title' => $product->meta_title,
-            'meta_keywords' => $product->meta_keywords,
+            'title'            => $product->meta_title,
+            'meta_keywords'    => $product->meta_keywords,
             'meta_description' => $product->meta_description,
-            'product' => $product,
-            'breadcrumbs' => [
-                [$category->parent->name, route('category.show',$category->parent->slug)],
-                [$category->name, route('category.show', $category->slug)],
+            'product'          => $product,
+            'breadcrumbs'      => [
+                [$product->category->parent->name ?? '', $product->category->parent->url ?? ''],
+                [$product->category->name ?? '', $product->category->url ?? ''],
                 [$product->name]
             ]
         ];
 
-        return view('catalog.product.view', $data);
+        return view('catalog.product.detail', $data);
     }
 
     public function action_create_review_comment_form(Request $request)
@@ -67,7 +68,7 @@ class ProductController extends CatalogController
     {
         $review = new Review;
 
-        $review->user_id = user()->id;
+        $review->user_id = customer()->id;
         $review->product_id = $request->product_id;
         $review->rating = $request->rating;
         $review->comment = $request->comment;
@@ -86,7 +87,7 @@ class ProductController extends CatalogController
         ReviewComment::destroy($request->id);
 
         return response()->json([
-            'title' => 'Виконано!',
+            'title'   => 'Виконано!',
             'message' => 'Коментар успішно видалений!'
         ], 200);
     }
@@ -96,8 +97,8 @@ class ProductController extends CatalogController
         $comment = ReviewComment::findOrFail($request->id);
 
         return view('catalog.product.forms.update_review_comment', [
-            'comment' => $comment,
-            'title' => 'Редагувати коментар',
+            'comment'    => $comment,
+            'title'      => 'Редагувати коментар',
             'modal_size' => 'lg'
         ]);
     }
@@ -107,8 +108,8 @@ class ProductController extends CatalogController
         $review = Review::findOrFail($request->id);
 
         return view('catalog.product.forms.update_review', [
-            'review' => $review,
-            'title' => 'Редагувати відгук',
+            'review'     => $review,
+            'title'      => 'Редагувати відгук',
             'modal_size' => 'xl'
         ]);
     }
@@ -121,7 +122,7 @@ class ProductController extends CatalogController
         // TODO дописати логіку зміни рейтинга товара
 
         return response()->json([
-            'title' => 'Виконано!',
+            'title'   => 'Виконано!',
             'message' => 'Відгук вдало відредаговано!'
         ], 200);
     }
@@ -132,7 +133,7 @@ class ProductController extends CatalogController
             ->update($request->all());
 
         return response()->json([
-            'title' => 'Виконано!',
+            'title'   => 'Виконано!',
             'message' => 'Коментар вдало оновлено!'
         ], 200);
     }
@@ -142,7 +143,7 @@ class ProductController extends CatalogController
         Review::destroy($request->id);
 
         return response()->json([
-            'title' => __('common.delete.success_title'),
+            'title'   => __('common.delete.success_title'),
             'message' => __('common.delete.success_text')
         ]);
     }
@@ -151,14 +152,14 @@ class ProductController extends CatalogController
     {
         $review = Review::findOrFail($request->review_id);
 
-        $review_thumb = ReviewThumb::where('user_id', user()->id)
+        $review_thumb = ReviewThumb::where('user_id', customer()->id)
             ->where('review_id', $request->review_id)
             ->first();
 
         if ($review_thumb == null) {
             $review_thumb = new ReviewThumb;
 
-            $review_thumb->user_id = user()->id;
+            $review_thumb->user_id = customer()->id;
             $review_thumb->review_id = $request->review_id;
         }
 
@@ -180,9 +181,9 @@ class ProductController extends CatalogController
         $review->save();
 
         return response()->json([
-            'thumb_up' => $thumb_up,
-            'thumb_down' => $thumb_down,
-            'thumb_up_quality' => $review_thumb->quality == 1 ? 0 : 1,
+            'thumb_up'           => $thumb_up,
+            'thumb_down'         => $thumb_down,
+            'thumb_up_quality'   => $review_thumb->quality == 1 ? 0 : 1,
             'thumb_down_quality' => $review_thumb->quality == -1 ? 0 : -1,
         ], 200);
     }

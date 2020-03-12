@@ -1,10 +1,13 @@
 <?php
 
+use App\Models\Customer;
+use App\Services\AuthService;
+
 define('DS', DIRECTORY_SEPARATOR);
 
-function is_auth(): bool
+function isAuth(): bool
 {
-    return \Auth::is_auth();
+    return app(AuthService::class)->isAuth();
 }
 
 function translate($text)
@@ -12,57 +15,21 @@ function translate($text)
     return Translate::get($text);
 }
 
-
-function user(int $id = 0)
+function customer(int $id = 0): Customer
 {
-    if ($id == 0 && is_auth()) {
-        return \Auth::getUser();
+    if ($id == 0 && isAuth()) {
+        return app(AuthService::class)->getCustomer();
     } elseif (is_numeric($id) && $id > 0) {
-        $user = \App\Models\User::find($id);
+        $user = Customer::find($id);
 
-        if (!is_null($user))
+        if (!is_null($user)) {
             return $user;
+        }
     }
 
-    return new \App\Models\User();
+    return new Customer;
 }
 
-/**
- * @param $key
- * @param int $user_id
- * @return bool
- */
-function access($key, $user_id = 0): bool
-{
-    return is_admin();
-    if (!is_auth()) return false;
-
-    $user = user($user_id);
-
-    // root
-    if ($user->access == -1) return true;
-
-    // в користувача є ключ
-    if (preg_match('@,@', $user->access)) {
-        $keys = explode(',', $user->access);
-        if (in_array($key, $keys))
-            return true;
-    }
-
-    return false;
-}
-
-function is_admin(int $id = 0): bool
-{
-    $role = user($id)->role ?? '';
-
-    return $role == 'admin';
-}
-
-/**
- * @param string $filename
- * @return array
- */
 function asset_data(string $filename): array
 {
     if (is_file(base_path("assets/$filename.php"))) {

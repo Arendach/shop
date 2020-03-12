@@ -2,40 +2,19 @@
 
 namespace App\Rules;
 
+use App\Models\Customer;
 use Illuminate\Contracts\Validation\Rule;
 use App\Models\User;
 
 class EmailUnique implements Rule
 {
-    /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
-     * Determine if the validation rule passes.
-     *
-     * @param  string  $attribute
-     * @param  mixed  $value
-     * @return bool
-     */
     public function passes($attribute, $value)
     {
-        return !User::where('email', $value)->count();
+        return !(Customer::where('email', $value)->count());
     }
 
-    /**
-     * Get the validation error message.
-     *
-     * @return string
-     */
     public function message()
     {
-        return __('user.validation.email.unique');
+        return translate('Покупець з таким Email вже зарестрований на сайті!');
     }
 }

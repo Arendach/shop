@@ -17,7 +17,7 @@ class ReviewCommentUpdateRequest extends FormRequest
     {
         $comment = ReviewComment::find($this->request->get('id'));
 
-        return (isset($comment->user_id) && $comment->user_id == user()->id) || access('products');
+        return (isset($comment->user_id) && $comment->user_id == customer()->id) || access('products');
     }
 
     /**

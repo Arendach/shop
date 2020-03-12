@@ -13,7 +13,7 @@ class ProductCollectionSeeder extends Seeder
      */
     public function run()
     {
-        ProductCollection::insert([
+/*        ProductCollection::insert([
             [
                 'parent_id' => 0,
                 'name_uk' => 'Колекція номер 1',
@@ -225,9 +225,9 @@ class ProductCollectionSeeder extends Seeder
                 'description_uk' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
                 'description_ru' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime nobis quia tempora unde voluptas. Adipisci dignissimos facere libero quasi quo soluta, voluptatem. Adipisci assumenda natus quibusdam quod ratione veritatis vero!',
             ],
-        ]);
+        ]);*/
 
-        ProductCollectionItems::insert([
+        DB::table('collection_products')->insert([
             ['collection_id' => 5, 'product_id' => 1],
             ['collection_id' => 5, 'product_id' => 2],
             ['collection_id' => 5, 'product_id' => 3],

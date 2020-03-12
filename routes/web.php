@@ -18,7 +18,7 @@ if (!function_exists('simple_routing')) {
 
         $object = new $namespace;
 
-        abort_if(!method_exists($object, $action_prefix . $action), 404, __('common.errors.post_404'));
+        abort_if(!method_exists($object, $action_prefix . $action), 404, translate('404! Сторінка не знайдена!'));
 
         return app()->call([new $namespace, $action_prefix . $action], request()->all());
     }
@@ -52,7 +52,7 @@ Route::get('sitemap.xml', 'Api\SitemapController@show');
  * START LOAD ROUTES
  */
 Route::group([
-    'prefix' => Locale::getPrefix(),
+    'prefix' => Locales::getPrefix(),
     'middleware' => [
         'setUserLocale',
         'cart'
@@ -63,10 +63,10 @@ Route::group([
      *
      * admin.php
      */
-    Route::prefix('admin')
-        ->namespace('Admin')
-        ->middleware('adminAccessDetect')
-        ->group(base_path('routes/admin.php'));
+//    Route::prefix('admin')
+//        ->namespace('Admin')
+//        ->middleware('adminAccessDetect')
+//        ->group(base_path('routes/admin.php'));
 
     /**
      * Маршрути моста

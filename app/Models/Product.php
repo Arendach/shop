@@ -6,91 +6,10 @@ use App\Abstraction\Models\SeoMultiLangInterface;
 use App\Abstraction\Models\TwoImageInterface;
 use App\Traits\Models\SeoMultiLang;
 use App\Traits\Models\TwoImage;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-/**
- * App\Models\Product
- *
- * @property int $id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string $article
- * @property float $price
- * @property int $on_storage
- * @property string|null $name_uk
- * @property string|null $description_uk
- * @property string|null $name_ru
- * @property string|null $description_ru
- * @property int $category_id
- * @property int $is_new
- * @property int $is_recommended
- * @property float|null $discount
- * @property string|null $small
- * @property string|null $big
- * @property string $product_key
- * @property string|null $meta_title_uk
- * @property string|null $meta_keywords_uk
- * @property string|null $meta_description_uk
- * @property string|null $meta_title_ru
- * @property string|null $meta_keywords_ru
- * @property string|null $meta_description_ru
- * @property int|null $manufacturer_id
- * @property string $slug
- * @property float $rating
- * @property-read \App\Models\Category $category
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductCharacteristic[] $characteristics
- * @property-read int|null $characteristics_count
- * @property-read mixed $available
- * @property-read mixed $big_image
- * @property-read mixed $description
- * @property-read mixed $meta_description
- * @property-read mixed $meta_keywords
- * @property-read mixed $meta_title
- * @property-read mixed $name
- * @property-read mixed $small_image
- * @property-read mixed $stars
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductImage[] $images
- * @property-read int|null $images_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\RelationProduct[] $relation
- * @property-read int|null $relation_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Review[] $reviews
- * @property-read int|null $reviews_count
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereArticle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereBig($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereCategoryId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereDescriptionRu($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereDescriptionUk($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereDiscount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereIsNew($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereIsRecommended($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereManufacturerId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereMetaDescriptionRu($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereMetaDescriptionUk($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereMetaKeywordsRu($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereMetaKeywordsUk($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereMetaTitleRu($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereMetaTitleUk($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereNameRu($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereNameUk($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereOnStorage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product wherePrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereProductKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereRating($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereSmall($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereUpdatedAt($value)
- * @mixin \Eloquent
- * @property float|null $weight
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereWeight($value)
- * @property-read float $now_price
- * @property-read \App\Models\Manufacturer|null $manufacturer
- */
 class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
 {
     use SeoMultiLang;
@@ -125,9 +44,12 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
 
     public $timestamps = true;
 
+
     public function category()
     {
-        return $this->belongsTo('App\Models\Category');
+        return $this->belongsTo(Category::class)->withDefault([
+            'name' => translate('Без категорії')
+        ]);
     }
 
     public function characteristics()
@@ -141,6 +63,22 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
         return $this->belongsTo(Manufacturer::class);
     }
 
+    public function images()
+    {
+        return $this->hasMany('App\Models\ProductImage');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class)->with('customer');
+    }
+
+    public function related()
+    {
+        return $this->belongsToMany(Product::class, 'relation_products', 'product_id', 'related_id');
+    }
+
+
     public function getNameAttribute()
     {
         $name = $this->{"name_" . config('locale.current')};
@@ -152,79 +90,52 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
         return $this->{"description_" . config('app.locale')};
     }
 
-    /**
-     * Форматована звичайна ціна
-     *
-     * @param $value
-     * @return string
-     */
-    public function getPriceAttribute($value): string
+    public function getNewPriceAttribute()
     {
-        return number_format(round($value));
+        if (is_null($this->discount)) return $this->price;
+
+        return $this->discounted_price;
     }
 
-    /**
-     * Форматована знижена ціна
-     *
-     * @param $value
-     * @return string|null
-     */
-    public function getDiscountAttribute($value)
+    public function getOldPriceAttribute()
     {
-        if (is_null($value)) return '';
-
-        return number_format(round($value));
+        return $this->price;
     }
 
-    /**
-     * Актуальна ціна да даний час
-     *
-     * @return float
-     */
-    public function getNowPriceAttribute(): float
+    public function getDiscountedPriceAttribute(): float
     {
-        if (is_null($this->getOriginal('discount'))) return (float)$this->getOriginal('price');
-        else return (float)$this->getOriginal('discount');
+        if (preg_match('~%~', $this->discount)) {
+            $percent = (int)$this->discount;
+            return $this->price - ($this->price / 100 * $percent);
+        } elseif (is_numeric($this->discount)) {
+            return $this->price - $this->discount;
+        } else {
+            return $this->price;
+        }
     }
 
-    public function images()
+    public function getDiscountPercentAttribute(): int
     {
-        return $this->hasMany('App\Models\ProductImage');
+        return preg_match('~%~', $this->discount) ? (int)$this->discount : (int)($this->discount / $this->price * 100);
     }
 
-    public function reviews()
+    public function getIsDiscountedAttribute()
     {
-        return $this->hasMany('App\\Models\\Review')
-            ->orderByDesc('id')
-            ->with('comments')
-            ->with('thumb')
-            ->with('user');
-    }
-
-    public function relation()
-    {
-        return $this->hasMany('App\\Models\\RelationProduct')
-            ->limit(4)
-            ->with('product');
+        return !is_null($this->discount);
     }
 
     public function getStarsAttribute()
     {
         $rating = $this->rating;
 
-        $title = !$rating ? __('products.no_rating') : "$rating/5 (" . __('products.user_quality') . ")";
-
-        $result = "<span data-toggle='tooltip' title='$title'>";
+        $result = '';
         for ($i = 1; $i <= 5; $i++) {
-            $result .= '<span>';
-            if ($i <= round($rating)) {
-                $result .= '<img src="' . asset(config('default.image.star_active')) . '">';
+            if ($i <= $rating) {
+                $result .= '<i class="icon-star voted"></i>';
             } else {
-                $result .= '<img src="' . asset(config('default.image.star_no_active')) . '">';
+                $result .= '<i class="icon-star"></i>';
             }
-            $result .= '</span>';
         }
-        $result .= '</span>';
 
         return $result;
     }
@@ -237,10 +148,12 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
             return '<span class="text-danger"><i class="fa fa-remove"></i> ' . __('products.available_false') . '</span>';
     }
 
-    /**
-     * @param string $value
-     * @return LengthAwarePaginator
-     */
+    public function getUrlAttribute(): string
+    {
+        return route('product.view', $this->slug);
+    }
+
+
     public function getSearchProducts(string $value): LengthAwarePaginator
     {
         return Product::where('name_uk', 'like', "%$value%")
@@ -248,5 +161,21 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
             ->orWhere('article', 'like', "%$value%")
             ->orderBy('on_storage', 'desc')
             ->paginate(config('app.items'));
+    }
+
+
+    public function scopeOnStorage(Builder $builder, bool $onStorage = true)
+    {
+        $builder->where('on_storage', $onStorage);
+    }
+
+    public function scopeHome(Builder $builder, bool $isHome = true): void
+    {
+        $builder->where('is_home', $isHome);
+    }
+
+    public function scopeRecommended(Builder $builder, bool $isRecommended = true): void
+    {
+        $builder->where('is_recommended', $isRecommended);
     }
 }

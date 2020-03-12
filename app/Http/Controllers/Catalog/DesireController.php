@@ -8,7 +8,7 @@ class DesireController extends CatalogController
 {
     public function index()
     {
-        if (!is_auth()) return redirect()->route('login');
+        if (!isAuth()) return redirect()->route('login');
 
         $data = [
             'title' => 'Вибрані товари',
@@ -16,17 +16,17 @@ class DesireController extends CatalogController
                 ['Профіль', route('profile')],
                 ['Вибрані товари']
             ],
-            'products' => user()->desire_products
+            'products' => customer()->desire_products
         ];
 
-        return view('catalog.desire.index', $data);
+        return view('catalog.customer.profile.desire', $data);
     }
 
-    public function action_add(AddRequest $request)
+    public function action_switch(AddRequest $request)
     {
-        $desire = user()->desire_products();
+        $desire = customer()->desire_products();
 
-        if ($desire->where('product_id', $request->product_id)->count()) {
+        if (customer()->hasDesire($request->product_id)) {
             $desire->detach($request->product_id);
 
             $message = 'Товар видалено з списку бажаних!';

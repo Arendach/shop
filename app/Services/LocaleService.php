@@ -139,7 +139,7 @@ class LocaleService
     {
         $this->request->session()->put('locale', $locale);
 
-        user()->update(['locale' => $locale]);
+        customer()->update(['locale' => $locale]);
     }
 
     /**

@@ -13,7 +13,7 @@ return [
     | Example: 'footer' or ['footer', 'bottom']
     |
     */
-    'bind_js_vars_to_this_view' => 'common.JavaScriptVars',
+    'bind_js_vars_to_this_view' => 'bridge.javascript-vars',
 
     /*
     |--------------------------------------------------------------------------

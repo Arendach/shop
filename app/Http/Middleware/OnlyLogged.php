@@ -6,17 +6,11 @@ use Closure;
 
 class OnlyLogged
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
-     * @return mixed
-     */
     public function handle($request, Closure $next)
     {
-        if (!is_auth())
+        if (!isAuth()) {
             return redirect()->route('login');
+        }
 
         return $next($request);
     }

@@ -17,7 +17,7 @@ class ReviewDeleteRequest extends FormRequest
     {
         $review = Review::findOrFail($this->request->get('id'));
 
-        return ($review->user_id == user()->id) || access('products');
+        return ($review->user_id == customer()->id) || access('products');
     }
 
     /**

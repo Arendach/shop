@@ -10,7 +10,7 @@ use App\Models\ProductCollection;
 use Illuminate\Http\Response;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
-use Locale;
+use Locales;
 
 class SitemapController extends Controller
 {
@@ -37,7 +37,7 @@ class SitemapController extends Controller
         $index = Page::whereUriName('index')->first();
 
         foreach (config('locale.support') as $locale) {
-            $link = Locale::localizeUrl($locale, route('index'));
+            $link = Locales::localizeUrl($locale, route('index'));
 
             $url = Url::create($link)
                 ->setLastModificationDate($index->updated_at ?? now())
@@ -55,7 +55,7 @@ class SitemapController extends Controller
         foreach ($products as $product) {
             foreach (config('locale.support') as $locale) {
                 $link = route('product.view', $product->slug);
-                $link = Locale::localizeUrl($locale, $link);
+                $link = Locales::localizeUrl($locale, $link);
                 $lastUpdate = !is_null($product->updated_at) ? $product->updated_at : now();
 
 
@@ -76,7 +76,7 @@ class SitemapController extends Controller
         foreach ($categories as $category) {
             foreach (config('locale.support') as $locale) {
                 $link = route('category.show', $category->slug);
-                $link = Locale::localizeUrl($locale, $link);
+                $link = Locales::localizeUrl($locale, $link);
                 $lastUpdate = !is_null($category->updated_at) ? $category->updated_at : now();
 
                 $url = Url::create($link)
@@ -96,7 +96,7 @@ class SitemapController extends Controller
         foreach ($collections as $collection) {
             foreach (config('locale.support') as $locale) {
                 $link = route('collection', $collection->slug);
-                $link = Locale::localizeUrl($locale, $link);
+                $link = Locales::localizeUrl($locale, $link);
                 $lastUpdate = !is_null($collection->updated_at) ? $collection->updated_at : now();
 
 
