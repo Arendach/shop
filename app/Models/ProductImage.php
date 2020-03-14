@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Abstraction\Models\TwoImageInterface;
+use App\Traits\Models\TwoImage;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -27,8 +29,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductImage whereSmall($value)
  * @mixin \Eloquent
  */
-class ProductImage extends Model
+class ProductImage extends Model implements TwoImageInterface
 {
+    use TwoImage;
+
     protected $table = 'product_images';
 
     public $timestamps = false;
@@ -46,19 +50,4 @@ class ProductImage extends Model
     {
         return $this->{"alt_" . config('locale.current')};
     }
-
-    public function getSmallAttribute($value): string
-    {
-        if (is_file(public_path($value))) return asset($value);
-        elseif (preg_match('@^http@', $value)) return $value;
-        else return asset(config('default.image.product_small'));
-    }
-
-    public function getBigAttribute($value): string
-    {
-        if (is_file(public_path($value))) return asset($value);
-        elseif (preg_match('@^http@', $value)) return $value;
-        else return asset(config('default.image.product_big'));
-    }
-
 }

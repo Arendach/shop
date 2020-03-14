@@ -14,6 +14,11 @@ trait TwoImage
         if (config('app.debug')) {
             return asset('catalog/img/product.jpg');
         }
+
+        if (empty($this->small)) {
+            return $this->big_image;
+        }
+
         // если файл найдень в публической директории
         // то возвращаем к нему полный путь
         if (is_file(public_path($this->small))) return asset($this->small);

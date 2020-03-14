@@ -8,6 +8,7 @@ use App\Http\Requests\Catalog\Product\ReviewDeleteRequest;
 use App\Http\Requests\Catalog\Product\ReviewUpdateRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\Review;
 use App\Models\ReviewComment;
 use App\Models\ReviewThumb;
