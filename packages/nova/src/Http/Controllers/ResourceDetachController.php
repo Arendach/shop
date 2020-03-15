@@ -30,11 +30,13 @@ class ResourceDetachController extends Controller
 
                 $pivot->delete();
 
-                DB::table('action_events')->insert(
-                    Nova::actionEvent()->forResourceDetach(
-                        $request->user(), $parent, collect([$model]), $pivot->getMorphClass()
-                    )->map->getAttributes()->all()
-                );
+                tap(Nova::actionEvent(), function ($actionEvent) use ($pivot, $model, $parent, $request) {
+                    DB::connection($actionEvent->getConnectionName())->table('action_events')->insert(
+                        $actionEvent->forResourceDetach(
+                            $request->user(), $parent, collect([$model]), $pivot->getMorphClass()
+                        )->map->getAttributes()->all()
+                    );
+                });
             }
         });
     }

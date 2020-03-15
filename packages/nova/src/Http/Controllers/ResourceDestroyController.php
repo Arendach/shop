@@ -30,11 +30,19 @@ class ResourceDestroyController extends Controller
 
                 $model->delete();
 
-                DB::table('action_events')->insert(
-                    Nova::actionEvent()->forResourceDelete($request->user(), collect([$model]))
-                                ->map->getAttributes()->all()
-                );
+                tap(Nova::actionEvent(), function ($actionEvent) use ($model, $request) {
+                    DB::connection($actionEvent->getConnectionName())->table('action_events')->insert(
+                        $actionEvent->forResourceDelete($request->user(), collect([$model]))
+                            ->map->getAttributes()->all()
+                    );
+                });
             });
         });
+
+        if ($request->isForSingleResource()) {
+            return response()->json([
+                'redirect' => $request->resource()::redirectAfterDelete($request),
+            ]);
+        }
     }
 }

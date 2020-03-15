@@ -3,8 +3,10 @@
 namespace Laravel\Nova\Tests\Controller;
 
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Actions\ActionEvent;
+use Laravel\Nova\Nova;
 use Laravel\Nova\Tests\Fixtures\Address;
 use Laravel\Nova\Tests\Fixtures\CustomKey;
 use Laravel\Nova\Tests\Fixtures\Post;
@@ -496,6 +498,37 @@ class ResourceCreationTest extends IntegrationTest
             ]);
 
         $response->assertJson(['redirect' => 'https://yahoo.com']);
+    }
+
+    public function test_should_store_action_event_on_correct_connection_when_creating()
+    {
+        $this->setupActionEventsOnSeparateConnection();
+
+        $response = $this->withoutExceptionHandling()
+            ->postJson('/nova-api/users', [
+                'name' => 'Taylor Otwell',
+                'email' => 'taylor@laravel.com',
+                'password' => 'password',
+            ]);
+
+        $response->assertStatus(201);
+
+        $user = User::first();
+        $this->assertEquals('Taylor Otwell', $user->name);
+        $this->assertEquals('taylor@laravel.com', $user->email);
+
+        $this->assertCount(0, DB::connection('sqlite')->table('action_events')->get());
+        $this->assertCount(1, DB::connection('sqlite-custom')->table('action_events')->get());
+
+        tap(Nova::actionEvent()->first(), function ($actionEvent) use ($user) {
+            $this->assertEquals('Create', $actionEvent->first()->name);
+            $this->assertEquals($user->id, $actionEvent->target_id);
+            $this->assertEmpty($actionEvent->original);
+            $this->assertSubset([
+                'name' => 'Taylor Otwell',
+                'email' => 'taylor@laravel.com',
+            ], $actionEvent->changes);
+        });
     }
 
     public function tearDown(): void

@@ -22,6 +22,8 @@ import CustomAttachHeader from '@/components/CustomAttachHeader'
 import CreateRelationModal from '@/components/Modals/CreateRelationModal'
 import CreateRelationButton from '@/components/Form/CreateRelationButton'
 import CreateForm from '@/components/CreateForm'
+import CustomCreateHeader from '@/components/CustomCreateHeader'
+import CustomDashboardHeader from '@/components/CustomDashboardHeader'
 import CustomDetailHeader from '@/components/CustomDetailHeader'
 import CustomDetailToolbar from '@/components/CustomDetailToolbar'
 import CustomIndexHeader from '@/components/CustomIndexHeader'
@@ -112,6 +114,8 @@ Vue.component('confirm-action-modal', ConfirmActionModal)
 Vue.component('confirm-upload-removal-modal', ConfirmUploadRemovalModal)
 Vue.component('create-resource-button', CreateResourceButton)
 Vue.component('custom-attach-header', CustomAttachHeader)
+Vue.component('custom-create-header', CustomCreateHeader)
+Vue.component('custom-dashboard-header', CustomDashboardHeader)
 Vue.component('custom-detail-header', CustomDetailHeader)
 Vue.component('custom-detail-toolbar', CustomDetailToolbar)
 Vue.component('custom-index-header', CustomIndexHeader)

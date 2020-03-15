@@ -49,6 +49,5 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(OrderStatusService::class, OrderStatusService::class);
         $this->app->singleton(StaticPageService::class, StaticPageService::class);
         $this->app->singleton(CategoryFilterService::class, CategoryFilterService::class);
-        $this->app->singleton(SettingsService::class, SettingsService::class);
     }
 }

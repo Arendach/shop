@@ -72,7 +72,7 @@ abstract class Resource implements ArrayAccess, JsonSerializable, UrlRoutable
     public static $displayInNavigation = true;
 
     /**
-     * Indicates if the resoruce should be globally searchable.
+     * Indicates if the resource should be globally searchable.
      *
      * @var bool
      */
@@ -479,5 +479,16 @@ abstract class Resource implements ArrayAccess, JsonSerializable, UrlRoutable
     public static function redirectAfterUpdate(NovaRequest $request, $resource)
     {
         return '/resources/'.static::uriKey().'/'.$resource->getKey();
+    }
+
+    /**
+     * Return the location to redirect the user after deletion.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @return string
+     */
+    public static function redirectAfterDelete(NovaRequest $request)
+    {
+        return '/resources/'.static::uriKey();
     }
 }

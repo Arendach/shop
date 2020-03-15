@@ -292,9 +292,7 @@ export default {
     },
 
     isHasOneRelationship() {
-      return (
-        this.relationResponse && this.relationResponse.hasOneRelationship != ''
-      )
+      return this.relationResponse && this.relationResponse.hasOneRelationship
     },
 
     shouldShowAddAnotherButton() {

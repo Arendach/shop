@@ -46,7 +46,7 @@ class MakeDirective extends Command
         
             public static function apply()
             {
-
+                 
             }
         }
         EOL;

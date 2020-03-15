@@ -99,7 +99,7 @@ return [
     |
     */
 
-    'locale' => 'ua',
+    'locale' => 'uk',
 
     /*
     |--------------------------------------------------------------------------
@@ -272,7 +272,6 @@ return [
         'OrderStatus'    => App\Facades\OrderStatusFacade::class,
         'StaticPage'     => App\Facades\StaticPageFacade::class,
         'CategoryFilter' => App\Facades\CategoryFilterFacade::class,
-        'Settings'       => App\Facades\SettingsFacade::class,
         'Translate'      => App\Facades\TranslateFacade::class,
     ],
 ];

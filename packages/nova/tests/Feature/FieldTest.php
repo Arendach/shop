@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
@@ -408,6 +409,64 @@ class FieldTest extends IntegrationTest
         $field->stacked(false);
 
         $this->assertFalse($field->stacked);
+    }
+
+    public function test_belongs_to_field_can_have_custom_callback_to_determine_if_we_should_show_create_relation_button()
+    {
+        $request = NovaRequest::create('/', 'GET', []);
+
+        $field = BelongsTo::make('User', 'user', UserResource::class);
+
+        $field->showCreateRelationButton(false);
+        $this->assertFalse($field->createRelationShouldBeShown($request));
+
+        $field->showCreateRelationButton(true);
+        $this->assertTrue($field->createRelationShouldBeShown($request));
+
+        $field->showCreateRelationButton(function ($request) {
+            return false;
+        });
+        $this->assertFalse($field->createRelationShouldBeShown($request));
+
+        $field->showCreateRelationButton(function ($request) {
+            return true;
+        });
+        $this->assertTrue($field->createRelationShouldBeShown($request));
+
+        $field->hideCreateRelationButton();
+        $this->assertFalse($field->createRelationShouldBeShown($request));
+
+        $field->showCreateRelationButton();
+        $this->assertTrue($field->createRelationShouldBeShown($request));
+    }
+
+    public function test_morph_to_fields_can_have_custom_callback_to_determine_if_we_should_show_create_relation_button()
+    {
+        $request = NovaRequest::create('/', 'GET', []);
+
+        $field = MorphTo::make('Commentable', 'commentable');
+
+        $field->showCreateRelationButton(false);
+        $this->assertFalse($field->createRelationShouldBeShown($request));
+
+        $field->showCreateRelationButton(true);
+        $this->assertTrue($field->createRelationShouldBeShown($request));
+
+        $field->showCreateRelationButton(function ($request) {
+            return false;
+        });
+        $this->assertFalse($field->createRelationShouldBeShown($request));
+
+        $field->showCreateRelationButton(function ($request) {
+            return true;
+        });
+        $this->assertTrue($field->createRelationShouldBeShown($request));
+
+        $field->hideCreateRelationButton();
+        $this->assertFalse($field->createRelationShouldBeShown($request));
+
+        $field->showCreateRelationButton();
+        $this->assertTrue($field->createRelationShouldBeShown($request));
     }
 }
 

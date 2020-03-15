@@ -126,7 +126,7 @@
           <checkbox-with-label
             :dusk="field.attribute + '-with-trashed-checkbox'"
             :checked="withTrashed"
-            @change="toggleWithTrashed"
+            @input="toggleWithTrashed"
           >
             {{ __('With Trashed') }}
           </checkbox-with-label>
@@ -413,6 +413,7 @@ export default {
 
     canShowNewRelationModal() {
       return (
+        this.field.shouldShowCreateRelationButton &&
         this.resourceType &&
         !this.shownViaNewRelationModal &&
         !this.isLocked &&

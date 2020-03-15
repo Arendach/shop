@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App;
 use ChrisWare\NovaBreadcrumbs\NovaBreadcrumbs;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Cards\Help;
@@ -18,6 +19,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
+
+        Nova::serving(function () {
+            Nova::translations(base_path('packages/nova/resources/lang/' . config('locale.current') . '.json'));
+        });
     }
 
     /**
@@ -28,9 +33,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function routes()
     {
         Nova::routes()
-                ->withAuthenticationRoutes()
-                ->withPasswordResetRoutes()
-                ->register();
+            ->withAuthenticationRoutes()
+            ->withPasswordResetRoutes()
+            ->register();
     }
 
     /**
