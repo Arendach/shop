@@ -2,8 +2,8 @@
 
 namespace App\Exceptions;
 
-use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -29,13 +29,12 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
-     *
-     * @param \Exception $exception
-     *
+     * @param  \Throwable  $exception
      * @return void
+     *
+     * @throws \Exception
      */
-    public function report(Exception $exception)
+    public function report(Throwable $exception)
     {
         parent::report($exception);
     }
@@ -43,33 +42,14 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Exception               $exception
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Throwable  $exception
+     * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @return \Illuminate\Http\Response
+     * @throws \Throwable
      */
-    public function render($request, Exception $e)
+    public function render($request, Throwable $exception)
     {
-        if ($e instanceof NotFoundHttpException) {
-            return response()->view('admin::errors.404', [], 404);
-        }
-
-        if (($request->is('admin/*') && $request->isXmlHttpRequest())
-            || (env('APP_ENV') == 'testing')
-        ) {
-            $data = [
-                'status'  => 'error',
-                'code'    => $e->getCode(),
-                'message' => class_basename($e).' in '.basename($e->getFile()).' line '.$e->getLine().': '.$e->getMessage(),
-            ];
-
-            return response()->json($data, 500);
-        }
-
-        if ($this->isHttpException($e)) {
-            return $this->renderHttpException($e);
-        }
-
-        return parent::render($request, $e);
+        return parent::render($request, $exception);
     }
 }

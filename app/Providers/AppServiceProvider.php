@@ -9,7 +9,6 @@ use App\Services\CheckoutService;
 use App\Services\DeliveryService;
 use App\Services\NewPostService;
 use App\Services\OrderStatusService;
-use App\Services\SettingsService;
 use App\Services\StaticPageService;
 use App\Services\CustomerService;
 use App\Services\CartService;
@@ -18,19 +17,9 @@ use Illuminate\Database\Schema\Builder;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public $singletons = [
-        // CartInterface::class => CartService::class
-    ];
-
-    public $bindings = [
-       //  CartInterface::class => CartService::class
-    ];
-
     public function boot()
     {
-        \Spatie\NovaTranslatable\Translatable::defaultLocales(['uk', 'ru']);
-
-        Builder::defaultStringLength(191); // Update defaultStringLength
+        Builder::defaultStringLength(191);
     }
 
     public function register()
