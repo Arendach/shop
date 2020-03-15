@@ -24,6 +24,11 @@ class Banners extends Resource
         'url_ru'
     ];
 
+    public static function label()
+    {
+        return translate('Банери');
+    }
+
     public function fields(Request $request)
     {
         return [

@@ -22,6 +22,11 @@ class Customers extends Resource
         'phone'
     ];
 
+    public static function label()
+    {
+        return translate('Покупці');
+    }
+
     public function fields(Request $request)
     {
         return [

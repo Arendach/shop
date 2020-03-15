@@ -17,16 +17,20 @@ class MenuItems extends Resource
 
     public static $displayInNavigation = false;
 
+    public static function label()
+    {
+        return translate('Підпункти меню');
+    }
 
     public function fields(Request $request)
     {
         return [
             ID::make()->sortable(),
-            Text::make('name_uk'),
-            Text::make('name_ru')->hideFromIndex(),
-            Text::make('column_uk'),
-            Text::make('column_ru')->hideFromIndex(),
-            Text::make('url')
+            Text::make(translate('Назва (ук)'), 'name_uk'),
+            Text::make(translate('Назва (ру)'), 'name_ru')->hideFromIndex(),
+            Text::make(translate('Колонка (ук)'), 'column_uk'),
+            Text::make(translate('Колонка (ру)'), 'column_ru')->hideFromIndex(),
+            Text::make(translate('Посилання'), 'url')
         ];
     }
 }

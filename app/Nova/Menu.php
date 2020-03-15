@@ -5,6 +5,7 @@ namespace App\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -36,10 +37,11 @@ class Menu extends Resource
                 ]),
                 Text::make(translate('Посилання'), 'url'),
                 Text::make(translate('Назва (ук)'), 'name_uk'),
-                Text::make(translate('Назва (рос)'), 'name_ru')
+                Text::make(translate('Назва (рос)'), 'name_ru'),
+                Image::make(translate('Зображення (для мегаменю)'), 'photo')->hideFromIndex()->path('images/megamenu')
             ]),
             new Panel(translate('Пункти'), [
-                HasMany::make( translate(''), 'items', MenuItems::class)
+                HasMany::make(translate(''), 'items', MenuItems::class)
             ])
         ];
     }

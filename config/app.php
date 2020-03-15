@@ -202,6 +202,7 @@ return [
         App\Providers\BladeExtendsServiceProvider::class,
         App\Providers\EloquentServiceProvider::class,
         App\Providers\GlobalDataServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class,
 
     ],
 

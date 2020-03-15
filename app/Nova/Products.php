@@ -24,6 +24,11 @@ class Products extends Resource
 
     public static $with = ['category'];
 
+    public static function label()
+    {
+        return translate('Товари');
+    }
+
     public function fields(Request $request)
     {
         return [

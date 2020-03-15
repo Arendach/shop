@@ -13,6 +13,11 @@ class Translates extends Resource
 
     public static $title = 'original';
 
+    public static function label()
+    {
+        return translate('Переклади');
+    }
+
     public function fields(Request $request)
     {
         return [

@@ -18,6 +18,11 @@ class Categories extends Resource
         'id', 'name_uk', 'name_ru'
     ];
 
+    public static function label()
+    {
+        return translate('Категорії');
+    }
+
     public function fields(Request $request): array
     {
         return [

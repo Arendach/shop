@@ -22,6 +22,11 @@ class Collections extends Resource
         'id', 'name_uk', 'name_uk', 'slug'
     ];
 
+    public static function label()
+    {
+        return translate('Колекції');
+    }
+
     public function fields(Request $request)
     {
         return [
