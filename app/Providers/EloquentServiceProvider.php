@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Index;
 use App\Models\Page;
 use App\Models\Product;
+use App\Observers\CategoryObserver;
 use App\Observers\CustomerObserver;
 use App\Observers\IndexObserver;
 use App\Observers\PageObserver;
@@ -24,5 +26,6 @@ class EloquentServiceProvider extends ServiceProvider
         Page::observe(PageObserver::class);
         Index::observe(IndexObserver::class);
         Product::observe(ProductObserver::class);
+        Category::observe(CategoryObserver::class);
     }
 }
