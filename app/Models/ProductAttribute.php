@@ -4,23 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * App\Models\ProductAttribute
- *
- * @property int $id
- * @property int $product_id
- * @property int $attribute_id
- * @property string $variants
- * @property-read \App\Models\Attribute $attribute
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductAttribute newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductAttribute newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductAttribute query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductAttribute whereAttributeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductAttribute whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductAttribute whereProductId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductAttribute whereVariants($value)
- * @mixin \Eloquent
- */
 class ProductAttribute extends Model
 {
     public $timestamps = false;

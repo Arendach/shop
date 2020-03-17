@@ -2,48 +2,16 @@
 
 namespace App\Models;
 
+use App\Traits\Models\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * App\Models\Characteristic
- *
- * @property int $id
- * @property string $name_uk
- * @property string|null $prefix_uk
- * @property string|null $postfix_uk
- * @property string $name_ru
- * @property string|null $prefix_ru
- * @property string|null $postfix_ru
- * @property string $type
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read mixed $name
- * @property-read mixed $postfix
- * @property-read mixed $prefix
- * @method static bool|null forceDelete()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Characteristic newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Characteristic newQuery()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Characteristic onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Characteristic query()
- * @method static bool|null restore()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Characteristic whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Characteristic whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Characteristic whereNameRu($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Characteristic whereNameUk($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Characteristic wherePostfixRu($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Characteristic wherePostfixUk($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Characteristic wherePrefixRu($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Characteristic wherePrefixUk($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Characteristic whereType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Characteristic withTrashed()
- * @method static \Illuminate\Database\Query\Builder|\App\Models\Characteristic withoutTrashed()
- * @mixin \Eloquent
- */
 class Characteristic extends Model
 {
-    public $table = 'characteristics';
-
     use SoftDeletes;
+    use Translatable;
+
+    public $timestamps = false;
 
     public $fillable = [
         'name_uk',
@@ -55,22 +23,44 @@ class Characteristic extends Model
         'type'
     ];
 
-    public $timestamps = false;
+    protected $translate = [
+        'name',
+        'prefix',
+        'postfix'
+    ];
 
-    public $dates = ['deleted_at'];
+    public $dates = [
+        'deleted_at'
+    ];
 
-    public function getNameAttribute()
+    public $values = [];
+
+    public function setValues($values): void
     {
-        return $this->{"name_" . config('app.locale')};
+        $this->values = $values;
     }
 
-    public function getPrefixAttribute()
+    public function getValues()
     {
-        return $this->{"prefix_" . config('app.locale')};
+        return $this->values;
     }
 
-    public function getPostfixAttribute()
+    public function isChecked($value): bool
     {
-        return $this->{"postfix_" . config('app.locale')};
+        $characteristics = request('characteristics');
+
+        if (!is_array($characteristics)) {
+            return false;
+        }
+
+        if (!isset($characteristics[$this->id])) {
+            return false;
+        }
+
+        if (in_array($value, $characteristics[$this->id])) {
+            return true;
+        }
+
+        return false;
     }
 }

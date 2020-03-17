@@ -3,56 +3,29 @@
 namespace App\Services;
 
 use App\Models\Product;
+use App\Models\ProductCharacteristic;
 use Cache;
 use Illuminate\Support\Collection;
 
 class CategoryFilterService
 {
+    private $filter = [];
 
-    /**
-     * @var array
-     */
-    private $filters = [];
-
-    public function __construct()
+    public function get(int $category_id): self
     {
-        $this->boot();
+        $this->filter = Cache::rememberForever("category.filters.$category_id", function () use ($category_id) {
+            return $this->make($category_id);
+        });
+
+        return $this;
     }
 
-    private function boot()
+    private function make(int $category_id)
     {
-
-    }
-
-    /**
-     * @param int $category_id
-     * @return mixed
-     */
-    public function get(int $category_id)
-    {
-        if (isset($this->filters[$category_id]))
-            return $this->filters[$category_id];
-        else
-            if (!Cache::has("category.filters.$category_id"))
-                $this->make($category_id);
-            else
-                $this->filters[$category_id] = Cache::get("category.filters.$category_id");
-
-        return $this->filters[$category_id];
-    }
-
-    /**
-     * @param int $category_id
-     * @return void
-     */
-    public function make(int $category_id): void
-    {
-        if (Cache::has("category.filters.$category_id"))
-            return;
-
         $products = Product::with('manufacturer')
             ->with('characteristics')
-            ->where('category_id', $category_id)->get();
+            ->where('category_id', $category_id)
+            ->get();
 
         $min_price = $this->makeMinPrice($products);
 
@@ -63,78 +36,44 @@ class CategoryFilterService
         $manufacturers = $this->makeManufacturers($products);
 
         $data = [
-            'min_price' => $min_price,
-            'max_price' => $max_price,
-            'manufacturers' => $manufacturers,
+            'min_price'       => $min_price,
+            'max_price'       => $max_price,
+            'manufacturers'   => $manufacturers,
             'characteristics' => $characteristics,
         ];
 
-        $this->filters[$category_id] = $data;
-
-        Cache::put("category.filters.$category_id", $data, 60);
+        return $data;
     }
 
-    /**
-     * @param Collection $products
-     * @return array
-     */
-    private function makeCharacteristics(Collection $products): array
+    private function makeCharacteristics($products)
     {
-        $characteristics = [];
+        $characteristics = collect([]);
 
-        foreach ($products as $product) {
-            foreach ($product->characteristics as $item) {
-                if (!isset($characteristics[$item->characteristic_id])) {
-                    $characteristics[$item->characteristic_id] = [
-                        'id' => $item->characteristic->id,
-                        'name_uk' => $item->characteristic->name_uk,
-                        'name_ru' => $item->characteristic->name_ru,
-                        'type' => $item->characteristic->type,
-                        'prefix_uk' => $item->characteristic->prefix_uk,
-                        'prefix_ru' => $item->characteristic->prefix_ru,
-                        'postfix_uk' => $item->characteristic->postfix_uk,
-                        'postfix_ru' => $item->characteristic->postfix_ru,
-                        'values' => []
-                    ];
-                }
+        /** @var $products Collection|Product[] */
+        $products->each(function (Product $product) use (&$characteristics) {
+            $product->characteristics->each(function (ProductCharacteristic $characteristic) use (&$characteristics) {
+                $characteristics->prepend($characteristic);
+            });
+        });
 
-                $characteristics[$item->characteristic_id]['values'][] = [
-                    'value_uk' => $item->value_uk,
-                    'value_ru' => $item->value_ru,
-                ];
-            }
-        }
+        return ($characteristics->unique('characteristic.id')->map(function (ProductCharacteristic $characteristic) use ($characteristics) {
+            $values = $characteristics->where('characteristic_id', $characteristic->characteristic_id)->unique('value_uk')->map(function (ProductCharacteristic $productCharacteristic) {
+                return $productCharacteristic;
+            });
 
-        foreach ($characteristics as $key => $characteristic) {
-            $characteristics[$key]['values'] = collect($characteristic['values'])->unique('value_uk')->values()->all();
-        }
+            $characteristic->characteristic->setValues($values);
 
-        return $characteristics;
+            return $characteristic->characteristic;
+        }));
     }
 
-    /**
-     * @param Collection $products
-     * @return array
-     */
-    private function makeManufacturers(Collection $products): array
+    private function makeManufacturers(Collection $products): Collection
     {
-        $manufacturers = [];
-
-        foreach ($products as $item) {
-            $manufacturers[$item->manufacturer_id] = [
-                'id' => $item->manufacturer->id,
-                'name_uk' => $item->manufacturer->name_uk,
-                'name_ru' => $item->manufacturer->name_ru
-            ];
-        }
-
-        return $manufacturers;
+        return ($products->map(function (Product $product) {
+            return $product->manufacturer;
+        })->unique());
     }
 
-    /**
-     * @param Collection $products
-     * @return float
-     */
     private function makeMaxPrice(Collection $products): float
     {
         return (float)$products->max(function ($item) {
@@ -142,10 +81,6 @@ class CategoryFilterService
         });
     }
 
-    /**
-     * @param Collection $products
-     * @return float
-     */
     private function makeMinPrice(Collection $products): float
     {
         return (float)$products->min(function ($item) {
@@ -153,4 +88,13 @@ class CategoryFilterService
         });
     }
 
+    public function getCharacteristics()
+    {
+        return $this->filter['characteristics'] ?? [];
+    }
+
+    public function getManufacturers()
+    {
+        return $this->filter['manufacturers'] ?? [];
+    }
 }

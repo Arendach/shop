@@ -7,26 +7,18 @@ use Illuminate\Http\Request;
 
 class CategoryProductFilter extends BasicFilter
 {
-    /**
-     * @param array $characteristics
-     * @return void
-     */
     protected function characteristics($characteristics): void
     {
         if (!is_array($characteristics)) return;
 
         foreach ($characteristics as $id => $keys) {
             $this->builder->whereHas('characteristics', function (Builder $query) use ($id, $keys) {
-                $query->where('characteristic_id', $id)
-                    ->whereIn('value_' . config('locale.current'), $keys);
+                $lang = config('locale.current');
+                $query->where('characteristic_id', $id)->whereIn("value_$lang", $keys);
             });
         }
     }
 
-    /**
-     * @param array $manufacturers
-     * @return void
-     */
     protected function manufacturers($manufacturers): void
     {
         if (!is_array($manufacturers)) return;

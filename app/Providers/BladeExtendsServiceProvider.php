@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use App\Directives\AdminDirective;
+use App\Directives\CheckedDirective;
+use App\Directives\DisabledDirective;
+use App\Directives\SelectedDirective;
 use App\Directives\TooltipDirective;
 use App\Directives\TranslateDirective;
 use Illuminate\Support\ServiceProvider;
@@ -13,6 +16,9 @@ class BladeExtendsServiceProvider extends ServiceProvider
         TranslateDirective::class,
         AdminDirective::class,
         TooltipDirective::class,
+        CheckedDirective::class,
+        SelectedDirective::class,
+        DisabledDirective::class,
     ];
 
     public function register()
