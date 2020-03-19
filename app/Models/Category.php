@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Abstraction\Models\TwoImageInterface;
+use App\Traits\Models\Image;
 use App\Traits\Models\SeoMultiLang;
 use App\Traits\Models\Translatable;
 use App\Traits\Models\TwoImage;
@@ -20,6 +21,7 @@ class Category extends Model implements Sortable, TwoImageInterface
     use SortableTrait;
     use TwoImage;
     use Translatable;
+    use Image;
 
     protected $fillable = [
         'name_uk',
@@ -67,13 +69,13 @@ class Category extends Model implements Sortable, TwoImageInterface
 
     public function products()
     {
-        return $this->belongsToMany('App\Models\Product');
+        return $this->hasMany('App\Models\Product');
     }
 
     public function child()
     {
         return $this->hasMany('App\Models\Category', 'parent_id', 'id')
-            ->with('links');
+            ->withCount('products');
     }
 
     public function parent()

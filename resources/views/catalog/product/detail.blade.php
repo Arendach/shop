@@ -21,19 +21,25 @@
                                     <div style="background-image: url({{ $image->big_image }});" class="item-box"></div>
                                 @endforeach
                             </div>
-                            <div class="left nonl"><i class="ti-angle-left"></i></div>
-                            <div class="right"><i class="ti-angle-right"></i></div>
+                            @if($product->images->count() >= 2)
+                                <div class="left nonl"><i class="ti-angle-left"></i></div>
+                                <div class="right"><i class="ti-angle-right"></i></div>
+                            @endif
                         </div>
-                        <div class="slider-two">
-                            <div class="owl-carousel owl-theme thumbs">
-                                @foreach($product->images as $image)
-                                    <div style="background-image: url({{ $image->small_image }})"
-                                         class="item {{ $loop->first ? 'active' : '' }}"></div>
-                                @endforeach
+                        @if($product->images->count() >= 2)
+                            <div class="slider-two">
+                                <div class="owl-carousel owl-theme thumbs">
+                                    @foreach($product->images as $image)
+                                        <div style="background-image: url({{ $image->small_image }})"
+                                             class="item {{ $loop->first ? 'active' : '' }}"></div>
+                                    @endforeach
+                                </div>
+                                <div class="left-t nonl-t"></div>
+                                <div class="right-t"></div>
                             </div>
-                            <div class="left-t nonl-t"></div>
-                            <div class="right-t"></div>
-                        </div>
+                        @else
+                            <div style="margin-bottom: 20px"></div>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -44,14 +50,10 @@
                                     @translate('Головна')
                                 </a>
                             </li>
+
                             <li>
-                                <a href="{{ $product->category->parent->url ?? '#' }}">
-                                    {{ $product->category->parent->name ?? '' }}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ $product->category->url ?? '' }}">
-                                    {{ $product->category->name ?? '' }}
+                                <a href="{{ $product->category->url }}">
+                                    {{ $product->category->name }}
                                 </a>
                             </li>
                             <li>
@@ -67,31 +69,29 @@
                             <em>{{ $product->reviews->count() }} @translate('Відгук(ів)')</em>
                         </span>
                         <p>
-                            <small>SKU: {{ $product->article }}</small>
-                            <br>
-                            Sed ex labitur adolescens scriptorem. Te saepe verear
-                            tibique sed. Et wisi ridens vix, lorem iudico blandit mel cu. Ex vel sint zril oportere,
-                            amet wisi aperiri te cum.
+                            <small>@translate('Артикул'): {{ $product->article }}</small>
                         </p>
                         <div class="prod_options">
-                            <div class="row">
-                                <label class="col-xl-5 col-lg-5 col-md-6 col-6">
-                                    <strong>Size</strong> - Size Guide
-                                    <a href="#0" data-toggle="modal" data-target="#size-modal">
-                                        <i class="ti-help-alt"></i>
-                                    </a>
-                                </label>
-                                <div class="col-xl-4 col-lg-5 col-md-6 col-6">
-                                    <div class="custom-select-form">
-                                        <select class="wide">
-                                            <option value="" selected>Small (S)</option>
-                                            <option value="">M</option>
-                                            <option value=" ">L</option>
-                                            <option value=" ">XL</option>
-                                        </select>
+                            @if(false)
+                                <div class="row">
+                                    <label class="col-xl-5 col-lg-5 col-md-6 col-6">
+                                        <strong>Size</strong> - Size Guide
+                                        <a href="#0" data-toggle="modal" data-target="#size-modal">
+                                            <i class="ti-help-alt"></i>
+                                        </a>
+                                    </label>
+                                    <div class="col-xl-4 col-lg-5 col-md-6 col-6">
+                                        <div class="custom-select-form">
+                                            <select class="wide">
+                                                <option value="" selected>Small (S)</option>
+                                                <option value="">M</option>
+                                                <option value=" ">L</option>
+                                                <option value=" ">XL</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
                             <div class="row">
                                 <label class="col-xl-5 col-lg-5  col-md-6 col-6"><strong>@translate('Кількість')</strong></label>
                                 <div class="col-xl-4 col-lg-5 col-md-6 col-6">
@@ -194,13 +194,13 @@
                             <h5 class="mb-0">
                                 <a class="collapsed" data-toggle="collapse" href="#collapse-B" aria-expanded="false"
                                    aria-controls="collapse-B">
-                                    Reviews
+                                    @translate('Відгуки')
                                 </a>
                             </h5>
                         </div>
                         <div id="collapse-B" class="collapse" role="tabpanel" aria-labelledby="heading-B">
                             <div class="card-body">
-                                @foreach($product->reviews->chunk(2) as $reviewsChunk)
+                                @forelse($product->reviews->chunk(2) as $reviewsChunk)
                                     <div class="row justify-content-between">
                                         @foreach($reviewsChunk as $review)
                                             <div class="col-lg-6">
@@ -218,7 +218,15 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                @endforeach
+                                @empty
+                                    <div class="row justify-content-center">
+                                        <div class="col-12">
+                                            <h3 style="text-align: center" class="mt-5 mb-5">
+                                                @translate('Для даного товару немає відгуків')
+                                            </h3>
+                                        </div>
+                                    </div>
+                                @endforelse
 
                                 <p class="text-right">
                                     <a href="leave-review.html" class="btn_1">
@@ -268,19 +276,22 @@
                                 </div>
                                 <ul>
                                     <li>
-                                        <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to favorites">
+                                        <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
+                                           title="Add to favorites">
                                             <i class="ti-heart"></i>
                                             <span>Add to favorites</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to compare">
+                                        <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
+                                           title="Add to compare">
                                             <i class="ti-control-shuffle"></i>
                                             <span>Add to compare</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to cart">
+                                        <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
+                                           title="Add to cart">
                                             <i class="ti-shopping-cart"></i>
                                             <span>Add to cart</span>
                                         </a>

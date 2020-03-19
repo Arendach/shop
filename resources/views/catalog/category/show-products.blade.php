@@ -2,6 +2,10 @@
 
 @section('title', $category->name)
 
+@section('seo')
+    <link rel="canonical" href="{{ url()->current() }}">
+@endsection
+
 @section('css')
     <link href="{{ asset('catalog/css/listing.css') }}" rel="stylesheet">
 @endsection
@@ -14,29 +18,46 @@
                     <div class="breadcrumbs">
                         <ul>
                             <li><a href="#">@translate('Головна')</a></li>
-                            <li><a href="#">{{ $category->parent->name }}</a></li>
+                            <li>{{ $category->parent->name }}</li>
                             <li>{{ $category->name }}</li>
                         </ul>
                     </div>
                     <h1>{{ $category->name }}</h1>
                 </div>
             </div>
-            <img src="img/bg_cat_shoes.jpg" class="img-fluid" alt="">
+            <img src="{{ $category->getImage('big', 'catalog/img/bg_cat_shoes.jpg') }}" class="img-fluid"
+                 alt="{{ $category->name }}">
         </div>
-        <!-- /top_banner -->
+
         <div id="stick_here"></div>
         <div class="toolbox elemento_stick">
             <div class="container">
                 <ul class="clearfix">
                     <li>
                         <div class="sort_select">
-                            <select name="sort" id="sort">
-                                <option value="popularity" selected="selected">@translate('Сортувати за популярністю')</option>
-                                <option value="rating">Sort by average rating</option>
-                                <option value="date">Sort by newness</option>
-                                <option value="price">Sort by price: low to high</option>
-                                <option value="price-desc">Sort by price: high to
-                            </select>
+                            <form action="{{ url()->current() }}" method="get">
+                                @foreach(request()->except('order') as $key => $value)
+                                    <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                                @endforeach
+
+                                <select name="order" class="selectpicker" onchange="$(this).parents('form').submit()">
+                                    <option @selected('order', 'date,desc') value="date,desc">
+                                        @translate('Новинки')
+                                    </option>
+
+                                    <option @selected('order', 'rating,desc') value="rating,desc">
+                                        @translate('За рейтингом')
+                                    </option>
+
+                                    <option @selected('order', 'price,desc') value="price,desc">
+                                        @translate('Від дорогих до дешевих')
+                                    </option>
+
+                                    <option @selected('order', 'price,asc') value="price,asc">
+                                        @translate('Від дешевих до дорогих')
+                                    </option>
+                                </select>
+                            </form>
                         </div>
                     </li>
                     <li>

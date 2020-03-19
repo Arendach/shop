@@ -3,7 +3,6 @@
 namespace App\Filters;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 
 class CategoryProductFilter extends BasicFilter
 {
@@ -48,22 +47,13 @@ class CategoryProductFilter extends BasicFilter
             $this->builder->orderBy('price', $direction);
     }
 
-    /**
-     * @param Request $request
-     * @return array
-     */
-    protected function parseRequest(Request $request): array
+    protected function min_price($min_price): void
     {
-        $result = [];
-        foreach ($request->all() as $key => $value) {
-            if (preg_match('/ch_([0-9]+)/', $key, $matches)) {
-                $result['characteristics'][$matches[1]] = $value;
-                continue;
-            }
+        $this->builder->where('price', '>=', $min_price);
+    }
 
-            $result[$key] = $value;
-        }
-
-        return $result;
+    protected function max_price($max_price): void
+    {
+        $this->builder->where('price', '<=', $max_price);
     }
 }

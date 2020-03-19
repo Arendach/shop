@@ -16,8 +16,9 @@
     <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
           href="img/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
-          href="img/apple-touch-icon-144x144-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="img/apple-touch-icon-144x144-precomposed.png">
+
+    @yield('seo')
 
     <!-- GOOGLE WEB FONT -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet">
@@ -170,6 +171,7 @@
                                                     </span>
                                                     <ul>
                                                         @foreach($category->child as $child)
+                                                            @continue(!$child->products_count)
                                                             <li>
                                                                 <a href="{{ route('category.show', $child->slug) }}">
                                                                     {{ $child->name }}

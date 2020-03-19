@@ -97,4 +97,14 @@ class CategoryFilterService
     {
         return $this->filter['manufacturers'] ?? [];
     }
+
+    public function getMinPrice(): ?float
+    {
+        return $this->filter['min_price'] ?? null;
+    }
+
+    public function getMaxPrice(): ?float
+    {
+        return $this->filter['max_price'] ?? null;
+    }
 }
