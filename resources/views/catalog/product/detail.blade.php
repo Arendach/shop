@@ -17,21 +17,39 @@
                     <div class="all">
                         <div class="slider">
                             <div class="owl-carousel owl-theme main">
+                                @if($product->video)
+                                    <div class="item-box">
+                                        <div class="youtube">
+                                            <iframe src="https://www.youtube.com/embed/{{ $product->video }}"
+                                                    frameborder="0"
+                                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                                    allowfullscreen></iframe>
+                                        </div>
+                                    </div>
+                                @endif
+
                                 @foreach($product->images as $image)
                                     <div style="background-image: url({{ $image->big_image }});" class="item-box"></div>
                                 @endforeach
                             </div>
-                            @if($product->images->count() >= 2)
+                            @if($product->images->count() >= 2 || !is_null($product->video) && $product->images->count() >= 1)
                                 <div class="left nonl"><i class="ti-angle-left"></i></div>
                                 <div class="right"><i class="ti-angle-right"></i></div>
                             @endif
                         </div>
-                        @if($product->images->count() >= 2)
+                        @if($product->images->count() >= 2 || !is_null($product->video) && $product->images->count() >= 1)
                             <div class="slider-two">
                                 <div class="owl-carousel owl-theme thumbs">
+                                    @if(!is_null($product->video))
+                                        <div class="item active">
+                                                <iframe width="100px" height="100px" src="https://www.youtube.com/embed/{{ $product->video }}" frameborder="0"
+                                                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                                        allowfullscreen></iframe>
+                                        </div>
+                                    @endif
                                     @foreach($product->images as $image)
                                         <div style="background-image: url({{ $image->small_image }})"
-                                             class="item {{ $loop->first ? 'active' : '' }}"></div>
+                                             class="item {{ $loop->first && !is_null($product->video) ? 'active' : '' }}"></div>
                                     @endforeach
                                 </div>
                                 <div class="left-t nonl-t"></div>
@@ -120,11 +138,20 @@
                     <div class="product_actions">
                         <ul>
                             <li>
-                                <a href="#"><i class="ti-heart"></i><span>@translate('Додати в бажане')</span></a>
+                                <a href="#">
+                                    <i class="ti-heart"></i>
+                                    <span>
+                                        @translate('Додати в бажане')
+                                    </span>
+                                </a>
                             </li>
                             <li>
-                                <a href="#"><i
-                                            class="ti-control-shuffle"></i><span>@translate('Додати до порівняння')</span></a>
+                                <a href="#">
+                                    <i class="ti-control-shuffle"></i>
+                                    <span>
+                                        @translate('Додати до порівняння')
+                                    </span>
+                                </a>
                             </li>
                         </ul>
                     </div>

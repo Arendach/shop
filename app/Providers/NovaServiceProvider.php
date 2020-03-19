@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Spatie\BackupTool\BackupTool;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -85,6 +86,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             NovaBreadcrumbs::make(),
+            new BackupTool(),
         ];
     }
 
