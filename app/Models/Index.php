@@ -22,11 +22,23 @@ class Index extends Model
         'footer_address_uk',
         'footer_address_ru',
         'footer_email',
-        'is_main '
+        'is_main ',
+        'meta_name_uk',
+        'meta_keywords_uk',
+        'meta_description_uk',
+        'meta_name_ru',
+        'meta_keywords_ru',
+        'meta_description_ru',
+        'article_uk',
+        'article_ru'
     ];
 
     protected $translate = [
-        'footer_address'
+        'footer_address',
+        'meta_title',
+        'meta_keywords',
+        'meta_description',
+        'article'
     ];
 
     public $timestamps = false;

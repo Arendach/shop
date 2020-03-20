@@ -21,9 +21,9 @@ class MainController extends CatalogController
             'collections'      => ProductCollection::root()->paginate(3),
             'recommended'      => $recommended,
             'productsHome'     => $productsHome,
-            'title'            => $page->meta_title ?? 'ENTER TITLE',
-            'meta_description' => $page->meta_description ?? '',
-            'meta_keywords'    => $page->meta_keywords ?? '',
+            'title'            => $page->meta_title,
+            'meta_description' => $page->meta_description,
+            'meta_keywords'    => $page->meta_keywords,
             'page'             => $page
         ];
 

@@ -115,40 +115,19 @@ class DeliveryService
         return $this->shops[$shop_id];
     }
 
-    /**
-     * Форма доставки
-     *
-     * @return string
-     * @throws Throwable
-     */
     public function getDeliveryForm(): string
     {
-        return view('catalog.order.checkout.delivery.delivery')
-            ->render();
+        return view('catalog.checkout.delivery-form')->render();
     }
 
-    /**
-     * Форма відправки
-     *
-     * @return string
-     * @throws Throwable
-     */
     public function getSendingForm(): string
     {
-        return view('catalog.order.checkout.delivery.sending')
-            ->render();
+        return view('catalog.checkout.sending-form')->render();
     }
 
-    /**
-     * Форма самовивозу
-     *
-     * @return string
-     * @throws Throwable
-     */
     public function getSelfForm(): string
     {
-        return view('catalog.order.checkout.delivery.self')
-            ->render();
+        return view('catalog.checkout.self-form')->render();
     }
 
 

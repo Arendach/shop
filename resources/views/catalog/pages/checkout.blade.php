@@ -86,20 +86,18 @@
                                         {{ $orderType['name'] }}
                                         <a href="#0" class="info" data-toggle="modal"
                                            data-target="#payments_method"></a>
-                                        <input type="radio" name="shipping" @checked($loop->iteration == 1)>
+                                        <input type="radio" name="delivery" @checked($loop->iteration == 1) value="{{ $key }}">
                                         <span class="checkmark"></span>
                                     </label>
                                 </li>
                             @endforeach
                         </ul>
 
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="@translate('Місто')">
-                        </div>
-
-                        <div class="form-group">
-                            <input disabled type="text" class="form-control" placeholder="@translate('Відділення')">
-                        </div>
+                        @foreach(asset_data('order_types') as $key => $orderType)
+                            <div class="delivery-form" id="delivery-{{ $key }}" style="display: {{ $loop->iteration == 1 ? 'block' : 'none' }}">
+                                {!! $orderType['form'] !!}
+                            </div>
+                        @endforeach
                     </div>
                 </div>
 
@@ -131,14 +129,21 @@
                                     {{ number_format($cartService->getProductsSum() + $cartService->getDeliverySum()) }}
                                 </span>
                             </div>
-                            <a href="confirm.html" class="btn_1 full-width">Confirm and Pay</a>
+                            <a href="javascript:void(0)" class="btn_1 full-width">@translate('Підтвердити')</a>
                         </div>
-                        <!-- /box_general -->
                     </div>
-                    <!-- /step -->
                 </div>
             </div>
-            <!-- /row -->
         </div>
     </main>
+@endsection
+
+@section('js')
+    <script>
+        $(document).on('change', '[name=delivery]', function () {
+            let type = $(this).val()
+            $('.delivery-form').hide()
+            $('#delivery-' + type).show()
+        })
+    </script>
 @endsection

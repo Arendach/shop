@@ -1,6 +1,6 @@
 @extends('catalog.layout')
 
-@section('title', 'Home')
+@section('title', $title ?? $globalData->meta_title)
 
 @section('css')
     <link href="{{ asset('catalog/css/home_1.css') }}" rel="stylesheet">

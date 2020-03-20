@@ -1,16 +1,18 @@
 <?php
 
+use App\Services\DeliveryService;
+
 return [
     'delivery' => [
         'name' => translate('Доставка по місту'),
-        // 'form' => Delivery::getDeliveryForm()
+        'form' =>app(DeliveryService::class)->getDeliveryForm()
     ],
     'sending' => [
         'name' => translate('Відправка Новою Поштою'),
-        // 'form' => Delivery::getSendingForm()
+        'form' => app(DeliveryService::class)->getSendingForm()
     ],
     'self' => [
         'name' => translate('Самовивіз'),
-        // 'form' => Delivery::getSelfForm()
+        'form' => app(DeliveryService::class)->getSelfForm()
     ],
 ];
