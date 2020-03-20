@@ -11,7 +11,7 @@ return [
         /**
          * Назва способу оплати, відображається на сайті при оформленні замовлення
          */
-        'name' => __('assets/pay_methods.privat24'),
+        'name'   => translate('Приват 24'),
 
         /**
          * Константа визначає чи потрібен обробник для цього способу(приймає true | false)
@@ -30,8 +30,8 @@ return [
          */
         'active' => false
     ],
-    'cash' => [
-        'name' =>  __('assets/pay_methods.cash'),
+    'cash'     => [
+        'name'   => translate('Оплата при доставці'),
         'simple' => true,
         'active' => true
     ]

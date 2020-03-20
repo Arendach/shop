@@ -59,16 +59,6 @@ Route::group([
     ]
 ], function () {
     /**
-     * Маршрути адмінки
-     *
-     * admin.php
-     */
-//    Route::prefix('admin')
-//        ->namespace('Admin')
-//        ->middleware('adminAccessDetect')
-//        ->group(base_path('routes/admin.php'));
-
-    /**
      * Маршрути моста
      *
      * #bridge.php

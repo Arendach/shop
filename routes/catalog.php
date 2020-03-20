@@ -46,7 +46,7 @@ Route::get('cart', 'CartController@index')
  * Оформлення замовлення
  */
 Route::get('checkout', 'OrderController@checkout')
-    ->middleware('loadCategories')
+    ->middleware('loadCategories', 'onlyLogged')
     ->name('checkout');
 
 /**

@@ -9,7 +9,7 @@ class OnlyLogged
     public function handle($request, Closure $next)
     {
         if (!isAuth()) {
-            return redirect()->route('login');
+            return redirect()->route('login', ['redirect' => url()->current()]);
         }
 
         return $next($request);

@@ -2,15 +2,15 @@
 
 return [
     'delivery' => [
-        'name' => __('assets/order_types.delivery'),
+        'name' => translate('Доставка по місту'),
         // 'form' => Delivery::getDeliveryForm()
     ],
     'sending' => [
-        'name' => __('assets/order_types.sending'),
+        'name' => translate('Відправка Новою Поштою'),
         // 'form' => Delivery::getSendingForm()
     ],
     'self' => [
-        'name' => __('assets/order_types.self'),
+        'name' => translate('Самовивіз'),
         // 'form' => Delivery::getSelfForm()
     ],
 ];
