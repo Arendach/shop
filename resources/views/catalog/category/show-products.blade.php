@@ -113,16 +113,32 @@
                                         @endif
                                     </div>
                                     <ul>
-                                        <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                               title="Add to favorites"><i
-                                                        class="ti-heart"></i><span>Add to favorites</span></a></li>
-                                        <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                               title="Add to compare"><i
-                                                        class="ti-control-shuffle"></i><span>Add to compare</span></a>
+                                        <li>
+                                            <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
+                                               title="Add to favorites">
+                                                <i class="ti-heart"></i>
+                                                <span>Add to favorites</span>
+                                            </a>
                                         </li>
-                                        <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                               title="Add to cart"><i
-                                                        class="ti-shopping-cart"></i><span>Add to cart</span></a>
+
+                                        <li>
+                                            <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
+                                               title="Add to compare">
+                                                <i class="ti-control-shuffle"></i>
+                                                <span>Add to compare</span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="javascript:void(0)"
+                                               data-type="cart_attach"
+                                               data-id="{{ $product->id }}"
+                                               @tooltip(translate('Додати в корзину'), 'left')
+                                               class="tooltip-1"
+                                            >
+                                                <i class="ti-shopping-cart"></i>
+                                                <span>@translate('Додати в корзину')</span>
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>

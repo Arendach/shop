@@ -16,7 +16,7 @@ return [
     'main_order_type'               => 'delivery',
 
     // апі ключ нової пошти
-    'post_api'                      => '6817184ef3bfa2d67d1c266299fc10ff',
+    'nova_api'                      => env('NOVA_API', '98fed42879bdacae3f7feaf5d1a13e18'),
 
     // перевіряти вагу товарів перед заведенням замовлення
     'post_products_weight_validate' => true,

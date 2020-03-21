@@ -19,11 +19,9 @@ class TranslateService
 
     private function boot()
     {
-        if (!Cache::has($this->cacheKey)) {
-            Cache::forever($this->cacheKey, $this->readAll());
-        }
-
-        $this->translate = Cache::get($this->cacheKey);
+        $this->translate = Cache::rememberForever($this->cacheKey, function (){
+            return $this->readAll();
+        });
     }
 
     public function get($text): ?string
