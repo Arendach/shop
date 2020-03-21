@@ -42,9 +42,11 @@
                                 <div class="owl-carousel owl-theme thumbs">
                                     @if(!is_null($product->video))
                                         <div class="item active">
-                                                <iframe width="100px" height="100px" src="https://www.youtube.com/embed/{{ $product->video }}" frameborder="0"
-                                                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                                        allowfullscreen></iframe>
+                                            <iframe width="100px" height="100px"
+                                                    src="https://www.youtube.com/embed/{{ $product->video }}"
+                                                    frameborder="0"
+                                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                                    allowfullscreen></iframe>
                                         </div>
                                     @endif
                                     @foreach($product->images as $image)
@@ -177,45 +179,59 @@
         <div class="tab_content_wrapper">
             <div class="container">
                 <div class="tab-content" role="tablist">
-                    <div id="pane-A" class="card tab-pane fade active show" role="tabpanel" aria-labelledby="tab-A">
-                        <div class="card-header" role="tab" id="heading-A">
-                            <h5 class="mb-0">
-                                <a class="collapsed" data-toggle="collapse" href="#collapse-A" aria-expanded="false"
-                                   aria-controls="collapse-A">
-                                    @translate('Опис')
-                                </a>
-                            </h5>
-                        </div>
-                        <div id="collapse-A" class="collapse" role="tabpanel" aria-labelledby="heading-A">
-                            <div class="card-body">
-                                <div class="row justify-content-between">
-                                    <div class="col-lg-6">
-                                        <h3>@translate('Деталі')</h3>
-                                        {!! htmlspecialchars_decode($product->description) !!}
-                                    </div>
-                                    <div class="col-lg-5">
-                                        <h3>@translate('Характеристики')</h3>
-                                        <div class="table-responsive">
-                                            <table class="table table-sm table-striped">
-                                                <tbody>
-                                                @foreach($product->characteristics as $characteristic)
-                                                    <tr>
-                                                        <td>
-                                                            <strong>{{ $characteristic->characteristic->name }}</strong>
-                                                        </td>
-                                                        <td>{{ $characteristic->value }}</td>
-                                                    </tr>
-                                                @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <!-- /table-responsive -->
+                    @if($product->description || $product->characteristics->count())
+                        <div id="pane-A" class="card tab-pane fade active show" role="tabpanel" aria-labelledby="tab-A">
+                            <div class="card-header" role="tab" id="heading-A">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#collapse-A" aria-expanded="false"
+                                       aria-controls="collapse-A">
+                                        @translate('Опис')
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="collapse-A" class="collapse" role="tabpanel" aria-labelledby="heading-A">
+                                <div class="card-body">
+                                    <div class="row justify-content-between">
+
+                                        @if($product->description)
+                                            <div class="{{ $product->characteristics->count() ? 'col-lg-6': 'col-12' }}">
+                                                <h3>@translate('Деталі')</h3>
+                                                {!! htmlspecialchars_decode($product->description) !!}
+                                            </div>
+                                        @endif
+
+                                        @if($product->characteristics->count())
+                                            <div class="{{ $product->description ? 'col-lg-5': 'col-12' }}">
+                                                <h3>@translate('Характеристики')</h3>
+                                                <div class="table-responsive">
+                                                    <table class="table table-sm table-striped">
+                                                        <tbody>
+                                                        @foreach($product->characteristics as $characteristic)
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>
+                                                                        {{ $characteristic->characteristic->name }}
+                                                                    </strong>
+                                                                </td>
+                                                                <td>
+                                                                    {{ $characteristic->characteristic->prefix }}
+                                                                    {{ $characteristic->value }}
+                                                                    {{ $characteristic->characteristic->postfix }}
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        @endif
+
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- /TAB A -->
+                @endif
+                <!-- /TAB A -->
                     <div id="pane-B" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-B">
                         <div class="card-header" role="tab" id="heading-B">
                             <h5 class="mb-0">

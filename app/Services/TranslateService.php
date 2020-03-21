@@ -50,7 +50,8 @@ class TranslateService
             $result = $client->translate($text, [
                 'target' => $language,
                 'source' => config('locale.default'),
-                'key'    => config('api.google')
+                'key'    => config('api.google'),
+                'format' => 'html'
             ]);
 
             if (preg_match('~^[А-Я]~', $text)) {

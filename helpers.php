@@ -15,6 +15,11 @@ function translate($text)
     return Translate::get($text);
 }
 
+function translate_text($text, string $language): ?string
+{
+    return app(\App\Services\TranslateTextService::class)->get($text, $language);
+}
+
 function customer(int $id = 0): Customer
 {
     if ($id == 0 && isAuth()) {

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Abstraction\Models\SeoMultiLangInterface;
 use App\Abstraction\Models\TwoImageInterface;
 use App\Traits\Models\SeoMultiLang;
+use App\Traits\Models\Translatable;
 use App\Traits\Models\TwoImage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +15,7 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
 {
     use SeoMultiLang;
     use TwoImage;
+    use Translatable;
 
     public $fillable = [
         'article',
@@ -45,6 +47,14 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
     protected $dates = ['created_at', 'updated_at'];
 
     public $timestamps = true;
+
+    protected $translate = [
+        'name',
+        'description',
+        'meta_title',
+        'meta_description',
+        'meta_keywords'
+    ];
 
 
     public function category()
@@ -78,18 +88,6 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
     public function related()
     {
         return $this->belongsToMany(Product::class, 'relation_products', 'product_id', 'related_id');
-    }
-
-
-    public function getNameAttribute()
-    {
-        $name = $this->{"name_" . config('locale.current')};
-        return !is_null($name) ? $name : $this->{"name_" . config('locale.default')};
-    }
-
-    public function getDescriptionAttribute()
-    {
-        return $this->{"description_" . config('app.locale')};
     }
 
     public function getNewPriceAttribute()

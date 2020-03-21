@@ -69,8 +69,8 @@
                                 <label class="container_check">
                                     {{ $characteristic->prefix }} {{ $productCharacteristic->value }} {{ $characteristic->postfix }}
                                     <input type="checkbox" name="characteristics[{{ $characteristic->id }}][]"
-                                           value="{{ $productCharacteristic->value }}"
-                                            @checked($characteristic->isChecked($productCharacteristic->value))
+                                           value="{{ $productCharacteristic->filter_value }}"
+                                            @checked($characteristic->isChecked($productCharacteristic->filter_value))
                                     >
                                     <span class="checkmark"></span>
                                 </label>

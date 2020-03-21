@@ -15,15 +15,29 @@ class ProductCharacteristic extends Model
         'product_id',
         'characteristic_id',
         'value_uk',
-        'value_ru'
+        'value_ru',
+        'filter_uk',
+        'filter_ru'
     ];
 
-    protected $translate = ['value'];
+    protected $translate = [
+        'value',
+        'filter'
+    ];
 
     public $timestamps = false;
 
     public function characteristic()
     {
         return $this->belongsTo(Characteristic::class);
+    }
+
+    public function getFilterValueAttribute(): ?string
+    {
+        if (is_null($this->flter)) {
+            return $this->value;
+        }
+
+        return $this->filter;
     }
 }

@@ -13,7 +13,7 @@ class SelectedDirective
         });
     }
 
-    public static function apply($param1, $param2): string
+    public static function apply($param1, $param2 = null): string
     {
         if (is_bool($param1)) {
             return $param1 ? 'selected' : '';

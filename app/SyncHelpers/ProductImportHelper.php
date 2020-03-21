@@ -113,6 +113,8 @@ class ProductImportHelper
                     $characteristic->characteristic_id = $item->characteristic_id;
                     $characteristic->value_uk = $item->value_uk;
                     $characteristic->value_ru = $item->value_ru;
+                    $characteristic->filter_uk = $item->filter_uk;
+                    $characteristic->filter_ru = $item->filter_ru;
                     $characteristic->product_id = $product_id;
 
                     $characteristic->save();
