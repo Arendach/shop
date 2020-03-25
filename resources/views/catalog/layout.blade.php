@@ -24,15 +24,12 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet">
 
     <!-- BASE CSS -->
-    <link href="{{ asset('catalog/css/bootstrap.custom.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('catalog/css/style.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" href="{{ asset('catalog/css/app.css') }}">
 
     <!-- SPECIFIC CSS -->
 @yield('css')
 
 <!-- YOUR CUSTOM CSS -->
-    <link href="{{ asset('catalog/css/custom.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 </head>
 
@@ -430,15 +427,13 @@
             </div>
         </div>
     </footer>
-    <!--/footer-->
 </div>
-<!-- page -->
 
-<div id="toTop"></div><!-- Back to top button -->
-<!-- COMMON SCRIPTS -->
+<div id="toTop"></div>
+
 <script src="{{ asset('catalog/js/common_scripts.min.js') }}"></script>
 <script src="{{ asset('catalog/js/main.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="{{ asset('catalog/js/toastr.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/cart.js') }}"></script>
 @yield('js')

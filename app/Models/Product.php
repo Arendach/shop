@@ -60,7 +60,8 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
     public function category()
     {
         return $this->belongsTo(Category::class)->withDefault([
-            'name' => translate('Без категорії')
+            'name_uk' => translate('Без категорії'),
+            'name_ru' => translate('Без категорії')
         ]);
     }
 
