@@ -11,10 +11,6 @@ trait TwoImage
      */
     public function getSmallImageAttribute(): string
     {
-        if (config('app.debug')) {
-            return asset('catalog/img/product.jpg');
-        }
-
         if (empty($this->small)) {
             return $this->big_image;
         }
@@ -37,10 +33,6 @@ trait TwoImage
      */
     public function getBigImageAttribute(): string
     {
-        if (config('app.debug')) {
-            return asset('catalog/img/product.jpg');
-        }
-
         if (is_file(public_path($this->big))) return asset($this->big);
         elseif (preg_match('/^http/', $this->big)) return $this->big;
         else return asset(config('default.image.product_big'));

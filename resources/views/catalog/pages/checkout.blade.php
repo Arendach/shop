@@ -86,7 +86,8 @@
                                         {{ $orderType['name'] }}
                                         <a href="#0" class="info" data-toggle="modal"
                                            data-target="#payments_method"></a>
-                                        <input type="radio" name="delivery" @checked($loop->iteration == 1) value="{{ $key }}">
+                                        <input type="radio" name="delivery"
+                                               @checked($loop->iteration == 1) value="{{ $key }}">
                                         <span class="checkmark"></span>
                                     </label>
                                 </li>
@@ -94,7 +95,8 @@
                         </ul>
 
                         @foreach(asset_data('order_types') as $key => $orderType)
-                            <div class="delivery-form" id="delivery-{{ $key }}" style="display: {{ $loop->iteration == 1 ? 'block' : 'none' }}">
+                            <div class="delivery-form" id="delivery-{{ $key }}"
+                                 style="display: {{ $loop->iteration == 1 ? 'block' : 'none' }}">
                                 {!! $orderType['form'] !!}
                             </div>
                         @endforeach
@@ -145,5 +147,51 @@
             $('.delivery-form').hide()
             $('#delivery-' + type).show()
         })
+
+        $('#sending_city').select2({
+            theme: 'bootstrap4',
+            minLength: 2,
+            ajax: {
+                type: 'post',
+                url: '/api/new_post/search_cities',
+                data: (params) => {
+                    return {
+                        search: params.term
+                    }
+                },
+                processResults: function (data) {
+                    return {
+                        results: $.map(data.data, function (item) {
+                            return {
+                                text: item.name_uk,
+                                id: item.id
+                            }
+                        })
+                    };
+                },
+                delay: 400
+            },
+            cache: true,
+        })
+
+        $(document).on('change', '#sending_city', function () {
+            let city = $(this).val()
+
+            $.post('/api/new_post/get_warehouses', {city})
+                .then(function (response) {
+                    if (response.data.length) {
+                        let options = ''
+                        $.map(response.data, function (item) {
+                            options += `<option value="${item.id}">${item.name_uk}</option>`
+                        })
+
+                        $('#sending_warehouse').attr('disabled', false).html(options)
+                    } else {
+                        let options = '<option>Empty</option>'
+                        $('#sending_warehouse').attr('disabled', true).html(options)
+                    }
+                })
+        })
+
     </script>
 @endsection
