@@ -210,13 +210,13 @@
                                                             <tr>
                                                                 <td>
                                                                     <strong>
-                                                                        {{ $characteristic->characteristic->name }}
+                                                                        {{ $characteristic->characteristic->name ?? '' }}
                                                                     </strong>
                                                                 </td>
                                                                 <td>
-                                                                    {{ $characteristic->characteristic->prefix }}
-                                                                    {{ $characteristic->value }}
-                                                                    {{ $characteristic->characteristic->postfix }}
+                                                                    {{ $characteristic->characteristic->prefix ?? '' }}
+                                                                    {{ $characteristic->value ?? '' }}
+                                                                    {{ $characteristic->characteristic->postfix ?? '' }}
                                                                 </td>
                                                             </tr>
                                                         @endforeach

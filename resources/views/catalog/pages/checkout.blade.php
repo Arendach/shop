@@ -174,6 +174,8 @@
             cache: true,
         })
 
+        $('#street')
+
         $(document).on('change', '#sending_city', function () {
             let city = $(this).val()
 
