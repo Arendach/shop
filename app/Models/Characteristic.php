@@ -14,6 +14,7 @@ class Characteristic extends Model
     public $timestamps = false;
 
     public $fillable = [
+        'id',
         'name_uk',
         'prefix_uk',
         'postfix_uk',
