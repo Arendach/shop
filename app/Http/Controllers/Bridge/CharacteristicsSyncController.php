@@ -10,7 +10,7 @@ class CharacteristicsSyncController extends Controller
 {
     public function section_main(BaseConnection $connection)
     {
-        $characteristics = $connection->request('settings', 'characteristics_sync');
+        $characteristics = $connection->requestParse('settings', 'characteristics_sync');
 
         Characteristic::truncate();
 
