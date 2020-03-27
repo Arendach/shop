@@ -14,7 +14,7 @@ class CharacteristicsSyncController extends Controller
 
         Characteristic::truncate();
 
-        foreach (\GuzzleHttp\json_decode($characteristics) as $item) {
+        foreach ($characteristics as $item) {
             Characteristic::create((array)$item);
         }
 
