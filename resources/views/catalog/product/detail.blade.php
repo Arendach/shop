@@ -210,13 +210,13 @@
                                                             <tr>
                                                                 <td>
                                                                     <strong>
-                                                                        {{ !is_null($characteristic->characteristic) ? $characteristic->characteristic->name : '' }}
+                                                                        {{ $characteristic->characteristc->name }}
                                                                     </strong>
                                                                 </td>
                                                                 <td>
-                                                                    {{ !is_null($characteristic->characteristic) ? $characteristic->characteristic->prefix : '' }}
+                                                                    {{ $characteristic->characteristic->prefix }}
                                                                     {{ $characteristic->value ?? '' }}
-                                                                    {{ !is_null($characteristic->characteristic) ? $characteristic->characteristic->postfix : '' }}
+                                                                    {{ $characteristic->characteristic->postfix }}
                                                                 </td>
                                                             </tr>
                                                         @endforeach

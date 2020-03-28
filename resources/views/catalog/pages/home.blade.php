@@ -19,8 +19,7 @@
                                     <div class="{{ $banner->position == 'center' ? 'col-lg-12' : 'col-lg-6' }} static">
                                         <div class="slide-text text-{{ $banner->position }}"
                                              style="color: {{ $banner->color }}">
-                                            <h2 class="owl-slide-animated owl-slide-title"
-                                                style="color: {{ $banner->color }}">
+                                            <h2 class="owl-slide-animated owl-slide-title" style="color: {{ $banner->color }}">
                                                 {{ $banner->title }}
                                             </h2>
                                             <p class="owl-slide-animated owl-slide-subtitle">
