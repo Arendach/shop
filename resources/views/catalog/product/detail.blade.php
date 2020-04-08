@@ -210,12 +210,12 @@
                                                             <tr>
                                                                 <td>
                                                                     <strong>
-                                                                        {{ $characteristic->characteristc->name }}
+                                                                        {{ $characteristic->characteristic->name }}
                                                                     </strong>
                                                                 </td>
                                                                 <td>
                                                                     {{ $characteristic->characteristic->prefix }}
-                                                                    {{ $characteristic->value ?? '' }}
+                                                                    {{ $characteristic->value }}
                                                                     {{ $characteristic->characteristic->postfix }}
                                                                 </td>
                                                             </tr>

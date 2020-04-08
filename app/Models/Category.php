@@ -41,7 +41,8 @@ class Category extends Model implements Sortable, TwoImageInterface
         'created_at',
         'updated_at',
         'is_active',
-        'order'
+        'order',
+        'name_template'
     ];
 
     protected $dates = [

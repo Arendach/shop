@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Abstraction\Models\SeoMultiLangInterface;
 use App\Abstraction\Models\TwoImageInterface;
+use App\Casts\ProductName;
 use App\Traits\Models\SeoMultiLang;
 use App\Traits\Models\Translatable;
 use App\Traits\Models\TwoImage;
@@ -49,11 +50,15 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
     public $timestamps = true;
 
     protected $translate = [
-        'name',
+       //  'name',
         'description',
         'meta_title',
         'meta_description',
         'meta_keywords'
+    ];
+
+    protected $casts = [
+        'name' => ProductName::class,
     ];
 
 

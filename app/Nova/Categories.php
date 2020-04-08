@@ -38,7 +38,7 @@ class Categories extends Resource
                          return [$category->id => $category->name];
                      })->prepend(translate('Коренева категорія')));
                  })->displayUsingLabels(),
-
+                Text::make(translate('Шаблон імені товара'), 'name_template'),
                 Text::make('Slug', 'slug'),
                 Boolean::make(translate('Активна'), 'is_active'),
                 Image::make(translate('Зображення'), 'big')->path('images/categories')
