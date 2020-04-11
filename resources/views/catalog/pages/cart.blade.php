@@ -15,12 +15,12 @@
             <div class="page_header">
                 <div class="breadcrumbs">
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Category</a></li>
-                        <li>Page active</li>
+                        <li><a href="#">@translate('Головна')</a></li>
+                        <li><a href="#">@translate('Товари')</a></li>
+                        <li>@translate('Корзина')</li>
                     </ul>
                 </div>
-                <h1>Cart page</h1>
+                <h1>@translate('Корзина')</h1>
             </div>
 
             <!-- /page_header -->

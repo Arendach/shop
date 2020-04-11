@@ -2,11 +2,9 @@
 
 namespace App\Casts;
 
-use App\Models\Product;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
-use function GuzzleHttp\Psr7\str;
 
-class ProductName implements CastsAttributes
+class ProductName extends ProductCastAbstract implements CastsAttributes
 {
     private $templates = [
         'name'               => '<Назва>',
@@ -24,6 +22,10 @@ class ProductName implements CastsAttributes
     public function get($model, string $key, $value, array $attributes)
     {
         $template = $model->category->name_template;
+
+        if (empty($template)) {
+            return $model->{"name_" . config('locale.current')};
+        }
 
         foreach ($this->templates as $method => $needle) {
             if (strpos($model->category->name_template, $needle) !== false) {

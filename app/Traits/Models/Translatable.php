@@ -9,7 +9,7 @@ trait Translatable
         $lang = config('locale.current');
 
         if (isset($this->translate) && in_array($field, $this->translate)) {
-            if (is_null($this->{"{$field}_{$lang}"}) || empty($this->{"{$field}_{$lang}"})) {
+            if ($this->checkNeededTranslatable($field)) {
                 return $this->translateOtherFields($field);
             }
 
@@ -17,6 +17,14 @@ trait Translatable
         }
 
         return parent::__get($field);
+    }
+
+    private function checkNeededTranslatable($field)
+    {
+        $lang = config('locale.current');
+        $default = config('locale.default');
+
+        return (is_null($this->{"{$field}_{$lang}"}) || empty($this->{"{$field}_{$lang}"})) && !empty($this->{"{$field}_{$default}"});
     }
 
     private function translateOtherFields(string $field): ?string

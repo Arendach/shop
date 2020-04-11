@@ -42,11 +42,7 @@
                                 <div class="owl-carousel owl-theme thumbs">
                                     @if(!is_null($product->video))
                                         <div class="item active">
-                                            <iframe width="100px" height="100px"
-                                                    src="https://www.youtube.com/embed/{{ $product->video }}"
-                                                    frameborder="0"
-                                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                                    allowfullscreen></iframe>
+                                            <img src="{{ asset('img/youtube.png') }}" alt="" height="100%">
                                         </div>
                                     @endif
                                     @foreach($product->images as $image)

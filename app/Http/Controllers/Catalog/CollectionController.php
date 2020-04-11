@@ -14,11 +14,11 @@ class CollectionController extends CatalogController
             ->get();
 
         $data = [
-            'title' => __('collection.meta.title'),
-            'meta_keywords' => __('collection.meta.keywords'),
+            'title'            => __('collection.meta.title'),
+            'meta_keywords'    => __('collection.meta.keywords'),
             'meta_description' => __('collection.meta.description'),
-            'collections' => $collections,
-            'breadcrumbs' => [[__('collection.meta.title')]]
+            'collections'      => $collections,
+            'breadcrumbs'      => [[__('collection.meta.title')]]
         ];
 
         return view('catalog.collection.index', $data);
@@ -27,16 +27,16 @@ class CollectionController extends CatalogController
     public function view(Request $request, $slug)
     {
         $collection = ProductCollection::with('parent')
-            ->with('items')
+            ->with('products')
             ->with('child')
             ->where(is_numeric($slug) ? 'id' : 'slug', $slug)
             ->firstOrFail();
 
         $data = [
-            'title' => $collection->meta_title,
-            'meta_keywords' => $collection->meta_keywords,
+            'title'            => $collection->meta_title,
+            'meta_keywords'    => $collection->meta_keywords,
             'meta_description' => $collection->meta_description,
-            'collection' => $collection
+            'collection'       => $collection
         ];
 
         if ($collection->parent_id == 0) {
