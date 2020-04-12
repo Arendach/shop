@@ -74,8 +74,14 @@ function params(array $parameters): string
  * @param array $headers
  * @param int $option
  * @return \Illuminate\Http\JsonResponse
+ * @deprecated
  */
 function json($data, $status = 200, $headers = [], $option = 0)
 {
     return response()->json($data, $status, $headers, $option);
+}
+
+function artisan($command)
+{
+    return Artisan::call($command);
 }

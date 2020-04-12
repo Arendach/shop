@@ -26,12 +26,14 @@
         "lis-dev/nova-poshta-api-2": "^0.1.1",
         "media24si/nova-youtube-field": "^1.0",
         "optimistdigital/nova-sortable": "^1.3",
+        "paquettg/php-html-parser": "^2.2",
         "predis/predis": "^1.1",
         "spatie/eloquent-sortable": "^3.8",
         "spatie/image-optimizer": "^1.2",
         "spatie/laravel-sitemap": "^5.5",
         "spatie/nova-backup-tool": "^4.0",
-        "waynestate/nova-ckeditor4-field": "^0.7.0"
+        "waynestate/nova-ckeditor4-field": "^0.7.0",
+        "arendach/accordion": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
@@ -94,6 +96,10 @@
         {
             "type": "path",
             "url": "./packages/nova"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Accordion"
         }
     ]
 }

@@ -4,7 +4,9 @@ namespace App\Models;
 
 use App\Abstraction\Models\SeoMultiLangInterface;
 use App\Abstraction\Models\TwoImageInterface;
+use App\Casts\ProductDescriptionCast;
 use App\Casts\ProductName;
+use App\Casts\ProductTranslatableTemplateCast;
 use App\Traits\Models\SeoMultiLang;
 use App\Traits\Models\Translatable;
 use App\Traits\Models\TwoImage;
@@ -49,16 +51,12 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
 
     public $timestamps = true;
 
-    protected $translate = [
-       //  'name',
-        'description',
-        'meta_title',
-        'meta_description',
-        'meta_keywords'
-    ];
-
     protected $casts = [
-        'name' => ProductName::class,
+        'description'      => ProductDescriptionCast::class,
+        'name'             => ProductTranslatableTemplateCast::class,
+        'meta_title'       => ProductTranslatableTemplateCast::class,
+        'meta_description' => ProductTranslatableTemplateCast::class,
+        'meta_keywords'    => ProductTranslatableTemplateCast::class
     ];
 
 
@@ -95,6 +93,11 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
     public function related()
     {
         return $this->belongsToMany(Product::class, 'relation_products', 'product_id', 'related_id');
+    }
+
+    public function attributes()
+    {
+        return $this->hasMany(ProductAttribute::class);
     }
 
     public function getNewPriceAttribute()
