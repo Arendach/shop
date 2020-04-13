@@ -51,7 +51,7 @@ class Category extends Model implements Sortable, TwoImageInterface
         'deleted_at'
     ];
 
-    protected $translate =  [
+    public $translate = [
         'name',
         'description',
         'meta_title',
@@ -60,7 +60,7 @@ class Category extends Model implements Sortable, TwoImageInterface
     ];
 
     public $sortable = [
-        'order_column_name' => 'order',
+        'order_column_name'  => 'order',
         'sort_when_creating' => true,
     ];
 

@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.3",
         "ext-json": "*",
+        "arendach/accordion": "*",
         "chris-ware/nova-breadcrumbs": "^1.3",
         "dkulyk/nova-tabs": "^1.1",
         "eminiarts/nova-tabs": "^1.2",
@@ -32,8 +33,8 @@
         "spatie/image-optimizer": "^1.2",
         "spatie/laravel-sitemap": "^5.5",
         "spatie/nova-backup-tool": "^4.0",
-        "waynestate/nova-ckeditor4-field": "^0.7.0",
-        "arendach/accordion": "*"
+        "timothyasp/nova-color-field": "^1.0",
+        "waynestate/nova-ckeditor4-field": "^0.7.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

@@ -1,8 +1,8 @@
 <div class="filter_col">
     <form action="{{ url()->current() }}">
-        @foreach(request()->except('manufacturers', 'price', 'characteristics') as $key => $value)
+        {{--@foreach(request()->except('manufacturers', 'price', 'characteristics') as $key => $value)
             <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-        @endforeach
+        @endforeach--}}
         <div class="inner_bt"><a href="#" class="open_filters"><i class="ti-close"></i></a></div>
 
         <div class="filter_type version_2">

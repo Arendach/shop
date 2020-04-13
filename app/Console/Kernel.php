@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\AdminGenerateUser;
+use App\Console\Commands\GenerateTranslations;
 use App\Console\Commands\MakeDirective;
 use App\Console\Commands\ReloadNewPostWarehouses;
 use Illuminate\Console\Scheduling\Schedule;
@@ -13,7 +14,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         AdminGenerateUser::class,
         MakeDirective::class,
-        ReloadNewPostWarehouses::class
+        ReloadNewPostWarehouses::class,
+        GenerateTranslations::class,
     ];
 
     protected function schedule(Schedule $schedule)

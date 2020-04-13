@@ -24,7 +24,7 @@ class Characteristic extends Model
         'type'
     ];
 
-    protected $translate = [
+    public $translate = [
         'name',
         'prefix',
         'postfix'

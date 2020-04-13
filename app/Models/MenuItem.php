@@ -11,5 +11,5 @@ class MenuItem extends Model
 
     public $timestamps = false;
 
-    protected $translate = ['name'];
+    public $translate = ['name'];
 }

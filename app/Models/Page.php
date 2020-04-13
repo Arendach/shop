@@ -31,7 +31,7 @@ class Page extends Model
         'is_fast_navigation'
     ];
 
-    protected $translate = [
+    public $translate = [
         'name',
         'content',
         'meta_title',

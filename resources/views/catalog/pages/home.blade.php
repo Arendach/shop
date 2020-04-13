@@ -47,7 +47,7 @@
                 @php /** @var \App\Models\ProductCollection $collection */ @endphp
                 <li>
                     <a href="{{ route('collection', $collection->slug) }}" class="img_container">
-                        <img src="{{ $collection->getImage() }}" data-src="{{ $collection->getImage() }}"
+                        <img src="{{ $collection->getImage('image') }}" data-src="{{ $collection->getImage('image') }}"
                              alt="{{ $collection->name }}" class="lazy">
                         <div class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
                             <h3>{{ $collection->name }}</h3>

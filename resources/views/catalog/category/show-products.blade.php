@@ -36,9 +36,9 @@
                     <li>
                         <div class="sort_select">
                             <form action="{{ url()->current() }}" method="get">
-                                @foreach(request()->except('order') as $key => $value)
+                               {{-- @foreach(request()->except('order') as $key => $value)
                                     <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-                                @endforeach
+                                @endforeach--}}
 
                                 <select name="order" class="selectpicker" onchange="$(this).parents('form').submit()">
                                     <option @selected('order', 'date,desc') value="date,desc">

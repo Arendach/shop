@@ -37,7 +37,7 @@ class Collections extends Resource
             (new Tabs('Колекції', [
                 new Panel(translate('Основна інформація'), [
                     ID::make()->sortable(),
-                    BelongsTo::make(translate('Батьківська категорія'), 'parent', Collections::class)->exceptOnForms(),
+                    BelongsTo::make(translate('Батьківська категорія'), 'parent', Collections::class)->nullable()->hideWhenCreating(),
                     Text::make('Slug', 'slug')->required(),
                     Image::make(translate('Зображення'), 'image')->path('images/collections')
                 ]),

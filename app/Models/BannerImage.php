@@ -24,7 +24,7 @@ class BannerImage extends Model
 
     public $timestamps = true;
 
-    protected $translate = [
+    public $translate = [
         'title',
         'description',
         'button'

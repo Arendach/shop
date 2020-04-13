@@ -16,7 +16,7 @@ class Manufacturer extends Model
         'photo_ru'
     ];
 
-    protected $translate = ['name'];
+    public $translate = ['name'];
 
     public $timestamps = false;
 

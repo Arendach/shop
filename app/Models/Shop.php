@@ -18,7 +18,7 @@ class Shop extends Model
         'base_id'
     ];
 
-    protected $translate = [
+    public $translate = [
         'name',
         'address'
     ];

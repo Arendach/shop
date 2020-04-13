@@ -20,7 +20,7 @@ class ProductCharacteristic extends Model
         'filter_ru'
     ];
 
-    protected $translate = [
+    public $translate = [
         'value',
         'filter'
     ];
@@ -30,14 +30,5 @@ class ProductCharacteristic extends Model
     public function characteristic()
     {
         return $this->belongsTo(Characteristic::class);
-    }
-
-    public function getFilterValueAttribute(): ?string
-    {
-        if (is_null($this->flter)) {
-            return $this->value;
-        }
-
-        return $this->filter;
     }
 }

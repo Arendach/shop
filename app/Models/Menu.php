@@ -18,7 +18,7 @@ class Menu extends Model implements Sortable
 
     public $timestamps = false;
 
-    protected $translate = ['name'];
+    public $translate = ['name'];
 
     public $sortable = [
         'order_column_name'  => 'sort',

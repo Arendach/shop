@@ -33,7 +33,7 @@ class Index extends Model
         'article_ru'
     ];
 
-    protected $translate = [
+    public $translate = [
         'footer_address',
         'meta_title',
         'meta_keywords',

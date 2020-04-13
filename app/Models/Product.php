@@ -18,7 +18,6 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
 {
     use SeoMultiLang;
     use TwoImage;
-    use Translatable;
 
     public $fillable = [
         'article',
@@ -57,6 +56,14 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
         'meta_title'       => ProductTranslatableTemplateCast::class,
         'meta_description' => ProductTranslatableTemplateCast::class,
         'meta_keywords'    => ProductTranslatableTemplateCast::class
+    ];
+
+    public $translate = [
+        'description',
+        'name',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
     ];
 
 
