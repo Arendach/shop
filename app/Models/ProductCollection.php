@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Models\Image;
 use App\Traits\Models\Translatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +13,7 @@ class ProductCollection extends Model
 {
     use SoftDeletes;
     use Translatable;
+    use Image;
 
     public $translate = [
         'name',
@@ -68,13 +70,6 @@ class ProductCollection extends Model
     public function parent()
     {
         return $this->hasOne(ProductCollection::class, 'id', 'parent_id');
-    }
-
-    public function getImageAttribute($value)
-    {
-        if (is_file(public_path($value))) return asset($value);
-        elseif (preg_match('@^http@', $value)) return $value;
-        else return asset('catalog/img/collection-default.jpg');
     }
 
     public function getSearchedProducts($request)

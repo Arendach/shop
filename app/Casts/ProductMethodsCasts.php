@@ -5,6 +5,7 @@ namespace App\Casts;
 use App\Models\Product;
 use App\Models\ProductAttribute;
 use PHPHtmlParser\Dom;
+use Exception;
 
 abstract class ProductMethodsCasts
 {
@@ -120,6 +121,21 @@ abstract class ProductMethodsCasts
 
             return $template;
         } catch (\Exception $exception) {
+            \Log::error('Не вдалось розпарсити атрибути товара' . $exception->getMessage());
+            return $template;
+        }
+    }
+
+    protected function description($model, $template): string
+    {
+        return str_replace('<Опис>', $model->descripton, $template);
+    }
+
+    protected function characteristics(Product $model, string $template): string
+    {
+        try {
+
+        } catch (\Exception $exception){
             \Log::error('Не вдалось розпарсити атрибути товара' . $exception->getMessage());
             return $template;
         }
