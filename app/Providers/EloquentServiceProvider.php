@@ -7,10 +7,12 @@ use App\Models\Customer;
 use App\Models\Index;
 use App\Models\Page;
 use App\Models\Product;
+use App\Models\ProductCollection;
 use App\Observers\CategoryObserver;
 use App\Observers\CustomerObserver;
 use App\Observers\IndexObserver;
 use App\Observers\PageObserver;
+use App\Observers\ProductCollectionObserver;
 use App\Observers\ProductObserver;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,5 +29,6 @@ class EloquentServiceProvider extends ServiceProvider
         Index::observe(IndexObserver::class);
         Product::observe(ProductObserver::class);
         Category::observe(CategoryObserver::class);
+        ProductCollection::observe(ProductCollectionObserver::class);
     }
 }

@@ -10,9 +10,11 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Panel;
+use NovaAttachMany\AttachMany;
 
 class Collections extends Resource
 {
@@ -37,26 +39,31 @@ class Collections extends Resource
             (new Tabs('Колекції', [
                 new Panel(translate('Основна інформація'), [
                     ID::make()->sortable(),
-                    BelongsTo::make(translate('Батьківська категорія'), 'parent', Collections::class)->nullable()->hideWhenCreating(),
+                    //BelongsTo::make(translate('Батьківська категорія'), 'parent', Collections::class)->nullable()->hideWhenCreating(),
+                    Select::make(translate('Батьківська категорія'), 'parent_id')->options(function () {
+                        return ProductCollection::where('parent_id', 0)->get()->mapWithKeys(function (ProductCollection $collection) {
+                            return [$collection->id => $collection->name];
+                        })->put(0, translate('Коренева категорія'))->toArray();
+                    })->displayUsingLabels(),
                     Text::make('Slug', 'slug')->required(),
                     Image::make(translate('Зображення'), 'image')->path('images/collections')
                 ]),
                 new Panel(translate('Українська локалізація'), [
                     Text::make(translate('Назва'), 'name_uk'),
-                    Text::make(translate('Meta title'), 'meta_title_uk'),
-                    Text::make(translate('Meta keywords'), 'meta_keywords_uk'),
-                    Text::make(translate('Meta description'), 'meta_description_uk'),
-                    Trix::make(translate('Опис (ук)'), 'description_uk')->withFiles(),
+                    Text::make(translate('Meta title'), 'meta_title_uk')->hideFromIndex(),
+                    Text::make(translate('Meta keywords'), 'meta_keywords_uk')->hideFromIndex(),
+                    Text::make(translate('Meta description'), 'meta_description_uk')->hideFromIndex(),
+                    Trix::make(translate('Опис (ук)'), 'description_uk')->withFiles()->hideFromIndex(),
                 ]),
                 new Panel(translate('Російська локалізація'), [
-                    Text::make(translate('Назва (ru)'), 'name_ru'),
-                    Text::make(translate('Meta title'), 'meta_title_ru'),
-                    Text::make(translate('Meta keywords'), 'meta_keywords_ru'),
-                    Text::make(translate('Meta description'), 'meta_description_ru'),
+                    Text::make(translate('Назва (ru)'), 'name_ru')->hideFromIndex(),
+                    Text::make(translate('Meta title'), 'meta_title_ru')->hideFromIndex(),
+                    Text::make(translate('Meta keywords'), 'meta_keywords_ru')->hideFromIndex(),
+                    Text::make(translate('Meta description'), 'meta_description_ru')->hideFromIndex(),
                     Trix::make(translate('Опис (ru)'), 'description_ru')->withFiles(),
                 ]),
                 new Panel(translate('Товари'), [
-                    BelongsToMany::make(translate('Товари'), 'products', Products::class)->exceptOnForms()
+                    AttachMany::make(translate('Товари'), 'products', Products::class)->hideFromIndex()->showPreview()
                 ])
             ]))->withToolbar()
         ];

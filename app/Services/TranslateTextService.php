@@ -8,7 +8,6 @@ class TranslateTextService
 {
     public function get($text, string $language = 'ru'): ?string
     {
-        dump($text);
         $client = new TranslateClient();
 
         $result = $client->translate(htmlspecialchars_decode($text), [
