@@ -31,4 +31,47 @@ class ProductCharacteristic extends Model
     {
         return $this->belongsTo(Characteristic::class);
     }
+
+    public function getPrefix()
+    {
+        if (is_null($this->characteristic)) {
+            return $this->selfDestruction();
+        }
+
+        return $this->characteristic->prefix;
+    }
+
+    public function getPostfix()
+    {
+        if (is_null($this->characteristic)) {
+            return $this->selfDestruction();
+        }
+
+        return $this->characteristic->postfix;
+    }
+
+    public function getName()
+    {
+        if (is_null($this->characteristic)) {
+            return $this->selfDestruction();
+        }
+
+        return $this->characteristic->name;
+    }
+
+    public function getType()
+    {
+        if (is_null($this->characteristic)) {
+            return $this->selfDestruction();
+        }
+
+        return $this->characteristic->type;
+    }
+
+    private function selfDestruction()
+    {
+        self::delete();
+
+        return null;
+    }
 }

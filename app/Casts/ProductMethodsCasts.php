@@ -4,8 +4,10 @@ namespace App\Casts;
 
 use App\Models\Product;
 use App\Models\ProductAttribute;
+use App\Models\ProductCharacteristic;
 use PHPHtmlParser\Dom;
 use Exception;
+use Log;
 
 abstract class ProductMethodsCasts
 {
@@ -21,6 +23,8 @@ abstract class ProductMethodsCasts
         'model',
         'weight',
         'attributes',
+        'characteristics',
+        'description'
     ];
 
     private $dom;
@@ -98,7 +102,7 @@ abstract class ProductMethodsCasts
         return str_replace('<Маса>', $text, $template);
     }
 
-    protected function attributes($model, $template): string
+    protected function attributes(Product $model, $template): string
     {
         try {
             /** @var Product $model */
@@ -106,37 +110,74 @@ abstract class ProductMethodsCasts
 
             $elements = $this->dom->find('Атрибути');
 
-            /** @var Dom\Tag $element */
-            foreach ($elements as $element) {
-                $ids = explode(',', $element->id);
-                $glue = $element->glue;
-
-                $attributes = $model->attributes->whereIn('attribute_id', $ids)->map(function (ProductAttribute $attribute) use ($glue) {
-                    return $attribute->attribute->name . ': ' . implode($glue, $attribute->variants);
-                })->implode($glue);
-
-
-                $template = $this->replaceAttribute('Атрибути', $attributes, $template);
+            if (!count($elements)) {
+                return $template;
             }
 
+            /** @var Dom\Tag $element */
+            $element = $elements[0];
+            $ids = is_null($element->id) ? null : explode(',', $element->id);
+            $glue = is_null($element->glue) ? ',' : $element->glue;
+            $del = is_null($element->del) ? '-' : $element->del;
+
+            $attributes = $model->attributes;
+
+            if (!is_null($ids)) {
+                $attributes = $attributes->whereIn('attribute_id', $ids);
+            }
+
+            $attributes = $attributes->map(function (ProductAttribute $attribute) use ($del) {
+                return $attribute->attribute->name . ': ' . implode($del, $attribute->variants);
+            })->implode($glue);
+
+            $template = $this->replaceAttribute('Атрибути', $attributes, $template);
+
             return $template;
-        } catch (\Exception $exception) {
-            \Log::error('Не вдалось розпарсити атрибути товара' . $exception->getMessage());
+        } catch (Exception $exception) {
+            Log::error('Не вдалось розпарсити атрибути товара' . $exception->getMessage());
             return $template;
         }
     }
 
-    protected function description($model, $template): string
+    protected function description(Product $model, $template): string
     {
-        return str_replace('<Опис>', $model->descripton, $template);
+        return str_replace('<Опис>', $model->getOriginal("description_" . config('locale.current')), $template);
     }
 
     protected function characteristics(Product $model, string $template): string
     {
         try {
+            /** @var Product $model */
+            $this->dom->load(htmlspecialchars_decode($template));
 
-        } catch (\Exception $exception){
-            \Log::error('Не вдалось розпарсити атрибути товара' . $exception->getMessage());
+            $elements = $this->dom->find('Характеристики');
+
+            if (!count($elements)) {
+                return $template;
+            }
+
+            /** @var Dom\Tag $element */
+            $element = $elements[0];
+
+            $glue = is_null($element->glue) ? ',' : $element->glue;
+            $ids = is_null($element->id) ? null : explode(',', $element->id);
+
+            $characteristics = $model->characteristics;
+
+            if (!is_null($ids)) {
+                $characteristics = $characteristics->whereIn('characteristic_id', $ids);
+            }
+
+            $characteristics = $characteristics->map(function (ProductCharacteristic $characteristic) use ($glue) {
+                return trim($characteristic->getName(), ':') . ': ' . $characteristic->value;
+            })->implode($glue);
+
+            $template = $this->replaceAttribute('Характеристики', $characteristics, $template);
+
+            return $template;
+
+        } catch (Exception $exception) {
+            Log::error('Не вдалось розпарсити характеристики товара' . $exception->getMessage());
             return $template;
         }
     }
@@ -144,6 +185,6 @@ abstract class ProductMethodsCasts
 
     private function replaceAttribute($attribute, $compiled, $template)
     {
-        return preg_replace("~<$attribute(.*)>~", $compiled, $template);
+        return preg_replace("~<$attribute(.*)>~U", $compiled, $template);
     }
 }

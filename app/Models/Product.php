@@ -51,7 +51,7 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
     public $timestamps = true;
 
     protected $casts = [
-        'description'      => ProductDescriptionCast::class,
+        'description'      => ProductTranslatableTemplateCast::class,
         'name'             => ProductTranslatableTemplateCast::class,
         'meta_title'       => ProductTranslatableTemplateCast::class,
         'meta_description' => ProductTranslatableTemplateCast::class,

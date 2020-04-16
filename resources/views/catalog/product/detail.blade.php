@@ -203,16 +203,17 @@
                                                     <table class="table table-sm table-striped">
                                                         <tbody>
                                                         @foreach($product->characteristics as $characteristic)
+                                                            @php /** @var \App\Models\ProductCharacteristic $characteristic */ @endphp
                                                             <tr>
                                                                 <td>
                                                                     <strong>
-                                                                        {{ $characteristic->characteristic->name }}
+                                                                        {{ $characteristic->getName() }}
                                                                     </strong>
                                                                 </td>
                                                                 <td>
-                                                                    {{ $characteristic->characteristic->prefix }}
+                                                                    {{ $characteristic->getPrefix() }}
                                                                     {{ $characteristic->value }}
-                                                                    {{ $characteristic->characteristic->postfix }}
+                                                                    {{ $characteristic->getPostfix() }}
                                                                 </td>
                                                             </tr>
                                                         @endforeach

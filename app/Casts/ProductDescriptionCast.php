@@ -8,10 +8,10 @@ class ProductDescriptionCast extends ProductMethodsCasts implements CastsAttribu
 {
     public function get($model, string $key, $value, array $attributes)
     {
-        $template = $model->category->{"{$key}_template"};
+        $template = $model->category->description_template;
 
         if (empty($template)) {
-            return $model->{$key . '_' . $this->localeCurrent};
+            return $model->{'description_' . $this->localeCurrent};
         }
 
         foreach ($this->templates as $method) {
