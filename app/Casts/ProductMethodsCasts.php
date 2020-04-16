@@ -8,6 +8,7 @@ use App\Models\ProductCharacteristic;
 use PHPHtmlParser\Dom;
 use Exception;
 use Log;
+use function GuzzleHttp\Psr7\str;
 
 abstract class ProductMethodsCasts
 {
@@ -24,7 +25,9 @@ abstract class ProductMethodsCasts
         'weight',
         'attributes',
         'characteristics',
-        'description'
+        'description',
+        'model',
+        'manufacturer'
     ];
 
     private $dom;
@@ -92,7 +95,7 @@ abstract class ProductMethodsCasts
 
     protected function model($model, $template)
     {
-        return str_replace('<Модель>', $model->model, $template);
+        return str_replace('<Модель>', $model->{"model_" . config('locale.current')}, $template);
     }
 
     protected function weight($model, $template)
@@ -100,6 +103,16 @@ abstract class ProductMethodsCasts
         $text = $model->weight ? $model->weight : '';
 
         return str_replace('<Маса>', $text, $template);
+    }
+
+    protected function description(Product $model, $template): string
+    {
+        return str_replace('<Опис>', $model->getOriginal("description_" . config('locale.current')), $template);
+    }
+
+    protected function manufacturer(Product $model, $template): string
+    {
+        return str_replace('<Виробник>', $model->manufacturer->name, $template);
     }
 
     protected function attributes(Product $model, $template): string
@@ -139,11 +152,6 @@ abstract class ProductMethodsCasts
         }
     }
 
-    protected function description(Product $model, $template): string
-    {
-        return str_replace('<Опис>', $model->getOriginal("description_" . config('locale.current')), $template);
-    }
-
     protected function characteristics(Product $model, string $template): string
     {
         try {
@@ -181,7 +189,6 @@ abstract class ProductMethodsCasts
             return $template;
         }
     }
-
 
     private function replaceAttribute($attribute, $compiled, $template)
     {

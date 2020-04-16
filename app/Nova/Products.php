@@ -54,6 +54,7 @@ class Products extends Resource
 
                 new Panel(translate('Українська локалізація'), [
                     Text::make(translate('Назва'), 'name_uk'),
+                    Text::make(translate('Модель'), 'model_uk')->hideFromIndex(),
                     Text::make(translate('Заголовок (title)'), 'meta_title_uk')->hideFromIndex(),
                     Text::make(translate('Ключові слова(keywords)'), 'meta_keywords_uk')->hideFromIndex(),
                     Text::make(translate('Опис(description)'), 'meta_description_uk')->hideFromIndex(),
@@ -62,6 +63,7 @@ class Products extends Resource
 
                 new Panel(translate('Російська локалізація'), [
                     Text::make(translate('Назва'), 'name_ru')->hideFromIndex(),
+                    Text::make(translate('Модель'), 'model_ru')->hideFromIndex(),
                     Text::make(translate('Заголовок (title)'), 'meta_title_ru')->hideFromIndex(),
                     Text::make(translate('Ключові слова(keywords)'), 'meta_keywords_ru')->hideFromIndex(),
                     Text::make(translate('Опис(description)'), 'meta_description_ru')->hideFromIndex(),
