@@ -8,7 +8,6 @@ use App\Models\ProductCharacteristic;
 use PHPHtmlParser\Dom;
 use Exception;
 use Log;
-use function GuzzleHttp\Psr7\str;
 
 abstract class ProductMethodsCasts
 {
@@ -16,9 +15,6 @@ abstract class ProductMethodsCasts
         'name',
         'categoryName',
         'article',
-        'onStorage',
-        'isNew',
-        'isRecommended',
         'discountPercentage',
         'discountSum',
         'model',
@@ -45,74 +41,53 @@ abstract class ProductMethodsCasts
 
     protected function name($model, $template)
     {
-        return str_replace('<Назва>', $model->{"name_" . config('locale.current')}, $template);
+        return str_replace('<Name>', $model->{"name_" . config('locale.current')}, $template);
     }
 
     protected function categoryName($model, $template)
     {
-        return str_replace('<Категорія>', $model->category->{"name_" . config('locale.current')}, $template);
+        return str_replace('<Category>', $model->category->{"name_" . config('locale.current')}, $template);
     }
 
     protected function article($model, $template)
     {
-        return str_replace('<Артикул>', $model->article, $template);
-    }
-
-    protected function onStorage($model, $template)
-    {
-        $text = $model->on_storage ? translate('В наявності') : translate('Немає в наявності');
-
-        return str_replace('<Доступність на складі>', $text, $template);
-    }
-
-    protected function isNew($model, $template)
-    {
-        $text = $model->is_new ? translate('Новинка') : '';
-
-        return str_replace('<Новинка>', $text, $template);
-    }
-
-    protected function isRecommended($model, $template)
-    {
-        $text = $model->is_new ? translate('Рекомендовано') : '';
-
-        return str_replace('<Рекомендовано>', $text, $template);
+        return str_replace('<Articul>', $model->article, $template);
     }
 
     protected function discountPercentage($model, $template)
     {
         $text = $model->discount_percent ? $model->discount_percent : '';
 
-        return str_replace('<Знижка в відсотках>', $text, $template);
+        return str_replace('<DiscountPercent>', $text, $template);
     }
 
     protected function discountSum($model, $template)
     {
         $text = $model->discount ? $model->discount : '';
 
-        return str_replace('<Знижка в сумі>', $text, $template);
+        return str_replace('<DiscountSum>', $text, $template);
     }
 
     protected function model($model, $template)
     {
-        return str_replace('<Модель>', $model->{"model_" . config('locale.current')}, $template);
+        return str_replace('<Model>', $model->{"model_" . config('locale.current')}, $template);
     }
 
     protected function weight($model, $template)
     {
         $text = $model->weight ? $model->weight : '';
 
-        return str_replace('<Маса>', $text, $template);
+        return str_replace('<Weight>', $text, $template);
     }
 
     protected function description(Product $model, $template): string
     {
-        return str_replace('<Опис>', $model->getOriginal("description_" . config('locale.current')), $template);
+        return str_replace('<Description>', $model->getOriginal("description_" . config('locale.current')), $template);
     }
 
     protected function manufacturer(Product $model, $template): string
     {
-        return str_replace('<Виробник>', $model->manufacturer->name, $template);
+        return str_replace('<Manufacturer>', $model->manufacturer->name, $template);
     }
 
     protected function attributes(Product $model, $template): string
@@ -121,7 +96,7 @@ abstract class ProductMethodsCasts
             /** @var Product $model */
             $this->dom->load(htmlspecialchars_decode($template));
 
-            $elements = $this->dom->find('Атрибути');
+            $elements = $this->dom->find('Attributes');
 
             if (!count($elements)) {
                 return $template;
@@ -143,7 +118,7 @@ abstract class ProductMethodsCasts
                 return $attribute->attribute->name . ': ' . implode($del, $attribute->variants);
             })->implode($glue);
 
-            $template = $this->replaceAttribute('Атрибути', $attributes, $template);
+            $template = $this->replaceAttribute('Attributes', $attributes, $template);
 
             return $template;
         } catch (Exception $exception) {
@@ -156,9 +131,9 @@ abstract class ProductMethodsCasts
     {
         try {
             /** @var Product $model */
-            $this->dom->load(htmlspecialchars_decode($template));
+            $this->dom->load($template);
 
-            $elements = $this->dom->find('Характеристики');
+            $elements = $this->dom->find('Characteristics');
 
             if (!count($elements)) {
                 return $template;
@@ -169,6 +144,9 @@ abstract class ProductMethodsCasts
 
             $glue = is_null($element->glue) ? ',' : $element->glue;
             $ids = is_null($element->id) ? null : explode(',', $element->id);
+            $title = $element->hasAttribute('title');
+            $prefix = $element->hasAttribute('prefix');
+            $postfix = $element->hasAttribute('postfix');
 
             $characteristics = $model->characteristics;
 
@@ -176,11 +154,27 @@ abstract class ProductMethodsCasts
                 $characteristics = $characteristics->whereIn('characteristic_id', $ids);
             }
 
-            $characteristics = $characteristics->map(function (ProductCharacteristic $characteristic) use ($glue) {
-                return trim($characteristic->getName(), ':') . ': ' . $characteristic->value;
+            $characteristics = $characteristics->map(function (ProductCharacteristic $characteristic) use ($glue, $title, $prefix, $postfix) {
+                $result = '';
+
+                if ($title) {
+                    $result .= trim($characteristic->getName(), ':') . ': ';
+                }
+
+                if ($prefix) {
+                    $result .= " " . $characteristic->getPrefix() . ' ';
+                }
+
+                $result .= $characteristic->value;
+
+                if ($postfix) {
+                    $result .= " " . $characteristic->getPostfix() . ' ';
+                }
+
+                return $result;
             })->implode($glue);
 
-            $template = $this->replaceAttribute('Характеристики', $characteristics, $template);
+            $template = $this->replaceAttribute('Characteristics', $characteristics, $template);
 
             return $template;
 

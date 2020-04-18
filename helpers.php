@@ -15,9 +15,9 @@ function translate($text)
     return Translate::get($text);
 }
 
-function translate_text($text, string $language): ?string
+function translate_text($text, string $language, bool $decode = true): ?string
 {
-    return app(\App\Services\TranslateTextService::class)->get($text, $language);
+    return app(\App\Services\TranslateTextService::class)->get($text, $language, $decode);
 }
 
 function customer(int $id = 0): Customer

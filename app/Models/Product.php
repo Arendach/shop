@@ -43,7 +43,9 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
         'manufacturer_id',
         'slug',
         'old_url',
-        'video'
+        'video',
+        'model_uk',
+        'model_ru',
     ];
 
     protected $dates = ['created_at', 'updated_at'];

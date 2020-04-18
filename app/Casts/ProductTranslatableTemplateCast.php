@@ -9,8 +9,8 @@ class ProductTranslatableTemplateCast extends ProductMethodsCasts implements Cas
     public function get($model, string $key, $value, array $attributes)
     {
         $field = "{$key}_{$this->localeCurrent}";
-
-        $template = $model->category->{"{$key}_template"};
+        $locale = config('locale.current');
+        $template = $model->category->{"{$key}_template_{$locale}"};
 
         if (empty($template)) {
             return $model->$field;

@@ -64,12 +64,20 @@ class Categories extends Resource
                     Trix::make(translate('Опис'), 'description_ru')->hideFromIndex(),
                 ]),
 
-                new Panel(translate('Шаблони'), [
-                    Textarea::make(translate('Назва'), 'name_template')->hideFromIndex(),
-                    Textarea::make(translate('Опис'), 'description_template')->hideFromIndex(),
-                    Textarea::make('Title', 'meta_title_template')->hideFromIndex(),
-                    Textarea::make('Description', 'meta_description_template')->hideFromIndex(),
-                    Textarea::make('Keywords', 'meta_keywords_template')->hideFromIndex(),
+                new Panel(translate('Шаблони(uk)'), [
+                    Textarea::make(translate('Назва'), 'name_template_uk')->hideFromIndex(),
+                    Textarea::make(translate('Опис'), 'description_template_uk')->hideFromIndex(),
+                    Textarea::make('Title', 'meta_title_template_uk')->hideFromIndex(),
+                    Textarea::make('Description', 'meta_description_template_uk')->hideFromIndex(),
+                    Textarea::make('Keywords', 'meta_keywords_template_uk')->hideFromIndex(),
+                ]),
+
+                new Panel(translate('Шаблони(ru)'), [
+                    Textarea::make(translate('Назва'), 'name_template_ru')->hideFromIndex(),
+                    Textarea::make(translate('Опис'), 'description_template_ru')->hideFromIndex(),
+                    Textarea::make('Title', 'meta_title_template_ru')->hideFromIndex(),
+                    Textarea::make('Description', 'meta_description_template_ru')->hideFromIndex(),
+                    Textarea::make('Keywords', 'meta_keywords_template_ru')->hideFromIndex(),
                 ])
             ]))->withToolbar()
         ];

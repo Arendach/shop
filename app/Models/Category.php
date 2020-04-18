@@ -56,7 +56,12 @@ class Category extends Model implements Sortable, TwoImageInterface
         'description',
         'meta_title',
         'meta_description',
-        'meta_keywords'
+        'meta_keywords',
+        'name_template',
+        'description_template',
+        'meta_title_template',
+        'meta_description_template',
+        'meta_keywords_template',
     ];
 
     public $sortable = [
