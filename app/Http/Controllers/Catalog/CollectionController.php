@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Catalog;
 
 use App\Models\ProductCollection;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Http\Request;
 
 class CollectionController extends CatalogController
@@ -27,7 +28,6 @@ class CollectionController extends CatalogController
     public function view(Request $request, $slug)
     {
         $collection = ProductCollection::with('parent')
-            ->with('products')
             ->with('child')
             ->where(is_numeric($slug) ? 'id' : 'slug', $slug)
             ->firstOrFail();
@@ -36,19 +36,20 @@ class CollectionController extends CatalogController
             'title'            => $collection->meta_title,
             'meta_keywords'    => $collection->meta_keywords,
             'meta_description' => $collection->meta_description,
-            'collection'       => $collection
+            'collection'       => $collection,
+            'products'         => $collection->products()->paginate(12)
         ];
 
         if ($collection->parent_id == 0) {
             $data['breadcrumbs'] = [
-                [__('collection.meta.title'), route('collections')],
+                [translate('Колекції товарів'), route('collections')],
                 [$collection->name]
             ];
 
-            return view('catalog.collection.parent', $data);
+            return view('catalog.collection.show', $data);
         } else {
             $data['breadcrumbs'] = [
-                [__('collection.meta.title'), route('collections')],
+                [translate('Колекції товарів'), route('collections')],
                 [$collection->parent->name, route('collection', $collection->parent->slug)],
                 [$collection->name]
             ];

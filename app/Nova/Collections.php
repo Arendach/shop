@@ -39,7 +39,6 @@ class Collections extends Resource
             (new Tabs('Колекції', [
                 new Panel(translate('Основна інформація'), [
                     ID::make()->sortable(),
-                    //BelongsTo::make(translate('Батьківська категорія'), 'parent', Collections::class)->nullable()->hideWhenCreating(),
                     Select::make(translate('Батьківська категорія'), 'parent_id')->options(function () {
                         return ProductCollection::where('parent_id', 0)->get()->mapWithKeys(function (ProductCollection $collection) {
                             return [$collection->id => $collection->name];
@@ -53,14 +52,14 @@ class Collections extends Resource
                     Text::make(translate('Meta title'), 'meta_title_uk')->hideFromIndex(),
                     Text::make(translate('Meta keywords'), 'meta_keywords_uk')->hideFromIndex(),
                     Text::make(translate('Meta description'), 'meta_description_uk')->hideFromIndex(),
-                    Trix::make(translate('Опис (ук)'), 'description_uk')->withFiles()->hideFromIndex(),
+                    Trix::make(translate('Опис'), 'description_uk')->withFiles()->hideFromIndex(),
                 ]),
                 new Panel(translate('Російська локалізація'), [
-                    Text::make(translate('Назва (ru)'), 'name_ru')->hideFromIndex(),
+                    Text::make(translate('Назва'), 'name_ru')->hideFromIndex(),
                     Text::make(translate('Meta title'), 'meta_title_ru')->hideFromIndex(),
                     Text::make(translate('Meta keywords'), 'meta_keywords_ru')->hideFromIndex(),
                     Text::make(translate('Meta description'), 'meta_description_ru')->hideFromIndex(),
-                    Trix::make(translate('Опис (ru)'), 'description_ru')->withFiles(),
+                    Trix::make(translate('Опис'), 'description_ru')->withFiles(),
                 ]),
                 new Panel(translate('Товари'), [
                     AttachMany::make(translate('Товари'), 'products', Products::class)->hideFromIndex()->showPreview()

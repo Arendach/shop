@@ -17,8 +17,7 @@
                             <div class="container">
                                 <div class="row justify-content-center justify-content-md-{{ $banner->position == 'right' ? 'end' : 'start' }}">
                                     <div class="{{ $banner->position == 'center' ? 'col-lg-12' : 'col-lg-6' }} static">
-                                        <div class="slide-text text-{{ $banner->position }}"
-                                             style="color: {{ $banner->color }}">
+                                        <div class="slide-text text-{{ $banner->position }}" style="color: {{ $banner->color }}">
                                             <h2 class="owl-slide-animated owl-slide-title" style="color: {{ $banner->color }}">
                                                 {{ $banner->title }}
                                             </h2>
@@ -68,70 +67,7 @@
             <div class="row small-gutters">
                 @foreach($productsHome as $product)
                     <div class="col-6 col-md-4 col-xl-3">
-                        <div class="grid_item">
-                            <figure>
-                                @if($product->is_discounted)
-                                    <span class="ribbon off">-{{ $product->discount_percent }}%</span>
-                                @elseif($product->is_new)
-                                    <span class="ribbon new">@translate('Новинка')</span>
-                                @elseif($product->is_recommended)
-                                    <span class="ribbon hot">@translate('Рекомендовано')</span>
-                                @endif
-                                <a href="{{ route('product.view', $product->slug) }}">
-                                    <img class="img-fluid lazy" src="{{ $product->big_image }}"
-                                         data-src="{{ $product->big_image }}" alt="">
-                                    <img class="img-fluid lazy" src="{{ $product->big_image }}"
-                                         data-src="{{ $product->big_image }}" alt="">
-                                </a>
-                                @if($product->is_discounted)
-                                    <div data-countdown="{{ date('Y/m/d', time() + 3600 * 24) }}"
-                                         class="countdown"></div>
-                                @endif
-                            </figure>
-                            <div class="rating">
-                                {!! $product->stars !!}
-                            </div>
-                            <a href="{{ route('product.view', $product->slug) }}">
-                                <h3>{{ $product->name }}</h3>
-                            </a>
-                            <div class="price_box">
-                                <span class="new_price">{{ $product->new_price }}</span>
-                                @if($product->is_discounted)
-                                    <span class="old_price">{{ $product->old_price }}</span>
-                                @endif
-                            </div>
-                            <ul>
-                                <li>
-                                    <a href="javascript:void(0)"
-                                       onclick="Cart.switchDesire('{{ $product->id }}', this)"
-                                       class="tooltip-1 {{ customer()->hasDesire($product->id) ? 'desire-attached' : '' }}"
-                                       data-toggle="tooltip"
-                                       data-placement="left"
-                                       title="@translate('Додати в список бажаних')">
-                                        <i class="ti-heart"></i>
-                                        <span>@translate('Додати в список бажаних')</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                       title="Add to compare">
-                                        <i class="ti-control-shuffle"></i>
-                                        <span>Add to compare</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"
-                                       class="tooltip-1"
-                                       @tooltip(translate('Додати в корзину'), 'left')
-                                       data-type="cart_attach"
-                                       data-id="{{ $product->id }}"
-                                    >
-                                        <i class="ti-shopping-cart"></i>
-                                        <span>@translate('Додати в корзину')</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+                        @include('catalog.parts.product-card')
                     </div>
                 @endforeach
             </div>
@@ -170,61 +106,7 @@
             <div class="owl-carousel owl-theme products_carousel">
                 @foreach($recommended as $product)
                     <div class="item">
-                        <div class="grid_item">
-                            @if($product->is_discounted)
-                                <span class="ribbon off">-{{ $product->discount_percent }}%</span>
-                            @elseif($product->is_new)
-                                <span class="ribbon new">@translate('Новинка')</span>
-                            @elseif($product->is_recommended)
-                                <span class="ribbon hot">@translate('Рекомендовано')</span>
-                            @endif
-                            <figure>
-                                <a href="{{ $product->url }}">
-                                    <img class="owl-lazy" src="{{ $product->small_image }}"
-                                         data-src="{{ $product->big_image }}" alt="{{ $product->name }}">
-                                </a>
-                            </figure>
-                            <div class="rating">{!! $product->stats !!}</div>
-                            <a href="{{ $product->url }}">
-                                <h3>{{ $product->name }}</h3>
-                            </a>
-                            <div class="price_box">
-                                <span class="new_price">{{ $product->new_price }}</span>
-                                @if($product->is_discounted)
-                                    <span class="old_price">{{ $product->old_price }}</span>
-                                @endif
-                            </div>
-                            <ul>
-                                <li>
-                                    <a href="javascript:void(0)"
-                                       data-type="cart_attach"
-                                       class="tooltip-1 {{ customer()->hasDesire($product->id) ? 'desire-attached' : '' }}"
-                                       data-toggle="tooltip"
-                                       data-placement="left"
-                                       title="@translate('Додати в список бажаних')">
-                                        <i class="ti-heart"></i>
-                                        <span>@translate('Додати в список бажаних')</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                       title="Add to compare">
-                                        <i class="ti-control-shuffle"></i><span>Add to compare</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"
-                                       data-type="cart_attach"
-                                       data-id="{{ $product->id }}"
-                                       class="tooltip-1"
-                                            @tooltip(translate('Додати в корзину'), 'left')
-                                    >
-                                        <i class="ti-shopping-cart"></i> <span>@translate('Додати в корзину')</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- /grid_item -->
+                        @include('catalog.parts.product-card')
                     </div>
                 @endforeach
             </div>

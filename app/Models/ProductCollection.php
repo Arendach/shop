@@ -7,9 +7,11 @@ use App\Traits\Models\Translatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProductCollection extends Model
+final class ProductCollection extends Model
 {
     use SoftDeletes;
     use Translatable;
@@ -47,9 +49,14 @@ class ProductCollection extends Model
 
     protected $table = 'collections';
 
-    public static function getTableName()
+    public static function getTableName(): string
     {
         return (new static)->table;
+    }
+
+    public function getUrlAttribute(): string
+    {
+        return route('collection', $this->slug);
     }
 
     public function products(): BelongsToMany
@@ -62,32 +69,13 @@ class ProductCollection extends Model
         $builder->where('parent_id', 0);
     }
 
-    public function child()
+    public function child(): HasMany
     {
         return $this->hasMany(ProductCollection::class, 'parent_id', 'id');
     }
 
-    public function parent()
+    public function parent(): HasOne
     {
         return $this->hasOne(ProductCollection::class, 'id', 'parent_id');
-    }
-
-    public function getSearchedProducts($request)
-    {
-        $collection = ProductCollection::findOrFail($request->collection_id)
-            ->items()
-            ->pluck('product_id')
-            ->toArray();
-
-        $products = Product::whereNotIn('id', $collection)
-            ->where(function (Builder $query) use ($request) {
-                $query->where('name_uk', 'like', "%$request->field%")
-                    ->orWhere('name_ru', 'like', "%$request->field%")
-                    ->orWhere('article', 'like', "%$request->field%");
-            })
-            ->limit(20)
-            ->get();
-
-        return $products;
     }
 }

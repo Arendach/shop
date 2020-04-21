@@ -41,53 +41,53 @@ abstract class ProductMethodsCasts
 
     protected function name($model, $template)
     {
-        return str_replace('<Name>', $model->{"name_" . config('locale.current')}, $template);
+        return str_ireplace('<Name>', $model->{"name_" . config('locale.current')}, $template);
     }
 
-    protected function categoryName($model, $template)
+    protected function categoryName(Product $model, string $template): string
     {
-        return str_replace('<Category>', $model->category->{"name_" . config('locale.current')}, $template);
+        return str_ireplace('<Category>', $model->category->{"name_" . config('locale.current')}, $template);
     }
 
     protected function article($model, $template)
     {
-        return str_replace('<Articul>', $model->article, $template);
+        return str_ireplace('<Articul>', $model->article, $template);
     }
 
     protected function discountPercentage($model, $template)
     {
         $text = $model->discount_percent ? $model->discount_percent : '';
 
-        return str_replace('<DiscountPercent>', $text, $template);
+        return str_ireplace('<DiscountPercent>', $text, $template);
     }
 
-    protected function discountSum($model, $template)
+    public function discountSum(Product $model, string $template): string
     {
         $text = $model->discount ? $model->discount : '';
 
-        return str_replace('<DiscountSum>', $text, $template);
+        return str_ireplace('<DiscountSum>', $text, $template);
     }
 
     protected function model($model, $template)
     {
-        return str_replace('<Model>', $model->{"model_" . config('locale.current')}, $template);
+        return str_ireplace('<Model>', $model->{"model_" . config('locale.current')}, $template);
     }
 
     protected function weight($model, $template)
     {
         $text = $model->weight ? $model->weight : '';
 
-        return str_replace('<Weight>', $text, $template);
+        return str_ireplace('<Weight>', $text, $template);
     }
 
     protected function description(Product $model, $template): string
     {
-        return str_replace('<Description>', $model->getOriginal("description_" . config('locale.current')), $template);
+        return str_ireplace('<Description>', $model->getOriginal("description_" . config('locale.current')), $template);
     }
 
     protected function manufacturer(Product $model, $template): string
     {
-        return str_replace('<Manufacturer>', $model->manufacturer->name, $template);
+        return str_ireplace('<Manufacturer>', $model->manufacturer->name, $template);
     }
 
     protected function attributes(Product $model, $template): string
