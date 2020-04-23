@@ -52,6 +52,10 @@ class CategoryFilterService
         /** @var $products Collection|Product[] */
         $products->each(function (Product $product) use (&$characteristics) {
             $product->characteristics->each(function (ProductCharacteristic $characteristic) use (&$characteristics) {
+                if (is_null($characteristic->characteristic)) {
+                    return $characteristic->delete();
+                }
+
                 $characteristics->prepend($characteristic);
             });
         });
