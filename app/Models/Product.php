@@ -54,8 +54,6 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
 
     protected $dates = ['created_at', 'updated_at'];
 
-    public $timestamps = true;
-
     protected $casts = [
         'description'      => ProductTranslatableTemplateCast::class,
         'name'             => ProductTranslatableTemplateCast::class,
