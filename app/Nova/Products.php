@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Arendach\NovaPackingField\NovaPackingField;
 use Eminiarts\Tabs\Tabs;
 use Eminiarts\Tabs\TabsOnEdit;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\KeyValue;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Panel;
@@ -49,7 +51,8 @@ class Products extends Resource
                     Boolean::make(translate('Новинка'), 'is_new')->hideFromIndex(),
                     Boolean::make(translate('Рекомендовано'), 'is_recommended')->hideFromIndex(),
                     Boolean::make(translate('Показувати на головній'), 'is_home')->hideFromIndex(),
-                    BelongsTo::make(translate('Категорія'), 'category', Categories::class)
+                    BelongsTo::make(translate('Категорія'), 'category', Categories::class),
+                    NovaPackingField::make('Пакування', 'packing')
                 ]),
 
                 new Panel(translate('Українська локалізація'), [

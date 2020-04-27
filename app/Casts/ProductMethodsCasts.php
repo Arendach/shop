@@ -7,7 +7,6 @@ use App\Models\ProductAttribute;
 use App\Models\ProductCharacteristic;
 use PHPHtmlParser\Dom;
 use Exception;
-use Log;
 
 abstract class ProductMethodsCasts
 {
@@ -23,7 +22,8 @@ abstract class ProductMethodsCasts
         'characteristics',
         'description',
         'model',
-        'manufacturer'
+        'manufacturer',
+        'packing',
     ];
 
     private $dom;
@@ -39,7 +39,7 @@ abstract class ProductMethodsCasts
         $this->localeDefault = config('locale.default');
     }
 
-    protected function name($model, $template)
+    protected function name(Product $model, string $template): string
     {
         return str_ireplace('<Name>', $model->{"name_" . config('locale.current')}, $template);
     }
@@ -49,12 +49,12 @@ abstract class ProductMethodsCasts
         return str_ireplace('<Category>', $model->category->{"name_" . config('locale.current')}, $template);
     }
 
-    protected function article($model, $template)
+    protected function article(Product $model, string $template): string
     {
         return str_ireplace('<Articul>', $model->article, $template);
     }
 
-    protected function discountPercentage($model, $template)
+    protected function discountPercentage(Product $model, string $template): string
     {
         $text = $model->discount_percent ? $model->discount_percent : '';
 
@@ -68,14 +68,14 @@ abstract class ProductMethodsCasts
         return str_ireplace('<DiscountSum>', $text, $template);
     }
 
-    protected function model($model, $template)
+    protected function model(Product $model, string $template): string
     {
         return str_ireplace('<Model>', $model->{"model_" . config('locale.current')}, $template);
     }
 
-    protected function weight($model, $template)
+    protected function weight(Product $model, string $template): string
     {
-        $text = $model->weight ? $model->weight : '';
+        $text = $model->weight ? $model->weight . ' кг' : '';
 
         return str_ireplace('<Weight>', $text, $template);
     }
@@ -122,7 +122,6 @@ abstract class ProductMethodsCasts
 
             return $template;
         } catch (Exception $exception) {
-            Log::error('Не вдалось розпарсити атрибути товара' . $exception->getMessage());
             return $template;
         }
     }
@@ -179,7 +178,6 @@ abstract class ProductMethodsCasts
             return $template;
 
         } catch (Exception $exception) {
-            Log::error('Не вдалось розпарсити характеристики товара' . $exception->getMessage());
             return $template;
         }
     }
@@ -187,5 +185,12 @@ abstract class ProductMethodsCasts
     private function replaceAttribute($attribute, $compiled, $template)
     {
         return preg_replace("~<$attribute(.*)>~U", $compiled, $template);
+    }
+
+    protected function packing(Product $model, string $template): string
+    {
+        $text = '';
+
+        return str_replace('<Packing>', $text, $template);
     }
 }

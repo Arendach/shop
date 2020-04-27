@@ -9,7 +9,9 @@
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "build-accordion": "cd nova-components/Accordion && npm run dev",
-        "build-accordion-prod": "cd nova-components/Accordion && npm run prod"
+        "build-accordion-prod": "cd nova-components/Accordion && npm run prod",
+        "build-nova-packing-field": "cd nova-components/NovaPackingField && npm run dev",
+        "build-nova-packing-field-prod": "cd nova-components/NovaPackingField && npm run prod"
     },
     "devDependencies": {
         "axios": "^0.19.2",
