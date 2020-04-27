@@ -12,7 +12,6 @@ abstract class ProductMethodsCasts
 {
     protected $templates = [
         'name',
-        'categoryName',
         'article',
         'discountPercentage',
         'discountSum',
@@ -21,9 +20,10 @@ abstract class ProductMethodsCasts
         'attributes',
         'characteristics',
         'description',
-        'model',
         'manufacturer',
         'packing',
+        'manufacturerLink',
+        'volume'
     ];
 
     private $dom;
@@ -42,11 +42,6 @@ abstract class ProductMethodsCasts
     protected function name(Product $model, string $template): string
     {
         return str_ireplace('<Name>', $model->{"name_" . config('locale.current')}, $template);
-    }
-
-    protected function categoryName(Product $model, string $template): string
-    {
-        return str_ireplace('<Category>', $model->category->{"name_" . config('locale.current')}, $template);
     }
 
     protected function article(Product $model, string $template): string
@@ -82,7 +77,9 @@ abstract class ProductMethodsCasts
 
     protected function description(Product $model, $template): string
     {
-        return str_ireplace('<Description>', $model->getOriginal("description_" . config('locale.current')), $template);
+        $text = $model->getOriginal("description_" . config('locale.current'));
+
+        return str_ireplace('<Description>', $text, $template);
     }
 
     protected function manufacturer(Product $model, $template): string
@@ -121,6 +118,30 @@ abstract class ProductMethodsCasts
             $template = $this->replaceAttribute('Attributes', $attributes, $template);
 
             return $template;
+        } catch (Exception $exception) {
+            return $template;
+        }
+    }
+
+    protected function manufacturerLink(Product $model, $template): string
+    {
+        try {
+            /** @var Product $model */
+            $this->dom->load(htmlspecialchars_decode($template));
+
+            $elements = $this->dom->find('ManufacturerLink');
+
+            if (!count($elements)) {
+                return $template;
+            }
+
+            $manufacturer = $model->manufacturer;
+
+            /** @var Dom\Tag $element */
+            $element = $elements[0];
+            $text = is_null($element->text) ? $manufacturer->name : $element->text;
+
+            return $this->replaceAttribute('ManufacturerLink', "<a href='{$manufacturer->url}'>{$text}</a>", $template);
         } catch (Exception $exception) {
             return $template;
         }
@@ -189,8 +210,31 @@ abstract class ProductMethodsCasts
 
     protected function packing(Product $model, string $template): string
     {
-        $text = '';
+        try {
+            $packing = json_decode($model->packing);
 
-        return str_replace('<Packing>', $text, $template);
+            $template = str_ireplace('<Packing a>', $packing[0] ?? '', $template);
+            $template = str_ireplace('<Packing b>', $packing[1] ?? '', $template);
+            $template = str_ireplace('<Packing c>', $packing[2] ?? '', $template);
+
+            return $template;
+        } catch (Exception $exception) {
+            return $template;
+        }
+    }
+
+    protected function volume(Product $model, string $template): string
+    {
+        try {
+            $volume = json_decode($model->volume);
+
+            $template = str_ireplace('<Volume a>', $volume[0] ?? '', $template);
+            $template = str_ireplace('<Volume b>', $volume[1] ?? '', $template);
+            $template = str_ireplace('<Volume c>', $volume[2] ?? '', $template);
+
+            return $template;
+        } catch (Exception $exception) {
+            return $template;
+        }
     }
 }

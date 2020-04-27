@@ -448,12 +448,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -466,7 +460,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             firstRow: '',
             secondRow: '',
-            lastRow: ''
+            lastRow: '',
+            placeholderFirst: '',
+            placeholderSecond: '',
+            placeholderLast: ''
         };
     },
 
@@ -492,6 +489,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.firstRow = '';
             this.secondRow = '';
             this.lastRow = '';
+        }
+
+        if (this.field.placeholders.length) {
+            var placeholders = this.field.placeholders;
+
+            this.placeholderFirst = placeholders[0];
+            this.placeholderSecond = placeholders[1];
+            this.placeholderLast = placeholders[2];
         }
     }
 });
@@ -27927,11 +27932,7 @@ var render = function() {
             ],
             staticClass: "form-control form-input form-input-bordered",
             class: _vm.errorClasses,
-            attrs: {
-              id: _vm.field.name + "[0]",
-              type: "text",
-              placeholder: "First row"
-            },
+            attrs: { placeholder: _vm.placeholderFirst },
             domProps: { value: _vm.firstRow },
             on: {
               input: function($event) {
@@ -27956,11 +27957,7 @@ var render = function() {
             ],
             staticClass: "form-control form-input form-input-bordered",
             class: _vm.errorClasses,
-            attrs: {
-              id: _vm.field.name + "[1]",
-              type: "text",
-              placeholder: "Second row"
-            },
+            attrs: { placeholder: _vm.placeholderSecond },
             domProps: { value: _vm.secondRow },
             on: {
               input: function($event) {
@@ -27985,11 +27982,7 @@ var render = function() {
             ],
             staticClass: "form-control form-input form-input-bordered",
             class: _vm.errorClasses,
-            attrs: {
-              id: _vm.field.name + "[2]",
-              type: "text",
-              placeholder: "Last row"
-            },
+            attrs: { placeholder: _vm.placeholderLast },
             domProps: { value: _vm.lastRow },
             on: {
               input: function($event) {

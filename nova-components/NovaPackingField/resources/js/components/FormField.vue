@@ -3,33 +3,27 @@
         <template slot="field">
             <span class="w-1/3">
                 <input
-                        :id="field.name + '[0]'"
-                        type="text"
                         class="form-control form-input form-input-bordered"
                         :class="errorClasses"
-                        placeholder="First row"
+                        :placeholder="placeholderFirst"
                         v-model="firstRow"
                 />
             </span>
 
             <span class="w-1/3">
                 <input
-                        :id="field.name + '[1]'"
-                        type="text"
                         class="form-control form-input form-input-bordered"
                         :class="errorClasses"
-                        placeholder="Second row"
+                        :placeholder="placeholderSecond"
                         v-model="secondRow"
                 />
             </span>
 
             <span class="w-1/3">
                 <input
-                        :id="field.name + '[2]'"
-                        type="text"
                         class="form-control form-input form-input-bordered"
                         :class="errorClasses"
-                        placeholder="Last row"
+                        :placeholder="placeholderLast"
                         v-model="lastRow"
                 />
             </span>
@@ -50,6 +44,9 @@
                 firstRow: '',
                 secondRow: '',
                 lastRow: '',
+                placeholderFirst: '',
+                placeholderSecond: '',
+                placeholderLast: ''
             }
         },
 
@@ -80,6 +77,14 @@
                 this.firstRow = ''
                 this.secondRow = ''
                 this.lastRow = ''
+            }
+
+            if (this.field.placeholders.length){
+                let placeholders = this.field.placeholders
+
+                this.placeholderFirst = placeholders[0]
+                this.placeholderSecond = placeholders[1]
+                this.placeholderLast = placeholders[2]
             }
         }
     }

@@ -52,7 +52,10 @@ class Products extends Resource
                     Boolean::make(translate('Рекомендовано'), 'is_recommended')->hideFromIndex(),
                     Boolean::make(translate('Показувати на головній'), 'is_home')->hideFromIndex(),
                     BelongsTo::make(translate('Категорія'), 'category', Categories::class),
-                    NovaPackingField::make('Пакування', 'packing')
+                    NovaPackingField::make('Пакування', 'packing')->placeholders(),
+                    NovaPackingField::make(translate('Розміри'), 'volume')->placeholders([
+                        'Висота', 'Ширина', 'Довжина'
+                    ])
                 ]),
 
                 new Panel(translate('Українська локалізація'), [
@@ -83,25 +86,5 @@ class Products extends Resource
                 ])
             ]))->withToolbar()
         ];
-    }
-
-    public function cards(Request $request)
-    {
-        return [];
-    }
-
-    public function filters(Request $request)
-    {
-        return [];
-    }
-
-    public function lenses(Request $request)
-    {
-        return [];
-    }
-
-    public function actions(Request $request)
-    {
-        return [];
     }
 }
