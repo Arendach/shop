@@ -55,7 +55,8 @@ class Products extends Resource
                     NovaPackingField::make('Пакування', 'packing')->placeholders(),
                     NovaPackingField::make(translate('Розміри'), 'volume')->placeholders([
                         'Висота', 'Ширина', 'Довжина'
-                    ])
+                    ]),
+                    Text::make('Вага', 'weight')
                 ]),
 
                 new Panel(translate('Українська локалізація'), [
