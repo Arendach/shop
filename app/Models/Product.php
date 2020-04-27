@@ -46,7 +46,11 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
         'video',
         'model_uk',
         'model_ru',
+        'volume',
+        'packing'
     ];
+
+    protected $guarded = [];
 
     protected $dates = ['created_at', 'updated_at'];
 
@@ -67,7 +71,6 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
         'meta_description',
         'meta_keywords',
     ];
-
 
     public function category()
     {
