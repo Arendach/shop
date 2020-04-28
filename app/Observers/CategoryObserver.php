@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Category;
 use App\Traits\Observers\DefaultTranslatableFields;
+use Artisan;
 
 class CategoryObserver
 {
@@ -30,5 +31,25 @@ class CategoryObserver
     public function generateSmallImage(string $bigImagePath): string
     {
         return $bigImagePath;
+    }
+
+    public function created(Category $model)
+    {
+        $this->clear();
+    }
+
+    public function deleted(Category $model)
+    {
+        $this->clear();
+    }
+
+    public function updated(Category $model)
+    {
+        $this->clear();
+    }
+
+    private function clear(): void
+    {
+        Artisan::call('cache:clear');
     }
 }

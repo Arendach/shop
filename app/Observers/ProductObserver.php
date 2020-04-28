@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use Cache;
+use Artisan;
 use App\Models\Product;
 
 class ProductObserver
@@ -12,26 +12,37 @@ class ProductObserver
         if ($product->isDirty('big')) {
             $product->small = $this->generateSmallImage($product->big);
         }
+
+        $this->clear();
     }
 
     public function updated(Product $page)
     {
+        $this->clear();
     }
 
     public function deleted(Product $page)
     {
+        $this->clear();
     }
 
     public function restored(Product $page)
     {
+        $this->clear();
     }
 
     public function forceDeleted(Product $page)
     {
+        $this->clear();
     }
 
     private function generateSmallImage($bigImagePath): string
     {
         return $bigImagePath;
+    }
+
+    private function clear(): void
+    {
+        Artisan::call('cache:clear');
     }
 }
