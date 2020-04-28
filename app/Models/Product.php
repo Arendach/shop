@@ -47,7 +47,8 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
         'model_uk',
         'model_ru',
         'volume',
-        'packing'
+        'packing',
+        'weight',
     ];
 
     protected $guarded = [];
