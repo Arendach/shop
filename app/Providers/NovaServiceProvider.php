@@ -2,13 +2,11 @@
 
 namespace App\Providers;
 
-use App;
 use ChrisWare\NovaBreadcrumbs\NovaBreadcrumbs;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
-use Spatie\BackupTool\BackupTool;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -85,8 +83,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-            NovaBreadcrumbs::make(),
-            new BackupTool(),
+            NovaBreadcrumbs::make()
         ];
     }
 

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Abstraction\Models\TwoImageInterface;
+use App\Scopes\SortableScope;
 use App\Traits\Models\Image;
 use App\Traits\Models\SeoMultiLang;
 use App\Traits\Models\Translatable;
@@ -106,6 +107,13 @@ class Category extends Model implements Sortable, TwoImageInterface
         $this->child()->delete();
 
         return parent::delete();
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new SortableScope());
     }
 
     public function filterProducts(int $category_id, Request $request)

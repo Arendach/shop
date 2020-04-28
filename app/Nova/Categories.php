@@ -41,7 +41,7 @@ class Categories extends Resource
                     Select::make(translate('Батьківська категорія'), 'parent_id')->options(function () {
                         return (Category::where('parent_id', 0)->get()->mapWithKeys(function (Category $category) {
                             return [$category->id => $category->name];
-                        })->prepend(translate('Коренева категорія')));
+                        })->prepend(translate('Коренева категорія')))->filter();
                     })->displayUsingLabels(),
                     Text::make('Slug', 'slug'),
                     Boolean::make(translate('Активна'), 'is_active'),
