@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Models\Category;
 use Arendach\NovaPackingField\NovaPackingField;
 use Eminiarts\Tabs\Tabs;
 use Eminiarts\Tabs\TabsOnEdit;
@@ -12,6 +13,7 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\KeyValue;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Panel;
@@ -51,12 +53,13 @@ class Products extends Resource
                     Boolean::make(translate('Новинка'), 'is_new')->hideFromIndex(),
                     Boolean::make(translate('Рекомендовано'), 'is_recommended')->hideFromIndex(),
                     Boolean::make(translate('Показувати на головній'), 'is_home')->hideFromIndex(),
-                    BelongsTo::make(translate('Категорія'), 'category', Categories::class),
-                    NovaPackingField::make('Пакування', 'packing')->placeholders(),
+                    BelongsTo::make(translate('Категорія'), 'category', Categories::class)->onlyOnIndex(),
+                    Select::make(translate('Категорія'), 'category_id')->options($this->categoryList())->onlyOnForms(),
+                    NovaPackingField::make('Пакування', 'packing')->placeholders()->hideFromIndex(),
                     NovaPackingField::make(translate('Розміри'), 'volume')->placeholders([
                         'Висота', 'Ширина', 'Довжина'
-                    ]),
-                    Text::make('Вага', 'weight')
+                    ])->hideFromIndex(),
+                    Text::make('Вага', 'weight')->hideFromIndex()
                 ]),
 
                 new Panel(translate('Українська локалізація'), [
@@ -87,5 +90,20 @@ class Products extends Resource
                 ])
             ]))->withToolbar()
         ];
+    }
+
+    private function categoryList()
+    {
+        $categories = Category::with('child')->where('parent_id', 0)->get();
+        $result = [];
+        foreach ($categories as $category) {
+            $result[$category->id] = $category->name;
+
+            foreach ($category->child as $childCategory) {
+                $result[$childCategory->id] = " --- " . $childCategory->name;
+            }
+        }
+
+        return $result;
     }
 }
