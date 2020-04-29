@@ -38,11 +38,7 @@ class Categories extends Resource
             (new Tabs(translate('Товари'), [
                 new Panel(translate('Загальна інформація'), [
                     ID::make()->sortable(),
-                    Select::make(translate('Батьківська категорія'), 'parent_id')->options(function () {
-                        return (Category::where('parent_id', 0)->get()->mapWithKeys(function (Category $category) {
-                            return [$category->id => $category->name];
-                        })->prepend(translate('Коренева категорія')))->filter();
-                    })->displayUsingLabels(),
+                    Select::make(translate('Батьківська категорія'), 'parent_id')->options($this->rootCategories())->displayUsingLabels(),
                     Text::make('Slug', 'slug'),
                     Boolean::make(translate('Активна'), 'is_active'),
                     Image::make(translate('Зображення'), 'big')->path('images/categories')
@@ -81,5 +77,16 @@ class Categories extends Resource
                 ])
             ]))->withToolbar()
         ];
+    }
+
+    private function rootCategories(): array
+    {
+        $categories = Category::where('parent_id', 0)->get();
+        $result = [translate('Коренева категорія')];
+        foreach ($categories as $item) {
+            $result[$item->id] = $item->name;
+        }
+
+        return $result;
     }
 }
