@@ -149,11 +149,6 @@ class NewPostService
         return ((int)$find['max_weight']);
     }
 
-    /**
-     * @param string $city
-     * @param string $warehouse
-     * @return array
-     */
     public function getWarehouseNameLocale(string $city, string $warehouse): array
     {
         $warehouses = $this->getWarehousesLocale($city);

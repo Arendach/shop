@@ -76,3 +76,31 @@ $(document).on('click', '[data-type="cart_page_detach"]', function () {
 $(document).on('input', '[data-type="cart_change_amount"]', function () {
     alert(2)
 })
+
+$('form#checkout').on('submit', function (event) {
+    event.preventDefault()
+    let button = $(this).find('#sendCheckoutForm')
+
+    if (button.attr('disabled')) {
+        return
+    }
+
+    button.attr('disabled', true)
+
+    let data = new FormData(this)
+
+    axios.post('/checkout', data).then((response) => {
+        window.location.href = response.data.redirectLink
+    }).catch((response) => {
+        button.attr('disabled', false)
+        alert('Помилка')
+    })
+})
+
+$('[name=delivery]').on('change', function () {
+    let form = $(this).val()
+
+    axios.post('/catalog/order/order_type_form', {form}).then((response) => {
+        $('#delivery-container').html(response.data)
+    })
+})

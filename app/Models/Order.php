@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use App\Scopes\OrderScopes;
+use App\Traits\Models\HumanDate;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Order extends Model
 {
     use OrderScopes;
+    use HumanDate;
 
     protected $table = 'orders';
 
@@ -20,31 +23,33 @@ class Order extends Model
         'delivery',
         'comment',
         'pay_method',
-        'user_id',
+        'customer_id',
         'status',
         'date_delivery',
         'base_id',
-        'admin'
+        'admin',
+        'delivery_costs',
+        'discount'
     ];
 
     public function _delivery()
     {
-        return $this->belongsTo(OrderDelivery::class, 'id', 'order_id');
+        return $this->hasOne(OrderDelivery::class, 'order_id');
     }
 
     public function self()
     {
-        return $this->belongsTo(OrderSelf::class, 'id', 'order_id');
+        return $this->hasOne(OrderSelf::class, 'order_id');
     }
 
     public function sending()
     {
-        return $this->belongsTo(OrderSending::class, 'id', 'order_id');
+        return $this->hasOne(OrderSending::class, 'order_id');
     }
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, OrderProduct::class)
+        return $this->belongsToMany(Product::class, 'order_products')
             ->withPivot('amount', 'price', 'storage');
     }
 
@@ -57,8 +62,13 @@ class Order extends Model
 
     public function sum()
     {
-        return $this->products->sum(function($product){
+        return $this->products->sum(function ($product) {
             return $product->pivot->amount * $product->pivot->price;
         });
+    }
+
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class);
     }
 }

@@ -3025,6 +3025,31 @@ $(document).on('click', '[data-type="cart_page_detach"]', function () {
 $(document).on('input', '[data-type="cart_change_amount"]', function () {
   alert(2);
 });
+$('form#checkout').on('submit', function (event) {
+  event.preventDefault();
+  var button = $(this).find('#sendCheckoutForm');
+
+  if (button.attr('disabled')) {
+    return;
+  }
+
+  button.attr('disabled', true);
+  var data = new FormData(this);
+  axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/checkout', data).then(function (response) {
+    window.location.href = response.data.redirectLink;
+  })["catch"](function (response) {
+    button.attr('disabled', false);
+    alert('Помилка');
+  });
+});
+$('[name=delivery]').on('change', function () {
+  var form = $(this).val();
+  axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/catalog/order/order_type_form', {
+    form: form
+  }).then(function (response) {
+    $('#delivery-container').html(response.data);
+  });
+});
 
 /***/ }),
 

@@ -35,21 +35,31 @@
     </div>
     <ul>
         <li>
-            <a href="javascript:void(0)"
-               onclick="Cart.switchDesire('{{ $product->id }}', this)"
-               @tooltip(translate('Додати в список бажаних'), 'left')
-               class="tooltip-1 {{ customer()->hasDesire($product->id) ? 'desire-attached' : '' }}"
-            >
-                <i class="ti-heart"></i>
-                <span>@translate('Додати в список бажаних')</span>
-            </a>
+            @if(isAuth())
+                <a href="javascript:void(0)"
+                   onclick="Cart.switchDesire('{{ $product->id }}', this)"
+                   @tooltip(translate('Додати в список бажаних'), 'left')
+                   class="tooltip-1 {{ customer()->hasDesire($product->id) ? 'desire-attached' : '' }}"
+                >
+                    <i class="ti-heart"></i>
+                    <span>@translate('Додати в список бажаних')</span>
+                </a>
+            @else
+                <a href="{{ route('login') }}" @tooltip(translate('Додати в список бажаних'), 'left') class="tooltip-1">
+                    <i class="ti-heart"></i>
+                    <span>@translate('Додати в список бажаних')</span>
+                </a>
+            @endif
         </li>
-        <li>
-            <a href="#0" class="tooltip-1" @tooltip(translate('Додати до порівняння'), 'left')>
-                <i class="ti-control-shuffle"></i>
-                <span>@translate('Додати до порівняння')</span>
-            </a>
-        </li>
+        {{-- допрацювати порівняння товарів --}}
+        @if(false)
+            <li>
+                <a href="#0" class="tooltip-1" @tooltip(translate('Додати до порівняння'), 'left')>
+                    <i class="ti-control-shuffle"></i>
+                    <span>@translate('Додати до порівняння')</span>
+                </a>
+            </li>
+        @endif
         <li>
             <a href="javascript:void(0)"
                class="tooltip-1"

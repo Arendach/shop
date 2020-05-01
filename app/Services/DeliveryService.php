@@ -57,12 +57,7 @@ class DeliveryService
             $this->validateSelf();
     }
 
-    /**
-     * @param CheckoutRequest $request
-     * @param Order $order
-     * @return Order
-     */
-    public function write(CheckoutRequest $request, Order $order): Order
+    public function write($request, Order $order): Order
     {
         if ($request->delivery == 'delivery')
             return $this->writeDelivery($request, $order);
@@ -197,34 +192,10 @@ class DeliveryService
             throw ValidationException::withMessages($errors);
     }
 
-    /**
-     * Запис в базу даних інформації по доставці по Києву
-     *
-     * @param CheckoutRequest $request
-     * @param Order $order
-     * @return Order
-     */
-    private function writeDelivery(CheckoutRequest $request, Order $order): Order
+    private function writeDelivery($request, Order $order): Order
     {
-        // таблиця з інформацією по доставці
-        $delivery = new OrderDelivery;
+        $order->_delivery()->create($request->all());
 
-        // Запис даних в таблицю
-        $delivery->city = $request->delivery_city;
-        $delivery->street = $request->delivery_street;
-        $delivery->address = $request->delivery_address;
-        $delivery->order_id = $order->id;
-
-        // зберігаєм
-        $delivery->save();
-
-        // Записуємо дату доставки в замовлення
-        $order->date_delivery = $request->delivery_date;
-
-        // зберігаємо
-        $order->save();
-
-        // вертаємо модифіковане замовлення
         return $order;
     }
 
@@ -235,7 +206,7 @@ class DeliveryService
      * @param Order $order
      * @return Order
      */
-    private function writeSending(CheckoutRequest $request, Order $order): Order
+    private function writeSending($request, Order $order): Order
     {
         $warehouse = NewPost::getWarehouseNameLocale($request->sending_city_key, $request->sending_warehouse);
         $city = NewPost::getCityNameLocale($request->sending_city_key);
@@ -264,11 +235,11 @@ class DeliveryService
     /**
      * Запис в базу даних інформації по самовивозу
      *
-     * @param CheckoutRequest $request
+     * @param $request
      * @param Order $order
      * @return Order
      */
-    private function writeSelf(CheckoutRequest $request, Order $order): Order
+    private function writeSelf($request, Order $order): Order
     {
         // таблиця з інформацією по відправці
         $self = new OrderSelf;

@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Catalog;
 
 use App\Http\Requests\Catalog\Order\CheckoutRequest;
+use App\Jobs\Emails\OrderEmailJob;
+use App\Mail\Order;
+use App\Models\Product;
+use App\Services\CartService;
 use App\Services\DeliveryService;
+use App\Services\OrderService;
 use App\Services\PayService;
 use Illuminate\Http\Request;
 use Checkout;
@@ -12,6 +17,7 @@ use Delivery;
 use Pay;
 use User;
 use Cart;
+use Mail;
 
 class OrderController extends CatalogController
 {
@@ -21,7 +27,7 @@ class OrderController extends CatalogController
             return redirect(route('index'));
 
         $data = [
-            'title' => __('order.checkout.title'),
+            'title'       => __('order.checkout.title'),
             'breadcrumbs' => [
                 [__('cart.title'), route('cart')],
                 [__('order.checkout.title')]
@@ -59,9 +65,9 @@ class OrderController extends CatalogController
         $id = Checkout::checkoutOrder($request);
 
         return response()->json([
-            'success' => true,
-            'message' => __('order.checkout.success_message'),
-            'title' => __('order.checkout.success_title'),
+            'success'       => true,
+            'message'       => __('order.checkout.success_message'),
+            'title'         => __('order.checkout.success_title'),
             'redirectRoute' => route('profile.orders.view', $id)
         ]);
     }
@@ -92,5 +98,27 @@ class OrderController extends CatalogController
         return response()->json([
             'content' => $content
         ], 200);
+    }
+
+    public function create(Request $request, OrderService $orderService)
+    {
+        $order = $orderService->create($request);
+
+        dispatch(new OrderEmailJob($order));
+
+        return response()->json(['redirectLink' => route('checkout.success', $order->id)]);
+    }
+
+    public function action_order_type_form(string $form)
+    {
+        return view("catalog.checkout.{$form}-form");
+    }
+
+
+    public function success(int $id)
+    {
+        $order = \App\Models\Order::findOrFail($id);
+
+        return view('catalog.pages.checkout-success', compact('order'));
     }
 }

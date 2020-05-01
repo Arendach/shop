@@ -237,6 +237,13 @@
                                     <span>Wishlist</span>
                                 </a>
                             </li>
+
+                            @if($service == 'facebook')
+                                <li>
+                                    Welcome {{ $details->user['name']}} ! <br> Your email is : {{ $details->user['email'] }} <br> You are {{ $details->user['gender'] }}.
+                                </li>
+                            @endif
+
                             <li>
                                 <div class="dropdown dropdown-access">
                                     <a href="{{ isAuth() ? route('profile') : route('login', ['redirect' => route('profile')]) }}"

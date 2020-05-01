@@ -63,7 +63,13 @@ class GenerateTranslations extends Command
                             return;
                         }
 
-                        $row->$localizeField = app(TranslateTextService::class)->get($row->$defaultField, $locale);
+                        $text = app(TranslateTextService::class)->get($row->$defaultField, $locale);
+
+                        if (preg_match('~^meta~', $localizeField)) {
+                            $text = mb_substr($text, 0, 160);
+                        }
+
+                        $row->$localizeField = $text;
                         $row->save();
                     });
                 }

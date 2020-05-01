@@ -1,5 +1,11 @@
 <?php
 
+Route::get('test', function (){
+    return view('emails.order', [
+        'order' => \App\Models\Order::find(23)
+    ]);
+});
+
 /**
  * Str helper
  */
@@ -39,8 +45,8 @@ if (!function_exists('simple_routing_admin')) {
     }
 }
 
-Route::view('mobile', 'mobile');
-
+Route::get ( '/redirect/{service}', 'SocialAuthController@redirect' );
+Route::get ( '/callback/{service}', 'SocialAuthController@callback' );
 /**
  * Зміна мови сайту
  */

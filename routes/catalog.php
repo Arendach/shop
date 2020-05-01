@@ -49,6 +49,14 @@ Route::get('checkout', 'OrderController@checkout')
     ->middleware('loadCategories', 'onlyLogged')
     ->name('checkout');
 
+Route::get('checkout/success/{id}', 'OrderController@success')
+    ->middleware('loadCategories', 'onlyLogged')
+    ->name('checkout.success');
+
+Route::post('checkout', 'OrderController@create')
+    ->middleware('loadCategories', 'onlyLogged')
+    ->name('checkout.create');
+
 /**
  * Сторінка перегляду категорії
  */

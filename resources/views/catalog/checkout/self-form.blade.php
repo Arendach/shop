@@ -1,6 +1,7 @@
 <div class="form-group">
     <label> <i class="text-danger">*</i> @translate('Магазин')</label>
-    <select class="form-control form-control-sm" name="self_shop">
+    <select class="form-control form-control-sm" name="self_shop" required>
+        <option hidden value="">@translate('Вибрати')</option>
         @foreach(\App\Models\Shop::all() as $item)
             <option @selected(Checkout::getField('self_shop') == $item->base_id) value="{{ $item->base_id }}">
                 {{ $item->name }} - {{ $item->address }}

@@ -26,7 +26,7 @@ class Cart extends Model
 
     public function delete()
     {
-        $this->products()->delete();
+        $this->products()->detach();
 
         return parent::delete();
     }

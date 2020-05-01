@@ -39,7 +39,8 @@ class OrderProduct extends Model
         'order_id',
         'product_id',
         'amount',
-        'discount'
+        'discount',
+        'price'
     ];
 
     public $timestamps = true;
