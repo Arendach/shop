@@ -238,7 +238,7 @@
                                 </a>
                             </li>
 
-                            @if($service == 'facebook')
+                            @if(isset($service) && $service == 'facebook')
                                 <li>
                                     Welcome {{ $details->user['name']}} ! <br> Your email is : {{ $details->user['email'] }} <br> You are {{ $details->user['gender'] }}.
                                 </li>
