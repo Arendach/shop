@@ -41,6 +41,13 @@ class ProductObserver
         return $bigImagePath;
     }
 
+    private function update(Product $product)
+    {
+        if ($product->isDirty('big')) {
+            $product->small = $this->generateSmallImage($product->big);
+        }
+    }
+
     private function clear(): void
     {
         Artisan::call('cache:clear');
