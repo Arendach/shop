@@ -41,11 +41,16 @@ class ProductObserver
         return $bigImagePath;
     }
 
-    private function update(Product $product)
+    public function updating(Product $product)
     {
         if ($product->isDirty('big')) {
             $product->small = $this->generateSmallImage($product->big);
         }
+    }
+
+    public function creating(Product $product)
+    {
+        $product->small = $this->generateSmallImage($product->big);
     }
 
     private function clear(): void
