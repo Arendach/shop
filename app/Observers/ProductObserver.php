@@ -36,7 +36,7 @@ class ProductObserver
         $this->clear();
     }
 
-    private function generateSmallImage($bigImagePath): string
+    private function generateSmallImage($bigImagePath): ?string
     {
         return $bigImagePath;
     }
