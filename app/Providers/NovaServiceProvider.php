@@ -62,6 +62,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             new Help,
+            new \Llaski\NovaScheduledJobs\NovaScheduledJobsCard,
         ];
     }
 
@@ -83,7 +84,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-            NovaBreadcrumbs::make()
+            NovaBreadcrumbs::make(),
+            new \Llaski\NovaScheduledJobs\NovaScheduledJobsTool,
         ];
     }
 
