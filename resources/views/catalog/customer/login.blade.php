@@ -27,7 +27,7 @@
                             @include('catalog.customer.login.login')
                         </div>
                     </div>
-                    <div class="row">
+                    {{--<div class="row">
                         <div class="col-md-6 d-none d-lg-block">
                             <ul class="list_ok">
                                 <li>Find Locations</li>
@@ -41,7 +41,7 @@
                                 <li>H24 Support</li>
                             </ul>
                         </div>
-                    </div>
+                    </div>--}}
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-8">
                     <div class="box_account">

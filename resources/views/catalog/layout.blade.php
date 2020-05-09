@@ -14,13 +14,16 @@
     <!-- Favicons-->
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('img/apple-touch-icon-57x57-precomposed.png') }}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{ asset('img/apple-touch-icon-72x72-precomposed.png') }}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{ asset('img/apple-touch-icon-114x114-precomposed.png') }}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{{ asset('img/apple-touch-icon-144x144-precomposed.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72"
+          href="{{ asset('img/apple-touch-icon-72x72-precomposed.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
+          href="{{ asset('img/apple-touch-icon-114x114-precomposed.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
+          href="{{ asset('img/apple-touch-icon-144x144-precomposed.png') }}">
 
-    @yield('seo')
+@yield('seo')
 
-    <!-- GOOGLE WEB FONT -->
+<!-- GOOGLE WEB FONT -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet">
 
     <!-- BASE CSS -->
@@ -110,7 +113,8 @@
                                                     <div class="col-lg-3 d-xl-block d-lg-block d-md-none d-sm-none d-none">
                                                         <div class="banner_menu">
                                                             <a href="#0">
-                                                                <img src="{{ $menuParts->getImage('photo', 'catalog/img/banner_menu.jpg') }}" width="400" height="550" class="img-fluid">
+                                                                <img src="{{ $menuParts->getImage('photo', 'catalog/img/banner_menu.jpg') }}"
+                                                                     width="400" height="550" class="img-fluid">
                                                             </a>
                                                         </div>
                                                     </div>
@@ -200,7 +204,7 @@
                                         </strong>
                                     </a>
                                     <div class="dropdown-menu">
-                                        @if(Cart::hasProducts())
+                                        <div class="has-products" style="display: {{ Cart::hasProducts() ? 'block' : 'none' }}">
                                             <ul class="dropdown-cart-products">
                                                 @foreach(Cart::getProducts() as $product)
                                                     @include('catalog.parts.dropdown-cart-product')
@@ -218,15 +222,15 @@
                                                 <a href="{{ route('cart') }}" class="btn_1 outline">
                                                     @translate('Переглянути корзину')
                                                 </a>
-                                                <a href="{{ isAuth() ? route('checkout') : route('login', ['redirect' => route('checkout')]) }}" class="btn_1" rel="nofollow">
+                                                <a href="{{ isAuth() ? route('checkout') : route('login', ['redirect' => route('checkout')]) }}"
+                                                   class="btn_1" rel="nofollow">
                                                     @translate('Оформити замовлення')
                                                 </a>
                                             </div>
-                                        @else
-                                            <div class="">
-                                                @translate('В корзині немає товарів')
-                                            </div>
-                                        @endif
+                                        </div>
+                                        <div class="not-products" style="display: {{ !Cart::hasProducts() ? 'block' : 'none' }}">
+                                            @translate('В корзині немає товарів')
+                                        </div>
                                     </div>
                                 </div>
                             </li>
@@ -240,7 +244,8 @@
 
                             @if(isset($service) && $service == 'facebook')
                                 <li>
-                                    Welcome {{ $details->user['name']}} ! <br> Your email is : {{ $details->user['email'] }} <br> You are {{ $details->user['gender'] }}.
+                                    Welcome {{ $details->user['name']}} ! <br> Your email is
+                                    : {{ $details->user['email'] }} <br> You are {{ $details->user['gender'] }}.
                                 </li>
                             @endif
 
@@ -437,6 +442,8 @@
 </div>
 
 <div id="toTop"></div>
+
+@stack('modals')
 
 <script src="{{ asset('catalog/js/common_scripts.min.js') }}"></script>
 <script src="{{ asset('catalog/js/main.js') }}"></script>

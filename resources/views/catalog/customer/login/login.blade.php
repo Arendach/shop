@@ -1,6 +1,6 @@
 <form action="{{ route('catalog.post', ['customer', 'login']) }}" method="post"
       onsubmit="Customer.submitLogin(this); return false;">
-    <div class="row no-gutters">
+    {{--<div class="row no-gutters">
         <div class="col-lg-6 pr-lg-1">
             <a href="#0" class="social_bt facebook">@translate('Вхід через Facebook')</a>
         </div>
@@ -8,7 +8,7 @@
             <a href="#0" class="social_bt google">@translate('Вхід через Google')</a>
         </div>
     </div>
-    <div class="divider"><span>@translate('Або')</span></div>
+    <div class="divider"><span>@translate('Або')</span></div>--}}
     <div class="form-group">
         <input class="form-control" name="login" placeholder="@translate('Номер телефону або Email')">
         <small class="form-text text-danger" style="display: none"></small>

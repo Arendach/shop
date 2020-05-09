@@ -85,3 +85,8 @@ function artisan($command)
 {
     return Artisan::call($command);
 }
+
+function urlWithLogin(string $route): string
+{
+    return isAuth() ? route($route) : route('login', ['redirect' => route($route)]);
+}

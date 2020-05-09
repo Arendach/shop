@@ -20,9 +20,9 @@ class CartController extends CatalogController
         return view('catalog.pages.cart', $data);
     }
 
-    public function action_attach(int $id, CartService $cartService)
+    public function action_attach(int $id, int $quantity, CartService $cartService)
     {
-        $cartService->attach($id);
+        $cartService->attach($id, $quantity);
 
         return response()->json([
             'title'            => translate('Виконано'),

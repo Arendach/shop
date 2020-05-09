@@ -65,12 +65,12 @@ class CartService
     }
 
     // Додати товар до корзини
-    public function attach(int $product_id): void
+    public function attach(int $product_id, int $quantity): void
     {
         $cart = $this->getOrCreate();
 
         if ($cart->products->where('id', $product_id)->count()) {
-            $cart->products->where('id', $product_id)->first()->pivot->amount++;
+            $cart->products->where('id', $product_id)->first()->pivot->amount += $quantity;
             $cart->products->where('id', $product_id)->first()->pivot->save();
         } else {
             $cart->products()->attach($product_id);
@@ -138,7 +138,7 @@ class CartService
     public function getProductsListHtml(): string
     {
         $result = '';
-        $this->cart->products->each(function (Product $product) use (&$result) {
+        $this->cart->products()->get()->each(function (Product $product) use (&$result) {
             $result .= view('catalog.parts.dropdown-cart-product', compact('product'))->render();
         });
 
@@ -209,6 +209,10 @@ class CartService
 
     public function countProducts(): int
     {
-        return count($this->cart->products ?? []);
+        if (!$this->cart) {
+            return 0;
+        }
+
+        return count($this->cart->products()->get() ?? []);
     }
 }

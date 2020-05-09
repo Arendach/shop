@@ -112,7 +112,7 @@
                                 <label class="col-xl-5 col-lg-5  col-md-6 col-6"><strong>@translate('Кількість')</strong></label>
                                 <div class="col-xl-4 col-lg-5 col-md-6 col-6">
                                     <div class="numbers-row">
-                                        <input type="text" value="1" id="quantity_1" class="qty2" name="quantity_1">
+                                        <input type="text" value="1" id="quantity" class="qty2" name="quantity">
                                     </div>
                                 </div>
                             </div>
@@ -128,7 +128,14 @@
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
-                                <div class="btn_add_to_cart"><a href="#0" class="btn_1">@translate('В корзину')</a>
+                                <div class="btn_add_to_cart"
+                                     data-type="cart_attach"
+                                     data-id="{{ $product->id }}"
+                                     data-dont-show-taastr="1"
+                                >
+                                    <a href="#0" class="btn_1">
+                                        @translate('В корзину')
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -289,56 +296,7 @@
                 </div>
                 <div class="owl-carousel owl-theme products_carousel">
                     @foreach($product->related as $related)
-                        <div class="item">
-                            <div class="grid_item">
-                                @if($related->is_discounted)
-                                    <span class="ribbon off">-{{ $related->discount_percent }}%</span>
-                                @elseif($related->is_new)
-                                    <span class="ribbon new">@translate('Новинка')</span>
-                                @elseif($related->is_recommended)
-                                    <span class="ribbon hot">@translate('Рекомендовано')</span>
-                                @endif
-                                <figure>
-                                    <a href="{{ $related->url  }}">
-                                        <img class="owl-lazy" src="{{ $related->small_image }}"
-                                             data-src="{{ $related->big_image }}" alt="{{ $related->name }}">
-                                    </a>
-                                </figure>
-                                <div class="rating">{!! $related->stars !!}</div>
-                                <a href="{{ $related->url }}">
-                                    <h3>{{ $related->name }}</h3>
-                                </a>
-                                <div class="price_box">
-                                    <span class="new_price">{{ $related->new_price }}</span>
-                                    @if($related->is_discounted)
-                                        <span class="old_price">{{ $related->old_price }}</span>
-                                    @endif
-                                </div>
-                                <ul>
-                                    <li>
-                                        <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                           title="Add to favorites">
-                                            <i class="ti-heart"></i>
-                                            <span>Add to favorites</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                           title="Add to compare">
-                                            <i class="ti-control-shuffle"></i>
-                                            <span>Add to compare</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                           title="Add to cart">
-                                            <i class="ti-shopping-cart"></i>
-                                            <span>Add to cart</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        @include('catalog.parts.product-card', ['product' => $related])
                     @endforeach
                 </div>
             </div>
@@ -379,6 +337,10 @@
         </div>
     </main>
 @endsection
+
+@push('modals')
+    @include('catalog.parts.big-cart')
+@endpush
 
 @section('js')
     <script src="{{ asset('catalog/js/carousel_with_thumbs.js') }}"></script>

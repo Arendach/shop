@@ -6,28 +6,19 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CheckoutRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize()
     {
-        return true;
+        return isAuth();
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
-            'name' => 'required',
-            'phone' => 'regex:/[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}/',
-            'email' => 'email',
-            'comment' => 'max:1024'
+            'first_name' => 'required',
+            'phone'      => 'required',
+            //'phone'      => 'regex:/[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}/',
+            'email'      => 'email',
+            'comment'    => 'max:1024'
         ];
     }
 }

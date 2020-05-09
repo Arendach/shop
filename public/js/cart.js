@@ -2880,8 +2880,20 @@ window.Cart = {
                 var _response$data$messag, _response$data$title;
 
                 $('#cart-content').html(response.data.cartContent);
+                $('.dropdown-cart-products').html(response.data.productListHtml);
                 toastr.success((_response$data$messag = response.data.message) !== null && _response$data$messag !== void 0 ? _response$data$messag : '', (_response$data$title = response.data.title) !== null && _response$data$title !== void 0 ? _response$data$title : undefined);
                 selector.disabled = false;
+                var hasProducts = $('.has-products');
+                var notProducts = $('.not-products');
+
+                if (response.data.productsListHtml.length) {
+                  console.log('test');
+                  hasProducts.show();
+                  notProducts.hide();
+                } else {
+                  hasProducts.hide();
+                  notProducts.show();
+                }
               });
 
             case 3:
@@ -2924,6 +2936,7 @@ window.Cart = {
                 $(selector).parents('li').remove();
                 toastr.success((_response$data$messag2 = response.data.message) !== null && _response$data$messag2 !== void 0 ? _response$data$messag2 : '', (_response$data$title2 = response.data.title) !== null && _response$data$title2 !== void 0 ? _response$data$title2 : undefined);
                 selector.disabled = false;
+                $('.dropdown-cart-products').html(response.data.productListHtml);
               });
 
             case 5:
@@ -2983,15 +2996,32 @@ window.Cart = {
 
 $(document).on('click', '[data-type="cart_attach"]', function () {
   var id = $(this).data('id');
+  var dontShowToastr = $(this).data('dont-show-toastr');
+  var quantity = $('#quantity').length ? $('#quantity').val() : 1;
   axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/catalog/cart/attach', {
-    id: id
+    id: id,
+    quantity: quantity
   }).then(function (response) {
-    var _response$data$messag3, _response$data$title3;
-
     $('.dropdown-cart-count').html(response.data.cartContProducts);
     $('.dropdown-cart-products').html(response.data.productsListHtml);
     $('.dropdown-cart-sum').html(response.data.cartSumProducts);
-    toastr.success((_response$data$messag3 = response.data.message) !== null && _response$data$messag3 !== void 0 ? _response$data$messag3 : '', (_response$data$title3 = response.data.title) !== null && _response$data$title3 !== void 0 ? _response$data$title3 : undefined);
+
+    if (!dontShowToastr) {
+      var _response$data$messag3, _response$data$title3;
+
+      toastr.success((_response$data$messag3 = response.data.message) !== null && _response$data$messag3 !== void 0 ? _response$data$messag3 : '', (_response$data$title3 = response.data.title) !== null && _response$data$title3 !== void 0 ? _response$data$title3 : undefined);
+    }
+
+    var hasProducts = $('.has-products');
+    var notProducts = $('.not-products');
+
+    if (response.data.productsListHtml.length) {
+      hasProducts.show();
+      notProducts.hide();
+    } else {
+      hasProducts.hide();
+      notProducts.show();
+    }
   });
 });
 $(document).on('click', '[data-type="cart_detach"]', function () {
@@ -3005,6 +3035,16 @@ $(document).on('click', '[data-type="cart_detach"]', function () {
     $('.dropdown-cart-products').html(response.data.productsListHtml);
     $('.dropdown-cart-sum').html(response.data.cartSumProducts);
     toastr.success((_response$data$messag4 = response.data.message) !== null && _response$data$messag4 !== void 0 ? _response$data$messag4 : '', (_response$data$title4 = response.data.title) !== null && _response$data$title4 !== void 0 ? _response$data$title4 : undefined);
+    var hasProducts = $('.has-products');
+    var notProducts = $('.not-products');
+
+    if (response.data.productsListHtml.length) {
+      hasProducts.show();
+      notProducts.hide();
+    } else {
+      hasProducts.hide();
+      notProducts.show();
+    }
   });
 });
 $(document).on('click', '[data-type="cart_page_detach"]', function () {
@@ -3033,13 +3073,17 @@ $('form#checkout').on('submit', function (event) {
     return;
   }
 
+  if (!this.checkValidity()) {
+    return alert('Поля не вірно заповнені');
+  }
+
   button.attr('disabled', true);
   var data = new FormData(this);
   axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/checkout', data).then(function (response) {
     window.location.href = response.data.redirectLink;
   })["catch"](function (response) {
     button.attr('disabled', false);
-    alert('Помилка');
+    alert('Error');
   });
 });
 $('[name=delivery]').on('change', function () {

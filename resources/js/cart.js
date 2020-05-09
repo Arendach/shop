@@ -6,8 +6,22 @@ window.Cart = {
 
         await axios.post('/catalog/cart/attach', {id}).then((response) => {
             $('#cart-content').html(response.data.cartContent)
+            $('.dropdown-cart-products').html(response.data.productListHtml)
             toastr.success(response.data.message ?? '', response.data.title ?? undefined)
             selector.disabled = false
+
+            let hasProducts = $('.has-products')
+            let notProducts = $('.not-products')
+
+            if (response.data.productsListHtml.length) {
+                console.log('test')
+
+                hasProducts.show()
+                notProducts.hide()
+            } else {
+                hasProducts.hide()
+                notProducts.show()
+            }
         })
     },
 
@@ -22,6 +36,7 @@ window.Cart = {
             $(selector).parents('li').remove()
             toastr.success(response.data.message ?? '', response.data.title ?? undefined)
             selector.disabled = false
+            $('.dropdown-cart-products').html(response.data.productListHtml)
         })
     },
 
@@ -42,12 +57,27 @@ window.Cart = {
 // init add to cart button
 $(document).on('click', '[data-type="cart_attach"]', function () {
     let id = $(this).data('id')
+    let dontShowToastr = $(this).data('dont-show-toastr')
+    let quantity = $('#quantity').length ? $('#quantity').val() : 1
 
-    axios.post('/catalog/cart/attach', {id}).then((response) => {
+    axios.post('/catalog/cart/attach', {id, quantity}).then((response) => {
         $('.dropdown-cart-count').html(response.data.cartContProducts)
         $('.dropdown-cart-products').html(response.data.productsListHtml)
         $('.dropdown-cart-sum').html(response.data.cartSumProducts)
-        toastr.success(response.data.message ?? '', response.data.title ?? undefined)
+        if (!dontShowToastr) {
+            toastr.success(response.data.message ?? '', response.data.title ?? undefined)
+        }
+
+        let hasProducts = $('.has-products')
+        let notProducts = $('.not-products')
+
+        if (response.data.productsListHtml.length) {
+            hasProducts.show()
+            notProducts.hide()
+        } else {
+            hasProducts.hide()
+            notProducts.show()
+        }
     })
 })
 
@@ -59,6 +89,17 @@ $(document).on('click', '[data-type="cart_detach"]', function () {
         $('.dropdown-cart-products').html(response.data.productsListHtml)
         $('.dropdown-cart-sum').html(response.data.cartSumProducts)
         toastr.success(response.data.message ?? '', response.data.title ?? undefined)
+
+        let hasProducts = $('.has-products')
+        let notProducts = $('.not-products')
+
+        if (response.data.productsListHtml.length) {
+            hasProducts.show()
+            notProducts.hide()
+        } else {
+            hasProducts.hide()
+            notProducts.show()
+        }
     })
 })
 
@@ -85,6 +126,10 @@ $('form#checkout').on('submit', function (event) {
         return
     }
 
+    if (!this.checkValidity()) {
+        return alert('Поля не вірно заповнені');
+    }
+
     button.attr('disabled', true)
 
     let data = new FormData(this)
@@ -93,7 +138,7 @@ $('form#checkout').on('submit', function (event) {
         window.location.href = response.data.redirectLink
     }).catch((response) => {
         button.attr('disabled', false)
-        alert('Помилка')
+        alert('Error')
     })
 })
 

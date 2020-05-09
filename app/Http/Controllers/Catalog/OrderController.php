@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Catalog;
 
 use App\Http\Requests\Catalog\Order\CheckoutRequest;
 use App\Jobs\Emails\OrderEmailJob;
-use App\Mail\Order;
-use App\Models\Product;
-use App\Services\CartService;
+use App\Models\Order;
 use App\Services\DeliveryService;
 use App\Services\OrderService;
 use App\Services\PayService;
@@ -17,7 +15,6 @@ use Delivery;
 use Pay;
 use User;
 use Cart;
-use Mail;
 
 class OrderController extends CatalogController
 {
@@ -100,7 +97,7 @@ class OrderController extends CatalogController
         ], 200);
     }
 
-    public function create(Request $request, OrderService $orderService)
+    public function create(CheckoutRequest $request, OrderService $orderService)
     {
         $order = $orderService->create($request);
 
@@ -117,7 +114,7 @@ class OrderController extends CatalogController
 
     public function success(int $id)
     {
-        $order = \App\Models\Order::findOrFail($id);
+        $order = Order::findOrFail($id);
 
         return view('catalog.pages.checkout-success', compact('order'));
     }
