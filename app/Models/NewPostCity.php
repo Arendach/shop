@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\Models\Translatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class NewPostCity extends Model
 {
@@ -21,4 +22,9 @@ class NewPostCity extends Model
     public $timestamps = true;
 
     protected $translate = ['name'];
+
+    public function warehouses(): HasMany
+    {
+        return $this->hasMany(NewPostWarehouse::class, 'city_id');
+    }
 }

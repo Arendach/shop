@@ -2172,6 +2172,27 @@ $(document).on('change', '#sending_city', function () {
     }
   });
 });
+$('form#checkout').on('submit', function (event) {
+  event.preventDefault();
+  var button = $(this).find('#sendCheckoutForm');
+
+  if (button.attr('disabled')) {
+    return;
+  }
+
+  if (!this.checkValidity()) {
+    return alert('Поля не вірно заповнені');
+  }
+
+  button.attr('disabled', true);
+  var data = new FormData(this);
+  axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/checkout', data).then(function (response) {
+    console.log(response); // window.location.href = response.data.redirectLink
+  })["catch"](function (response) {
+    button.attr('disabled', false);
+    alert('Error');
+  });
+});
 
 /***/ }),
 

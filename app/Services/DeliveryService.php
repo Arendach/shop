@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Requests\Catalog\Order\CheckoutDeliveryRequest;
 use App\Http\Requests\Catalog\Order\CheckoutRequest;
+use App\Models\NewPostWarehouse;
 use App\Models\Order;
 use App\Models\OrderDelivery;
 use App\Models\OrderSelf;
@@ -55,18 +56,6 @@ class DeliveryService
             $this->validateSending();
         elseif ($request->delivery == 'self')
             $this->validateSelf();
-    }
-
-    public function write($request, Order $order): Order
-    {
-        if ($request->delivery == 'delivery')
-            return $this->writeDelivery($request, $order);
-        elseif ($request->delivery == 'sending')
-            return $this->writeSending($request, $order);
-        elseif ($request->delivery == 'self')
-            return $this->writeSelf($request, $order);
-
-        return $order;
     }
 
     /**
@@ -190,74 +179,5 @@ class DeliveryService
         // якщо масив з помилками не порожній то кидаємо виключення
         if (count($errors) > 0)
             throw ValidationException::withMessages($errors);
-    }
-
-    private function writeDelivery($request, Order $order): Order
-    {
-        $order->_delivery()->create($request->all());
-
-        return $order;
-    }
-
-    /**
-     * Запис в базу даних інформації по відправці Новою Поштою
-     *
-     * @param CheckoutRequest $request
-     * @param Order $order
-     * @return Order
-     */
-    private function writeSending($request, Order $order): Order
-    {
-        $warehouse = NewPost::getWarehouseNameLocale($request->sending_city_key, $request->sending_warehouse);
-        $city = NewPost::getCityNameLocale($request->sending_city_key);
-
-        // таблиця з інформацією по доставці
-        $sending = new OrderSending;
-
-        // Запис даних в таблицю
-        $sending->city_key = $request->sending_city_key;
-        $sending->city_name_uk = $city['name_uk'];
-        $sending->city_name_ru = $city['name_ru'];
-
-        $sending->warehouse_key = $request->sending_warehouse;
-        $sending->warehouse_name_uk = $warehouse['name_uk'];
-        $sending->warehouse_name_ru = $warehouse['name_ru'];
-
-        $sending->order_id = $order->id;
-
-        // зберігаєм
-        $sending->save();
-
-        // вертаємо модифіковане замовлення
-        return $order;
-    }
-
-    /**
-     * Запис в базу даних інформації по самовивозу
-     *
-     * @param $request
-     * @param Order $order
-     * @return Order
-     */
-    private function writeSelf($request, Order $order): Order
-    {
-        // таблиця з інформацією по відправці
-        $self = new OrderSelf;
-
-        // Запис даних в таблицю
-        $self->shop = $request->self_shop;
-        $self->order_id = $order->id;
-
-        // зберігаєм
-        $self->save();
-
-        // Записуємо дату доставки в замовлення
-        $order->date_delivery = $request->self_date;
-
-        // зберігаємо
-        $order->save();
-
-        // вертаємо модифіковане замовлення
-        return $order;
     }
 }

@@ -34,8 +34,6 @@ class OrderService
 
         $order->products()->attach($products->toArray());
 
-        $this->deliveryService->write($request, $order);
-
         $this->cartService->cleanCart();
 
         return $order;

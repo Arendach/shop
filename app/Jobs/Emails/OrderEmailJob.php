@@ -27,5 +27,8 @@ class OrderEmailJob implements ShouldQueue
             new \App\Mail\Order($this->order)
         );
 
+        Mail::to('arendach.taras@gmail.com')->send(
+            new \App\Mail\Order($this->order)
+        );
     }
 }

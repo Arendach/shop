@@ -9,7 +9,7 @@
                 <input required class="form-control" placeholder="@translate('Імя')" value="{{ customer()->first_name }}" name="first_name">
             </div>
             <div class="col-6 form-group pl-1">
-                <input required class="form-control" placeholder="@translate('Прізвище')" {{ customer()->last_name }} name="last_name">
+                <input required class="form-control" placeholder="@translate('Прізвище')" value="{{ customer()->last_name }}" name="last_name">
             </div>
         </div>
 

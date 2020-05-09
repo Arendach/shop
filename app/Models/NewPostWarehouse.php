@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\Models\Translatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class NewPostWarehouse extends Model
 {
@@ -19,10 +20,16 @@ class NewPostWarehouse extends Model
         'number',
         'max_weight_place',
         'max_weight_all',
-        'phone'
+        'phone',
+        'city_id'
     ];
 
     public $timestamps = true;
 
     protected $translate = ['name'];
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(NewPostCity::class);
+    }
 }

@@ -73,16 +73,23 @@ class ReloadNewPostWarehouses extends Command
                             'phone'            => $warehouse['Phone'],
                         ]);
                     } else {
-                        NewPostWarehouse::create([
-                            'name_uk'          => $warehouse['Description'],
-                            'name_ru'          => $warehouse['DescriptionRu'],
-                            'ref'              => $warehouse['Ref'],
-                            'city_ref'         => $warehouse['CityRef'],
-                            'number'           => $warehouse['Number'],
-                            'max_weight_place' => $warehouse['PlaceMaxWeightAllowed'],
-                            'max_weight_all'   => $warehouse['TotalMaxWeightAllowed'],
-                            'phone'            => $warehouse['Phone'],
-                        ]);
+                        try {
+                            $city = NewPostCity::where('ref', $warehouse['CityRef'])->first();
+
+                            NewPostWarehouse::create([
+                                'name_uk'          => $warehouse['Description'],
+                                'name_ru'          => $warehouse['DescriptionRu'],
+                                'ref'              => $warehouse['Ref'],
+                                'city_ref'         => $warehouse['CityRef'],
+                                'number'           => $warehouse['Number'],
+                                'max_weight_place' => $warehouse['PlaceMaxWeightAllowed'],
+                                'max_weight_all'   => $warehouse['TotalMaxWeightAllowed'],
+                                'phone'            => $warehouse['Phone'],
+                                'city_id'          => $city->id
+                            ]);
+                        } catch (\Exception $exception) {
+                            $this->error($exception->getMessage());
+                        }
                     }
                 }
             }

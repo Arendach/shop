@@ -29,22 +29,27 @@ class Order extends Model
         'base_id',
         'admin',
         'delivery_costs',
-        'discount'
+        'discount',
+        'city',
+        'street',
+        'address',
+        'warehouse_id',
+        'shop_id'
     ];
 
-    public function _delivery()
+    public function shop(): BelongsTo
     {
-        return $this->hasOne(OrderDelivery::class, 'order_id');
+        return $this->belongsTo(Shop::class);
     }
 
-    public function self()
+    public function warehouse(): BelongsTo
     {
-        return $this->hasOne(OrderSelf::class, 'order_id');
+        return $this->belongsTo(NewPostWarehouse::class);
     }
 
-    public function sending()
+    public function customer(): BelongsTo
     {
-        return $this->hasOne(OrderSending::class, 'order_id');
+        return $this->belongsTo(Customer::class);
     }
 
     public function products()
@@ -65,10 +70,5 @@ class Order extends Model
         return $this->products->sum(function ($product) {
             return $product->pivot->amount * $product->pivot->price;
         });
-    }
-
-    public function customer(): BelongsTo
-    {
-        return $this->belongsTo(Customer::class);
     }
 }

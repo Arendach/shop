@@ -20,8 +20,6 @@ class Order extends Mailable
 
     public function build()
     {
-        return $this->from('arendach.taras@gmail.com')
-            ->view('emails.order')
-            ->with('order', $this->order);
+        return $this->view('emails.order')->with('order', $this->order);
     }
 }
