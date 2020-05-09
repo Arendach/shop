@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -13325,7 +13325,14 @@ var Customer = /** @class */ (function () {
                             url: form.action,
                             data: new FormData(form)
                         }).then(function (response) {
-                            window.location.href = '/';
+                            var url = new URL(window.location.href);
+                            var redirect = url.searchParams.get('redirect');
+                            if (redirect) {
+                                window.location.href = redirect;
+                            }
+                            else {
+                                window.location.href = '/';
+                            }
                         }).catch(function (errors) {
                             var _a;
                             new form_validation_1.default(form).showErrors((_a = errors.response.data.errors) !== null && _a !== void 0 ? _a : {});
@@ -13347,7 +13354,7 @@ window.Customer = new Customer();
 
 /***/ }),
 
-/***/ 1:
+/***/ 2:
 /*!**********************************************!*\
   !*** multi ./resources/js/customer/login.ts ***!
   \**********************************************/

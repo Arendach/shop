@@ -141,11 +141,3 @@ $('form#checkout').on('submit', function (event) {
         alert('Error')
     })
 })
-
-$('[name=delivery]').on('change', function () {
-    let form = $(this).val()
-
-    axios.post('/catalog/order/order_type_form', {form}).then((response) => {
-        $('#delivery-container').html(response.data)
-    })
-})

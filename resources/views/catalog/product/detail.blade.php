@@ -1,7 +1,7 @@
 @extends('catalog.layout')
 
 @section('css')
-    <link href="{{ asset('catalog/css/product_page.css') }}" rel="stylesheet">
+    <link href="{{ vAsset('catalog/css/product_page.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -343,5 +343,5 @@
 @endpush
 
 @section('js')
-    <script src="{{ asset('catalog/js/carousel_with_thumbs.js') }}"></script>
+    <script src="{{ vAsset('catalog/js/carousel_with_thumbs.js') }}"></script>
 @endsection

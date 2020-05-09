@@ -154,7 +154,7 @@ class CartService
     public function importProductsFromSession(Customer $customer): void
     {
         // получаємо найновішу корзину відповідно сесії
-        $cart = Cart::where('session', $this->session_id)->latest()->first();
+        $cart = $this->cart;
 
         // якщо вона існує то привязуємо до неї користувача
         if (!is_null($cart)) {

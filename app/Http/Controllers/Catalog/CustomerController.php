@@ -36,7 +36,7 @@ class CustomerController extends CatalogController
         // запамятовуємо користувача
         $authService->make($customer);
 
-        // Cart::importProductsFromSession();
+        app(CartService::class)->importProductsFromSession($customer);
 
         // Відповідаємо
         return response()->json([

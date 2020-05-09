@@ -204,7 +204,8 @@
                                         </strong>
                                     </a>
                                     <div class="dropdown-menu">
-                                        <div class="has-products" style="display: {{ Cart::hasProducts() ? 'block' : 'none' }}">
+                                        <div class="has-products"
+                                             style="display: {{ Cart::hasProducts() ? 'block' : 'none' }}">
                                             <ul class="dropdown-cart-products">
                                                 @foreach(Cart::getProducts() as $product)
                                                     @include('catalog.parts.dropdown-cart-product')
@@ -228,7 +229,8 @@
                                                 </a>
                                             </div>
                                         </div>
-                                        <div class="not-products" style="display: {{ !Cart::hasProducts() ? 'block' : 'none' }}">
+                                        <div class="not-products"
+                                             style="display: {{ !Cart::hasProducts() ? 'block' : 'none' }}">
                                             @translate('В корзині немає товарів')
                                         </div>
                                     </div>
@@ -445,10 +447,9 @@
 
 @stack('modals')
 
-<script src="{{ asset('catalog/js/common_scripts.min.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('catalog/js/main.js') }}"></script>
 <script src="{{ asset('catalog/js/toastr.js') }}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/cart.js') }}"></script>
 @yield('js')
 </body>

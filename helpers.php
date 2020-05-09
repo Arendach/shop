@@ -90,3 +90,12 @@ function urlWithLogin(string $route): string
 {
     return isAuth() ? route($route) : route('login', ['redirect' => route($route)]);
 }
+
+function vAsset($path)
+{
+    $version = Cache::rememberForever('version', function (){
+        return \Illuminate\Support\Str::random(6);
+    });
+
+    return asset("$path") . "?$version";
+}

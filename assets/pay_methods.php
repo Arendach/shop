@@ -11,7 +11,7 @@ return [
         /**
          * Назва способу оплати, відображається на сайті при оформленні замовлення
          */
-        'name'   => translate('Приват 24'),
+        'name'   => translate('Оплата на карту ПБ'),
 
         /**
          * Константа визначає чи потрібен обробник для цього способу(приймає true | false)
@@ -32,6 +32,18 @@ return [
     ],
     'cash'     => [
         'name'   => translate('Оплата при доставці'),
+        'simple' => true,
+        'active' => true
+    ],
+
+    'cashless'     => [
+        'name'   => translate('Безготівкова оплата'),
+        'simple' => true,
+        'active' => true
+    ],
+
+    'cashless-with-pdv'     => [
+        'name'   => translate('Безготівкова оплата з ПДВ'),
         'simple' => true,
         'active' => true
     ]
