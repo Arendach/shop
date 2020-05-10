@@ -1,5 +1,9 @@
 <?php
 
+Route::get('testmail', function (){
+    Mail::to('arendach.taras@gmail.com')->send('emails.test');
+});
+
 Route::get('test', function (){
     return view('emails.order', [
         'order' => \App\Models\Order::find(23)
