@@ -1,7 +1,7 @@
 <?php
 
 Route::get('testmail', function (){
-    Mail::to('arendach.taras@gmail.com')->send('emails.test');
+    Mail::to('arendach.taras@gmail.com')->send(new \App\Mail\TestMail());
 });
 
 Route::get('test', function (){
