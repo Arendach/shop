@@ -15,8 +15,8 @@
             <div class="page_header">
                 <div class="breadcrumbs">
                     <ul>
-                        <li><a href="#">@translate('Головна')</a></li>
-                        <li><a href="#">@translate('Корзина')</a></li>
+                        <li><a href="{{ route('index') }}">@translate('Головна')</a></li>
+                        <li><a href="{{ route('cart') }}">@translate('Корзина')</a></li>
                         <li>@translate('Оформлення замовлення')</li>
                     </ul>
                 </div>

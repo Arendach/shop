@@ -1,6 +1,6 @@
 <div class="col-lg-4 col-md-6">
     <div class="step last">
-        <h3>3. @translate('Підсумок')</h3>
+        <h3>3. @translate('Товари')</h3>
         <div class="box_general summary">
             <ul>
                 @foreach($cartService->getProducts() as $product)
@@ -10,7 +10,7 @@
                     </li>
                 @endforeach
             </ul>
-            <ul>
+{{--            <ul>
                 <li class="clearfix">
                     <em><strong>@translate('Вартість товарів')</strong></em>
                     <span>{{ number_format($cartService->getProductsSum()) }}</span>
@@ -19,15 +19,14 @@
                     <em><strong>@translate('Вартість доставки')</strong></em>
                     <span>{{ number_format($cartService->getDeliverySum()) }}</span>
                 </li>
-            </ul>
+            </ul>--}}
             <div class="total clearfix">
                 @translate('Сума')
                 <span>
-                                    {{ number_format($cartService->getProductsSum() + $cartService->getDeliverySum()) }}
-                                </span>
+                    {{ number_format($cartService->getProductsSum() + $cartService->getDeliverySum()) }}
+                </span>
             </div>
-            <a href="javascript:void(0)" onclick="$(this).parents('form').submit()" id="sendCheckoutForm"
-               class="btn_1 full-width">
+            <a href="javascript:void(0)" onclick="$(this).parents('form').submit()" id="sendCheckoutForm" class="btn_1 full-width">
                 @translate('Підтвердити')
             </a>
         </div>

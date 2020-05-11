@@ -87,42 +87,76 @@
         </tr>
     @endif
 
-    @if($order->_delivery)
-        @if($order->_delivery->city)
+    @if($order->city)
+        <tr>
+            <td style="border: 1px solid black; padding: 10px; background-color: #9999CC; color: white; font-family: Roboto, Arial, Helvetica, sans-serif">
+                Місто
+            </td>
+
+            <td style="border: 1px solid black; padding: 10px; background-color: #9999CC; color: white; font-family: Roboto, Arial, Helvetica, sans-serif; font-weight: bold">
+                {{ $order->city }}
+            </td>
+        </tr>
+    @endif
+
+    @if($order->street)
+        <tr>
+            <td style="border: 1px solid black; padding: 10px; background-color: #9999CC; color: white; font-family: Roboto, Arial, Helvetica, sans-serif">
+                Вулиця
+            </td>
+
+            <td style="border: 1px solid black; padding: 10px; background-color: #9999CC; color: white; font-family: Roboto, Arial, Helvetica, sans-serif; font-weight: bold">
+                {{ $order->street }}
+            </td>
+        </tr>
+    @endif
+
+    @if($order->address)
+        <tr>
+            <td style="border: 1px solid black; padding: 10px; background-color: #9999CC; color: white; font-family: Roboto, Arial, Helvetica, sans-serif">
+                Адреса
+            </td>
+
+            <td style="border: 1px solid black; padding: 10px; background-color: #9999CC; color: white; font-family: Roboto, Arial, Helvetica, sans-serif; font-weight: bold">
+                {{ $order->address }}
+            </td>
+        </tr>
+    @endif
+
+    @if($order->warehouse)
+        @if($order->warehouse->city)
             <tr>
                 <td style="border: 1px solid black; padding: 10px; background-color: #9999CC; color: white; font-family: Roboto, Arial, Helvetica, sans-serif">
                     Місто
                 </td>
 
                 <td style="border: 1px solid black; padding: 10px; background-color: #9999CC; color: white; font-family: Roboto, Arial, Helvetica, sans-serif; font-weight: bold">
-                    {{ $order->_delivery->city }}
+                    {{ $order->warehouse->city->name }}
                 </td>
             </tr>
         @endif
 
-        @if($order->_delivery->street)
-            <tr>
-                <td style="border: 1px solid black; padding: 10px; background-color: #9999CC; color: white; font-family: Roboto, Arial, Helvetica, sans-serif">
-                    Вулиця
-                </td>
+        <tr>
+            <td style="border: 1px solid black; padding: 10px; background-color: #9999CC; color: white; font-family: Roboto, Arial, Helvetica, sans-serif">
+                Відділення нової пошти
+            </td>
 
-                <td style="border: 1px solid black; padding: 10px; background-color: #9999CC; color: white; font-family: Roboto, Arial, Helvetica, sans-serif; font-weight: bold">
-                    {{ $order->_delivery->street }}
-                </td>
-            </tr>
-        @endif
+            <td style="border: 1px solid black; padding: 10px; background-color: #9999CC; color: white; font-family: Roboto, Arial, Helvetica, sans-serif; font-weight: bold">
+                {{ $order->warehouse->name }}
+            </td>
+        </tr>
+    @endif
 
-        @if($order->_delivery->address)
-            <tr>
-                <td style="border: 1px solid black; padding: 10px; background-color: #9999CC; color: white; font-family: Roboto, Arial, Helvetica, sans-serif">
-                    Адреса
-                </td>
+    @if($order->shop)
+        <tr>
+            <td style="border: 1px solid black; padding: 10px; background-color: #9999CC; color: white; font-family: Roboto, Arial, Helvetica, sans-serif">
+                Магазин(точка самовивозу)
+            </td>
 
-                <td style="border: 1px solid black; padding: 10px; background-color: #9999CC; color: white; font-family: Roboto, Arial, Helvetica, sans-serif; font-weight: bold">
-                    {{ $order->_delivery->address }}
-                </td>
-            </tr>
-        @endif
+            <td style="border: 1px solid black; padding: 10px; background-color: #9999CC; color: white; font-family: Roboto, Arial, Helvetica, sans-serif; font-weight: bold">
+                {{ $order->shop->name }}
+            </td>
+        </tr>
     @endif
 </table>
 
@@ -165,6 +199,12 @@
             </td>
         </tr>
     @endforeach
+
+    <tr>
+        <td colspan="4" style="text-align:right; border: 1px solid white; padding: 10px; background-color: #FFCC99; color: #333366; font-family: Roboto, Arial, Helvetica, sans-serif">
+            Сума: {{ number_format($order->sum) }}
+        </td>
+    </tr>
 </table>
 
 </body>

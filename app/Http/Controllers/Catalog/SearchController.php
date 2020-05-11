@@ -3,23 +3,36 @@
 namespace App\Http\Controllers\Catalog;
 
 use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Models\SearchLog;
+use App\Repositories\ProductsRepository;
 
 class SearchController extends CatalogController
 {
-    public function index(Product $productModel, $value)
+    private $productsRepository;
+
+    public function __construct(ProductsRepository $productsRepository)
     {
-        $products = $productModel->getSearchProducts($value);
+        $this->productsRepository = $productsRepository;
+    }
+
+    public function index()
+    {
+        abort_if(!request('query'), 404);
+
+        $products = $this->productsRepository->searchProducts(request('query'));
 
         $data = [
-            'title' => __('search.title'),
-            'meta_keywords' => __('search.meta_keywords'),
+            'meta_keywords'    => __('search.meta_keywords'),
             'meta_description' => __('search.meta_description'),
-            'breadcrumbs' => [[__('search.title')]],
-            'products' => $products,
-            'search_string' => $value,
+            'products'         => $products,
+            'searchString'     => request('query'),
         ];
 
         return view('catalog.search.index', $data);
+    }
+
+    private function saveLog()
+    {
+        SearchLog::create();
     }
 }

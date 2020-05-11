@@ -64,6 +64,11 @@ class CartService
         return $this->cart;
     }
 
+    public function isEmpty(): bool
+    {
+        return is_null($this->cart);
+    }
+
     // Додати товар до корзини
     public function attach(int $product_id, int $quantity): void
     {
@@ -148,7 +153,7 @@ class CartService
     /** Вартість доставки */
     public function getDeliverySum(): float
     {
-        return 100;
+        return 0;
     }
 
     public function importProductsFromSession(Customer $customer): void

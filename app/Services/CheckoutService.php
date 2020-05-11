@@ -5,11 +5,8 @@ namespace App\Services;
 use App\Http\Requests\Catalog\Order\CheckoutRequest;
 use App\Models\Order;
 use App\Models\OrderProduct;
-use Nexmo\Network\Number\Request;
 use Session;
 use NewPost;
-use User;
-use Auth;
 use Delivery;
 use Cart;
 

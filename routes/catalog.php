@@ -102,7 +102,7 @@ Route::group(['middleware' => ['loadCategories', 'onlyLogged'], 'prefix' => 'pro
 /**
  * Пошук товарів по сайту
  */
-Route::get('search/{value}', 'SearchController@index')
+Route::get('search', 'SearchController@index')
     ->middleware('loadCategories')
     ->name('search');
 

@@ -8,7 +8,7 @@
 
 @section('content')
 
-    <main>
+    <main class="bg_gray">
         <div class="container margin_30">
             <div class="top_banner version_2">
                 <div class="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0)">
@@ -19,6 +19,15 @@
                     </div>
                 </div>
                 <img src="{{ $collection->getImage('image') }}" class="img-fluid" alt="{{ $collection->name }}">
+            </div>
+
+            <div style="margin: 20px 0">
+                <div class="breadcrumbs">
+                    <ul>
+                        <li><a href="{{ route('index') }}">@translate('Головна')</a></li>
+                        <li>{{ $collection->name }}</li>
+                    </ul>
+                </div>
             </div>
 
             <div id="stick_here"></div>
@@ -32,7 +41,7 @@
                 @endforeach
             </div>
 
-            {!! $products->links() !!}
+            {!! $products->links('catalog.parts.paginate') !!}
         </div>
     </main>
 
