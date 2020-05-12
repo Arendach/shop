@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Catalog;
 
-use App\Models\Product;
 use App\Models\SearchLog;
 use App\Repositories\ProductsRepository;
 
@@ -22,17 +21,23 @@ class SearchController extends CatalogController
         $products = $this->productsRepository->searchProducts(request('query'));
 
         $data = [
-            'meta_keywords'    => __('search.meta_keywords'),
-            'meta_description' => __('search.meta_description'),
+//            'meta_keywords'    => __('search.meta_keywords'),
+//            'meta_description' => __('search.meta_description'),
             'products'         => $products,
             'searchString'     => request('query'),
         ];
+
+        $this->saveLog();
 
         return view('catalog.search.index', $data);
     }
 
     private function saveLog()
     {
-        SearchLog::create();
+        SearchLog::create([
+            'query'      => request('query'),
+            'user_agent' => request()->userAgent(),
+            'is_show'    => false
+        ]);
     }
 }
