@@ -61,6 +61,13 @@ Route::post('simple_order/create', 'SimpleOrderController@create')
     ->name('simple_order.create');
 
 /**
+ * FAQ - часто задаваємі питання
+ */
+Route::get('faq', 'PagesController@faq')
+    ->middleware('loadCategories')
+    ->name('faq');
+
+/**
  * Сторінка перегляду категорії
  */
 Route::get('category/{slug}', 'CategoryController@show')
