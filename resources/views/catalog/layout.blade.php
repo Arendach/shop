@@ -193,7 +193,8 @@
                     <div class="col-xl-6 col-lg-7 col-md-6 d-none d-md-block">
                         <form action="{{ route('search') }}" method="GET">
                             <div class="custom-search-input">
-                                <input type="text" name="query" placeholder="@translate('Пошук товарів')" value="{{ $searchString ?? '' }}">
+                                <input type="text" name="query" placeholder="@translate('Пошук товарів')"
+                                       value="{{ $searchString ?? '' }}">
                                 <button type="submit"><i class="header-icon_search_custom"></i></button>
                             </div>
                         </form>
@@ -285,7 +286,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <a href="{{ route('faq') }}">
                                                     <i class="ti-help-alt"></i>@translate('Допомога і Faq')
                                                 </a>
                                             </li>
@@ -320,9 +321,11 @@
                 </div>
                 <!-- /row -->
             </div>
-            <div class="search_mob_wp" style="display: {{ isset($searchString) && Agent::isMobile() ? 'block' : 'none' }}">
+            <div class="search_mob_wp"
+                 style="display: {{ isset($searchString) && Agent::isMobile() ? 'block' : 'none' }}">
                 <form action="{{ route('search') }}" method="GET">
-                    <input name="query" class="form-control" placeholder="@translate('Пошук товарів...')" value="{{ $searchString ?? '' }}">
+                    <input name="query" class="form-control" placeholder="@translate('Пошук товарів...')"
+                           value="{{ $searchString ?? '' }}">
                     <input type="submit" class="btn_1 full-width" value="@translate('Шукати')">
                 </form>
             </div>
@@ -387,17 +390,20 @@
                             <ul>
                                 <li>
                                     <a href="https://facebook.com/vozdushno.com.ua">
-                                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="{{ asset('catalog/img/facebook_icon.svg') }}" class="lazy">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                             data-src="{{ asset('catalog/img/facebook_icon.svg') }}" class="lazy">
                                     </a>
                                 </li>
                                 <li>
                                     <a href="http://instagram.com/vozdushno">
-                                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="{{ asset('catalog/img/instagram_icon.svg') }}" class="lazy">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                             data-src="{{ asset('catalog/img/instagram_icon.svg') }}" class="lazy">
                                     </a>
                                 </li>
                                 <li>
                                     <a href="https://www.youtube.com/channel/UCgetz4SbavYicHpsz0X9u1A">
-                                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="{{ asset('catalog/img/youtube_icon.svg') }}" class="lazy">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+                                             data-src="{{ asset('catalog/img/youtube_icon.svg') }}" class="lazy">
                                     </a>
                                 </li>
                             </ul>
@@ -432,7 +438,7 @@
                     <ul class="additional_links">
                         <li><a href="#0">Terms and conditions</a></li>
                         <li><a href="#0">Privacy</a></li>
-                        <li><span>©2020 {{ $globalData->copyright }}</span></li>
+                        <li><span>©{{ date('Y') }} {{ $globalData->copyright }}</span></li>
                     </ul>
                 </div>
             </div>
