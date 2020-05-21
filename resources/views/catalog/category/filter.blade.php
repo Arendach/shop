@@ -1,9 +1,10 @@
 <div class="filter_col">
     <form action="{{ url()->current() }}">
-        {{--@foreach(request()->except('manufacturers', 'price', 'characteristics') as $key => $value)
-            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-        @endforeach--}}
-        <div class="inner_bt"><a href="#" class="open_filters"><i class="ti-close"></i></a></div>
+        <div class="inner_bt">
+            <a href="#" class="open_filters">
+                <i class="ti-close"></i>
+            </a>
+        </div>
 
         <div class="filter_type version_2">
             <h4>
@@ -17,11 +18,13 @@
                         <div class="row">
                             <div class="col-6">
                                 <label>@translate('Від'):</label>
-                                <input type="text" class="form-control form-control-sm" name="min_price" value="{{ request('min_price') ? request('min_price') : $filter->getMinPrice() }}">
+                                <input type="text" class="form-control form-control-sm" name="min_price"
+                                       value="{{ request('min_price') ? request('min_price') : $filter->getMinPrice() }}">
                             </div>
                             <div class="col-6">
                                 <label>@translate('До'):</label>
-                                <input type="text" class="form-control form-control-sm" name="max_price" value="{{ request('max_price') ? request('max_price') : $filter->getMaxPrice() }}">
+                                <input type="text" class="form-control form-control-sm" name="max_price"
+                                       value="{{ request('max_price') ? request('max_price') : $filter->getMaxPrice() }}">
                             </div>
                         </div>
                     </li>
@@ -69,8 +72,8 @@
                                 <label class="container_check">
                                     {{ $characteristic->prefix }} {{ $productCharacteristic->value }} {{ $characteristic->postfix }}
                                     <input type="checkbox" name="characteristics[{{ $characteristic->id }}][]"
-                                           value="{{ $productCharacteristic->filter_value }}"
-                                            @checked($characteristic->isChecked($productCharacteristic->filter_value))
+                                           value="{{ $productCharacteristic->value }}"
+                                            @checked($characteristic->isChecked($productCharacteristic->value))
                                     >
                                     <span class="checkmark"></span>
                                 </label>

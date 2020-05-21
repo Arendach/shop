@@ -74,4 +74,13 @@ class ProductCharacteristic extends Model
 
         return null;
     }
+
+    public function getFilterValueAttribute()
+    {
+        if (!$this->filter) {
+            return $this->value;
+        }
+
+        return $this->filter;
+    }
 }
