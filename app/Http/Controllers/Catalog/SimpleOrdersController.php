@@ -8,7 +8,7 @@ use App\Models\SimpleOrder;
 
 class SimpleOrdersController extends Controller
 {
-    public function action_create(CreateSimpleOrderRequest $request)
+    public function create(CreateSimpleOrderRequest $request)
     {
         $table = new SimpleOrder;
 

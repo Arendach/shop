@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\Catalog;
 
+use App\Http\Requests\Catalog\Customer\UpdateContactsRequest;
+use App\Http\Requests\Catalog\Customer\UpdatePasswordRequest;
 use App\Http\Requests\Catalog\User\LoginRequest;
 use App\Http\Requests\Catalog\User\RegisterRequest;
 use App\Models\Customer;
-use App\Models\Order;
 use App\Services\AuthService;
 use App\Services\CartService;
 use App\Services\CustomerService;
-use Auth;
-use Cart;
 
 class CustomerController extends CatalogController
 {
@@ -55,19 +54,6 @@ class CustomerController extends CatalogController
         $cartService->importProductsFromSession($customer);
     }
 
-    public function action_login_form()
-    {
-        $data = [
-            'title' => __('user.login.title')
-        ];
-
-        $content = view('catalog.user.login_form', $data)->render();
-
-        return response()->json([
-            'content' => $content
-        ], 200);
-    }
-
     public function logout(AuthService $authService)
     {
         $authService->logout();
@@ -77,36 +63,25 @@ class CustomerController extends CatalogController
 
     public function orders()
     {
-        $data = [
-            'title'       => __('user.profile.orders'),
-            'breadcrumbs' => [
-                [__('user.profile.title'), route('profile')],
-                [__('user.profile.orders')]
-            ],
-            'orders'      => customer()->orders
-        ];
+        $orders = customer()->orders;
 
-        return view('catalog.customer.profile.orders', $data);
+        $orders->load('products');
+
+        return view('catalog.customer.profile.orders', compact('orders'));
     }
 
-    public function order_view($id)
+    public function config()
     {
-        $order = Order::with('products')->findOrFail($id);
+        return view('catalog.customer.profile.config');
+    }
 
-        abort_if($order->user_id != customer()->id, 403);
+    public function action_update_contacts(UpdateContactsRequest $request)
+    {
+        app(CustomerService::class)->updateContacts($request->validated());
+    }
 
-        $order->products->load('category');
-
-        $data = [
-            'title'       => '',
-            'order'       => $order,
-            'breadcrumbs' => [
-                [__('user.profile.title'), route('profile')],
-                [__('user.profile.orders'), route('profile.orders')],
-                [__('user.profile.order', ['id' => $order->id])]
-            ]
-        ];
-
-        return view('catalog.user.profile.order_view', $data);
+    public function action_update_password(UpdatePasswordRequest $request)
+    {
+        app(CustomerService::class)->updatePassword($request->validated());
     }
 }

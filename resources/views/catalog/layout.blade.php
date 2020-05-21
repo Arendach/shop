@@ -27,6 +27,8 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet">
 
     <!-- BASE CSS -->
+    <link rel="stylesheet" href="{{ asset('catalog/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('catalog/css/bootstrap.custom.min.css') }}">
     <link rel="stylesheet" href="{{ asset('catalog/css/app.css') }}">
 
     <!-- SPECIFIC CSS -->
@@ -384,27 +386,18 @@
                             <h5>@translate('Підпишіться на нас')</h5>
                             <ul>
                                 <li>
-                                    <a href="#0">
-                                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                                             data-src="{{ asset('catalog/img/twitter_icon.svg') }}" class="lazy">
+                                    <a href="https://facebook.com/vozdushno.com.ua">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="{{ asset('catalog/img/facebook_icon.svg') }}" class="lazy">
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#0">
-                                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                                             data-src="{{ asset('catalog/img/facebook_icon.svg') }}" class="lazy">
+                                    <a href="http://instagram.com/vozdushno">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="{{ asset('catalog/img/instagram_icon.svg') }}" class="lazy">
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#0">
-                                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                                             data-src="{{ asset('catalog/img/instagram_icon.svg') }}" class="lazy">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#0">
-                                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                                             data-src="{{ asset('catalog/img/youtube_icon.svg') }}" class="lazy">
+                                    <a href="https://www.youtube.com/channel/UCgetz4SbavYicHpsz0X9u1A">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="{{ asset('catalog/img/youtube_icon.svg') }}" class="lazy">
                                     </a>
                                 </li>
                             </ul>

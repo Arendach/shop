@@ -94,4 +94,16 @@ class CustomerService
 
         return in_array($product_id, $this->desire_products->pluck('id')->toArray());
     }
+
+    public function updateContacts(array $data): void
+    {
+        customer()->update($data);
+    }
+
+    public function updatePassword(array $data): void
+    {
+        customer()->update([
+            'password' => md5(md5($data['password']))
+        ]);
+    }
 }

@@ -57,6 +57,9 @@ Route::post('checkout', 'OrderController@create')
     ->middleware('loadCategories', 'onlyLogged')
     ->name('checkout.create');
 
+Route::post('simple_order/create', 'SimpleOrderController@create')
+    ->name('simple_order.create');
+
 /**
  * Сторінка перегляду категорії
  */
@@ -97,6 +100,11 @@ Route::group(['middleware' => ['loadCategories', 'onlyLogged'], 'prefix' => 'pro
      * Вибрані товари
      */
     Route::get('desire', 'DesireController@index')->name('profile.desire');
+
+    /**
+     * Налаштування профілю
+     */
+    Route::get('config', 'CustomerController@config')->name('profile.config');
 });
 
 /**
