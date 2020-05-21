@@ -4,6 +4,11 @@
 
 @section('css')
     <link href="{{ asset('catalog/css/home_1.css') }}" rel="stylesheet">
+    <style>
+        #menu > ul{
+            display:block !important;
+        }
+    </style>
 @endsection
 
 @section('content')

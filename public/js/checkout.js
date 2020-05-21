@@ -2203,7 +2203,7 @@ $('form#checkout').on('submit', function (event) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\OSPanel\domains\shop\resources\js\checkout.js */"./resources/js/checkout.js");
+module.exports = __webpack_require__(/*! D:\OpenServer_5_3_5\OSPanel\domains\localhost\piston\resources\js\checkout.js */"./resources/js/checkout.js");
 
 
 /***/ })

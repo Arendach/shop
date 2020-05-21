@@ -140,6 +140,28 @@
                                                 <span>@translate('Додати в корзину')</span>
                                             </a>
                                         </li>
+
+                                        <li>
+                                            <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
+                                               title="Купить в 1 клик"
+                                               data-id="{{ $product->id }}">
+                                                <i class="ti-location-arrow"></i>
+                                                <span>Купить в 1 клик</span>
+                                            </a>
+                                        </li>
+
+                                        @if($product->video)
+                                            <li>
+                                                <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
+                                                   title="Дивитись відео"
+                                                   data-video-id="{{$product->video}}"
+                                                   data-toggle="modal"
+                                                   data-target="#video-window">
+                                                    <i class="ti-control-play"></i>
+                                                    <span>Дивитись відео</span>
+                                                </a>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </div>
                             </div>
@@ -157,6 +179,22 @@
         <!-- /container -->
     </main>
 
+    <!-- Modal Video-->
+    <div class="modal fade" id="video-window" tabindex="-1" role="dialog" aria-labelledby="video_title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="video_title">Payments Methods</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Здесь планируеться вывод видео
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('js')

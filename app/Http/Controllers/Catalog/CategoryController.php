@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Catalog;
 
-use App\Models\Category;
+use App\Models\{Category, Product};
 use Illuminate\Http\Request;
 use CategoryFilter;
 
@@ -22,6 +22,18 @@ class CategoryController extends CatalogController
         ];
 
         if ($category->parent_id == 0) {
+            $categories = Category::distinct()->where('parent_id', '=', $category->id)->get();
+            $productsFromCategory = [];
+            foreach ($categories as $category) {
+                $productsFromCategory[] = [
+                    'name' => $category->name,
+                    'description' => $category->description_uk,
+                    'products' => Product::where('category_id', '=', $category->id)->where(function($p) {
+                        $p->where('is_new', 1)->orWhere('is_recommended', 1);
+                    })->get(),
+                ];
+            }
+            $data['productsFromCategory'] = $productsFromCategory;
             return view('catalog.category.parent', $data);
         }
 
