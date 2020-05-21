@@ -168,7 +168,7 @@
                                             @foreach($categories as $category)
                                                 <li>
                                                     <span>
-                                                        <a href="javascript:void(0)">
+                                                        <a href="{{ $category->url }}">
                                                             {{ $category->name }}
                                                         </a>
                                                     </span>
@@ -176,7 +176,7 @@
                                                         @foreach($category->child as $child)
                                                             @continue(!$child->products_count)
                                                             <li>
-                                                                <a href="{{ route('category.show', $child->slug) }}">
+                                                                <a href="{{ $child->url }}">
                                                                     {{ $child->name }}
                                                                 </a>
                                                             </li>
