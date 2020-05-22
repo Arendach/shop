@@ -276,7 +276,7 @@
                                 @endforelse
 
                                 <p class="text-right">
-                                    <a href="leave-review.html" class="btn_1">
+                                    <a href="{{ route('product.leave_review', $product->id) }}" class="btn_1">
                                         @translate('Залишити відгук')
                                     </a>
                                 </p>

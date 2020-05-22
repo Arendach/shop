@@ -43,6 +43,18 @@ class ProductController extends CatalogController
         return view('catalog.product.detail', $data);
     }
 
+    public function leaveReview($id)
+    {
+        $product = Product::where('id', $id)->firstOrFail();
+
+        $data = [
+            'id' => $id,
+            'name' => $product->name_uk
+        ];
+
+        return view('catalog.product.page_review', $data);
+    }
+
     public function action_create_review_comment_form(Request $request)
     {
         $data = ['review' => Review::find($request->id)];

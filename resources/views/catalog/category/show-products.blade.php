@@ -226,18 +226,20 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label for="name-label">Имя</label>
-                    <input type="text" class="form-control" id="name-label" name="name">
-                </div>
-                <div class="form-group">
-                    <label for="phone-label">Телефон</label>
-                    <input type="text" class="form-control" id="phone-label" name="phone">
-                </div>
-                <input type="hidden" value="0" name="product_id" id="product_id">
+                <form id="form-one-click-order">
+                    <div class="form-group">
+                        <label for="name-label">Имя</label>
+                        <input type="text" class="form-control" id="name-label" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone-label">Телефон</label>
+                        <input type="text" class="form-control" id="phone-label" name="phone" placeholder="050-111-11-11">
+                    </div>
+                    <input type="hidden" value="0" name="product_id" id="product_id">
+                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" id="make-one-click-order">Замовити</button>
+                <button type="button" class="btn btn-primary" id="make-one-click-order">Замовити</button>
             </div>
         </div>
     </div>
@@ -247,6 +249,6 @@
 @section('js')
     <script src="{{ asset('catalog/js/sticky_sidebar.min.js') }}"></script>
     <script src="{{ asset('catalog/js/specific_listing.js') }}"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
     <script src="{{ asset('catalog/js/modal_windows.js') }}"></script>
 @endsection
