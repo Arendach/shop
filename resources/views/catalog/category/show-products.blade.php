@@ -84,8 +84,24 @@
                 <div class="col-lg-9">
                     <div class="row small-gutters">
                         @foreach($products as $product)
+                            @php
+                                $characteristics = "";
+                                foreach($product->characteristics as $characteristic) {
+                                    $name = $characteristic->getName();
+                                    $prefix = $characteristic->getPrefix();
+                                    $value = $characteristic->value;
+                                    $postfix = $characteristic->getPostfix();
+                                    $characteristics .= "<strong>$name</strong> $prefix $value $postfix <br>";
+                                }
+                            @endphp
                             <div class="col-6 col-md-4">
-                                <div class="grid_item">
+                                <div class="grid_item"
+                                     data-html="true"
+                                     data-toggle="popover"
+                                     data-trigger="hover"
+                                     title="Характеристики"
+                                     data-content="@php echo $characteristics; @endphp"
+                                >
                                     @if($product->is_discounted)
                                         <span class="ribbon off">-{{ $product->discount_percent }}%</span>
                                     @elseif($product->is_new)
@@ -141,9 +157,9 @@
                                             </a>
                                         </li>
 
-                                        <li>
-                                            <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                               title="Купить в 1 клик"
+                                        <li class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Купить в 1 клик">
+                                            <a class="click-one-click-order" href="#0" data-toggle="modal"
+                                               data-target="#one-click-order-window"
                                                data-id="{{ $product->id }}">
                                                 <i class="ti-location-arrow"></i>
                                                 <span>Купить в 1 клик</span>
@@ -151,10 +167,9 @@
                                         </li>
 
                                         @if($product->video)
-                                            <li>
-                                                <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                                   title="Дивитись відео"
-                                                   data-video-id="{{$product->video}}"
+                                            <li class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Дивитись відео">
+                                                <a class="click-video" href="#0" data-video-id="{{$product->video}}"
+                                                   data-video-title="{{$product->name}}"
                                                    data-toggle="modal"
                                                    data-target="#video-window">
                                                     <i class="ti-control-play"></i>
@@ -178,26 +193,60 @@
         </div>
         <!-- /container -->
     </main>
+@endsection
 
-    <!-- Modal Video-->
-    <div class="modal fade" id="video-window" tabindex="-1" role="dialog" aria-labelledby="video_title" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="video_title">Payments Methods</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Здесь планируеться вывод видео
+@push('modals')
+<!-- Modal Video-->
+<div class="modal fade" id="video-window" tabindex="-1" role="dialog" aria-labelledby="video_title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="video_title">Payments Methods</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe id="iframe-video" class="embed-responsive-item" src="//www.youtube.com/embed/EvxDxOVzz24" frameborder="0" allowfullscreen=""></iframe>
                 </div>
             </div>
         </div>
     </div>
-@endsection
+</div>
+
+<!-- Modal One click order-->
+<div class="modal fade" id="one-click-order-window" tabindex="-1" role="dialog" aria-labelledby="one-click-order-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="one-click-order-title">Замовлення в 1 клік</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="name-label">Имя</label>
+                    <input type="text" class="form-control" id="name-label" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="phone-label">Телефон</label>
+                    <input type="text" class="form-control" id="phone-label" name="phone">
+                </div>
+                <input type="hidden" value="0" name="product_id" id="product_id">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="make-one-click-order">Замовити</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endpush
 
 @section('js')
     <script src="{{ asset('catalog/js/sticky_sidebar.min.js') }}"></script>
     <script src="{{ asset('catalog/js/specific_listing.js') }}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
+    <script src="{{ asset('catalog/js/modal_windows.js') }}"></script>
 @endsection
