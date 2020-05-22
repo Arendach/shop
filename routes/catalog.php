@@ -57,7 +57,7 @@ Route::post('checkout', 'OrderController@create')
     ->middleware('loadCategories', 'onlyLogged')
     ->name('checkout.create');
 
-Route::post('simple_order/create', 'SimpleOrderController@create')
+Route::post('simple_order/create', 'SimpleOrdersController@create')
     ->name('simple_order.create');
 
 /**
@@ -112,6 +112,11 @@ Route::group(['middleware' => ['loadCategories', 'onlyLogged'], 'prefix' => 'pro
      * Налаштування профілю
      */
     Route::get('config', 'CustomerController@config')->name('profile.config');
+
+    /**
+     * Сторінка відгуку товару
+     */
+    Route::get('leave-review/{id}', 'ProductController@leaveReview')->name('product.leave_review');
 });
 
 /**

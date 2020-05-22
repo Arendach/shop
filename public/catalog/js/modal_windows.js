@@ -1,6 +1,47 @@
 $(document).ready(function() {
+    $.validator.addMethod('phoneRule', function (value, element) {
+        if (/^[\d]{3}-[\d]{3}-[\d]{2}-[\d]{2}$/.test(value)) {
+            return true;
+        } else {
+            return false;
+        }
+    }, 'Неправильный формат телефона');
+
     $('.grid_item').popover({
         placement: 'bottom',
+    });
+
+    $('#form-one-click-order').validate({
+        rules: {
+            name: "required",
+            phone: {
+                required: true,
+                phoneRule: true
+            }
+        },
+        messages: {
+            name: "name is empty",
+            phone: {
+                required: "phone is empty",
+                phoneRule: "wrong format number"
+            }
+        },
+        errorPlacement: function ( error, element ) {
+            // Add the `help-block` class to the error element
+            error.addClass( "text-danger" );
+
+            if ( element.prop( "type" ) === "checkbox" ) {
+                error.insertAfter( element.parent( "label" ) );
+            } else {
+                error.insertAfter( element );
+            }
+        },
+        highlight: function ( element, errorClass, validClass ) {
+            $( element ).addClass( "is-invalid" ).removeClass( "has-success" );
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $( element ).addClass( "has-success" ).removeClass( "is-invalid" );
+        }
     });
 });
 
@@ -14,5 +55,19 @@ $('.click-one-click-order').on('click', function(){
 });
 
 $('#make-one-click-order').on('click', function(){
-
+    if ($("#form-one-click-order").valid()) {
+        $.ajax({
+            method: 'POST',
+            url: '/simple_order/create',
+            data: {
+                name: $('#name-label').val(),
+                phone: $('#phone-label').val(),
+                id: $('#product_id').val(),
+            },
+            success: function(data) {
+                toastr.success('Виконано!', 'Вашее замовленя передано. Менеджер нйближчим часом вам перезвоне!');
+                $('#one-click-order-window').modal('hide');
+            }
+        })
+    }
 });
