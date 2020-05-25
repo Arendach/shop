@@ -100,7 +100,7 @@
                                      data-toggle="popover"
                                      data-trigger="hover"
                                      title="Характеристики"
-                                     data-content="@php echo $characteristics; @endphp"
+                                     data-content="{!! $characteristics !!}"
                                 >
                                     @if($product->is_discounted)
                                         <span class="ribbon off">-{{ $product->discount_percent }}%</span>
@@ -249,6 +249,5 @@
 @section('js')
     <script src="{{ asset('catalog/js/sticky_sidebar.min.js') }}"></script>
     <script src="{{ asset('catalog/js/specific_listing.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
     <script src="{{ asset('catalog/js/modal_windows.js') }}"></script>
 @endsection

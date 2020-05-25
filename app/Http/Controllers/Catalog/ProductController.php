@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Catalog;
 
+use App\Http\Requests\Catalog\Product\ReviewCreateRequest;
 use App\Http\Requests\Catalog\Product\ReviewDeleteRequest;
 use App\Http\Requests\Catalog\Product\ReviewUpdateRequest;
 use App\Models\Product;
@@ -43,7 +44,7 @@ class ProductController extends CatalogController
         return view('catalog.product.page_review', compact('product'));
     }
 
-    public function action_create_review(Request $request)
+    public function action_create_review(ReviewCreateRequest $request)
     {
         Review::create($request->merge([
             'customer_id' => customer()->id,
