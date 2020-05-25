@@ -134,6 +134,16 @@ Route::get('customer/logout', 'CustomerController@logout')
     ->name('customer.logout');
 
 /**
+ * Javascript переклади
+ */
+Route::any('assets/translates.js', 'AssetsController@translates');
+
+/**
+ * Реєстрація перекладу з фронта через аякс
+ */
+Route::any('assets/register_translate', 'AssetsController@registerTranslate');
+
+/**
  * Універсальний маршрут для запросів типу POST
  *
  * #catalog.post

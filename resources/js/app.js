@@ -22,3 +22,6 @@ require('./libs/bootstrap')
 require('./libs/hide-show-password')
 require('./libs/nice-select')
 require('./libs/select2')
+require('./libs/jquery-validate')
+
+// require('./common/translates')

@@ -9,6 +9,7 @@ use App\Traits\Models\SeoMultiLang;
 use App\Traits\Models\Translatable;
 use App\Traits\Models\TwoImage;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Filters\CategoryProductFilter;
 use Illuminate\Http\Request;
@@ -74,7 +75,7 @@ class Category extends Model implements Sortable, TwoImageInterface
 
     protected $table = 'categories';
 
-    public function products()
+    public function products(): HasMany
     {
         return $this->hasMany('App\Models\Product');
     }

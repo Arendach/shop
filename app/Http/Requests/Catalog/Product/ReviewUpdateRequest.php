@@ -8,48 +8,29 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ReviewUpdateRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+    public function authorize(): bool
     {
-        $review = Review::findOrFail($this->request->get('id'));
+        $review = Review::findOrFail(request('id'));
 
-        return ($review->user_id == customer()->id) || access('products');
+        return $review->customer_id == customer()->id;
     }
 
-    /**
-     * @throws AuthenticationException
-     */
-    protected function failedAuthorization()
+    protected function failedAuthorization(): void
     {
-        throw new AuthenticationException('Ви не можете редагувати цей відгук!');
+        throw new AuthenticationException(translate('Ви не можете редагувати цей відгук'));
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'plus' => 'nullable|max:2000',
-            'minus' => 'nullable|max:2000',
+            'title'   => 'required',
             'comment' => 'nullable|max:10000',
-            'rating' => 'required|max:1'
+            'rating'  => 'required|max:1'
         ];
     }
 
-    public function messages()
+    public function attributes(): array
     {
-        return [
-            'plus.max' => 'Максимум 2000 символів!',
-            'minus.max' => 'Максимум 2000 символів!',
-            'comment.max' => 'Максимум 10000 символів!',
-            'rating.required' => 'Рейтинг обовязковий!'
-        ];
+        return [];
     }
 }

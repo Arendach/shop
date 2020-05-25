@@ -450,6 +450,16 @@
 
 @stack('modals')
 
+<script>
+    const lang = '{{ config('locale.current') }}'
+    const langPrefix = '{{ config('locale.prefix') }}'
+
+    // todo: write logic + trim path
+    function url(path) {
+        return `/${langPrefix}/${path}`
+    }
+</script>
+<script src="/assets/translates.js"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('catalog/js/main.js') }}"></script>
 <script src="{{ asset('catalog/js/toastr.js') }}"></script>

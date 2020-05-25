@@ -8,33 +8,22 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ReviewDeleteRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize()
     {
-        $review = Review::findOrFail($this->request->get('id'));
+        $review = Review::findOrFail(request('id'));
 
-        return ($review->user_id == customer()->id) || access('products');
+        return $review->customer_id == customer()->id;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
-        return [];
+        return [
+            'id' => 'required'
+        ];
     }
 
-    /**
-     * @throws AuthenticationException
-     */
     protected function failedAuthorization()
     {
-        throw new AuthenticationException(__('products.validation.review_delete_denied'));
+        throw new AuthenticationException(translate('Ви не можете видалити цей відгук'));
     }
 }

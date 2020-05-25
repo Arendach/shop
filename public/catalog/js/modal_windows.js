@@ -1,11 +1,11 @@
-$(document).ready(function() {
+$(document).ready(function () {
     $.validator.addMethod('phoneRule', function (value, element) {
         if (/^[\d]{3}-[\d]{3}-[\d]{2}-[\d]{2}$/.test(value)) {
             return true;
         } else {
             return false;
         }
-    }, 'Неправильный формат телефона');
+    }, translate('Неправильний формат телефону'));
 
     $('.grid_item').popover({
         placement: 'bottom',
@@ -26,35 +26,35 @@ $(document).ready(function() {
                 phoneRule: "wrong format number"
             }
         },
-        errorPlacement: function ( error, element ) {
+        errorPlacement: function (error, element) {
             // Add the `help-block` class to the error element
-            error.addClass( "text-danger" );
+            error.addClass("text-danger");
 
-            if ( element.prop( "type" ) === "checkbox" ) {
-                error.insertAfter( element.parent( "label" ) );
+            if (element.prop("type") === "checkbox") {
+                error.insertAfter(element.parent("label"));
             } else {
-                error.insertAfter( element );
+                error.insertAfter(element);
             }
         },
-        highlight: function ( element, errorClass, validClass ) {
-            $( element ).addClass( "is-invalid" ).removeClass( "has-success" );
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("has-success");
         },
         unhighlight: function (element, errorClass, validClass) {
-            $( element ).addClass( "has-success" ).removeClass( "is-invalid" );
+            $(element).addClass("has-success").removeClass("is-invalid");
         }
     });
 });
 
-$('.click-video').on('click', function(){
+$('.click-video').on('click', function () {
     $('#video_title').html($(this).attr('data-video-title'));
     $('#iframe-video').attr('src', '//www.youtube.com/embed/' + $(this).attr('data-video-id'));
 });
 
-$('.click-one-click-order').on('click', function(){
+$('.click-one-click-order').on('click', function () {
     $('#product_id').val($(this).attr('data-id'));
 });
 
-$('#make-one-click-order').on('click', function(){
+$('#make-one-click-order').on('click', function () {
     if ($("#form-one-click-order").valid()) {
         $.ajax({
             method: 'POST',
@@ -64,8 +64,8 @@ $('#make-one-click-order').on('click', function(){
                 phone: $('#phone-label').val(),
                 id: $('#product_id').val(),
             },
-            success: function(data) {
-                toastr.success('Виконано!', 'Вашее замовленя передано. Менеджер нйближчим часом вам перезвоне!');
+            success: function (data) {
+                toastr.success('Виконано!', 'Вашее замовленя передано. Менеджер нйближчим часом вам перезвонть!');
                 $('#one-click-order-window').modal('hide');
             }
         })
