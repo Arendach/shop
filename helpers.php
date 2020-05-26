@@ -93,9 +93,14 @@ function urlWithLogin(string $route): string
 
 function vAsset($path)
 {
-    $version = Cache::rememberForever('version', function (){
+    $version = Cache::rememberForever('version', function () {
         return \Illuminate\Support\Str::random(6);
     });
 
     return asset("$path") . "?$version";
+}
+
+function setting(string $key, $default = null)
+{
+    return app(\App\Services\SettingsService::class)->get($key, $default);
 }

@@ -7,7 +7,6 @@ use App\Http\Requests\Catalog\Product\ReviewDeleteRequest;
 use App\Http\Requests\Catalog\Product\ReviewUpdateRequest;
 use App\Models\Product;
 use App\Models\Review;
-use Illuminate\Http\Request;
 
 class ProductController extends CatalogController
 {
