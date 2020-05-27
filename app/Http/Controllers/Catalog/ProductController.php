@@ -12,6 +12,8 @@ class ProductController extends CatalogController
 {
     public function view($slug)
     {
+        $reviewTab = (isset($_GET['rev'])) ? true : false;
+        
         $product = Product::with([
             'images',
             'reviews',
@@ -30,7 +32,8 @@ class ProductController extends CatalogController
                 [$product->category->parent->name ?? '', $product->category->parent->url ?? ''],
                 [$product->category->name ?? '', $product->category->url ?? ''],
                 [$product->name]
-            ]
+            ],
+            'reviewTab'        => $reviewTab
         ];
 
         return view('catalog.product.detail', $data);

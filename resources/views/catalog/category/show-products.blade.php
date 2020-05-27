@@ -102,7 +102,9 @@
                                      title="Характеристики"
                                      data-content="{!! $characteristics !!}"
                                 >
-                                    @if($product->is_discounted)
+                                    @if(!$product->on_storage)
+                                        <span class="ribbon off">@translate('Нету в наличии')</span>
+                                    @elseif($product->is_discounted)
                                         <span class="ribbon off">-{{ $product->discount_percent }}%</span>
                                     @elseif($product->is_new)
                                         <span class="ribbon new">@translate('Новинка')</span>
@@ -119,23 +121,28 @@
                                                  class="countdown"></div>
                                         @endif
                                     </figure>
+                                    <a href="{{(!empty($product->rating)) ? route('product.view', $product->id) . '?rev=1' : route('product.leave_review', $product->id)}}">
+                                        {!! htmlspecialchars_decode($product->stars) !!}
+                                        <em>{{ $product->reviews->count() }} @translate('Відгук(ів)')</em>
+                                    </a>
+                                    <br>
                                     <a href="{{ $product->url }}">
                                         <h3>{{ $product->name }}</h3>
                                     </a>
                                     <div class="price_box">
-                                        <span class="new_price">${{ $product->new_price }}</span>
+                                        <span class="new_price">₴ {{ $product->new_price }}</span>
                                         @if($product->is_discounted)
-                                            <span class="old_price">${{ $product->old_price }}</span>
+                                            <span class="old_price">₴ {{ $product->old_price }}</span>
                                         @endif
                                     </div>
                                     <ul>
                                         @if($product->video)
                                             <li class="tooltip-1 li-video" data-toggle="tooltip" data-placement="left" title="Дивитись відео">
-                                                <a class="click-video" href="#0" data-video-id="{{$product->video}}"
+                                                <a class="click-video d-none d-xl-block" href="#0" data-video-id="{{$product->video}}"
                                                    data-video-title="{{$product->name}}"
                                                    data-toggle="modal"
                                                    data-target="#video-window">
-                                                    <i class="ti-control-play"></i>
+                                                    <i class="ti-youtube"></i>
                                                     <span>Дивитись відео</span>
                                                 </a>
                                             </li>
@@ -180,6 +187,20 @@
                                             <!--<span>Add to compare</span>-->
                                         </a>
                                     </li>
+
+                                    @if($product->video)
+                                        <li class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Дивитись відео">
+                                            <a class="click-video d-none d-md-block d-lg-none" href="#0" data-video-id="{{$product->video}}"
+                                               data-video-title="{{$product->name}}"
+                                               data-toggle="modal"
+                                               data-target="#video-window"
+                                               style="color: white; background-color: red;"
+                                            >
+                                                <i class="ti-youtube"></i>
+                                                <!--<span>Дивитись відео</span>-->
+                                            </a>
+                                        </li>
+                                    @endif
                                 </ul>
                             </div>
                         @endforeach
