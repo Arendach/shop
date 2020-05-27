@@ -15,7 +15,8 @@ class Customer extends Model
         'password',
         'first_name',
         'last_name',
-        'locale'
+        'locale',
+        'is_editable'
     ];
 
     public function desire_products()

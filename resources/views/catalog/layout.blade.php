@@ -386,7 +386,7 @@
                             </div>
                         </div>
                         <div class="follow_us">
-                            <h5>@translate('Підпишіться на нас')</h5>
+                            <h5>@editable('Підпишіться на нас')</h5>
                             <ul>
                                 <li>
                                     <a href="https://facebook.com/vozdushno.com.ua">
@@ -464,6 +464,7 @@
 <script src="{{ asset('catalog/js/main.js') }}"></script>
 <script src="{{ asset('catalog/js/toastr.js') }}"></script>
 <script src="{{ asset('js/cart.js') }}"></script>
+@stack('js')
 @yield('js')
 </body>
 </html>

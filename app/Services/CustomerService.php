@@ -41,7 +41,7 @@ class CustomerService
 
     public function userExists(string $login): bool
     {
-        return User::where('phone', $login)
+        return Customer::where('phone', $login)
             ->orWhere('email', $login)
             ->count();
     }
@@ -63,7 +63,7 @@ class CustomerService
     {
         if (!is_null($this->user)) return $this->user;
 
-        $user = User::where('phone', $login)
+        $user = Customer::where('phone', $login)
             ->orWhere('email', $login)
             ->first();
 

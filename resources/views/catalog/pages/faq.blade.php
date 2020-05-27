@@ -24,13 +24,13 @@
                         <div class="card-header">
                             <h5 class="mb-0">
                                 <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse{{ $faq->id }}">
-                                    {{ $faq->question }}
+                                    {!! $faq->editable('question') !!}
                                 </button>
                             </h5>
                         </div>
                         <div id="collapse{{ $faq->id }}" class="collapse {{ !$loop->index ? 'show' : '' }}" data-parent="#accordion">
                             <div class="card-body">
-                                {!! $faq->answer !!}
+                                {!! $faq->editable('answer') !!}
                             </div>
                         </div>
                     </div>

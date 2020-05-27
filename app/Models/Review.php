@@ -46,18 +46,4 @@ class Review extends Model
 
         return $result;
     }
-
-
-    // deprecated
-    public function comments()
-    {
-        return $this->hasMany('App\\Models\\ReviewComment')->with('user');
-    }
-
-    public function delete()
-    {
-        $this->comments()->delete();
-
-        return parent::delete();
-    }
 }

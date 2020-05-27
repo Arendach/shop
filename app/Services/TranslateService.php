@@ -19,7 +19,7 @@ class TranslateService
 
     private function boot()
     {
-        $this->translate = Cache::rememberForever($this->cacheKey, function (){
+        $this->translate = Cache::rememberForever($this->cacheKey, function () {
             return $this->readAll();
         });
     }
@@ -31,6 +31,15 @@ class TranslateService
         }
 
         return $this->translate[$text]->content;
+    }
+
+    public function editable($text): ?string
+    {
+        if (!isset($this->translate[$text])) {
+            $this->translate($text);
+        }
+
+        return $this->translate[$text]->editable('content', true);
     }
 
     private function translate($text)

@@ -49,6 +49,11 @@ Route::get('locale/{locale}', 'Catalog\\MainController@locale')->name('locale');
 Route::get('sitemap.xml', 'Api\SitemapController@show');
 
 /**
+ * Динамічне редагування контенту
+ */
+Route::post('assets/content-editable', 'Catalog\\AssetsController@contentEditable');
+
+/**
  * START LOAD ROUTES
  */
 Route::group([
