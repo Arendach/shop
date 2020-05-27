@@ -16,24 +16,24 @@
                                 <div class="form-group">
                                     <label class="d-block">@translate('Середній рейтинг')</label>
                                 <span class="rating mb-0">
-                                    <input type="radio" class="rating-input" id="5_star" name="rating-input" value="5 Stars"><label for="5_star" class="rating-star"></label>
-                                    <input type="radio" class="rating-input" id="4_star" name="rating-input" value="4 Stars"><label for="4_star" class="rating-star"></label>
-                                    <input type="radio" class="rating-input" id="3_star" name="rating-input" value="3 Stars"><label for="3_star" class="rating-star"></label>
-                                    <input type="radio" class="rating-input" id="2_star" name="rating-input" value="2 Stars"><label for="2_star" class="rating-star"></label>
-                                    <input type="radio" class="rating-input" id="1_star" name="rating-input" value="1 Star"><label for="1_star" class="rating-star"></label>
+                                    <input type="radio" class="rating-input" id="5_star" name="rating-input" value="5"><label for="5_star" class="rating-star"></label>
+                                    <input type="radio" class="rating-input" id="4_star" name="rating-input" value="4"><label for="4_star" class="rating-star"></label>
+                                    <input type="radio" class="rating-input" id="3_star" name="rating-input" value="3"><label for="3_star" class="rating-star"></label>
+                                    <input type="radio" class="rating-input" id="2_star" name="rating-input" value="2"><label for="2_star" class="rating-star"></label>
+                                    <input type="radio" class="rating-input" id="1_star" name="rating-input" value="1"><label for="1_star" class="rating-star"></label>
                                 </span>
                                 </div>
                             </div>
                             <!-- /rating_submit -->
                             <div class="form-group">
                                 <label>@translate('Коротко')</label>
-                                <input class="form-control" placeholder="@translate('Опишіть коротко ваші враження про товар')" name="title">
+                                <input class="form-control" placeholder="@translate('Опишіть коротко ваші враження про товар')" name="title" id="title">
                             </div>
                             <div class="form-group">
                                 <label>@translate('Ваш відгук')</label>
-                                <textarea class="form-control" style="height: 180px;" placeholder="@translate('Опишіть в повній мірі ваші враження про товар')" name="comment"></textarea>
+                                <textarea class="form-control" style="height: 180px;" placeholder="@translate('Опишіть в повній мірі ваші враження про товар')" name="comment" id="comment"></textarea>
                             </div>
-                            <input type="hidden" value="{{ $product->id }}" name="product_id">
+                            <input type="hidden" value="{{ $product->id }}" name="product_id" id="product_id">
                             <a href="#" class="btn_1">
                                 @translate('Залишити відгук')
                             </a>

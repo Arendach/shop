@@ -120,6 +120,12 @@ Route::group(['middleware' => ['loadCategories', 'onlyLogged'], 'prefix' => 'pro
 });
 
 /**
+ * Залишення відгуку товару через метод POST
+ */
+Route::post('product/create-review', 'ProductController@action_create_review')
+    ->name('product.create_review');
+
+/**
  * Пошук товарів по сайту
  */
 Route::get('search', 'SearchController@index')
