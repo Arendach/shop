@@ -17,6 +17,7 @@ class Review extends Model
         'plus',
         'minus',
         'rating',
+        'title',
         'comment'
     ];
 

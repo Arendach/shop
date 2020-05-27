@@ -30,7 +30,7 @@ class CategoryController extends CatalogController
                     'description' => $category->description_uk,
                     'products' => Product::where('category_id', '=', $category->id)->where(function($p) {
                         $p->where('is_new', 1)->orWhere('is_recommended', 1);
-                    })->get(),
+                    })->orderBy('on_storage', 'DESC')->get(),
                 ];
             }
             $data['productsFromCategory'] = $productsFromCategory;

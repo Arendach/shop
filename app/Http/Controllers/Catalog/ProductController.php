@@ -47,7 +47,7 @@ class ProductController extends CatalogController
     {
         Review::create($request->merge([
             'customer_id' => customer()->id,
-        ]));
+        ])->all());
 
         return response()->json([
             'message' => translate('Ваш відгук прийнятий')

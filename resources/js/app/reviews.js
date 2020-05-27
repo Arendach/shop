@@ -29,8 +29,18 @@ $(document).ready(function(){
 
 $('.btn_1').on('click', function(){
     if ($("#review-form").valid()) {
-        alert('Оставление отзыва');
-    } else {
-        alert('Не оставляем отзыв');
+        $.ajax({
+            method: 'POST',
+            url: '/product/create-review',
+            data: {
+                'product_id': $('#product_id').val(),
+                'rating': $('.rating-input').val(),
+                'title': $('#title').val(),
+                'comment': $('#comment').val(),
+            },
+            success: function(data) {
+                toastr.success('Виконано!', data.message);
+            }
+        });
     }
 });

@@ -129,45 +129,8 @@
                                         @endif
                                     </div>
                                     <ul>
-                                        <li>
-                                            <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                               title="Add to favorites">
-                                                <i class="ti-heart"></i>
-                                                <span>Add to favorites</span>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
-                                               title="Add to compare">
-                                                <i class="ti-control-shuffle"></i>
-                                                <span>Add to compare</span>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="javascript:void(0)"
-                                               data-type="cart_attach"
-                                               data-id="{{ $product->id }}"
-                                               @tooltip(translate('Додати в корзину'), 'left')
-                                               class="tooltip-1"
-                                            >
-                                                <i class="ti-shopping-cart"></i>
-                                                <span>@translate('Додати в корзину')</span>
-                                            </a>
-                                        </li>
-
-                                        <li class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Купить в 1 клик">
-                                            <a class="click-one-click-order" href="#0" data-toggle="modal"
-                                               data-target="#one-click-order-window"
-                                               data-id="{{ $product->id }}">
-                                                <i class="ti-location-arrow"></i>
-                                                <span>Купить в 1 клик</span>
-                                            </a>
-                                        </li>
-
                                         @if($product->video)
-                                            <li class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Дивитись відео">
+                                            <li class="tooltip-1 li-video" data-toggle="tooltip" data-placement="left" title="Дивитись відео">
                                                 <a class="click-video" href="#0" data-video-id="{{$product->video}}"
                                                    data-video-title="{{$product->name}}"
                                                    data-toggle="modal"
@@ -179,6 +142,45 @@
                                         @endif
                                     </ul>
                                 </div>
+                                <ul class="grid_item_2">
+                                    <li>
+                                        <a href="javascript:void(0)"
+                                           data-type="cart_attach"
+                                           data-id="{{ $product->id }}"
+                                           @tooltip(translate('Додати в корзину'), 'left')
+                                           class="tooltip-1"
+                                           style="width: 130px; color: white; background-color: green;"
+                                        >
+                                            <i class="ti-shopping-cart"></i>
+                                            <span>@translate('В корзину')</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Купить в 1 клик">
+                                        <a class="click-one-click-order" href="#0" data-toggle="modal"
+                                           data-target="#one-click-order-window"
+                                           data-id="{{ $product->id }}">
+                                            <i class="ti-location-arrow"></i>
+                                            <!--<span>Купить в 1 клик</span>-->
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
+                                           title="Add to favorites">
+                                            <i class="ti-heart"></i>
+                                            <!--<span>Add to favorites</span>-->
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left"
+                                           title="Add to compare">
+                                            <i class="ti-control-shuffle"></i>
+                                            <!--<span>Add to compare</span>-->
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                         @endforeach
                     </div>
