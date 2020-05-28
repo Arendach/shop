@@ -12,6 +12,7 @@ use App\Traits\Models\Translatable;
 use App\Traits\Models\TwoImage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
@@ -109,6 +110,11 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
     public function attributes()
     {
         return $this->hasMany(ProductAttribute::class);
+    }
+
+    public function tags(): HasMany
+    {
+        return $this->hasMany(ProductTag::class);
     }
 
     public function getNewPriceAttribute()

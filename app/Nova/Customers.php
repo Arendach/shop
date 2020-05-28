@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Select;
@@ -34,7 +35,8 @@ class Customers extends Resource
                 ID::make()->sortable(),
                 Text::make(translate('Електронна пошта'), 'email'),
                 Text::make(translate('Номер телефону'), 'phone'),
-                Password::make(translate('Пароль'), 'password')
+                Password::make(translate('Пароль'), 'password'),
+                Boolean::make('Можливість редагувати контент', 'is_editable')->hideFromIndex()
             ]),
 
             new Panel(translate(''), [
@@ -50,25 +52,5 @@ class Customers extends Resource
                 ])->hideFromIndex()
             ])
         ];
-    }
-
-    public function cards(Request $request)
-    {
-        return [];
-    }
-
-    public function filters(Request $request)
-    {
-        return [];
-    }
-
-    public function lenses(Request $request)
-    {
-        return [];
-    }
-
-    public function actions(Request $request)
-    {
-        return [];
     }
 }

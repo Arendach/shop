@@ -189,6 +189,7 @@ return [
         Jenssegers\Agent\AgentServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        \Appstract\BladeDirectives\BladeDirectivesServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Catalog;
 
+use App\Http\Requests\Catalog\Assets\ContentEditableRequest;
 use App\Models\Translate;
 use Illuminate\Http\Request;
 use Cache;
@@ -28,5 +29,14 @@ class AssetsController extends CatalogController
         return response()->json([
             'result' => translate($request->text)
         ]);
+    }
+
+    public function contentEditable(ContentEditableRequest $request)
+    {
+        $request->model::findOrFail($request->id)->update([
+            $request->field => $request->value
+        ]);
+
+        artisan('cache:clear');
     }
 }

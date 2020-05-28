@@ -2,7 +2,6 @@
 
 namespace App\Rules;
 
-use App\Models\User;
 use App\Services\CustomerService;
 use Illuminate\Contracts\Validation\Rule;
 use Request;

@@ -85,7 +85,7 @@
                             <em>{{ $product->reviews->count() }} @translate('Відгук(ів)')</em>
                         </span>
 
-                        <div style="margin-bottom: 10px;">
+                        <div style="margin-bottom: 10px; cursor: pointer;" onclick="$('.nav-tabs a[href=' + '\'#pane-C' + '\']').tab('show');">
                             <span class="pull-left truck">
                                 <i class="ti-truck"></i>
                             </span>
@@ -96,7 +96,7 @@
                             <div style="clear:both;"></div>
                         </div>
 
-                        <div>
+                        <div style="cursor: pointer;" onclick="$('.nav-tabs a[href=' + '\'#pane-C' + '\']').tab('show');">
                             <span class="pull-left truck">
                                 <i class="ti-truck"></i>
                             </span>
@@ -111,6 +111,8 @@
                             <small>@translate('Артикул'): {{ $product->article }}</small>
                         </p>
                         <div class="prod_options">
+                            @php //echo var_dump($product->attributes) @endphp
+                            <!--
                             @if(false)
                                 <div class="row">
                                     <label class="col-xl-5 col-lg-5 col-md-6 col-6">
@@ -131,6 +133,31 @@
                                     </div>
                                 </div>
                             @endif
+                            -->
+                            @foreach($product->attributes as $attribute)
+                                    <div class="row" style="margin-bottom: 10px;">
+                                        <label class="col-xl-5 col-lg-5 col-md-6 col-6">
+                                            {{$attribute->attribute->name}}
+                                            <a href="#0" data-toggle="modal" data-target="#size-modal">
+                                                <i class="ti-help-alt"></i>
+                                            </a>
+                                        </label>
+                                        <div class="col-xl-4 col-lg-5 col-md-6 col-6">
+                                            <div class="custom-select-form">
+                                                @php
+                                                    $values = json_decode($attribute->attribute->variants, true);
+                                                    echo var_dump($values);
+                                                @endphp
+                                                <select class="wide">
+                                                    <option value="" selected>Small (S)</option>
+                                                    <option value="">M</option>
+                                                    <option value=" ">L</option>
+                                                    <option value=" ">XL</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                            @endforeach
                             <div class="row">
                                 <label class="col-xl-5 col-lg-5  col-md-6 col-6"><strong>@translate('Кількість')</strong></label>
                                 <div class="col-xl-4 col-lg-5 col-md-6 col-6">
@@ -143,10 +170,10 @@
                         <div class="row">
                             <div class="col-lg-5 col-md-6">
                                 <div class="price_main">
-                                    <span class="new_price">{{ $product->new_price }}</span>
+                                    <span class="new_price">₴ {{ $product->new_price }}</span>
                                     @if($product->is_discounted)
                                         <span class="percentage">-{{ $product->discount_percentage }}%</span>
-                                        <span class="old_price">{{ $product->old_price }}</span>
+                                        <span class="old_price">₴ {{ $product->old_price }}</span>
                                     @endif
                                 </div>
                             </div>
@@ -360,31 +387,31 @@
             <div class="container">
                 <ul>
                     <li>
-                        <div class="box">
+                        <a href="#" class="box">
                             <i class="ti-gift"></i>
                             <div class="justify-content-center">
                                 <h3>@translate('Безкоштовна доставка')</h3>
                                 <p>@translate('Від 100 грн')</p>
                             </div>
-                        </div>
+                        </a>
                     </li>
                     <li>
-                        <div class="box">
+                        <a href="#" class="box">
                             <i class="ti-wallet"></i>
                             <div class="justify-content-center">
                                 <h3>@translate('Захищені платежі')</h3>
                                 <p>@translate('100% захисту ваших платежів')</p>
                             </div>
-                        </div>
+                        </a>
                     </li>
                     <li>
-                        <div class="box">
+                        <a href="#" class="box">
                             <i class="ti-headphone-alt"></i>
                             <div class="justify-content-center">
                                 <h3>@translate('24/7 Підтримка')</h3>
                                 <p>@translate('Онлайн підтримка')</p>
                             </div>
-                        </div>
+                        </a>
                     </li>
                 </ul>
             </div>
