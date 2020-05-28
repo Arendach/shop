@@ -190,7 +190,7 @@
 
                                     @if($product->video)
                                         <li class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Дивитись відео">
-                                            <a class="click-video d-none d-md-block d-lg-none" href="#0" data-video-id="{{$product->video}}"
+                                            <a class="click-video d-md-block d-lg-none" href="#0" data-video-id="{{$product->video}}"
                                                data-video-title="{{$product->name}}"
                                                data-toggle="modal"
                                                data-target="#video-window"
