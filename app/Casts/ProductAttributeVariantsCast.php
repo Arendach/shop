@@ -18,7 +18,7 @@ class ProductAttributeVariantsCast implements CastsAttributes
 
         $result = [];
         foreach ($variants as $variant) {
-            $result[] = $variant->{"value_" . config('locale.current')};
+            $result[] = $variant->{"value_" . config('locale.current')} ?? '';
         }
 
         return $result;

@@ -89,6 +89,20 @@
                         </p>
                         <div class="prod_options">
                             @if(false)
+
+                                @foreach($product->attributes as $attribute)
+                                    <div>
+                                        <label>{{ $attribute->attribute->name }}</label>
+                                        <select name="attributes[{{ $attribute->id }}][]">
+                                            @foreach($attribute->variants as $variant)
+                                                <option value="{{ $variant }}">
+                                                    {{ $variant }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endforeach
+
                                 <div class="row">
                                     <label class="col-xl-5 col-lg-5 col-md-6 col-6">
                                         <strong>Size</strong> - Size Guide
@@ -168,11 +182,13 @@
             <div class="container">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                        <a id="tab-A" href="#pane-A" class="nav-link @php echo !$reviewTab ? 'active' : '' @endphp" data-toggle="tab"
+                        <a id="tab-A" href="#pane-A" class="nav-link @php echo !$reviewTab ? 'active' : '' @endphp"
+                           data-toggle="tab"
                            role="tab">@translate('Опис')</a>
                     </li>
                     <li class="nav-item">
-                        <a id="tab-B" href="#pane-B" class="nav-link @php echo $reviewTab ? 'active' : '' @endphp" data-toggle="tab"
+                        <a id="tab-B" href="#pane-B" class="nav-link @php echo $reviewTab ? 'active' : '' @endphp"
+                           data-toggle="tab"
                            role="tab">@translate('Відгуки')</a>
                     </li>
                 </ul>
@@ -183,7 +199,8 @@
             <div class="container">
                 <div class="tab-content" role="tablist">
                     @if($product->description || $product->characteristics->count())
-                        <div id="pane-A" class="card tab-pane fade @php echo !$reviewTab ? 'active show' : '' @endphp" role="tabpanel" aria-labelledby="tab-A">
+                        <div id="pane-A" class="card tab-pane fade @php echo !$reviewTab ? 'active show' : '' @endphp"
+                             role="tabpanel" aria-labelledby="tab-A">
                             <div class="card-header" role="tab" id="heading-A">
                                 <h5 class="mb-0">
                                     <a class="collapsed" data-toggle="collapse" href="#collapse-A" aria-expanded="false"
@@ -236,7 +253,8 @@
                         </div>
                 @endif
                 <!-- /TAB A -->
-                    <div id="pane-B" class="card tab-pane fade @php echo $reviewTab ? 'active show' : '' @endphp" role="tabpanel" aria-labelledby="tab-B">
+                    <div id="pane-B" class="card tab-pane fade @php echo $reviewTab ? 'active show' : '' @endphp"
+                         role="tabpanel" aria-labelledby="tab-B">
                         <div class="card-header" role="tab" id="heading-B">
                             <h5 class="mb-0">
                                 <a class="collapsed" data-toggle="collapse" href="#collapse-B" aria-expanded="false"

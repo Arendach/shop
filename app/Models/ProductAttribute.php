@@ -17,29 +17,8 @@ class ProductAttribute extends Model
         'variants' => ProductAttributeVariantsCast::class
     ];
 
-//    public function getVariantsAttribute($variants)
-//    {
-//        /**
-//         * [
-//         *     [value_uk => 1, value_ru => 1],
-//         *     [value_uk => test, value_ru => test],
-//         * ]
-//         */
-//        $variants = json_decode($variants);
-//
-//        $result = [];
-//        foreach ($variants as $variant) {
-//            $result[] = $variant->{"value_" . config('app.locale')};
-//        }
-//
-//        /**
-//         * [1, test]
-//         */
-//        return $result;
-//    }
-
     public function attribute()
     {
-        return $this->belongsTo('App\Models\Attribute', 'attribute_id', 'id');
+        return $this->belongsTo(Attribute::class);
     }
 }
