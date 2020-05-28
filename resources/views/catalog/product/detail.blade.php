@@ -84,6 +84,29 @@
                             {!! $product->stars !!}
                             <em>{{ $product->reviews->count() }} @translate('Відгук(ів)')</em>
                         </span>
+
+                        <div style="margin-bottom: 10px;">
+                            <span class="pull-left truck">
+                                <i class="ti-truck"></i>
+                            </span>
+                            <div>
+                                <span class="h4">Доставка по Киеву</span>
+                                <div class="text-muted">{{@setting('delivery_in_kyiv', 'Доставка по Киеву - 1-3 часа')}}</div>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+
+                        <div>
+                            <span class="pull-left truck">
+                                <i class="ti-truck"></i>
+                            </span>
+                            <div>
+                                <span class="h4">Доставка по Украине</span>
+                                <div class="text-muted">{{@setting('delivery_in_ukraine', 'Отправим сегодня')}}</div>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+
                         <p>
                             <small>@translate('Артикул'): {{ $product->article }}</small>
                         </p>
@@ -158,6 +181,16 @@
                                     </span>
                                 </a>
                             </li>
+                            <li>
+                                <a class="click-one-click-order" href="#0" data-toggle="modal"
+                                   data-target="#one-click-order-window"
+                                   data-id="{{ $product->id }}">
+                                    <i class="ti-hand-point-up"></i>
+                                    <span>
+                                        @translate('Швидке замовлення')
+                                    </span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -174,6 +207,10 @@
                     <li class="nav-item">
                         <a id="tab-B" href="#pane-B" class="nav-link @php echo $reviewTab ? 'active' : '' @endphp" data-toggle="tab"
                            role="tab">@translate('Відгуки')</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="tab-C" href="#pane-C" class="nav-link" data-toggle="tab"
+                           role="tab">@translate('Доставка та оплата')</a>
                     </li>
                 </ul>
             </div>
@@ -234,55 +271,72 @@
                                 </div>
                             </div>
                         </div>
-                @endif
-                <!-- /TAB A -->
-                    <div id="pane-B" class="card tab-pane fade @php echo $reviewTab ? 'active show' : '' @endphp" role="tabpanel" aria-labelledby="tab-B">
-                        <div class="card-header" role="tab" id="heading-B">
-                            <h5 class="mb-0">
-                                <a class="collapsed" data-toggle="collapse" href="#collapse-B" aria-expanded="false"
-                                   aria-controls="collapse-B">
-                                    @translate('Відгуки')
-                                </a>
-                            </h5>
-                        </div>
-                        <div id="collapse-B" class="collapse" role="tabpanel" aria-labelledby="heading-B">
-                            <div class="card-body">
-                                @forelse($product->reviews->chunk(2) as $reviewsChunk)
-                                    <div class="row justify-content-between">
-                                        @foreach($reviewsChunk as $review)
-                                            <div class="col-lg-6">
-                                                <div class="review_content">
-                                                    <div class="clearfix add_bottom_10">
-                                                        <span class="rating">
-                                                            {!! $review->stars !!}
-                                                            <em>{{ $review->rating }}/5</em>
-                                                        </span>
-                                                        <em>@translate('Опубліковано') {{ $review->created_at->diffForHumans() }}</em>
-                                                    </div>
-                                                    <h4>"{{ $review->customer->first_name }}"</h4>
-                                                    <p>{{ $review->comment }}</p>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                @empty
-                                    <div class="row justify-content-center">
-                                        <div class="col-12">
-                                            <h3 style="text-align: center" class="mt-5 mb-5">
-                                                @translate('Для даного товару немає відгуків')
-                                            </h3>
-                                        </div>
-                                    </div>
-                                @endforelse
-
-                                <p class="text-right">
-                                    <a href="{{ route('product.leave_review', $product->id) }}" class="btn_1">
-                                        @translate('Залишити відгук')
+                    @endif
+                        <!-- /TAB A -->
+                        <div id="pane-B" class="card tab-pane fade @php echo $reviewTab ? 'active show' : '' @endphp" role="tabpanel" aria-labelledby="tab-B">
+                            <div class="card-header" role="tab" id="heading-B">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#collapse-B" aria-expanded="false"
+                                       aria-controls="collapse-B">
+                                        @translate('Відгуки')
                                     </a>
-                                </p>
+                                </h5>
+                            </div>
+                            <div id="collapse-B" class="collapse" role="tabpanel" aria-labelledby="heading-B">
+                                <div class="card-body">
+                                    @forelse($product->reviews->chunk(2) as $reviewsChunk)
+                                        <div class="row justify-content-between">
+                                            @foreach($reviewsChunk as $review)
+                                                <div class="col-lg-6">
+                                                    <div class="review_content">
+                                                        <div class="clearfix add_bottom_10">
+                                                            <span class="rating">
+                                                                {!! $review->stars !!}
+                                                                <em>{{ $review->rating }}/5</em>
+                                                            </span>
+                                                            <em>@translate('Опубліковано') {{ $review->created_at->diffForHumans() }}</em>
+                                                        </div>
+                                                        <h4>"{{ $review->customer->first_name }}"</h4>
+                                                        <p>{{ $review->comment }}</p>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @empty
+                                        <div class="row justify-content-center">
+                                            <div class="col-12">
+                                                <h3 style="text-align: center" class="mt-5 mb-5">
+                                                    @translate('Для даного товару немає відгуків')
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    @endforelse
+
+                                    <p class="text-right">
+                                        <a href="{{ route('product.leave_review', $product->id) }}" class="btn_1">
+                                            @translate('Залишити відгук')
+                                        </a>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div id="pane-C" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-С">
+                            <div class="card-header" role="tab" id="heading-С">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#collapse-С" aria-expanded="false"
+                                       aria-controls="collapse-С">
+                                        @translate('Доставка та оплата')
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="collapse-С" class="collapse" role="tabpanel" aria-labelledby="heading-С">
+                                <div class="card-body">
+                                    <div class="row justify-content-between">
+                                        @translate('Доставка та оплата')
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -340,8 +394,10 @@
 
 @push('modals')
     @include('catalog.parts.big-cart')
+    @include('catalog.parts.one-click-order-window')
 @endpush
 
 @section('js')
     <script src="{{ vAsset('catalog/js/carousel_with_thumbs.js') }}"></script>
+    <script src="{{ asset('catalog/js/modal_windows.js') }}"></script>
 @endsection
