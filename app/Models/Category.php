@@ -125,6 +125,8 @@ class Category extends Model implements Sortable, TwoImageInterface
 
         $products = Product::where('category_id', $category_id)
             ->with('characteristics')
+            ->with('characteristics.characteristic')
+            ->withCount('reviews')
             ->orderBy('on_storage', 'desc');
 
         if (!$request->has('order'))

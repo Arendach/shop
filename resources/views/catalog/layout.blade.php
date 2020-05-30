@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="{{ asset('catalog/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('catalog/css/bootstrap.custom.min.css') }}">
     <link rel="stylesheet" href="{{ asset('catalog/css/app.css') }}">
+    <link href="{{ asset('catalog/css/listing.css') }}" rel="stylesheet">
 
     <!-- SPECIFIC CSS -->
 @yield('css')
@@ -498,6 +499,7 @@
 <script src="{{ asset('catalog/js/main.js') }}"></script>
 <script src="{{ asset('catalog/js/toastr.js') }}"></script>
 <script src="{{ asset('js/cart.js') }}"></script>
+<script src="{{ asset('catalog/js/modal_windows.js') }}"></script>
 @stack('js')
 @yield('js')
 <script>

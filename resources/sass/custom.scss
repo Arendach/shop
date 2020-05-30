@@ -2,7 +2,22 @@
 @import "~@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.css";
 
 .desire-attached {
-  color: blue !important;
+  color: #004085 !important;
+  background-color: #cce5ff !important;
+}
+
+.cart-button {
+  background-color: #45a259 !important;
+  color: #fff !important;
+  width: 130px !important;
+}
+
+.icon-star {
+  color: #000;
+}
+
+.icon-star.voted {
+  color: #f19e07;
 }
 
 .youtube {
