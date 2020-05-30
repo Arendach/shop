@@ -447,6 +447,40 @@
 </div>
 
 <div id="toTop"></div>
+<div id="feedbacks">
+    <div id="feedback-contacts">
+        <div class="feedback-item telegram-feedback">
+            <a href="https://t.me/{{@setting('feedback_telegram', '#')}}" target="_blank">
+                <i class="ti-comments"></i>
+            </a>
+        </div>
+        <div class="feedback-item whatsapp-feedback">
+            <a href="https://wa.me/{{@setting('feedback_whatsapp', '#')}}" target="_blank">
+                <i class="ti-comments"></i>
+            </a>
+        </div>
+        <div class="feedback-item viber-feedback">
+            <a href="viber://chat?number={{@setting('feedback_viber', '#')}}" target="_blank">
+                <i class="ti-comments"></i>
+            </a>
+        </div>
+        <div class="feedback-item phone-feedback">
+            <a href="tel:{{@setting('feedback_phone', '#')}}" target="_blank">
+                <i class="ti-comments"></i>
+            </a>
+        </div>
+        <div class="feedback-item email-feedback">
+            <a href="mailto:{{@setting('feedback_email', '#')}}" target="_blank">
+                <i class="ti-comments"></i>
+            </a>
+        </div>
+    </div>
+    <div class="feedback-item menu-feedback">
+        <a data-toggle="collapse" href="#feedback-contacts" role="button" aria-expanded="false" aria-controls="feedback-contacts" >
+            <i class="ti-comments"></i>
+        </a>
+    </div>
+</div>
 
 @stack('modals')
 
@@ -466,5 +500,10 @@
 <script src="{{ asset('js/cart.js') }}"></script>
 @stack('js')
 @yield('js')
+<script>
+    $('.menu-feedback a').on('click', function(){
+        $('#feedback-contacts').fadeToggle();
+    });
+</script>
 </body>
 </html>

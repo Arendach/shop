@@ -29,7 +29,9 @@
                                 @endif
 
                                 @foreach($product->images as $image)
-                                    <div style="background-image: url({{ $image->big_image }});" class="item-box"></div>
+                                    <div class="item-box">
+                                        <img src="{{ $image->big_image }}">
+                                    </div>
                                 @endforeach
                             </div>
                             @if($product->images->count() >= 2 || !is_null($product->video) && $product->images->count() >= 1)
@@ -96,7 +98,7 @@
                             <div style="clear:both;"></div>
                         </div>
 
-                        <div style="cursor: pointer;" onclick="$('.nav-tabs a[href=' + '\'#pane-C' + '\']').tab('show');">
+                        <div style="margin-bottom: 10px; cursor: pointer;" onclick="$('.nav-tabs a[href=' + '\'#pane-C' + '\']').tab('show');">
                             <span class="pull-left truck">
                                 <i class="ti-truck"></i>
                             </span>
@@ -111,53 +113,27 @@
                             <small>@translate('Артикул'): {{ $product->article }}</small>
                         </p>
                         <div class="prod_options">
-                            @php //echo var_dump($product->attributes) @endphp
-                            <!--
-                            @if(false)
-                                <div class="row">
-                                    <label class="col-xl-5 col-lg-5 col-md-6 col-6">
-                                        <strong>Size</strong> - Size Guide
-                                        <a href="#0" data-toggle="modal" data-target="#size-modal">
-                                            <i class="ti-help-alt"></i>
-                                        </a>
-                                    </label>
-                                    <div class="col-xl-4 col-lg-5 col-md-6 col-6">
-                                        <div class="custom-select-form">
-                                            <select class="wide">
-                                                <option value="" selected>Small (S)</option>
-                                                <option value="">M</option>
-                                                <option value=" ">L</option>
-                                                <option value=" ">XL</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                            -->
-                            @foreach($product->attributes as $attribute)
+                                @foreach($product->attributes as $attribute)
                                     <div class="row" style="margin-bottom: 10px;">
                                         <label class="col-xl-5 col-lg-5 col-md-6 col-6">
-                                            {{$attribute->attribute->name}}
+                                            {{ $attribute->attribute->name }}
                                             <a href="#0" data-toggle="modal" data-target="#size-modal">
                                                 <i class="ti-help-alt"></i>
                                             </a>
                                         </label>
                                         <div class="col-xl-4 col-lg-5 col-md-6 col-6">
                                             <div class="custom-select-form">
-                                                @php
-                                                    $values = json_decode($attribute->attribute->variants, true);
-                                                    echo var_dump($values);
-                                                @endphp
-                                                <select class="wide">
-                                                    <option value="" selected>Small (S)</option>
-                                                    <option value="">M</option>
-                                                    <option value=" ">L</option>
-                                                    <option value=" ">XL</option>
+                                                <select class="wide" name="attributes[{{ $attribute->id }}][]">
+                                                    @foreach($attribute->variants as $variant)
+                                                        <option value="{{ $variant }}">
+                                                            {{ $variant }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
-                            @endforeach
+                                @endforeach
                             <div class="row">
                                 <label class="col-xl-5 col-lg-5  col-md-6 col-6"><strong>@translate('Кількість')</strong></label>
                                 <div class="col-xl-4 col-lg-5 col-md-6 col-6">
@@ -228,11 +204,13 @@
             <div class="container">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                        <a id="tab-A" href="#pane-A" class="nav-link @php echo !$reviewTab ? 'active' : '' @endphp" data-toggle="tab"
+                        <a id="tab-A" href="#pane-A" class="nav-link @php echo !$reviewTab ? 'active' : '' @endphp"
+                           data-toggle="tab"
                            role="tab">@translate('Опис')</a>
                     </li>
                     <li class="nav-item">
-                        <a id="tab-B" href="#pane-B" class="nav-link @php echo $reviewTab ? 'active' : '' @endphp" data-toggle="tab"
+                        <a id="tab-B" href="#pane-B" class="nav-link @php echo $reviewTab ? 'active' : '' @endphp"
+                           data-toggle="tab"
                            role="tab">@translate('Відгуки')</a>
                     </li>
                     <li class="nav-item">
@@ -247,7 +225,8 @@
             <div class="container">
                 <div class="tab-content" role="tablist">
                     @if($product->description || $product->characteristics->count())
-                        <div id="pane-A" class="card tab-pane fade @php echo !$reviewTab ? 'active show' : '' @endphp" role="tabpanel" aria-labelledby="tab-A">
+                        <div id="pane-A" class="card tab-pane fade @php echo !$reviewTab ? 'active show' : '' @endphp"
+                             role="tabpanel" aria-labelledby="tab-A">
                             <div class="card-header" role="tab" id="heading-A">
                                 <h5 class="mb-0">
                                     <a class="collapsed" data-toggle="collapse" href="#collapse-A" aria-expanded="false"
@@ -367,6 +346,20 @@
                 </div>
             </div>
         </div>
+
+        @if($product->tags->count())
+            <div class="container margin_30">
+                <p>Теги:
+                    @php
+                        $linksTag = [];
+                        foreach($product->tags as $tag) {
+                            $linksTag[] = '<a href="' . route('search', ['tags' => $tag->title]) .'">' . $tag->title .'</a>';
+                        }
+                        echo implode(', ', $linksTag);
+                    @endphp
+                </p>
+            </div>
+        @endif
 
         @if($product->related->count())
             <div class="container margin_60_35">
