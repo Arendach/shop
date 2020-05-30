@@ -167,7 +167,7 @@
                                         <a class="click-one-click-order" href="#0" data-toggle="modal"
                                            data-target="#one-click-order-window"
                                            data-id="{{ $product->id }}">
-                                            <i class="ti-location-arrow"></i>
+                                            <i class="ti-hand-point-up"></i>
                                             <!--<span>Купить в 1 клик</span>-->
                                         </a>
                                     </li>
@@ -224,7 +224,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="modal-title" id="video_title">Payments Methods</h6>
+                <h6 class="modal-title" id="video_title"></h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -238,35 +238,7 @@
     </div>
 </div>
 
-<!-- Modal One click order-->
-<div class="modal fade" id="one-click-order-window" tabindex="-1" role="dialog" aria-labelledby="one-click-order-title" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h6 class="modal-title" id="one-click-order-title">Замовлення в 1 клік</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="form-one-click-order">
-                    <div class="form-group">
-                        <label for="name-label">Имя</label>
-                        <input type="text" class="form-control" id="name-label" name="name">
-                    </div>
-                    <div class="form-group">
-                        <label for="phone-label">Телефон</label>
-                        <input type="text" class="form-control" id="phone-label" name="phone" placeholder="050-111-11-11">
-                    </div>
-                    <input type="hidden" value="0" name="product_id" id="product_id">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="make-one-click-order">Замовити</button>
-            </div>
-        </div>
-    </div>
-</div>
+@include('catalog.parts.one-click-order-window')
 @endpush
 
 @section('js')
