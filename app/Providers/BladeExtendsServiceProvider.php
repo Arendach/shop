@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Directives\AdminDirective;
 use App\Directives\CheckedDirective;
 use App\Directives\DisabledDirective;
+use App\Directives\DisplayIfDirective;
 use App\Directives\EditableDirective;
 use App\Directives\SelectedDirective;
 use App\Directives\TooltipDirective;
@@ -21,6 +22,7 @@ class BladeExtendsServiceProvider extends ServiceProvider
         SelectedDirective::class,
         DisabledDirective::class,
         EditableDirective::class,
+        DisplayIfDirective::class
     ];
 
     public function register()

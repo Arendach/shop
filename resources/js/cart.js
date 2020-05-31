@@ -63,3 +63,16 @@ $(document).on('click', '[data-type="cart_page_detach"]', function () {
 $(document).on('input', '[data-type="cart_change_amount"]', function () {
     alert(2)
 })
+
+$(document).on('click', '[data-type="switchDesire"]', function (event) {
+    event.preventDefault()
+
+    let id = $(this).data('id')
+    let button = $(this)
+
+    axios.post('/catalog/desire/switch', {id}).then(function (response) {
+        button.toggleClass('desire-attached')
+    }).catch(function (response) {
+        console.error(response)
+    })
+})
