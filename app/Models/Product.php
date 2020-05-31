@@ -7,6 +7,7 @@ use App\Abstraction\Models\TwoImageInterface;
 use App\Casts\ProductDescriptionCast;
 use App\Casts\ProductName;
 use App\Casts\ProductTranslatableTemplateCast;
+use App\Traits\Models\Editable;
 use App\Traits\Models\SeoMultiLang;
 use App\Traits\Models\Translatable;
 use App\Traits\Models\TwoImage;
@@ -19,6 +20,7 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
 {
     use SeoMultiLang;
     use TwoImage;
+    use Editable;
 
     public $fillable = [
         'article',

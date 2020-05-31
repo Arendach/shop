@@ -104,3 +104,8 @@ function setting(string $key, $default = null)
 {
     return app(\App\Services\SettingsService::class)->get($key, $default);
 }
+
+function settingEditable(string $key, $default = null)
+{
+    return app(\App\Services\SettingsService::class)->getEditable($key, $default);
+}

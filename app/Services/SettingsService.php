@@ -24,6 +24,23 @@ class SettingsService
         return $record->value;
     }
 
+    public function getEditable(string $key, $default = null)
+    {
+        $settings = Cache::rememberForever('settings', function () {
+            return Setting::all();
+        });
+
+        $record = $settings->where('key', $key)->first();
+
+        if (!$record) {
+            $this->save($key, $default);
+
+            return $default;
+        }
+
+        return $record->editable('value');
+    }
+
     private function save($key, $default = null)
     {
         Setting::create([

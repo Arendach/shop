@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\Models\Editable;
 use Illuminate\Database\Eloquent\Model;
 
 class Setting extends Model
 {
+    use Editable;
+
     public $timestamps = false;
     protected $guarded = [];
 

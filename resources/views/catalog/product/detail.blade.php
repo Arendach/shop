@@ -5,10 +5,11 @@
 @endsection
 
 @section('content')
+    @php /** @var \App\Models\Product $product*/ @endphp
     <main>
         <div class="container margin_30">
             @if($product->is_discounted)
-                <div class="countdown_inner">-{{ $product->discount_percent }}% @translate('Ця знижка закічиться через')
+                <div class="countdown_inner">-{{ $product->discount_percent }}% @editable('Ця знижка закічиться через')
                     <div data-countdown="{{ date('Y/m/d', time() + 3600 * 24 *3) }}" class="countdown"></div>
                 </div>
             @endif
@@ -84,58 +85,64 @@
                         <h1>{{ $product->name }}</h1>
                         <span class="rating">
                             {!! $product->stars !!}
-                            <em>{{ $product->reviews->count() }} @translate('Відгук(ів)')</em>
+                            <em>{{ $product->reviews->count() }} @editable('Відгук(ів)')</em>
                         </span>
 
-                        <div style="margin-bottom: 10px; cursor: pointer;" onclick="$('.nav-tabs a[href=' + '\'#pane-C' + '\']').tab('show');">
+                        <div style="margin-bottom: 10px; cursor: pointer;"
+                             onclick="$('.nav-tabs a[href=' + '\'#pane-C' + '\']').tab('show');">
                             <span class="pull-left truck">
                                 <i class="ti-truck"></i>
                             </span>
                             <div>
-                                <span class="h4">Доставка по Киеву</span>
-                                <div class="text-muted">{{@setting('delivery_in_kyiv', 'Доставка по Киеву - 1-3 часа')}}</div>
+                                <span class="h4">@editable('Доставка по Києву')</span>
+                                <div class="text-muted">{!! settingEditable('delivery_in_kyiv', 'Доставка по Києву - 1-3 години') !!}</div>
                             </div>
                             <div style="clear:both;"></div>
                         </div>
 
-                        <div style="margin-bottom: 10px; cursor: pointer;" onclick="$('.nav-tabs a[href=' + '\'#pane-C' + '\']').tab('show');">
+                        <div style="margin-bottom: 10px; cursor: pointer;"
+                             onclick="$('.nav-tabs a[href=' + '\'#pane-C' + '\']').tab('show');">
                             <span class="pull-left truck">
                                 <i class="ti-truck"></i>
                             </span>
                             <div>
-                                <span class="h4">Доставка по Украине</span>
-                                <div class="text-muted">{{@setting('delivery_in_ukraine', 'Отправим сегодня')}}</div>
+                                <span class="h4">@editable('Доставка по Україні')</span>
+                                <div class="text-muted">{!! settingEditable('delivery_in_ukraine', 'Відправимо сьогодні') !!}</div>
                             </div>
                             <div style="clear:both;"></div>
                         </div>
 
                         <p>
-                            <small>@translate('Артикул'): {{ $product->article }}</small>
+                            <small>@editable('Артикул'): {!! $product->editable('article', false) !!}</small>
                         </p>
                         <div class="prod_options">
-                                @foreach($product->attributes as $attribute)
-                                    <div class="row" style="margin-bottom: 10px;">
-                                        <label class="col-xl-5 col-lg-5 col-md-6 col-6">
-                                            {{ $attribute->attribute->name }}
-                                            <a href="#0" data-toggle="modal" data-target="#size-modal">
-                                                <i class="ti-help-alt"></i>
-                                            </a>
-                                        </label>
-                                        <div class="col-xl-4 col-lg-5 col-md-6 col-6">
-                                            <div class="custom-select-form">
-                                                <select class="wide" name="attributes[{{ $attribute->id }}][]">
-                                                    @foreach($attribute->variants as $variant)
-                                                        <option value="{{ $variant }}">
-                                                            {{ $variant }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                            @foreach($product->attributes as $attribute)
+                                <div class="row" style="margin-bottom: 10px;">
+                                    <label class="col-xl-5 col-lg-5 col-md-6 col-6">
+                                        {{ $attribute->attribute->name }}
+                                        <a href="#0" data-toggle="modal" data-target="#size-modal">
+                                            <i class="ti-help-alt"></i>
+                                        </a>
+                                    </label>
+                                    <div class="col-xl-4 col-lg-5 col-md-6 col-6">
+                                        <div class="custom-select-form">
+                                            <select class="wide" name="attributes[{{ $attribute->id }}][]">
+                                                @foreach($attribute->variants as $variant)
+                                                    <option value="{{ $variant }}">
+                                                        {{ $variant }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
-                                @endforeach
+                                </div>
+                            @endforeach
                             <div class="row">
-                                <label class="col-xl-5 col-lg-5  col-md-6 col-6"><strong>@translate('Кількість')</strong></label>
+                                <label class="col-xl-5 col-lg-5  col-md-6 col-6">
+                                    <strong>
+                                        @editable('Кількість')
+                                    </strong>
+                                </label>
                                 <div class="col-xl-4 col-lg-5 col-md-6 col-6">
                                     <div class="numbers-row">
                                         <input type="text" value="1" id="quantity" class="qty2" name="quantity">
@@ -160,7 +167,7 @@
                                      data-dont-show-taastr="1"
                                 >
                                     <a href="#0" class="btn_1">
-                                        @translate('В корзину')
+                                        @editable('В корзину')
                                     </a>
                                 </div>
                             </div>
@@ -172,7 +179,7 @@
                                 <a href="#">
                                     <i class="ti-heart"></i>
                                     <span>
-                                        @translate('Додати в бажане')
+                                        @editable('Додати в бажане')
                                     </span>
                                 </a>
                             </li>
@@ -180,7 +187,7 @@
                                 <a href="#">
                                     <i class="ti-control-shuffle"></i>
                                     <span>
-                                        @translate('Додати до порівняння')
+                                        @editable('Додати до порівняння')
                                     </span>
                                 </a>
                             </li>
@@ -190,7 +197,7 @@
                                    data-id="{{ $product->id }}">
                                     <i class="ti-hand-point-up"></i>
                                     <span>
-                                        @translate('Швидке замовлення')
+                                        @editable('Швидке замовлення')
                                     </span>
                                 </a>
                             </li>
@@ -204,18 +211,21 @@
             <div class="container">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                        <a id="tab-A" href="#pane-A" class="nav-link @php echo !$reviewTab ? 'active' : '' @endphp"
-                           data-toggle="tab"
-                           role="tab">@translate('Опис')</a>
+                        <a id="tab-A" href="#pane-A" class="nav-link @displayIf(!$reviewTab, 'active')"
+                           data-toggle="tab" role="tab">
+                            @editable('Опис')
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a id="tab-B" href="#pane-B" class="nav-link @php echo $reviewTab ? 'active' : '' @endphp"
-                           data-toggle="tab"
-                           role="tab">@translate('Відгуки')</a>
+                        <a id="tab-B" href="#pane-B" class="nav-link @displayIf($reviewTab, 'active')" data-toggle="tab"
+                           role="tab">
+                            @editable('Відгуки')
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a id="tab-C" href="#pane-C" class="nav-link" data-toggle="tab"
-                           role="tab">@translate('Доставка та оплата')</a>
+                        <a id="tab-C" href="#pane-C" class="nav-link" data-toggle="tab" role="tab">
+                            @editable('Доставка та оплата')
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -225,13 +235,13 @@
             <div class="container">
                 <div class="tab-content" role="tablist">
                     @if($product->description || $product->characteristics->count())
-                        <div id="pane-A" class="card tab-pane fade @php echo !$reviewTab ? 'active show' : '' @endphp"
+                        <div id="pane-A" class="card tab-pane fade @displayIf(!$reviewTab, 'active show')"
                              role="tabpanel" aria-labelledby="tab-A">
                             <div class="card-header" role="tab" id="heading-A">
                                 <h5 class="mb-0">
                                     <a class="collapsed" data-toggle="collapse" href="#collapse-A" aria-expanded="false"
                                        aria-controls="collapse-A">
-                                        @translate('Опис')
+                                        @editable('Опис')
                                     </a>
                                 </h5>
                             </div>
@@ -241,14 +251,14 @@
 
                                         @if($product->description)
                                             <div class="{{ $product->characteristics->count() ? 'col-lg-6': 'col-12' }}">
-                                                <h3>@translate('Деталі')</h3>
-                                                {!! htmlspecialchars_decode($product->description) !!}
+                                                <h3>@editable('Деталі')</h3>
+                                                {!! $product->description !!}
                                             </div>
                                         @endif
 
                                         @if($product->characteristics->count())
                                             <div class="{{ $product->description ? 'col-lg-5': 'col-12' }}">
-                                                <h3>@translate('Характеристики')</h3>
+                                                <h3>@editable('Характеристики')</h3>
                                                 <div class="table-responsive">
                                                     <table class="table table-sm table-striped">
                                                         <tbody>
@@ -257,13 +267,13 @@
                                                             <tr>
                                                                 <td>
                                                                     <strong>
-                                                                        {{ $characteristic->getName() }}
+                                                                        {!! $characteristic->getName(true) !!}
                                                                     </strong>
                                                                 </td>
                                                                 <td>
-                                                                    {{ $characteristic->getPrefix() }}
-                                                                    {{ $characteristic->value }}
-                                                                    {{ $characteristic->getPostfix() }}
+                                                                    {!! $characteristic->getPrefix(true) !!}
+                                                                    {!! $characteristic->editable('value') !!}
+                                                                    {!! $characteristic->getPostfix(true) !!}
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -277,86 +287,89 @@
                                 </div>
                             </div>
                         </div>
-                    @endif
-                        <!-- /TAB A -->
-                        <div id="pane-B" class="card tab-pane fade @php echo $reviewTab ? 'active show' : '' @endphp" role="tabpanel" aria-labelledby="tab-B">
-                            <div class="card-header" role="tab" id="heading-B">
-                                <h5 class="mb-0">
-                                    <a class="collapsed" data-toggle="collapse" href="#collapse-B" aria-expanded="false"
-                                       aria-controls="collapse-B">
-                                        @translate('Відгуки')
-                                    </a>
-                                </h5>
-                            </div>
-                            <div id="collapse-B" class="collapse" role="tabpanel" aria-labelledby="heading-B">
-                                <div class="card-body">
-                                    @forelse($product->reviews->chunk(2) as $reviewsChunk)
-                                        <div class="row justify-content-between">
-                                            @foreach($reviewsChunk as $review)
-                                                <div class="col-lg-6">
-                                                    <div class="review_content">
-                                                        <div class="clearfix add_bottom_10">
+                @endif
+                <!-- /TAB A -->
+                    <div id="pane-B" class="card tab-pane fade @displayIf($reviewTab, 'active show')"
+
+                             role="tabpanel" aria-labelledby="tab-B">
+                        <div class="card-header" role="tab" id="heading-B">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" href="#collapse-B" aria-expanded="false"
+                                   aria-controls="collapse-B">
+                                    @editable('Відгуки')
+                                </a>
+                            </h5>
+                        </div>
+                        <div id="collapse-B" class="collapse" role="tabpanel" aria-labelledby="heading-B">
+                            <div class="card-body">
+                                @forelse($product->reviews->chunk(2) as $reviewsChunk)
+                                    <div class="row justify-content-between">
+                                        @foreach($reviewsChunk as $review)
+                                            <div class="col-lg-6">
+                                                <div class="review_content">
+                                                    <div class="clearfix add_bottom_10">
                                                             <span class="rating">
                                                                 {!! $review->stars !!}
                                                                 <em>{{ $review->rating }}/5</em>
                                                             </span>
-                                                            <em>@translate('Опубліковано') {{ $review->created_at->diffForHumans() }}</em>
-                                                        </div>
-                                                        <h4>"{{ $review->customer->first_name }}"</h4>
-                                                        <p>{{ $review->comment }}</p>
+                                                        <em>@translate('Опубліковано') {{ $review->created_at->diffForHumans() }}</em>
                                                     </div>
+                                                    <h4>"{{ $review->customer->first_name }}"</h4>
+                                                    <p>{{ $review->comment }}</p>
                                                 </div>
-                                            @endforeach
-                                        </div>
-                                    @empty
-                                        <div class="row justify-content-center">
-                                            <div class="col-12">
-                                                <h3 style="text-align: center" class="mt-5 mb-5">
-                                                    @translate('Для даного товару немає відгуків')
-                                                </h3>
                                             </div>
-                                        </div>
-                                    @endforelse
-
-                                    <p class="text-right">
-                                        <a href="{{ route('product.leave_review', $product->id) }}" class="btn_1">
-                                            @translate('Залишити відгук')
-                                        </a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="pane-C" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-С">
-                            <div class="card-header" role="tab" id="heading-С">
-                                <h5 class="mb-0">
-                                    <a class="collapsed" data-toggle="collapse" href="#collapse-С" aria-expanded="false"
-                                       aria-controls="collapse-С">
-                                        @translate('Доставка та оплата')
-                                    </a>
-                                </h5>
-                            </div>
-                            <div id="collapse-С" class="collapse" role="tabpanel" aria-labelledby="heading-С">
-                                <div class="card-body">
-                                    <div class="row justify-content-between">
-                                        @translate('Доставка та оплата')
+                                        @endforeach
                                     </div>
+                                @empty
+                                    <div class="row justify-content-center">
+                                        <div class="col-12">
+                                            <h3 style="text-align: center" class="mt-5 mb-5">
+                                                @editable('Для даного товару немає відгуків')
+                                            </h3>
+                                        </div>
+                                    </div>
+                                @endforelse
+
+                                <p class="text-right">
+                                    <a href="{{ route('product.leave_review', $product->id) }}" class="btn_1">
+                                        @editable('Залишити відгук')
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="pane-C" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-С">
+                        <div class="card-header" role="tab" id="heading-С">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" href="#collapse-С" aria-expanded="false"
+                                   aria-controls="collapse-С">
+                                    @editable('Доставка та оплата')
+                                </a>
+                            </h5>
+                        </div>
+                        <div id="collapse-С" class="collapse" role="tabpanel" aria-labelledby="heading-С">
+                            <div class="card-body">
+                                <div class="row justify-content-between">
+                                    @editable('Доставка та оплата')
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         @if($product->tags->count())
             <div class="container margin_30">
-                <p>Теги:
-                    @php
-                        $linksTag = [];
-                        foreach($product->tags as $tag) {
-                            $linksTag[] = '<a href="' . route('search', ['tags' => $tag->title]) .'">' . $tag->title .'</a>';
-                        }
-                        echo implode(', ', $linksTag);
-                    @endphp
+                <p>
+                    <span class="text-primary">
+                        @editable('Теги:')
+                    </span>
+                    @foreach($product->tags as $tag)
+                        <a class="text-danger" href="{{ route('search', ['tags[]' => $tag->title]) }}">
+                            {!! $tag->title !!}
+                        </a>@displayIf(!$loop->last, ',')
+                    @endforeach
                 </p>
             </div>
         @endif
@@ -364,9 +377,9 @@
         @if($product->related->count())
             <div class="container margin_60_35">
                 <div class="main_title">
-                    <h2>@translate('Схожі товари')</h2>
+                    <h2>@editable('Схожі товари')</h2>
                     <span>@translate('Товари')</span>
-                    <p>@translate('Наших покупців також цікавлять')</p>
+                    <p>@editable('Наших покупців також цікавлять')</p>
                 </div>
                 <div class="owl-carousel owl-theme products_carousel">
                     @foreach($product->related as $related)
@@ -383,8 +396,8 @@
                         <a href="#" class="box">
                             <i class="ti-gift"></i>
                             <div class="justify-content-center">
-                                <h3>@translate('Безкоштовна доставка')</h3>
-                                <p>@translate('Від 100 грн')</p>
+                                <h3>@editable('Безкоштовна доставка')</h3>
+                                <p>@editable('Від 100 грн')</p>
                             </div>
                         </a>
                     </li>
@@ -392,8 +405,8 @@
                         <a href="#" class="box">
                             <i class="ti-wallet"></i>
                             <div class="justify-content-center">
-                                <h3>@translate('Захищені платежі')</h3>
-                                <p>@translate('100% захисту ваших платежів')</p>
+                                <h3>@editable('Захищені платежі')</h3>
+                                <p>@editable('100% захисту ваших платежів')</p>
                             </div>
                         </a>
                     </li>
@@ -401,8 +414,8 @@
                         <a href="#" class="box">
                             <i class="ti-headphone-alt"></i>
                             <div class="justify-content-center">
-                                <h3>@translate('24/7 Підтримка')</h3>
-                                <p>@translate('Онлайн підтримка')</p>
+                                <h3>@editable('24/7 Підтримка')</h3>
+                                <p>@editable('Онлайн підтримка')</p>
                             </div>
                         </a>
                     </li>
