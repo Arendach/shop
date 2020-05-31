@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Models\Editable;
 use App\Traits\Models\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +11,7 @@ class Characteristic extends Model
 {
     use SoftDeletes;
     use Translatable;
+    use Editable;
 
     public $timestamps = false;
 

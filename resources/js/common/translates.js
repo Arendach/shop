@@ -1,5 +1,5 @@
 window["registerTranslate"] = function (text) {
-    fetch(url('assets/register_translate'), {
+    fetch('/assets/register_translate', {
         body: JSON.stringify({text}),
         headers: {'Content-Type': 'application/json'},
         method: 'post'

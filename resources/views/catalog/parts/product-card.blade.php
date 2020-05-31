@@ -1,3 +1,4 @@
+@php /** @var \App\Models\Product $product */ @endphp
 @php
     $characteristics = "";
     foreach($product->characteristics as $characteristic) {
