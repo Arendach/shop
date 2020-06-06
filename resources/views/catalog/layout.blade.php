@@ -54,7 +54,7 @@
                             </a>
                         </div>
                     </div>
-                    <nav class="col-xl-6 col-lg-7">
+                    <nav class="col-xl-5 col-lg-6">
                         <a class="open_close" href="javascript:void(0);">
                             <div class="hamburger hamburger--spin">
                                 <div class="hamburger-box">
@@ -131,15 +131,34 @@
                         </div>
                         <!--/main-menu -->
                     </nav>
-                    <div class="col-xl-3 col-lg-2 d-lg-flex align-items-center justify-content-end text-right">
-                        <a class="phone_top" href="tel://{{ $globalData->phone('header_phone') }}">
-                            <strong>
-                                <span>
-                                    @translate('Потрібна допомога?')
-                                </span>
-                                {{ $globalData->header_phone }}
-                            </strong>
-                        </a>
+                    <div class="col-xl-4 col-lg-3 d-lg-flex align-items-center justify-content-end text-right contacts">
+                        <div class="sn">
+                            <a href="#" class="social-links">
+                                <i class="ti-facebook"></i>
+                            </a>
+                            <a href="#" class="social-links">
+                                <i class="ti-instagram"></i>
+                            </a>
+                            <a href="#" class="social-links">
+                                <i class="ti-youtube"></i>
+                            </a>
+                        </div>
+                        <!--<a class="phone_top" href="tel://{{ $globalData->phone('header_phone') }}">-->
+                        <div class="dropdown show dropdown-numbers">
+                            <a class="phone_top" href="tel://{{ $globalData->phone('header_phone') }}" role="button" id="dropdownMenuLink">
+                                <strong>
+                                    <span>
+                                        @translate('Потрібна допомога?')
+                                    </span>
+                                    {{ $globalData->header_phone }}
+                                </strong>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="#">+38 (063) 342-33-32</a>
+                                <a class="dropdown-item" href="#">+38 (063) 342-33-32</a>
+                                <a class="dropdown-item" href="#">+38 (063) 342-33-32</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- /row -->
@@ -194,9 +213,40 @@
                     <div class="col-xl-6 col-lg-7 col-md-6 d-none d-md-block">
                         <form action="{{ route('search') }}" method="GET">
                             <div class="custom-search-input">
-                                <input type="text" name="query" placeholder="@translate('Пошук товарів')"
-                                       value="{{ $searchString ?? '' }}">
+                                <input type="text" name="query" placeholder="@translate('Пошук товарів')" autocomplete="off"
+                                       value="{{ $searchString ?? '' }}" class="search-pc">
                                 <button type="submit"><i class="header-icon_search_custom"></i></button>
+                            </div>
+                            <div class="search-results">
+                                <!--
+                                <a href="#">
+                                    <img src="/images/products/21/1000_0d43c9744033.jpg" alt="alt" width="50">
+                                    <span style="color: black;">Хризантема</span><br>
+                                    <span style="color: black; text-decoration: line-through;">220 грн</span>
+                                    <span style="color: black; font-weight: 600">160 грн</span>
+                                </a>
+                                <a href="#">
+                                    <img src="/images/products/21/1000_0d43c9744033.jpg" alt="alt" width="50">
+                                    <span style="color: black;">Хризантема</span><br>
+                                    <span style="color: black; text-decoration: line-through;">220 грн</span>
+                                    <span style="color: black; font-weight: 600">160 грн</span>
+                                </a>
+                                <a href="#">
+                                    <img src="/images/products/21/1000_0d43c9744033.jpg" alt="alt" width="50">
+                                    <span style="color: black;">Хризантема</span><br>
+                                    <span style="color: black; text-decoration: line-through;">220 грн</span>
+                                    <span style="color: black; font-weight: 600">160 грн</span>
+                                </a>
+                                <a href="#">
+                                    <img src="/images/products/21/1000_0d43c9744033.jpg" alt="alt" width="50">
+                                    <span style="color: black;">Хризантема</span><br>
+                                    <span style="color: black; text-decoration: line-through;">220 грн</span>
+                                    <span style="color: black; font-weight: 600">160 грн</span>
+                                </a>
+                                <a href="#" class="all-results">
+                                    Показать всё
+                                </a>
+                                -->
                             </div>
                         </form>
                     </div>
@@ -503,8 +553,38 @@
 @stack('js')
 @yield('js')
 <script>
+    var pc_search = $('.search-pc');
+
     $('.menu-feedback a').on('click', function(){
         $('#feedback-contacts').fadeToggle();
+    });
+
+    pc_search.on('focus', function(){
+        if ($(this).val().length != 0) {
+            $('.search-results').css({display: 'block'});
+        }
+    });
+
+    pc_search.on('focusout', function(){
+        $('.search-results').css({display: 'none'});
+    });
+
+    pc_search.on('keyup', function(){
+        if ($(this).val().length != 0) {
+            $('.search-results').css({display: 'block'});
+            $.ajax({
+                method: 'POST',
+                url: '/search-live',
+                data: {
+                    'query': $('.search-pc').val()
+                },
+                success: function(data) {
+                    $('.search-results').html(data);
+                }
+            });
+        } else {
+            $('.search-results').css({display: 'none'});
+        }
     });
 </script>
 </body>

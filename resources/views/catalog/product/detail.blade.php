@@ -88,6 +88,40 @@
                             <em>{{ $product->reviews->count() }} @editable('Відгук(ів)')</em>
                         </span>
 
+                        @if($product->on_storage)
+                            <div style="margin-bottom: 10px;">
+                            <span class="pull-left in-store">
+                                <i class="ti-thumb-up"></i>
+                            </span>
+                                <div>
+                                    <span class="h4">@editable('Наявність: на складі')</span>
+                                    <div class="text-muted">@editable('гарантовано доставимо')</div>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                        @else
+                            <div style="margin-bottom: 10px;">
+                            <span class="pull-left not-store">
+                                <i class="ti-minus"></i>
+                            </span>
+                                <div>
+                                    <span class="h4">@editable('Наявність: немає в наявності')</span>
+                                    <div class="text-muted">@editable('Закінчився')</div>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                        @endif
+
+                        <div style="margin-bottom: 10px; cursor: pointer;">
+                            <span class="pull-left manufacturer">
+                                <i class="ti-package"></i>
+                            </span>
+                            <div>
+                                <span class="h4">@editable('Виробник: ') {{$product->manufacturer->name}}</span>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+
                         <div style="margin-bottom: 10px; cursor: pointer;"
                              onclick="$('.nav-tabs a[href=' + '\'#pane-C' + '\']').tab('show');">
                             <span class="pull-left truck">
@@ -112,8 +146,32 @@
                             <div style="clear:both;"></div>
                         </div>
 
-                        <p>
-                            <small>@editable('Артикул'): {!! $product->editable('article', false) !!}</small>
+                        <div style="margin-bottom: 10px; cursor: pointer;"
+                             onclick="$('.nav-tabs a[href=' + '\'#pane-C' + '\']').tab('show');">
+                            <span class="pull-left truck">
+                                <i class="ti-truck"></i>
+                            </span>
+                            <div>
+                                <span class="h4">@editable('Безкоштовна доставка')</span>
+                                <div class="text-muted">{!! settingEditable('free_delivery', 'Від 100 грн') !!}</div>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+
+                        <div style="margin-bottom: 10px; cursor: pointer;"
+                             onclick="$('.nav-tabs a[href=' + '\'#pane-C' + '\']').tab('show');">
+                            <span class="pull-left secure-payments">
+                                <i class="ti-credit-card"></i>
+                            </span>
+                            <div>
+                                <span class="h4">@editable('Захищені платежі')</span>
+                                <div class="text-muted">{!! settingEditable('secure_payments', '100% захисту ваших платежів') !!}</div>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+
+                        <p style="font-size: 16px; font-weight: 600;">
+                            @editable('Артикул'): {!! $product->editable('article', false) !!}
                         </p>
                         <div class="prod_options">
                             @foreach($product->attributes as $attribute)
@@ -153,10 +211,10 @@
                         <div class="row">
                             <div class="col-lg-5 col-md-6">
                                 <div class="price_main">
-                                    <span class="new_price">₴ {{ $product->new_price }}</span>
+                                    <span class="new_price">{{ $product->new_price }} грн</span>
                                     @if($product->is_discounted)
                                         <span class="percentage">-{{ $product->discount_percentage }}%</span>
-                                        <span class="old_price">₴ {{ $product->old_price }}</span>
+                                        <span class="old_price">{{ $product->old_price }} грн</span>
                                     @endif
                                 </div>
                             </div>
@@ -389,6 +447,7 @@
             </div>
         @endif
 
+        <!--
         <div class="feat">
             <div class="container">
                 <ul>
@@ -422,6 +481,7 @@
                 </ul>
             </div>
         </div>
+        -->
     </main>
 @endsection
 

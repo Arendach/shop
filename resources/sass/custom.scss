@@ -100,6 +100,106 @@
   margin-right: 10px;
 }
 
+.in-store {
+  float: left;
+  background-color: green;
+  color: white;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  padding-top: 2px;
+  padding-left: 9px;
+  border-radius: 55px;
+  margin-right: 10px;
+}
+
+.not-store {
+  float: left;
+  background-color: red;
+  color: white;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  padding-top: 5px;
+  padding-left: 10px;
+  border-radius: 55px;
+  margin-right: 10px;
+}
+
+.manufacturer {
+  float: left;
+  background-color: darkgray;
+  color: white;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  padding-top: 2px;
+  padding-left: 9px;
+  border-radius: 55px;
+  margin-right: 10px;
+}
+
+.secure-payments {
+  float: left;
+  background-color: #25b7b6;
+  color: white;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  padding-top: 2px;
+  padding-left: 9px;
+  border-radius: 55px;
+  margin-right: 10px;
+}
+
+.twitter {
+  background-color: #42b8e6;
+  color: white;
+  width: 35px;
+  height: 35px;
+  font-size: 22px;
+  padding-top: 3px;
+  padding-right: 6px;
+  border-radius: 55px;
+  margin-right: 10px;
+}
+
+.facebook {
+  background-color: #426ab2;
+  color: white;
+  width: 35px;
+  height: 35px;
+  font-size: 22px;
+  padding-top: 3px;
+  padding-right: 6px;
+  border-radius: 55px;
+  margin-right: 10px;
+}
+
+.instagram {
+  background-color: #714d95;
+  color: white;
+  width: 35px;
+  height: 35px;
+  font-size: 22px;
+  padding-top: 3px;
+  padding-right: 6px;
+  border-radius: 55px;
+  margin-right: 10px;
+}
+
+.youtube-l {
+  background-color: #f13d40;
+  color: white;
+  width: 35px;
+  height: 35px;
+  font-size: 22px;
+  padding-top: 3px;
+  padding-right: 6px;
+  border-radius: 55px;
+  margin-right: 10px;
+}
+
 #feedbacks {
   position: fixed;
   bottom: 16px;
@@ -155,4 +255,58 @@
   width: auto;
   height: 100%;
   margin: 0 auto;
+}
+
+.contacts .social-links {
+  color: white;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+@media (max-width: 991px) {
+  .sn {
+    position: absolute;
+    right: 26px;
+    top: -27px;
+  }
+}
+
+.dropdown-numbers:hover > .dropdown-menu {
+  display: block;
+}
+
+.search-results {
+  display: none;
+  background-color: white;
+  z-index: -1;
+  margin-top: 10px;
+  position: absolute;
+  width: 98.3%;
+  -webkit-box-shadow: 0px 1px 44px 2px rgba(0,0,0,0.48);
+  -moz-box-shadow: 0px 1px 44px 2px rgba(0,0,0,0.48);
+  box-shadow: 0px 1px 44px 2px rgba(0,0,0,0.48);
+
+  .all-results {
+    text-align: center;
+    border-bottom: none;
+  }
+
+  a {
+    width: 100%;
+    display: block;
+    padding-bottom: 15px;
+    border-bottom: solid 1px #cecece;
+    padding-top: 10px;
+    padding-left: 12px;
+    padding-right: 12px;
+
+    img {
+      float: left;
+      margin-right: 7px;
+    }
+  }
+
+  a:hover {
+    background-color: #ddd;
+  }
 }

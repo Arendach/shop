@@ -44,9 +44,9 @@
         <h3>{{ $product->name }}</h3>
     </a>
     <div class="price_box">
-        <span class="new_price">₴ {{ $product->new_price }}</span>
+        <span class="new_price">{{ $product->new_price }} грн</span>
         @if($product->is_discounted)
-            <span class="old_price">₴ {{ $product->old_price }}</span>
+            <span class="old_price">{{ $product->old_price }} грн</span>
         @endif
     </div>
     <ul>
