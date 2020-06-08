@@ -66,6 +66,9 @@ Route::post('product/create-review', 'ProductController@action_create_review')->
 // Пошук товарів по сайту
 Route::get('search', 'SearchController@index')->name('search');
 
+// Пошук товарів в реальному часу
+Route::post('search-live', 'SearchController@searchLive')->name('search_live');
+
 // Вихід з профіля(Розлогінення)
 Route::get('customer/logout', 'CustomerController@logout')->name('customer.logout');
 

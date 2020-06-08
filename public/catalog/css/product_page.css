@@ -486,7 +486,7 @@
 }
 @media (max-width: 767px) {
   .product_actions ul {
-    display: none;
+    /*display: none;*/
   }
 }
 .product_actions ul li {
