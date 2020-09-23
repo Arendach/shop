@@ -20,7 +20,7 @@ class AssetsController extends CatalogController
         $content = view('catalog.assets.translates', compact('translates'))->render();
 
         return response($content)->withHeaders([
-            'Content-Type' => 'text/javascript'
+            'Content-Type' => 'application/javascript'
         ]);
     }
 

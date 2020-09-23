@@ -23,9 +23,9 @@
         <ul class="pagination">
             {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())
-{{--                <li><a href="javascript:void(0)" class="active">1</a></li>--}}
+                {{--                <li><a href="javascript:void(0)" class="active">1</a></li>--}}
             @else
-                <li><a href="{{ $paginator->previousPageUrl() }}" class="prev" title="previous page">&#10094;</a></li>
+                <li><a href="{{ paginatorUrl($paginator->previousPageUrl()) }}" class="prev" title="previous page">&#10094;</a></li>
             @endif
 
             {{-- Pagination Elements --}}
@@ -41,7 +41,7 @@
                         @if ($page == $paginator->currentPage())
                             <li><a href="javascript:void(0)" class="active">{{ $page }}</a></li>
                         @else
-                            <li><a href="{{ $url }}">{{ $page }}</a></li>
+                            <li><a href="{{ paginatorUrl($url) }}">{{ $page }}</a></li>
                         @endif
                     @endforeach
                 @endif
@@ -49,9 +49,9 @@
 
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
-                <li><a href="{{ $paginator->nextPageUrl() }}" class="next" title="next page">&#10095;</a></li>
+                <li><a href="{{ paginatorUrl($paginator->nextPageUrl()) }}" class="next" title="next page">&#10095;</a></li>
             @else
-{{--                <li><a href="javascript:void(0)" class="active">{{ $paginator->lastPage() }}</a></li>--}}
+                {{--                <li><a href="javascript:void(0)" class="active">{{ $paginator->lastPage() }}</a></li>--}}
             @endif
         </ul>
 @endif

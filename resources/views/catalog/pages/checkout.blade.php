@@ -5,10 +5,6 @@
 
 @section('title', translate('Оформлення замовлення'))
 
-@section('css')
-    <link href="{{ asset('catalog/css/checkout.css') }}" rel="stylesheet">
-@endsection
-
 @section('content')
     <main class="bg_gray">
         <div class="container margin_30">
@@ -20,11 +16,15 @@
                         <li>@translate('Оформлення замовлення')</li>
                     </ul>
                 </div>
+
                 <h1>@translate('Оформлення замовлення')</h1>
 
             </div>
 
-            <form action="{{ route('checkout.create') }}" id="checkout">
+            <div id="checkout-form-wrapper">
+                <checkout :data="{{ json_encode($checkoutPageData) }}"></checkout>
+            </div>
+            {{--<form action="{{ route('checkout.create') }}" id="checkout">
                 <div class="row">
                     @include('catalog.checkout.contacts')
 
@@ -32,11 +32,15 @@
 
                     @include('catalog.checkout.cart')
                 </div>
-            </form>
+            </form>--}}
         </div>
     </main>
 @endsection
 
-@section('js')
+@push('css')
+    <link href="{{ vAsset('css/checkout.css') }}" rel="stylesheet">
+@endpush
+
+@push('js')
     <script src="{{ vAsset('js/checkout.js') }}"></script>
-@endsection
+@endpush

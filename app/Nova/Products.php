@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\KeyValue;
@@ -40,6 +41,8 @@ class Products extends Resource
 
     public function fields(Request $request)
     {
+        artisan('cache:clear');
+
         return [
             (new Tabs(translate('Товари'), [
                 new Panel(translate('Основна інформація'), [
@@ -87,6 +90,11 @@ class Products extends Resource
 
                 new Panel(translate('Повязані товари'), [
                     BelongsToMany::make(translate('Повязані товари'), 'related', Products::class)
+                ]),
+
+                new Panel('Теги', [
+                    Text::make('name_uk'),
+                    HasMany::make('', 'tags', ProductTags::class)
                 ])
             ]))->withToolbar()
         ];

@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\NewPostCityResource;
+use App\Http\Resources\NewPostWarehouseResource;
 use App\Models\NewPostCity;
 use App\Models\NewPostWarehouse;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class NewPostController extends Controller
 {
-    public function searchCities(Request $request)
+    public function searchCities(Request $request): AnonymousResourceCollection
     {
         $search = $request->search;
 
@@ -21,12 +24,10 @@ class NewPostController extends Controller
             ->limit(100)
             ->get();
 
-        return response()->json([
-            'data' => $cities
-        ], 200);
+        return NewPostCityResource::collection($cities);
     }
 
-    public function getWarehouses(Request $request)
+    public function getWarehouses(Request $request): AnonymousResourceCollection
     {
         $id = $request->city;
 
@@ -34,8 +35,6 @@ class NewPostController extends Controller
 
         $warehouses = NewPostWarehouse::where('city_ref', $city->ref)->get();
 
-        return response()->json([
-            'data' => $warehouses
-        ], 200);
+        return NewPostWarehouseResource::collection($warehouses);
     }
 }

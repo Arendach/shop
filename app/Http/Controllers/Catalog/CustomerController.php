@@ -30,7 +30,7 @@ class CustomerController extends CatalogController
     public function action_register(RegisterRequest $request, CustomerService $customerService, AuthService $authService)
     {
         // реєстрація користувача
-        $customer = $customerService->register($request->all());
+        $customer = $customerService->register($request->validated());
 
         // запамятовуємо користувача
         $authService->make($customer);

@@ -19,7 +19,7 @@ Route::get('page/{name}', 'PagesController@index')->name('page');
 Route::get('cart', 'CartController@index')->name('cart');
 
 // Оформлення замовлення
-Route::get('checkout', 'OrderController@checkout')->middleware('onlyLogged')->name('checkout');
+Route::get('checkout', 'OrderController@checkout')->name('checkout');
 
 // Success page
 Route::get('checkout/success/{id}', 'OrderController@success')->middleware('onlyLogged')->name('checkout.success');

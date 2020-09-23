@@ -1,14 +1,7 @@
 <?php
 
-/**
- * Str helper
- */
-
 use \Illuminate\Support\Str;
 
-/**
- * @function simple_routing
- */
 if (!function_exists('simple_routing')) {
     function simple_routing($controller, $action, $namespace_part, $action_prefix = '')
     {
@@ -18,29 +11,20 @@ if (!function_exists('simple_routing')) {
 
         $object = new $namespace;
 
+        $methodCamel = Str::camel($action_prefix . trim($action, '_'));
+
+        if (method_exists($object, $methodCamel)) {
+            return app()->call([new $namespace, $methodCamel], request()->all());
+        }
+
         abort_if(!method_exists($object, $action_prefix . $action), 404, translate('404! Сторінка не знайдена!'));
 
         return app()->call([new $namespace, $action_prefix . $action], request()->all());
     }
 }
 
-/**
- * @function simple_routing_admin
- */
-if (!function_exists('simple_routing_admin')) {
-    function simple_routing_admin($folder, $controller = null, $action = null, $method = 'post')
-    {
-        if ($controller == null && $action == null)
-            return simple_routing($folder, 'main', 'Admin', $method == 'post' ? 'action_' : 'section_');
-        elseif ($action == null)
-            return simple_routing($folder, $controller, 'Admin', $method == 'post' ? 'action_' : 'section_');
-        else
-            return simple_routing(ucfirst(Str::camel($folder)) . '\\' . ucfirst(Str::camel($controller)), $action, 'Admin', $method == 'post' ? 'action_' : 'section_');
-    }
-}
-
-Route::get ( '/redirect/{service}', 'SocialAuthController@redirect' );
-Route::get ( '/callback/{service}', 'SocialAuthController@callback' );
+Route::get('/redirect/{service}', 'SocialAuthController@redirect');
+Route::get('/callback/{service}', 'SocialAuthController@callback');
 /**
  * Зміна мови сайту
  */
@@ -57,7 +41,7 @@ Route::post('assets/content-editable', 'Catalog\\AssetsController@contentEditabl
  * START LOAD ROUTES
  */
 Route::group([
-    'prefix' => Locales::getPrefix(),
+    'prefix'     => Locales::getPrefix(),
     'middleware' => [
         'setUserLocale',
         'cart'

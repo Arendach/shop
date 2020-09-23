@@ -19,6 +19,6 @@
 
 <div class="form-group">
     <label>@translate('Бажана дата доставки')</label>
-    <input class="form-control form-control-sm" name="delivery_date" type="date" value="{{ Checkout::getField('delivery_date') }}">
+    <input class="form-control form-control-sm" name="date_delivery" type="date" value="{{ Checkout::getField('delivery_date') }}">
     <div class="feedback"></div>
 </div>

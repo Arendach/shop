@@ -61,4 +61,18 @@ class PayService
     {
 
     }
+
+    public function getPayMethodNames(): array
+    {
+        $result = [];
+        $payMethods = asset_data('pay_methods');
+        foreach ($payMethods as $key => $pay) {
+            $result[] = [
+                'key'  => $key,
+                'name' => $pay['name']
+            ];
+        }
+
+        return $result;
+    }
 }

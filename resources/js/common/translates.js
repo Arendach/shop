@@ -10,7 +10,7 @@ window["registerTranslate"] = function (text) {
     })
 }
 
-window["translate"] = async function (text) {
+window["translate"] = function (text) {
     if (!window["translates"].hasOwnProperty(text)) {
         window["registerTranslate"](text)
 

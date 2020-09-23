@@ -4,11 +4,14 @@ namespace App\Services;
 
 use App\Http\Requests\Catalog\Order\CheckoutDeliveryRequest;
 use App\Http\Requests\Catalog\Order\CheckoutRequest;
+use App\Http\Resources\ShopResource;
 use App\Models\NewPostWarehouse;
 use App\Models\Order;
 use App\Models\OrderDelivery;
 use App\Models\OrderSelf;
 use App\Models\OrderSending;
+use App\Models\Shop;
+use App\Repositories\ShopRepository;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
 use NewPost;
@@ -179,5 +182,12 @@ class DeliveryService
         // якщо масив з помилками не порожній то кидаємо виключення
         if (count($errors) > 0)
             throw ValidationException::withMessages($errors);
+    }
+
+    public function getAllShops(): array
+    {
+        $shops = app(ShopRepository::class)->getAllShops();
+
+        return ShopResource::collection($shops)->toArray(request());
     }
 }

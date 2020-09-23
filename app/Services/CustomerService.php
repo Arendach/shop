@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use App\Http\Requests\Catalog\User\RegisterRequest;
+use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Exception;
 use Auth;
@@ -105,5 +105,16 @@ class CustomerService
         customer()->update([
             'password' => md5(md5($data['password']))
         ]);
+    }
+
+    public function getCustomer(): ?array
+    {
+        if (!isAuth()) {
+            return null;
+        }
+
+        $resource = new CustomerResource(customer());
+
+        return $resource->toArray(request());
     }
 }

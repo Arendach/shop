@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\Characteristic;
+use App\Models\Manufacturer;
 use App\Models\Product;
 use App\Models\ProductCharacteristic;
 use Cache;
@@ -56,7 +58,7 @@ class CategoryFilterService
                     return $characteristic->delete();
                 }
 
-                $characteristics->prepend($characteristic);
+                return $characteristics->prepend($characteristic);
             });
         });
 
@@ -68,14 +70,30 @@ class CategoryFilterService
             $characteristic->characteristic->setValues($values);
 
             return $characteristic->characteristic;
-        }));
+        }))
+            ->map(function (Characteristic $characteristic) {
+                return [
+                    'name'    => $characteristic->name,
+                    'prefix'  => $characteristic->prefix,
+                    'postfix' => $characteristic->postfix,
+                    'id'      => $characteristic->id,
+                    'values'  => $characteristic->values->map(function ($characteristic) {
+                        return ['value' => $characteristic->value];
+                    })->unique('value')->sortBy('value')->toArray()
+                ];
+            })->toArray();
     }
 
-    private function makeManufacturers(Collection $products): Collection
+    private function makeManufacturers(Collection $products): array
     {
         return ($products->map(function (Product $product) {
             return $product->manufacturer;
-        })->unique());
+        })->unique()->map(function (Manufacturer $manufacturer) {
+            return [
+                'name' => $manufacturer->name,
+                'id'   => $manufacturer->id
+            ];
+        })->toArray());
     }
 
     private function makeMaxPrice(Collection $products): float

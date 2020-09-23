@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Collection;
 use LisDev\Delivery\NovaPoshtaApi2;
+use Exception;
 
 class NewPostService
 {
@@ -48,7 +49,7 @@ class NewPostService
             ->method('getCities')
             ->params([
                 'FindByString' => $query,
-                'Limit' => '10',
+                'Limit'        => '10',
             ])
             ->execute();
 
@@ -67,8 +68,8 @@ class NewPostService
 
             $result[] = collect([
                 'description' => $description,
-                'name' => $name,
-                'key' => $item['Ref'],
+                'name'        => $name,
+                'key'         => $item['Ref'],
             ]);
         }
 
@@ -103,9 +104,9 @@ class NewPostService
         $result = [];
         foreach ($request['data'] as $item) {
             $result[] = [
-                'name_uk' => $item['Description'],
-                'name_ru' => $item['DescriptionRu'],
-                'key' => $item['Ref'],
+                'name_uk'    => $item['Description'],
+                'name_ru'    => $item['DescriptionRu'],
+                'key'        => $item['Ref'],
                 'max_weight' => $item['TotalMaxWeightAllowed']
             ];
         }
@@ -124,8 +125,8 @@ class NewPostService
         $result = [];
         foreach ($warehouses as $warehouse) {
             $result[] = [
-                'name' => $warehouse["name_" . config('locale.current')],
-                'key' => $warehouse['key'],
+                'name'       => $warehouse["name_" . config('locale.current')],
+                'key'        => $warehouse['key'],
                 'max_weight' => $warehouse['max_weight']
             ];
         }
@@ -190,6 +191,35 @@ class NewPostService
             'name_uk' => $city['SettlementTypeDescription'] . ' ' . $city['Description'],
             'name_ru' => $city['SettlementTypeDescriptionRu'] . ' ' . $city['DescriptionRu']
         ];
+    }
+
+    public function calculatePrice(array $data)
+    {
+        extract($data);
+
+        $response = $this->np
+            ->model('InternetDocument')
+            ->method('getDocumentPrice')
+            ->params([
+                'CitySender'    => '8d5a980d-391c-11dd-90d9-001a92567626',
+                'CityRecipient' => $city ?? null,
+                'Weight'        => $weight ?? null,
+                'ServiceType'   => 'WarehouseWarehouse',
+                'Cost'          => $price ?? null,
+                'CargoType'     => 'Cargo',
+                'SeatsAmount'   => 1
+            ])
+            ->execute();
+
+        try {
+
+            return $response['data'][0]['Cost'];
+
+        } catch (Exception $exception) {
+
+            return null;
+
+        }
     }
 
 }

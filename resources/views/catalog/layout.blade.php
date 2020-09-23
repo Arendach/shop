@@ -34,6 +34,7 @@
 
     <!-- SPECIFIC CSS -->
 @yield('css')
+@stack('css')
 
 <!-- YOUR CUSTOM CSS -->
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
@@ -279,7 +280,7 @@
                                                 <a href="{{ route('cart') }}" class="btn_1 outline">
                                                     @translate('Переглянути корзину')
                                                 </a>
-                                                <a href="{{ isAuth() ? route('checkout') : route('login', ['redirect' => route('checkout')]) }}"
+                                                <a href="{{ route('checkout') }}"
                                                    class="btn_1" rel="nofollow">
                                                     @translate('Оформити замовлення')
                                                 </a>

@@ -24,4 +24,7 @@ require('./libs/nice-select')
 require('./libs/select2')
 require('./libs/jquery-validate')
 
+require('./models/mask')
+require('./models/array')
+
 // require('./common/translates')

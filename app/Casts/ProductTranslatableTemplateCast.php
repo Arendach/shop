@@ -187,41 +187,41 @@ class ProductTranslatableTemplateCast implements CastsAttributes
             }
 
             /** @var Dom\Tag $element */
-            $element = $elements[0];
+            foreach ($elements as $element) {
+                $glue = is_null($element->glue) ? ',' : $element->glue;
+                $ids = is_null($element->id) ? null : explode(',', $element->id);
+                $title = $element->hasAttribute('title');
+                $prefix = $element->hasAttribute('prefix');
+                $postfix = $element->hasAttribute('postfix');
 
-            $glue = is_null($element->glue) ? ',' : $element->glue;
-            $ids = is_null($element->id) ? null : explode(',', $element->id);
-            $title = $element->hasAttribute('title');
-            $prefix = $element->hasAttribute('prefix');
-            $postfix = $element->hasAttribute('postfix');
+                $characteristics = $model->characteristics;
 
-            $characteristics = $model->characteristics;
+                if (!is_null($ids)) {
+                    $characteristics = $characteristics->whereIn('characteristic_id', $ids);
+                }
 
-            if (!is_null($ids)) {
-                $characteristics = $characteristics->whereIn('characteristic_id', $ids);
+                $characteristics = $characteristics->map(function (ProductCharacteristic $characteristic) use ($glue, $title, $prefix, $postfix) {
+                    $result = '';
+
+                    if ($title) {
+                        $result .= trim($characteristic->getName(), ':') . ': ';
+                    }
+
+                    if ($prefix) {
+                        $result .= " " . $characteristic->getPrefix() . ' ';
+                    }
+
+                    $result .= $characteristic->value;
+
+                    if ($postfix) {
+                        $result .= " " . $characteristic->getPostfix() . ' ';
+                    }
+
+                    return $result;
+                })->implode($glue);
+
+                $template = $this->replaceAttribute('Characteristics', $characteristics, $template);
             }
-
-            $characteristics = $characteristics->map(function (ProductCharacteristic $characteristic) use ($glue, $title, $prefix, $postfix) {
-                $result = '';
-
-                if ($title) {
-                    $result .= trim($characteristic->getName(), ':') . ': ';
-                }
-
-                if ($prefix) {
-                    $result .= " " . $characteristic->getPrefix() . ' ';
-                }
-
-                $result .= $characteristic->value;
-
-                if ($postfix) {
-                    $result .= " " . $characteristic->getPostfix() . ' ';
-                }
-
-                return $result;
-            })->implode($glue);
-
-            $template = $this->replaceAttribute('Characteristics', $characteristics, $template);
 
             return $template;
 

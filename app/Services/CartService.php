@@ -220,4 +220,22 @@ class CartService
 
         return count($this->cart->products()->get() ?? []);
     }
+
+    public function getProductsArray(): array
+    {
+        $products = $this->getProducts();
+
+        $result = [];
+        foreach ($products as $product) {
+            $result[] = [
+                'id'     => $product->id,
+                'name'   => $product->name,
+                'price'  => $product->new_price,
+                'amount' => $product->pivot->amount,
+                'weight' => $product->weight
+            ];
+        }
+
+        return $result;
+    }
 }

@@ -109,3 +109,11 @@ function settingEditable(string $key, $default = null)
 {
     return app(\App\Services\SettingsService::class)->getEditable($key, $default);
 }
+
+function paginatorUrl(string $url): string
+{
+    $url = str_replace(['%5B', '%5D'], ['[', ']'], $url);
+    $url = preg_replace('~\]\[([0-9]+)\]~', '][]', $url);
+
+    return $url;
+}

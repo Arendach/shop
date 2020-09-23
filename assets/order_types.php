@@ -5,14 +5,14 @@ use App\Services\DeliveryService;
 return [
     'delivery' => [
         'name' => translate('Доставка по місту'),
-        'form' =>app(DeliveryService::class)->getDeliveryForm()
+        // 'form' => app(DeliveryService::class)->getDeliveryForm()
     ],
-    'sending' => [
+    'sending'  => [
         'name' => translate('Відправка Новою Поштою'),
-        'form' => app(DeliveryService::class)->getSendingForm()
+        // 'form' => app(DeliveryService::class)->getSendingForm()
     ],
-    'self' => [
+    'self'     => [
         'name' => translate('Самовивіз'),
-        'form' => app(DeliveryService::class)->getSelfForm()
+        //  'form' => app(DeliveryService::class)->getSelfForm()
     ],
 ];
