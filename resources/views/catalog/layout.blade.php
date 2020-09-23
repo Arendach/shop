@@ -219,35 +219,6 @@
                                 <button type="submit"><i class="header-icon_search_custom"></i></button>
                             </div>
                             <div class="search-results">
-                                <!--
-                                <a href="#">
-                                    <img src="/images/products/21/1000_0d43c9744033.jpg" alt="alt" width="50">
-                                    <span style="color: black;">Хризантема</span><br>
-                                    <span style="color: black; text-decoration: line-through;">220 грн</span>
-                                    <span style="color: black; font-weight: 600">160 грн</span>
-                                </a>
-                                <a href="#">
-                                    <img src="/images/products/21/1000_0d43c9744033.jpg" alt="alt" width="50">
-                                    <span style="color: black;">Хризантема</span><br>
-                                    <span style="color: black; text-decoration: line-through;">220 грн</span>
-                                    <span style="color: black; font-weight: 600">160 грн</span>
-                                </a>
-                                <a href="#">
-                                    <img src="/images/products/21/1000_0d43c9744033.jpg" alt="alt" width="50">
-                                    <span style="color: black;">Хризантема</span><br>
-                                    <span style="color: black; text-decoration: line-through;">220 грн</span>
-                                    <span style="color: black; font-weight: 600">160 грн</span>
-                                </a>
-                                <a href="#">
-                                    <img src="/images/products/21/1000_0d43c9744033.jpg" alt="alt" width="50">
-                                    <span style="color: black;">Хризантема</span><br>
-                                    <span style="color: black; text-decoration: line-through;">220 грн</span>
-                                    <span style="color: black; font-weight: 600">160 грн</span>
-                                </a>
-                                <a href="#" class="all-results">
-                                    Показать всё
-                                </a>
-                                -->
                             </div>
                         </form>
                     </div>
@@ -562,17 +533,17 @@
 
     pc_search.on('focus', function(){
         if ($(this).val().length != 0) {
-            $('.search-results').css({display: 'block'});
+            $('.search-results').show(1000);
         }
     });
 
     pc_search.on('focusout', function(){
-        $('.search-results').css({display: 'none'});
+        $('.search-results').hide(1000);
     });
 
     pc_search.on('keyup', function(){
         if ($(this).val().length != 0) {
-            $('.search-results').css({display: 'block'});
+            $('.search-results').show(1000);
             $.ajax({
                 method: 'POST',
                 url: '/search-live',
@@ -584,7 +555,7 @@
                 }
             });
         } else {
-            $('.search-results').css({display: 'none'});
+            $('.search-results').hide(1000);
         }
     });
 </script>
