@@ -8,13 +8,17 @@ use App\Models\User;
 
 class EmailUnique implements Rule
 {
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
+        if (!$value) {
+            return true;
+        }
+
         return !(Customer::where('email', $value)->count());
     }
 
-    public function message()
+    public function message(): string
     {
-        return translate('Покупець з таким Email вже зарестрований на сайті!');
+        return translate('Покупець з таким Email вже зарестрований');
     }
 }

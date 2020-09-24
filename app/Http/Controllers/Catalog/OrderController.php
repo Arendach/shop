@@ -26,21 +26,13 @@ class OrderController extends CatalogController
 
     public function create(CheckoutRequest $request, OrderService $orderService)
     {
-        dd($request->all());
-
-        if (!isAuth() && $request->has('password')) {
-            $customer = app(CustomerService::class)->register(
-                $request->only('first_name', 'last_name', 'phone', 'password', 'email')
-            );
-
-            app(AuthService::class)->make($customer);
-        }
-
-        $order = $orderService->create($request);
+        $order = $orderService->createOrder($request->validated());
 
         dispatch(new OrderEmailJob($order));
 
-        return response()->json(['redirectLink' => route('checkout.success', $order->id)]);
+        return response()->json([
+            'orderId' => $order->id
+        ]);
     }
 
     public function action_order_type_form(string $form)

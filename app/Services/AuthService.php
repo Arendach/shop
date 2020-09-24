@@ -54,14 +54,27 @@ class AuthService
         return $this->valid;
     }
 
-    public function make(Customer $customer): void
+    public function make(Customer $customer): self
     {
         setcookie('customer_session', $customer->session, time() + 3600 * 24 * 385, '/');
+
+        return $this;
     }
 
     public function logout(): void
     {
         setcookie('customer_session', '', time() - 3600 * 24 * 385, '/');
+    }
+
+    public function reboot(): self
+    {
+        if (isset($_COOKIE['customer_session'])) {
+            $this->session = $_COOKIE['customer_session'];
+        }
+
+        $this->boot(request());
+
+        return $this;
     }
 
 }

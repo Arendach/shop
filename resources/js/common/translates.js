@@ -10,12 +10,22 @@ window["registerTranslate"] = function (text) {
     })
 }
 
-window["translate"] = function (text) {
+window["translate"] = function (text, fields) {
+    let result = ''
+
     if (!window["translates"].hasOwnProperty(text)) {
         window["registerTranslate"](text)
 
-        return text
+        result = text
+    } else {
+        result = window["translates"][text]
     }
 
-    return window["translates"][text]
+    if (typeof fields == "object") {
+        for (let key in fields) {
+            result = result.replace(key, fields[key])
+        }
+    }
+
+    return result
 }

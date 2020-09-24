@@ -10,7 +10,8 @@ const store = new Vuex.Store({
         selfPrice: 2,
         sendingPrice: 3,
         orderSum: 0,
-        isValidForm: true
+        isValidForm: true,
+        orderId: 0
     },
     getters: {
         deliveryPrice: (state) => {
@@ -27,6 +28,10 @@ const store = new Vuex.Store({
 
         isValidForm(state) {
             return state.isValidForm
+        },
+
+        orderId(state) {
+            return state.orderId
         }
     },
     mutations: {
@@ -52,6 +57,10 @@ const store = new Vuex.Store({
 
         changeIsValidForm(state, flag) {
             state.isValidForm = flag
+        },
+
+        changeOrderId(state, id) {
+            state.orderId = id
         }
     },
     actions: {
@@ -77,6 +86,10 @@ const store = new Vuex.Store({
 
         changeIsValidForm(ctx, flag) {
             ctx.commit('changeIsValidForm', flag)
+        },
+
+        changeOrderId(ctx, id) {
+            ctx.commit('changeOrderId', id)
         }
     }
 })

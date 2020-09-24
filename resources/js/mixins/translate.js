@@ -1,7 +1,7 @@
 export default {
     methods: {
-        translate(text) {
-            return window.translate(text)
+        translate(text, fields) {
+            return window.translate(text, fields)
         }
     }
 }

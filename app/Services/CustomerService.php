@@ -33,8 +33,9 @@ class CustomerService
     {
         $data = collect($data);
 
-        if (!$data->has(['first_name', 'last_name', 'email', 'password', 'phone']))
+        if (!$data->has(['first_name', 'last_name', 'email', 'password', 'phone'])) {
             throw new Exception('Реєстрація неможлива! Не заповнені всі поля!', 500);
+        }
 
         return Customer::create($data->all());
     }

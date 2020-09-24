@@ -11,7 +11,7 @@ class AssetsController extends CatalogController
 {
     public function translates()
     {
-        $translates = Cache::rememberForever('assets.translates', function () {
+        $translates = Cache::rememberForever('assets.translates_' . config('locale.current'), function () {
             return Translate::all()->mapWithKeys(function (Translate $translate) {
                 return [$translate->original => $translate->content];
             });
@@ -26,9 +26,11 @@ class AssetsController extends CatalogController
 
     public function registerTranslate(Request $request)
     {
-        return response()->json([
-            'result' => translate($request->text)
-        ]);
+        $result = translate($request->get('text'));
+
+        artisan('cache:clear');
+
+        return response()->json(['result' => $result]);
     }
 
     public function contentEditable(ContentEditableRequest $request)

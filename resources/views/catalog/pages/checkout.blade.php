@@ -18,21 +18,11 @@
                 </div>
 
                 <h1>@translate('Оформлення замовлення')</h1>
-
             </div>
 
             <div id="checkout-form-wrapper">
                 <checkout :data="{{ json_encode($checkoutPageData) }}"></checkout>
             </div>
-            {{--<form action="{{ route('checkout.create') }}" id="checkout">
-                <div class="row">
-                    @include('catalog.checkout.contacts')
-
-                    @include('catalog.checkout.delivery')
-
-                    @include('catalog.checkout.cart')
-                </div>
-            </form>--}}
         </div>
     </main>
 @endsection
