@@ -37,12 +37,12 @@ class CreateProductsTable extends Migration
             $table->text('big')->nullable();
             $table->string('product_key', 32)->unique();
 
-            $table->string('meta_title_uk', 256)->nullable();
-            $table->string('meta_keywords_uk', 256)->nullable();
-            $table->string('meta_description_uk', 256)->nullable();
-            $table->string('meta_title_ru', 256)->nullable();
-            $table->string('meta_keywords_ru', 256)->nullable();
-            $table->string('meta_description_ru', 256)->nullable();
+            $table->string('meta_title_uk', 1024)->nullable();
+            $table->string('meta_keywords_uk', 1024)->nullable();
+            $table->string('meta_description_uk', 1024)->nullable();
+            $table->string('meta_title_ru', 1024)->nullable();
+            $table->string('meta_keywords_ru', 1024)->nullable();
+            $table->string('meta_description_ru', 1024)->nullable();
 
             $table->float('weight')->nullable()->default(0);
 
