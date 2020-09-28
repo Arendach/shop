@@ -1,24 +1,24 @@
 <?php
 
-
 namespace App\Casts;
 
-
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+use Exception;
+use Log;
 
 class ProductAttributeVariantsCast implements CastsAttributes
 {
     public function get($model, string $key, $value, array $attributes)
     {
-        if (empty($value)) {
-            return [];
-        }
-
-        $variants = json_decode($value);
-
         $result = [];
-        foreach ($variants as $variant) {
-            $result[] = $variant->{"value_" . config('locale.current')} ?? '';
+        try {
+            $variants = json_decode($value);
+
+            foreach ($variants as $variant) {
+                $result[] = $variant->{"value_" . config('locale.current')} ?? '';
+            }
+        } catch (Exception $exception) {
+            Log::error($exception->getMessage());
         }
 
         return $result;
