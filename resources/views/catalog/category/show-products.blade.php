@@ -94,6 +94,15 @@
             <!-- /row -->
 
         </div>
+
+        <div class="container margin_30">
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-9">
+                    {!! $category->description !!}
+                </div>
+            </div>
+        </div>
         <!-- /container -->
     </main>
 @endsection
