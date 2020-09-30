@@ -7,7 +7,8 @@ class ShowErrors {
             radio: 'inputRadio',
             checkbox: 'inputCheckbox',
             password: 'inputText',
-            email: 'inputText'
+            email: 'inputText',
+            date: 'inputText'
         },
         select: 'select'
     }

@@ -63,14 +63,15 @@ class CheckoutRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'first_name' => translate('Імя'),
-            'last_name'  => translate('Прізвище'),
-            'phone'      => translate('Телефон'),
-            'email'      => translate('Електронна пошта'),
-            'password'   => translate('Пароль'),
-            'shop_id'    => translate('Магазин'),
-            'city'       => translate('Місто'),
-            'street'     => translate('Вулиця')
+            'first_name'    => translate('Імя'),
+            'last_name'     => translate('Прізвище'),
+            'phone'         => translate('Телефон'),
+            'email'         => translate('Електронна пошта'),
+            'password'      => translate('Пароль'),
+            'shop_id'       => translate('Магазин'),
+            'city'          => translate('Місто'),
+            'street'        => translate('Вулиця'),
+            'date_delivery' => translate('Дата доставки')
         ];
     }
 

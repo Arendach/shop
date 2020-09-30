@@ -4,14 +4,14 @@
       <label> <i class="text-danger">*</i> {{ translate('Магазин') }}</label>
       <select class="form-control form-control-sm" name="shop_id" required>
         <option hidden value="">{{ translate('Вибрати') }}</option>
-        <option v-for="shop in shops" :value="shop.id">{{ shop.name }}</option>
+        <option v-for="shop in shops" :value="shop.id">{{ `${shop.name} (${shop.address})` }}</option>
       </select>
       <div class="feedback"></div>
     </div>
 
     <div class="form-group">
-      <label>{{ translate('Дата') }}</label>
-      <input class="form-control form-control-sm" name="date_delivery" type="date" value="">
+      <label>{{ translate('Бажана дата отримання товару') }}</label>
+      <input class="form-control form-control-sm" name="date_delivery" type="date">
       <div class="feedback"></div>
     </div>
   </div>
