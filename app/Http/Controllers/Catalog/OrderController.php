@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Catalog;
 use App\Http\Requests\Catalog\Order\CheckoutRequest;
 use App\Jobs\Emails\OrderEmailJob;
 use App\Models\Order;
-use App\Services\AuthService;
 use App\Services\CartService;
-use App\Services\CustomerService;
 use App\Services\NewPostService;
 use App\Services\OrderService;
 use Illuminate\Http\JsonResponse;
@@ -24,9 +22,9 @@ class OrderController extends CatalogController
         return view('catalog.pages.checkout');
     }
 
-    public function create(CheckoutRequest $request, OrderService $orderService)
+    public function create(CheckoutRequest $request)
     {
-        $order = $orderService->createOrder($request->validated());
+        $order = app(OrderService::class)->createOrder($request->validated());
 
         dispatch(new OrderEmailJob($order));
 

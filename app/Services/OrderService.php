@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Order;
 use App\Models\Product;
+use App\Services\CartService;
 
 class OrderService
 {
@@ -11,9 +12,9 @@ class OrderService
     private $deliveryService;
     private $customer;
 
-    public function __construct(CartService $cartService, DeliveryService $deliveryService)
+    public function __construct(DeliveryService $deliveryService)
     {
-        $this->cartService = $cartService;
+        $this->cartService = app(CartService::class);
         $this->deliveryService = $deliveryService;
         $this->customer = customer();
     }

@@ -8,9 +8,9 @@ class TranslateTextService
 {
     public function get($text, string $language = 'ru', bool $decode = true): ?string
     {
-        try {
-            $client = new TranslateClient();
+        $client = new TranslateClient();
 
+        if (config('api.use_goggle_api')) {
             $result = $client->translate(htmlspecialchars_decode($text), [
                 'target' => $language,
                 'source' => config('locale.default'),
@@ -18,17 +18,18 @@ class TranslateTextService
                 'format' => 'html'
             ]);
 
-            if (!isset($result['text'])) {
-                return null;
-            }
-
-            if ($decode) {
-                $result['text'] = htmlspecialchars_decode($result['text']);
-            }
-
-            return $result['text'];
-        } catch (\Exception $exception) {
-            return $text;
+        } else {
+            $result['text'] = $text;
         }
+
+        if (!isset($result['text'])) {
+            return null;
+        }
+
+        if ($decode) {
+            $result['text'] = htmlspecialchars_decode($result['text']);
+        }
+
+        return $result['text'];
     }
 }
