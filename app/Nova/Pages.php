@@ -8,6 +8,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Panel;
+use Waynestate\Nova\CKEditor;
 
 class Pages extends Resource
 {
@@ -39,7 +40,7 @@ class Pages extends Resource
                 Text::make(translate('Заголовок(title)'), 'meta_title_uk')->hideFromIndex(),
                 Text::make(translate('Ключові слова(keywords)'), 'meta_keywords_uk')->hideFromIndex(),
                 Text::make(translate('Опис(description)'), 'meta_description_uk')->hideFromIndex(),
-                Trix::make(translate('Контент'), 'content_uk')->hideFromIndex(),
+                Trix::make('Контент', 'content_uk')->hideFromIndex()->withFiles('public'),
             ]),
 
             new Panel(translate('Російська локалізація'), [
@@ -47,7 +48,7 @@ class Pages extends Resource
                 Text::make(translate('Заголовок(title)'), 'meta_title_ru')->hideFromIndex(),
                 Text::make(translate('Ключові слова(keywords)'), 'meta_keywords_ru')->hideFromIndex(),
                 Text::make(translate('Опис(description)'), 'meta_description_ru')->hideFromIndex(),
-                Trix::make(translate('Контент'), 'content_ru')->hideFromIndex(),
+                Trix::make(translate('Контент'), 'content_ru')->hideFromIndex()->withFiles('public'),
             ])
         ];
     }

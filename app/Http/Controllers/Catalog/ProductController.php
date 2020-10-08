@@ -5,18 +5,20 @@ namespace App\Http\Controllers\Catalog;
 use App\Http\Requests\Catalog\Product\ReviewCreateRequest;
 use App\Http\Requests\Catalog\Product\ReviewDeleteRequest;
 use App\Http\Requests\Catalog\Product\ReviewUpdateRequest;
+use App\Http\Resources\ReviewResource;
 use App\Models\Product;
 use App\Models\Review;
+use App\Services\Business\ReviewService;
+use Illuminate\Http\JsonResponse;
 
 class ProductController extends CatalogController
 {
     public function view($slug)
     {
         $reviewTab = (isset($_GET['rev'])) ? true : false;
-        
+
         $product = Product::with([
             'images',
-            'reviews',
             'related',
             'category',
             'category.parent',
@@ -46,27 +48,18 @@ class ProductController extends CatalogController
         return view('catalog.product.page_review', compact('product'));
     }
 
-    public function action_create_review(ReviewCreateRequest $request)
+    public function action_create_review(ReviewCreateRequest $request): ReviewResource
     {
-        Review::create($request->merge([
-            'customer_id' => customer()->id,
-        ])->all());
+        $review = Review::create($request->validated());
 
-        return response()->json([
-            'message' => translate('Ваш відгук прийнятий')
-        ]);
+        return new ReviewResource($review);
     }
 
-    public function action_review_update(ReviewUpdateRequest $request)
+    public function updateReview(ReviewUpdateRequest $request, ReviewService $reviewService): ReviewResource
     {
-        Review::findOrFail($request->id)
-            ->update($request->all());
+        $review = $reviewService->updateReview($request->get('id'), $request->validated());
 
-        // TODO дописати логіку зміни рейтинга товара
-
-        return response()->json([
-            'message' => translate('Відгук вдало відредаговано')
-        ]);
+        return new ReviewResource($review);
     }
 
     public function action_delete_review(ReviewDeleteRequest $request)

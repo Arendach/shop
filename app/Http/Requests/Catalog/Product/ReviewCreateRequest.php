@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Catalog\Product;
 
-use App\Models\Review;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -10,7 +9,7 @@ class ReviewCreateRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return isAuth();
     }
 
     protected function failedAuthorization(): void
@@ -21,9 +20,9 @@ class ReviewCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'   => 'required',
-            'comment' => 'nullable|max:10000',
-            'rating'  => 'required|max:1'
+            'product_id' => 'required|exists:products,id',
+            'comment'    => 'nullable|max:10000',
+            'rating'     => 'required|integer'
         ];
     }
 

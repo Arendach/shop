@@ -146,7 +146,7 @@
                         </div>
                         <!--<a class="phone_top" href="tel://{{ $globalData->phone('header_phone') }}">-->
                         <div class="dropdown show dropdown-numbers">
-                            <a class="phone_top" href="tel://{{ $globalData->phone('header_phone') }}" role="button" id="dropdownMenuLink">
+                            <a class="phone_top" href="tel:{{ $globalData->phone('header_phone') }}" role="button" id="dropdownMenuLink">
                                 <strong>
                                     <span>
                                         @translate('Потрібна допомога?')
@@ -154,11 +154,11 @@
                                     {{ $globalData->header_phone }}
                                 </strong>
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            {{--<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <a class="dropdown-item" href="#">+38 (063) 342-33-32</a>
                                 <a class="dropdown-item" href="#">+38 (063) 342-33-32</a>
                                 <a class="dropdown-item" href="#">+38 (063) 342-33-32</a>
-                            </div>
+                            </div>--}}
                         </div>
                     </div>
                 </div>

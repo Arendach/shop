@@ -57,11 +57,11 @@ Route::group(['middleware' => ['onlyLogged'], 'prefix' => 'profile'], function (
     Route::get('config', 'CustomerController@config')->name('profile.config');
 });
 
-// Сторінка відгуку товару
-Route::get('leave-review/{id}', 'ProductController@leaveReview')->name('product.leave_review');
-
 // Залишення відгуку товару через метод POST
 Route::post('product/create-review', 'ProductController@action_create_review')->name('product.create_review');
+
+// Оновлення відгуку користувачом
+Route::post('product/update-review', 'ProductController@updateReview')->name('product.update_review');
 
 // Пошук товарів по сайту
 Route::get('search', 'SearchController@index')->name('search');

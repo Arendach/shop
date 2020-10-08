@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Cart;
+use Illuminate\Support\Collection;
 
 class CartService
 {
@@ -204,7 +205,7 @@ class CartService
 
     public function getProducts()
     {
-        return $this->cart->products ?? [];
+        return $this->cart->products ?? new Collection([]);
     }
 
     public function hasProducts(): bool

@@ -35,7 +35,7 @@
                  class="countdown"></div>
         @endif
     </figure>
-    <a href="{{(!empty($product->rating)) ? route('product.view', $product->id) . '?rev=1' : route('product.leave_review', $product->id)}}">
+    <a href="{{ $product->url }}">
         {!! $product->stars !!}
         <em>{{ $product->reviews_count }} @translate('Відгук(ів)')</em>
     </a>

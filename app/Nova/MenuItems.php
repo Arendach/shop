@@ -2,10 +2,10 @@
 
 namespace App\Nova;
 
+use Artisan;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class MenuItems extends Resource
 {
@@ -24,6 +24,8 @@ class MenuItems extends Resource
 
     public function fields(Request $request)
     {
+        Artisan::call('cache:clear');
+
         return [
             ID::make()->sortable(),
             Text::make(translate('Назва (ук)'), 'name_uk'),

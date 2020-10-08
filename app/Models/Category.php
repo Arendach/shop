@@ -8,6 +8,7 @@ use App\Traits\Models\Image;
 use App\Traits\Models\SeoMultiLang;
 use App\Traits\Models\Translatable;
 use App\Traits\Models\TwoImage;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -126,7 +127,9 @@ class Category extends Model implements Sortable, TwoImageInterface
         $products = Product::where('category_id', $category_id)
             ->with('characteristics')
             ->with('characteristics.characteristic')
-            ->withCount('reviews')
+            ->withCount(['reviews' => function (Builder $builder) {
+                $builder->where('is_checked', 1);
+            }])
             ->orderBy('on_storage', 'desc');
 
         if (!$request->has('order'))

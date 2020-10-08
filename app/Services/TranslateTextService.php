@@ -8,23 +8,27 @@ class TranslateTextService
 {
     public function get($text, string $language = 'ru', bool $decode = true): ?string
     {
-        $client = new TranslateClient();
+        try {
+            $client = new TranslateClient();
 
-        $result = $client->translate(htmlspecialchars_decode($text), [
-            'target' => $language,
-            'source' => config('locale.default'),
-            'key'    => config('api.google'),
-            'format' => 'html'
-        ]);
+            $result = $client->translate(htmlspecialchars_decode($text), [
+                'target' => $language,
+                'source' => config('locale.default'),
+                'key'    => config('api.google'),
+                'format' => 'html'
+            ]);
 
-        if (!isset($result['text'])) {
-            return null;
+            if (!isset($result['text'])) {
+                return null;
+            }
+
+            if ($decode) {
+                $result['text'] = htmlspecialchars_decode($result['text']);
+            }
+
+            return $result['text'];
+        } catch (\Exception $exception) {
+            return $text;
         }
-
-        if ($decode) {
-            $result['text'] = htmlspecialchars_decode($result['text']);
-        }
-
-        return $result['text'];
     }
 }

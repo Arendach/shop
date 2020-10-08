@@ -22,40 +22,7 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
     use TwoImage;
     use Editable;
 
-    public $fillable = [
-        'article',
-        'category_id',
-        'price',
-        'on_storage',
-        'name_uk',
-        'description_uk',
-        'name_ru',
-        'description_ru',
-        'is_new',
-        'is_recommended',
-        'discount',
-        'small',
-        'big',
-        'product_key',
-        'meta_title_uk',
-        'meta_keywords_uk',
-        'meta_description_uk',
-        'meta_title_ru',
-        'meta_keywords_ru',
-        'meta_description_ru',
-        'manufacturer_id',
-        'slug',
-        'old_url',
-        'video',
-        'model_uk',
-        'model_ru',
-        'volume',
-        'packing',
-        'weight',
-    ];
-
     protected $guarded = [];
-
     protected $dates = ['created_at', 'updated_at'];
 
     protected $casts = [

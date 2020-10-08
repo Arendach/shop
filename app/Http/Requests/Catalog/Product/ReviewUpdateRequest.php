@@ -23,14 +23,16 @@ class ReviewUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'   => 'required',
+            'id'      => 'required|exists:reviews,id',
             'comment' => 'nullable|max:10000',
-            'rating'  => 'required|max:1'
+            'rating'  => 'required|integer'
         ];
     }
 
     public function attributes(): array
     {
-        return [];
+        return [
+            'rating' => 'Рейтинг'
+        ];
     }
 }

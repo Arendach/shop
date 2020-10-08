@@ -1,7 +1,7 @@
 @extends('catalog.layout')
 
 @section('css')
-    <link href="{{ vAsset('catalog/css/product_page.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ mix('css/product.css') }}">
 @endsection
 
 @section('content')
@@ -347,9 +347,8 @@
                         </div>
                 @endif
                 <!-- /TAB A -->
-                    <div id="pane-B" class="card tab-pane fade @displayIf($reviewTab, 'active show')"
-
-                             role="tabpanel" aria-labelledby="tab-B">
+                    <div id="pane-B" class="card tab-pane fade @displayIf($reviewTab, 'active show')" role="tabpanel"
+                         aria-labelledby="tab-B">
                         <div class="card-header" role="tab" id="heading-B">
                             <h5 class="mb-0">
                                 <a class="collapsed" data-toggle="collapse" href="#collapse-B" aria-expanded="false"
@@ -359,41 +358,7 @@
                             </h5>
                         </div>
                         <div id="collapse-B" class="collapse" role="tabpanel" aria-labelledby="heading-B">
-                            <div class="card-body">
-                                @forelse($product->reviews->chunk(2) as $reviewsChunk)
-                                    <div class="row justify-content-between">
-                                        @foreach($reviewsChunk as $review)
-                                            <div class="col-lg-6">
-                                                <div class="review_content">
-                                                    <div class="clearfix add_bottom_10">
-                                                            <span class="rating">
-                                                                {!! $review->stars !!}
-                                                                <em>{{ $review->rating }}/5</em>
-                                                            </span>
-                                                        <em>@translate('Опубліковано') {{ $review->created_at->diffForHumans() }}</em>
-                                                    </div>
-                                                    <h4>"{{ $review->customer->first_name }}"</h4>
-                                                    <p>{{ $review->comment }}</p>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                @empty
-                                    <div class="row justify-content-center">
-                                        <div class="col-12">
-                                            <h3 style="text-align: center" class="mt-5 mb-5">
-                                                @editable('Для даного товару немає відгуків')
-                                            </h3>
-                                        </div>
-                                    </div>
-                                @endforelse
-
-                                <p class="text-right">
-                                    <a href="{{ route('product.leave_review', $product->id) }}" class="btn_1">
-                                        @editable('Залишити відгук')
-                                    </a>
-                                </p>
-                            </div>
+                            <reviews :reviews-data="{{ json_encode($reviewsData) }}"></reviews>
                         </div>
                     </div>
                     <div id="pane-C" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-С">
@@ -445,9 +410,9 @@
                     @endforeach
                 </div>
             </div>
-        @endif
+    @endif
 
-        <!--
+    <!--
         <div class="feat">
             <div class="container">
                 <ul>
@@ -490,7 +455,8 @@
     @include('catalog.parts.one-click-order-window')
 @endpush
 
-@section('js')
+@push('js')
     <script src="{{ vAsset('catalog/js/carousel_with_thumbs.js') }}"></script>
     <script src="{{ asset('catalog/js/modal_windows.js') }}"></script>
-@endsection
+    <script src="{{ mix('js/product.js') }}"></script>
+@endpush

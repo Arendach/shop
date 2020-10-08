@@ -2,13 +2,13 @@
 
 namespace App\Nova;
 
+use Artisan;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
 use OptimistDigital\NovaSortable\Traits\HasSortableRows;
 
@@ -27,6 +27,8 @@ class Menu extends Resource
 
     public function fields(Request $request)
     {
+        Artisan::call('cache:clear');
+
         return [
             new Panel(translate('Загальна інформація'), [
                 ID::make()->sortable(),

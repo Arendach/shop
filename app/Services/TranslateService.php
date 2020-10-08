@@ -26,52 +26,65 @@ class TranslateService
 
     public function get($text): ?string
     {
-        if (!isset($this->translate[$text])) {
-            $this->translate($text);
-        }
+        try {
+            if (!isset($this->translate[$text])) {
+                $this->translate($text);
+            }
 
-        return $this->translate[$text]->content;
+            return $this->translate[$text]->content;
+        } catch (\Exception $exception) {
+            return $text;
+        }
     }
 
     public function editable($text): ?string
     {
-        if (!isset($this->translate[$text])) {
-            $this->translate($text);
-        }
+        try {
 
-        return $this->translate[$text]->editable('content', true);
+            if (!isset($this->translate[$text])) {
+                $this->translate($text);
+            }
+
+            return $this->translate[$text]->editable('content', true);
+        } catch (\Exception $exception) {
+            return $text;
+        }
     }
 
     private function translate($text)
     {
-        $client = new TranslateClient();
-        $translate = new Translate();
+        try {
+            $client = new TranslateClient();
+            $translate = new Translate();
 
-        $translate->original = $text;
-        $translate->created_at = now();
-        $translate->updated_at = now();
-        $translate->{"content_" . config('locale.default')} = $text;
-        foreach (config('locale.support') as $language) {
-            if ($language == config('locale.default')) continue;
+            $translate->original = $text;
+            $translate->created_at = now();
+            $translate->updated_at = now();
+            $translate->{"content_" . config('locale.default')} = $text;
+            foreach (config('locale.support') as $language) {
+                if ($language == config('locale.default')) continue;
 
-            $result = $client->translate($text, [
-                'target' => $language,
-                'source' => config('locale.default'),
-                'key'    => config('api.google'),
-                'format' => 'html'
-            ]);
+                $result = $client->translate($text, [
+                    'target' => $language,
+                    'source' => config('locale.default'),
+                    'key'    => config('api.google'),
+                    'format' => 'html'
+                ]);
 
-            if (preg_match('~^[А-Я]~', $text)) {
-                $translate->{"content_$language"} = ucfirst($result['text'] ?? '');
-            } else {
-                $translate->{"content_$language"} = $result['text'] ?? '';
+                if (preg_match('~^[А-Я]~', $text)) {
+                    $translate->{"content_$language"} = ucfirst($result['text'] ?? '');
+                } else {
+                    $translate->{"content_$language"} = $result['text'] ?? '';
+                }
             }
+
+            $translate->save();
+
+            $this->forgetCache();
+            $this->boot();
+        } catch (\Exception $exception) {
+            \Log::error($exception->getMessage());
         }
-
-        $translate->save();
-
-        $this->forgetCache();
-        $this->boot();
     }
 
     private function readAll()

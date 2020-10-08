@@ -1,6 +1,11 @@
 const mix = require('laravel-mix');
 require('laravel-mix-alias');
 
+mix.options({
+    processCssUrls: false,
+    terser: { extractComments: false, },
+})
+
 mix.alias({
     '@': 'resources/js',
     'Api':'resources/js/helpers/api.js',
@@ -8,12 +13,13 @@ mix.alias({
 
 mix.js('resources/js/cart.js', 'public/js')
     .js('resources/js/components/checkout-form/main.js', 'public/js/checkout.js')
-    .js('resources/js/app/reviews.js', 'public/js')
-    .js('resources/js/customer/login.ts', 'public/js/customer.js')
+    .js('resources/js/components/product/product.js', 'public/js/product.js')
+   .js('resources/js/customer/login.ts', 'public/js/customer.js')
     .js('resources/js/app.js', 'public/js/app.js')
     .js('resources/js/components/category-filter/main.js', 'public/js/category-filter.js')
     .sass('resources/sass/custom.scss', 'public/css/custom.css')
     .sass('resources/sass/checkout.scss', 'public/css/checkout.css')
+    .sass('resources/sass/pages/product.scss', 'public/css/product.css')
     .styles([
         'public/catalog/css/bootstrap.custom.min.css',
         'public/catalog/css/custom.css',
@@ -35,4 +41,4 @@ mix.js('resources/js/cart.js', 'public/js')
         resolve: {
             extensions: ["*", ".js", ".jsx", ".vue", ".ts", ".tsx"]
         }
-    });
+    }).version();
