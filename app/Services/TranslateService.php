@@ -54,12 +54,18 @@ class TranslateService
         foreach (config('locale.support') as $language) {
             if ($language == config('locale.default')) continue;
 
-            $result = $client->translate($text, [
-                'target' => $language,
-                'source' => config('locale.default'),
-                'key'    => config('api.google'),
-                'format' => 'html'
-            ]);
+            if (config('api.use_goggle_api')) {
+                $result = $client->translate($text, [
+                    'target' => $language,
+                    'source' => config('locale.default'),
+                    'key'    => config('api.google'),
+                    'format' => 'html'
+                ]);
+            } else {
+                $result = [
+                    'text' => $text
+                ];
+            }
 
             if (preg_match('~^[А-Я]~', $text)) {
                 $translate->{"content_$language"} = ucfirst($result['text'] ?? '');

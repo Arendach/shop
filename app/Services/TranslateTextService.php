@@ -10,12 +10,16 @@ class TranslateTextService
     {
         $client = new TranslateClient();
 
-        $result = $client->translate(htmlspecialchars_decode($text), [
-            'target' => $language,
-            'source' => config('locale.default'),
-            'key'    => config('api.google'),
-            'format' => 'html'
-        ]);
+        if (config('api.use_goggle_api')) {
+            $result = $client->translate(htmlspecialchars_decode($text), [
+                'target' => $language,
+                'source' => config('locale.default'),
+                'key'    => config('api.google'),
+                'format' => 'html'
+            ]);
+        } else {
+            $result['text'] = $text;
+        }
 
         if (!isset($result['text'])) {
             return null;
