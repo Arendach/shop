@@ -28,9 +28,9 @@
 @endsection
 
 @push('css')
-    <link href="{{ vAsset('css/checkout.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/checkout.css') }}" rel="stylesheet">
 @endpush
 
 @push('js')
-    <script src="{{ vAsset('js/checkout.js') }}"></script>
+    <script src="{{ mix('js/checkout.js') }}"></script>
 @endpush

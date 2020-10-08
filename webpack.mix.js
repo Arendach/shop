@@ -36,3 +36,5 @@ mix.js('resources/js/cart.js', 'public/js')
             extensions: ["*", ".js", ".jsx", ".vue", ".ts", ".tsx"]
         }
     });
+
+mix.version()
