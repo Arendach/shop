@@ -325,13 +325,13 @@
                                                             <tr>
                                                                 <td>
                                                                     <strong>
-                                                                        {!! $characteristic->getName(true) !!}
+                                                                        {!! $characteristic->getName() !!}
                                                                     </strong>
                                                                 </td>
                                                                 <td>
-                                                                    {!! $characteristic->getPrefix(true) !!}
-                                                                    {!! $characteristic->editable('value') !!}
-                                                                    {!! $characteristic->getPostfix(true) !!}
+                                                                    {!! $characteristic->getPrefix() !!}
+                                                                    {!! $characteristic->value !!}
+                                                                    {!! $characteristic->getPostfix() !!}
                                                                 </td>
                                                             </tr>
                                                         @endforeach
