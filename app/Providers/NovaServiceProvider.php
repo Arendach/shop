@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Laravel\Nova\Actions\ActionEvent;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -21,6 +22,12 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
         Nova::serving(function () {
             Nova::translations(base_path('packages/nova/resources/lang/' . config('locale.current') . '.json'));
+        });
+
+        ActionEvent::saving(function ($actionEvent) {
+            if (in_array($actionEvent->name, ['Create', 'Update'])) {
+                return false;
+            }
         });
     }
 
