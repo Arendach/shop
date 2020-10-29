@@ -225,7 +225,11 @@
             </div>
             <!-- /row -->
         </div>--}}
-
+        @if(\App\Models\Page::where('uri_name', 'index')->count())
+            <div class="container margin_60_35">
+                {!! \App\Models\Page::where('uri_name', 'index')->first()->content !!}
+            </div>
+        @endif
 
     </main>
 
