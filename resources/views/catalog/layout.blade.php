@@ -48,14 +48,14 @@
         <div class="main_header">
             <div class="container">
                 <div class="row small-gutters">
-                    <div class="col-xl-3 col-lg-3 d-lg-flex align-items-center">
+                    <div class="col-xl-2 col-lg-3 d-lg-flex align-items-center">
                         <div id="logo">
                             <a href="{{ route('index') }}">
                                 <img src="{{ $globalData->logo_image }}" width="100" height="35">
                             </a>
                         </div>
                     </div>
-                    <nav class="col-xl-5 col-lg-6">
+                    <nav class="col-xl-6 col-lg-6">
                         <a class="open_close" href="javascript:void(0);">
                             <div class="hamburger hamburger--spin">
                                 <div class="hamburger-box">
