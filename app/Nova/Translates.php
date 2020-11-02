@@ -13,6 +13,10 @@ class Translates extends Resource
 
     public static $title = 'original';
 
+    public static $search = [
+        'original', 'content_uk', 'content_ru'
+    ];
+
     public static function label()
     {
         return translate('Переклади');
@@ -20,31 +24,13 @@ class Translates extends Resource
 
     public function fields(Request $request)
     {
+        artisan('cache:clear');
+
         return [
             ID::make()->sortable(),
-            Text::make(translate('Оригінал'), 'original')->readonly(),
-            Text::make(translate('Українською'), 'content_uk'),
-            Text::make(translate('Російською'), 'content_ru'),
+            Text::make('Оригінал', 'original')->readonly()->sortable(),
+            Text::make('Українською', 'content_uk')->sortable(),
+            Text::make('Російською', 'content_ru')->sortable(),
         ];
-    }
-
-    public function cards(Request $request)
-    {
-        return [];
-    }
-
-    public function filters(Request $request)
-    {
-        return [];
-    }
-
-    public function lenses(Request $request)
-    {
-        return [];
-    }
-
-    public function actions(Request $request)
-    {
-        return [];
     }
 }
