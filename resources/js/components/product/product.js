@@ -6,7 +6,7 @@ import store from "./store";
 Vue.mixin(translate)
 
 new Vue({
-    el: '#page',
+    el: '#product-page',
     components: {Reviews},
     store: store
 })

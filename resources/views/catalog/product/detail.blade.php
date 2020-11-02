@@ -6,7 +6,7 @@
 
 @section('content')
     @php /** @var \App\Models\Product $product*/ @endphp
-    <main>
+    <main id="product-page">
         <div class="container margin_30">
             @if($product->is_discounted)
                 <div class="countdown_inner">-{{ $product->discount_percent }}% @editable('Ця знижка закічиться через')
