@@ -67,7 +67,7 @@
 </div>
 <ul class="grid_item_2">
     <li>
-        <a href="javascript:void(0)" data-type="cart_attach"
+        <a href="javascript:void(0)" @if($product->on_storage) data-type="cart_attach" @else disabled @endif
            data-id="{{ $product->id }}" class="tooltip-1 cart-button">
             <i class="ti-shopping-cart"></i>
             <span>@translate('В корзину')</span>

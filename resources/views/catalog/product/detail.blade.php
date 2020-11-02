@@ -220,7 +220,7 @@
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="btn_add_to_cart"
-                                     data-type="cart_attach"
+                                     @if($product->on_storage) data-type="cart_attach" @else style="" @endif
                                      data-id="{{ $product->id }}"
                                      data-dont-show-taastr="1"
                                 >
