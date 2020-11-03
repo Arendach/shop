@@ -14,26 +14,31 @@ class ProductObserver
         }
 
         $this->clear();
+        $this->generateRedirects();
     }
 
     public function updated(Product $page)
     {
         $this->clear();
+        $this->generateRedirects();
     }
 
     public function deleted(Product $page)
     {
         $this->clear();
+        $this->generateRedirects();
     }
 
     public function restored(Product $page)
     {
         $this->clear();
+        $this->generateRedirects();
     }
 
     public function forceDeleted(Product $page)
     {
         $this->clear();
+        $this->generateRedirects();
     }
 
     private function generateSmallImage($bigImagePath): ?string
@@ -56,5 +61,10 @@ class ProductObserver
     private function clear(): void
     {
         Artisan::call('cache:clear');
+    }
+
+    protected function generateRedirects(): void
+    {
+        Artisan::call('generate:redirect-routes');
     }
 }

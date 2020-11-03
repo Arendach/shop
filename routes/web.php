@@ -61,18 +61,3 @@ Route::group([
      */
     Route::namespace('Catalog')->group(base_path('routes/catalog.php'));
 });
-
-Route::get('{url}', function ($url) {
-
-    $product = \App\Models\Product::where('old_url', '/' . $url)->first();
-
-    if (is_null($product)) {
-        abort(404);
-    }
-
-    if ($product->old_url == $url) {
-        return Redirect::to($product->url);
-    }
-
-    abort(404);
-})->where('url', '.*?');

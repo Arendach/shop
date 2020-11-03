@@ -46,7 +46,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        //
+        $this->mapRedirectRoutes();
     }
 
     /**
@@ -76,5 +76,14 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(base_path('routes/api.php'));
+    }
+
+    protected function mapRedirectRoutes()
+    {
+        if (is_file(base_path('routes/redirects.php'))) {
+            Route::middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/redirects.php'));
+        }
     }
 }

@@ -15,3 +15,4 @@
 /public/catalog/css/app.css
 /public/.htaccess
 composer.phar
+/routes/redirects.php
