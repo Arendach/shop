@@ -7,7 +7,7 @@
 
     <main>
         <div class="container mt-11 mb-11">
-            <div style="margin: 40px 0">
+            <div style="margin: 40px 0" class="page-wrapper">
                 {!! $page->content !!}
             </div>
         </div>
