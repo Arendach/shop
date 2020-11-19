@@ -19,6 +19,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Panel;
 use Media24si\NovaYoutubeField\Youtube;
+use Waynestate\Nova\CKEditor;
 
 class Products extends Resource
 {
@@ -71,7 +72,7 @@ class Products extends Resource
                     Text::make(translate('Заголовок (title)'), 'meta_title_uk')->hideFromIndex(),
                     Text::make(translate('Ключові слова(keywords)'), 'meta_keywords_uk')->hideFromIndex(),
                     Text::make(translate('Опис(description)'), 'meta_description_uk')->hideFromIndex(),
-                    Trix::make(translate('Опис'), 'description_uk')->hideFromIndex(),
+                    CKEditor::make('Опис', 'description_uk')->hideFromIndex(),
                 ]),
 
                 new Panel(translate('Російська локалізація'), [
@@ -80,7 +81,7 @@ class Products extends Resource
                     Text::make(translate('Заголовок (title)'), 'meta_title_ru')->hideFromIndex(),
                     Text::make(translate('Ключові слова(keywords)'), 'meta_keywords_ru')->hideFromIndex(),
                     Text::make(translate('Опис(description)'), 'meta_description_ru')->hideFromIndex(),
-                    Trix::make(translate('Опис'), 'description_ru')->hideFromIndex()
+                    CKEditor::make('Опис', 'description_ru')->hideFromIndex()
                 ]),
 
                 new Panel(translate('Медіа'), [

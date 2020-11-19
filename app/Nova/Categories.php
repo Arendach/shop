@@ -17,6 +17,7 @@ use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Panel;
 use OptimistDigital\NovaSortable\Traits\HasSortableRows;
+use Waynestate\Nova\CKEditor;
 
 class Categories extends Resource
 {
@@ -49,7 +50,7 @@ class Categories extends Resource
                     Text::make(translate('Заголовок (title)'), 'meta_title_uk')->hideFromIndex(),
                     Text::make(translate('Опис (description)'), 'meta_description_uk')->hideFromIndex(),
                     Text::make(translate('Ключові слова (keywords)'), 'meta_keywords_uk')->hideFromIndex(),
-                    Trix::make(translate('Опис'), 'description_uk')->hideFromIndex(),
+                    CKEditor::make('Опис', 'description_uk')->hideFromIndex(),
                 ]),
 
                 new Panel(translate('Російська локалізація'), [
@@ -57,7 +58,7 @@ class Categories extends Resource
                     Text::make(translate('Заголовок (title)'), 'meta_title_ru')->hideFromIndex(),
                     Text::make(translate('Опис (description)'), 'meta_description_ru')->hideFromIndex(),
                     Text::make(translate('Ключові слова (keywords)'), 'meta_keywords_ru')->hideFromIndex(),
-                    Trix::make(translate('Опис'), 'description_ru')->hideFromIndex(),
+                    CKEditor::make('Опис', 'description_ru')->hideFromIndex(),
                 ]),
 
                 new Panel(translate('Шаблони(uk)'), [

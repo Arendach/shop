@@ -31,13 +31,22 @@ class ProductImportHelper
 
     private function load_info($data): int
     {
-        $slug = Str::slug($data->name_uk);
-        if (Product::where('slug', $slug)->count())
+        $data = (array)$data;
+        $data = collect($data);
+
+        $slug = Str::slug($data->get('name_uk'));
+
+        if (Product::where('slug', $slug)->count()) {
             $slug .= rand(10, 99);
+        }
 
-        $data->slug = $slug;
+        $data->put('slug', $slug);
 
-        return Product::create((array)$data)->id;
+        $data = $data->filter(function ($item) {
+            return is_string($item) || is_numeric($item) || is_null($item);
+        })->toArray();
+
+        return Product::create($data)->id;
     }
 
     private function load_images($images, $product_id): void
