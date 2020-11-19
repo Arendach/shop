@@ -418,13 +418,13 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ setting('Посилання на facebook', 'http://instagram.com/vozdushno') }}">
+                                    <a href="{{ setting('Посилання на instagram', 'http://instagram.com/vozdushno') }}">
                                         <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
                                              data-src="{{ asset('catalog/img/instagram_icon.svg') }}" class="lazy">
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ setting('Посилання на facebook', 'https://www.youtube.com/channel/UCgetz4SbavYicHpsz0X9u1A') }}">
+                                    <a href="{{ setting('Посилання на youtube', 'https://www.youtube.com/channel/UCgetz4SbavYicHpsz0X9u1A') }}">
                                         <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
                                              data-src="{{ asset('catalog/img/youtube_icon.svg') }}" class="lazy">
                                     </a>
