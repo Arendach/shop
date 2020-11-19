@@ -12,17 +12,7 @@ class Review extends Model
     use HumanDate;
 
     protected $table = 'reviews';
-
-    protected $fillable = [
-        'customer_id',
-        'product_id',
-        'plus',
-        'minus',
-        'rating',
-        'title',
-        'comment'
-    ];
-
+    protected $guarded = [];
     public $timestamps = true;
 
     public function customer()

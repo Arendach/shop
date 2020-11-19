@@ -31,24 +31,24 @@ class Pages extends Resource
         return [
             new Panel('Загальна інформація', [
                 ID::make()->sortable(),
-                Text::make(translate('Адреса(url slug)'), 'uri_name'),
-                Boolean::make(translate('Швидка навігація'), 'is_fast_navigation'),
+                Text::make('Адреса(url slug)', 'uri_name'),
+                Boolean::make('Швидка навігація', 'is_fast_navigation'),
             ]),
 
             new Panel(translate('Українська локалізація'), [
-                Text::make(translate('Назва'), 'name_uk'),
-                Text::make(translate('Заголовок(title)'), 'meta_title_uk')->hideFromIndex(),
-                Text::make(translate('Ключові слова(keywords)'), 'meta_keywords_uk')->hideFromIndex(),
-                Text::make(translate('Опис(description)'), 'meta_description_uk')->hideFromIndex(),
-                Trix::make('Контент', 'content_uk')->hideFromIndex()->withFiles('public'),
+                Text::make('Назва', 'name_uk'),
+                Text::make('Заголовок(title)', 'meta_title_uk')->hideFromIndex(),
+                Text::make('Ключові слова(keywords)', 'meta_keywords_uk')->hideFromIndex(),
+                Text::make('Опис(description)', 'meta_description_uk')->hideFromIndex(),
+                CKEditor::make('Контент', 'content_uk')->hideFromIndex(),
             ]),
 
             new Panel(translate('Російська локалізація'), [
-                Text::make(translate('Назва'), 'name_ru')->hideFromIndex(),
-                Text::make(translate('Заголовок(title)'), 'meta_title_ru')->hideFromIndex(),
-                Text::make(translate('Ключові слова(keywords)'), 'meta_keywords_ru')->hideFromIndex(),
-                Text::make(translate('Опис(description)'), 'meta_description_ru')->hideFromIndex(),
-                Trix::make(translate('Контент'), 'content_ru')->hideFromIndex()->withFiles('public'),
+                Text::make('Назва', 'name_ru')->hideFromIndex(),
+                Text::make('Заголовок(title)', 'meta_title_ru')->hideFromIndex(),
+                Text::make('Ключові слова(keywords)', 'meta_keywords_ru')->hideFromIndex(),
+                Text::make('Опис(description)', 'meta_description_ru')->hideFromIndex(),
+                CKEditor::make('Контент', 'content_ru')->hideFromIndex(),
             ])
         ];
     }

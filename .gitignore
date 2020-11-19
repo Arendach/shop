@@ -16,3 +16,7 @@
 /public/.htaccess
 composer.phar
 /routes/redirects.php
+/error_log
+/public/error_log
+/public/*.png
+/public/google*.html

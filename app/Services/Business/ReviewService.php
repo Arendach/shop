@@ -23,7 +23,7 @@ class ReviewService
             ->avg('rating');
 
         Product::findOrFail($review->product_id)->update([
-            'rating' => $rating
+            'rating' => is_null($rating) ? 0 : $rating
         ]);
 
         return $review;
