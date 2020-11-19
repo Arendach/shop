@@ -27,7 +27,7 @@
         </div>
     </div>
     <div class="feedback-item menu-feedback">
-        <a data-toggle="collapse" href="#feedback-contacts">
+        <a data-toggle="collapse" href="#feedback-contacts" role="button" aria-expanded="false" aria-controls="feedback-contacts">
             <img src="{{ asset('img/comment.svg') }}">
         </a>
     </div>
