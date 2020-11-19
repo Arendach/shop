@@ -134,13 +134,13 @@
                     </nav>
                     <div class="col-xl-4 col-lg-3 d-lg-flex align-items-center justify-content-end text-right contacts">
                         <div class="sn">
-                            <a href="#" class="social-links">
+                            <a href="{{ setting('Посилання на facebook', 'https://facebook.com/vozdushno.com.ua') }}" class="social-links">
                                 <i class="ti-facebook"></i>
                             </a>
-                            <a href="#" class="social-links">
+                            <a href="{{ setting('Посилання на instagram', 'http://instagram.com/vozdushno') }}" class="social-links">
                                 <i class="ti-instagram"></i>
                             </a>
-                            <a href="#" class="social-links">
+                            <a href="{{ setting('Посилання на youtube', 'https://www.youtube.com/channel/UCgetz4SbavYicHpsz0X9u1A') }}" class="social-links">
                                 <i class="ti-youtube"></i>
                             </a>
                         </div>
@@ -412,19 +412,19 @@
                             <h5>@editable('Підпишіться на нас')</h5>
                             <ul>
                                 <li>
-                                    <a href="https://facebook.com/vozdushno.com.ua">
+                                    <a href="{{ setting('Посилання на facebook', 'https://facebook.com/vozdushno.com.ua') }}">
                                         <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
                                              data-src="{{ asset('catalog/img/facebook_icon.svg') }}" class="lazy">
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="http://instagram.com/vozdushno">
+                                    <a href="{{ setting('Посилання на facebook', 'http://instagram.com/vozdushno') }}">
                                         <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
                                              data-src="{{ asset('catalog/img/instagram_icon.svg') }}" class="lazy">
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="https://www.youtube.com/channel/UCgetz4SbavYicHpsz0X9u1A">
+                                    <a href="{{ setting('Посилання на facebook', 'https://www.youtube.com/channel/UCgetz4SbavYicHpsz0X9u1A') }}">
                                         <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
                                              data-src="{{ asset('catalog/img/youtube_icon.svg') }}" class="lazy">
                                     </a>
