@@ -205,50 +205,56 @@
   bottom: 16px;
   z-index: 500;
   left: 20px;
-}
 
-.feedback-item {
-  font-size: 30px;
-  color: white;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  padding-top: 6px;
-  padding-left: 10px;
-  margin-bottom: 8px;
-  cursor: pointer;
-
-  a {
+  .feedback-item {
+    font-size: 30px;
     color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-bottom: 8px;
+    cursor: pointer;
+
+    a {
+      color: white;
+      display: block;
+      height: 50px;
+      width: 50px;
+    }
+
+    img{
+      height: 50px;
+      width: 50px;
+    }
   }
-}
 
-#feedback-contacts {
-  display: none;
-}
+  #feedback-contacts {
+    display: none;
+  }
 
-.telegram-feedback {
-  background-color: #299fdb;
-}
+  .telegram-feedback {
+    background-color: #299fdb;
+  }
 
-.whatsapp-feedback {
-  background-color: #4dc247;
-}
+  .whatsapp-feedback {
+    background-color: #4dc247;
+  }
 
-.viber-feedback {
-  background-color: #9a5aca;
-}
+  .viber-feedback {
+    background-color: #9a5aca;
+  }
 
-.phone-feedback {
-  background-color: #ff802c;
-}
+  .phone-feedback {
+    background-color: #ff802c;
+  }
 
-.email-feedback {
-  background-color: #c3c3c3;
-}
+  .email-feedback {
+    background-color: #c3c3c3;
+  }
 
-.menu-feedback {
-  background-color: green;
+  .menu-feedback {
+    background-color: green;
+  }
 }
 
 .owl-carousel .owl-item img {
