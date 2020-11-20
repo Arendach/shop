@@ -6,20 +6,21 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreateSimpleOrderRequest extends FormRequest
 {
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
+            'id'    => 'required|exists:products,id',
             'name'  => 'required',
             'phone' => 'required'
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'name'  => translate('Вкажіть ваше імя'),

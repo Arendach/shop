@@ -20,10 +20,10 @@ $(document).ready(function () {
             }
         },
         messages: {
-            name: "name is empty",
+            name: translate('Вкажіть імя'),
             phone: {
-                required: "phone is empty",
-                phoneRule: "wrong format number"
+                required: translate('Вкажіть телефон'),
+                phoneRule: translate('Невірний формат')
             }
         },
         errorPlacement: function (error, element) {
@@ -64,8 +64,8 @@ $('#make-one-click-order').on('click', function () {
                 phone: $('#phone-label').val(),
                 id: $('#product_id').val(),
             },
-            success: function (data) {
-                toastr.success('Виконано!', 'Вашее замовленя передано. Менеджер нйближчим часом вам перезвонть!');
+            success: function (response) {
+                toastr.success(response.message, response.title);
                 $('#one-click-order-window').modal('hide');
             }
         })

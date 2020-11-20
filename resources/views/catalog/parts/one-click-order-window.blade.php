@@ -16,7 +16,7 @@
                     </div>
                     <div class="form-group">
                         <label for="phone-label">@translate('Телефон')</label>
-                        <input type="text" class="form-control" id="phone-label" name="phone" placeholder="050-111-11-11">
+                        <input type="text" class="form-control" id="phone-label" name="phone" placeholder="050-111-11-11" data-mask="phone">
                     </div>
                     <input type="hidden" value="0" name="product_id" id="product_id">
                 </form>

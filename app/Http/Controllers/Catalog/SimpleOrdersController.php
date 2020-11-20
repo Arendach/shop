@@ -21,6 +21,7 @@ class SimpleOrdersController extends Controller
         $table->save();
 
         return response()->json([
+            'title'   => 'Виконано',
             'message' => 'Заявка прийнята! Менеджер звяжеться з вами найближчим часом!'
         ], 200);
     }
