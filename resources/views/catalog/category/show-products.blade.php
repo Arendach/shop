@@ -17,16 +17,15 @@
                 <div class="container">
                     <div class="breadcrumbs">
                         <ul>
-                            <li><a href="#">@translate('Головна')</a></li>
-                            <li>{{ $category->parent->name }}</li>
+                            <li><a href="{{ route('index') }}">@translate('Головна')</a></li>
+                            <li><a href="{{ $category->parent->url }}">{{ $category->parent->name }}</a></li>
                             <li>{{ $category->name }}</li>
                         </ul>
                     </div>
                     <h1>{{ $category->name }}</h1>
                 </div>
             </div>
-            <img src="{{ $category->getImage('big', 'catalog/img/bg_cat_shoes.jpg') }}" class="img-fluid"
-                 alt="{{ $category->name }}">
+            <img src="{{ $category->getImage('big', 'catalog/img/bg_cat_shoes.jpg') }}" class="img-fluid">
         </div>
 
         <div id="stick_here"></div>
