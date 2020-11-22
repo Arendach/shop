@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Catalog;
 
-use App\Models\{Category, Product};
+use App\Models\Category;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use CategoryFilter;
 
@@ -22,18 +23,12 @@ class CategoryController extends CatalogController
         ];
 
         if ($category->parent_id == 0) {
-            $categories = Category::distinct()->where('parent_id', '=', $category->id)->get();
-            $productsFromCategory = [];
-            foreach ($categories as $category) {
-                $productsFromCategory[] = [
-                    'name' => $category->name,
-                    'description' => $category->description_uk,
-                    'products' => Product::where('category_id', '=', $category->id)->where(function($p) {
-                        $p->where('is_new', 1)->orWhere('is_recommended', 1);
-                    })->orderBy('on_storage', 'DESC')->get(),
-                ];
-            }
-            $data['productsFromCategory'] = $productsFromCategory;
+            $category->child->each(function (Category $category) {
+                $category->load(['products' => function (HasMany $builder) {
+                    $builder->limit(10)->orderBy('on_storage');
+                }]);
+            });
+
             return view('catalog.category.parent', $data);
         }
 

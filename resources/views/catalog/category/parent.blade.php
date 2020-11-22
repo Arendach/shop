@@ -13,34 +13,40 @@
 @endsection
 
 @section('content')
-<main>
-    <div class="container margin_30">
-        <div class="main_title">
-            <h1>
-                {{$category->name_uk}}
-            </h1>
-            <p>
-                {!! htmlspecialchars_decode($category->description_uk) !!}
-            </p>
-        </div>
-
-        @foreach($productsFromCategory as $productFromCategory)
-            <h2 style="text-align: center;">
-            {{$productFromCategory['name']}}
-            </h2>
-            <p style="text-align: center;">
-                {!! htmlspecialchars_decode($productFromCategory['description']) !!}
-            </p>
-            <div class="row small-gutters">
-                @foreach($productFromCategory['products'] as $product)
-                    <div class="col-6 col-md-4 col-xl-3">
-                        @include('catalog.parts.product-card')
-                    </div>
-                @endforeach
+    <main>
+        <div class="container margin_30">
+            <div class="main_title">
+                <h1>{{ $category->name }}</h1>
             </div>
-        @endforeach
-    </div>
-</main>
+
+            @foreach($category->child as $child)
+                {{-- <h2>{{ $child->name }}</h2>
+                 <div class="row small-gutters">
+                     @foreach($child->products as $product)
+                         <div class="col-6 col-md-4 col-xl-3">
+                             @include('catalog.parts.product-card')
+                         </div>
+                     @endforeach
+                 </div>--}}
+
+                <div class="container margin_60_35">
+                    <h2 style="margin-bottom: 50px"><a href="{{ $child->url }}">{{ $child->name }}</a></h2>
+                    <div class="owl-carousel owl-theme products_carousel">
+                        @foreach($child->products as $product)
+                            <div class="item">
+                                @include('catalog.parts.product-card')
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <hr>
+
+            @endforeach
+
+            <div>{!! $category->description !!}</div>
+        </div>
+    </main>
 @endsection
 
 @section('js')
