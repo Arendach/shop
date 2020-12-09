@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Customer;
+use App\Models\Price;
 use App\Services\AuthService;
 
 define('DS', DIRECTORY_SEPARATOR);
@@ -9,6 +10,13 @@ function isAuth(): bool
 {
     return app(AuthService::class)->isAuth();
 }
+
+function getPrices(): object
+{
+    $resultsPrice = Price::where('id','=','1')->first();
+    return $resultsPrice;
+}
+
 
 function translate($text)
 {

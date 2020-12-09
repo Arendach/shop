@@ -25,7 +25,6 @@ class CheckoutDeliveryRequest extends FormRequest
     {
         return [
             'delivery_city' => 'required',
-            'delivery_street' => 'required',
             'delivery_date' => 'nullable|date'
         ];
     }
@@ -34,7 +33,6 @@ class CheckoutDeliveryRequest extends FormRequest
     {
         return [
             'delivery_city.required' => 'Заповніть місто!',
-            'delivery_street.required' => 'Заповніть вулицю!',
             'delivery_date.date' => 'Заповніть дату!'
         ];
     }

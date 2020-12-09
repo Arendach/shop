@@ -37,15 +37,15 @@
 
       <div id="delivery-container">
         <div class="delivery-form" v-if="selectedForm == 'delivery'">
-          <delivery-form ref="deliveryRef"></delivery-form>
+          <delivery-form :prices="prices" ref="deliveryRef"></delivery-form>
         </div>
 
         <div class="delivery-form" v-if="selectedForm == 'self'">
-          <self-form ref="selfRef" :shops="shops"></self-form>
+          <self-form :prices="prices" ref="selfRef" :shops="shops"></self-form>
         </div>
 
         <div class="delivery-form" v-if="selectedForm == 'sending'">
-          <sending-form :products="products" ref="sendingRef"></sending-form>
+          <sending-form :prices="prices" :products="products" ref="sendingRef"></sending-form>
         </div>
       </div>
 
@@ -54,15 +54,18 @@
       <h6 class="pb-2">{{ translate('Оплата') }}</h6>
 
       <ul>
-        <li v-for="(payMethod, index) in payMethods">
+        <li v-for="(payMethod, index) in payMethods" v-model="pay_method">
           <label class="container_radio">
-            {{ payMethod.name }}
-            <input type="radio" :value="payMethod.key" name="pay_method" :checked="index == 0">
+            {{ translate(payMethod.name) }}
+            <input type="radio" :value="payMethod.key" name="pay_method"  :checked="index == 0">
+            <br><i class="text-sm" style="font-size: 12px;">{{ translate(payMethod.description) }}</i>
             <span class="checkmark"></span>
           </label>
         </li>
       </ul>
     </div>
+
+
   </div>
 </template>
 
@@ -81,7 +84,8 @@ export default {
   props: {
     payMethods: Array,
     shops: Array,
-    products: Array
+    products: Array,
+    prices: Array
   },
 
   data() {

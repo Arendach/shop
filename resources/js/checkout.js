@@ -47,8 +47,42 @@ function searchNovaPost() {
     })
 }
 
+function searchStreets() {
+    if (!$('#sending_streets').length) {
+        return;
+    }
+
+    $('#sending_streets').select2({
+        theme: 'bootstrap4',
+        minLength: 2,
+        ajax: {
+            type: 'post',
+            url: '/api/new_post/search_streets',
+            data: (params) => {
+                return {
+                    search: params.term
+                }
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data.data, function (item) {
+                        return {
+                            text: item.name
+                        }
+                    })
+                };
+            },
+            delay: 400
+        },
+        cache: true,
+    })
+}
+
+
+
 $(document).ready(function () {
     searchNovaPost()
+    searchStreets()
 })
 
 $(document).on('change', '#sending_city', function () {

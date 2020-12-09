@@ -33,7 +33,7 @@
     </div>
 
     <div class="form-group">
-        <input class="form-control" name="name" placeholder="@translate('Ваше імя *')">
+        <input class="form-control" name="first_name" placeholder="@translate('Ваше імя *')">
         <small class="form-text text-danger" style="display: none"></small>
     </div>
 

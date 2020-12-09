@@ -7,7 +7,7 @@ use App\Services\CustomerService;
 use App\Services\DeliveryService;
 use App\Services\PayService;
 use Illuminate\View\View;
-
+use App\Models\Price;
 class CheckoutPageComposer
 {
     public function compose(View $view)
@@ -18,6 +18,7 @@ class CheckoutPageComposer
             'payMethods' => app(PayService::class)->getPayMethodNames(),
             'shops'      => app(DeliveryService::class)->getAllShops(),
             'products'   => app(CartService::class)->getProductsArray(),
+            'prices'     => app(PayService::class)->getPriceOne(),
         ];
 
         $view->with(compact('checkoutPageData'));

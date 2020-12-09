@@ -4,7 +4,7 @@
       <div class="row">
         <contacts :customer="data.customer"></contacts>
 
-        <delivery :pay-methods="data.payMethods" :shops="data.shops" :products="data.products"></delivery>
+        <delivery :prices="data.prices" :pay-methods="data.payMethods" :shops="data.shops" :products="data.products"></delivery>
 
         <cart :products="data.products"></cart>
       </div>

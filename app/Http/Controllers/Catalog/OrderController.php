@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Catalog;
 use App\Http\Requests\Catalog\Order\CheckoutRequest;
 use App\Jobs\Emails\OrderEmailJob;
 use App\Models\Order;
+use App\Models\Price;
+use App\Models\Streets;
 use App\Services\CartService;
 use App\Services\NewPostService;
 use App\Services\OrderService;
@@ -18,8 +20,8 @@ class OrderController extends CatalogController
         if ($cartService->isEmpty()) {
             return redirect(route('index'));
         }
-
-        return view('catalog.pages.checkout');
+        $resultsPrice = Price::where('id','=','1')->first();
+        return view('catalog.pages.checkout',compact('resultsPrice'));
     }
 
     public function create(CheckoutRequest $request)

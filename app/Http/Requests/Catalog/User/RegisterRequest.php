@@ -14,10 +14,10 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'     => 'required|min:2|max:64',
-            'email'    => 'required|email|max:64|unique:customers,email',
-            'phone'    => 'required|unique:customers,phone',
-            'password' => 'required|min:8|max:32|confirmed',
+            'first_name'     => 'required|min:2|max:64',
+            'email'          => 'required|email|max:64|unique:customers,email',
+            'phone'          => 'required|unique:customers,phone',
+            'password'       => 'required|min:8|max:32|confirmed',
 
         ];
     }
@@ -25,7 +25,7 @@ class RegisterRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required'      => translate('Заповніть імя'),
+            'first_name.required'      => translate('Заповніть імя'),
             'email.email'        => translate('Заповніть Email'),
             'password.confirmed' => translate('Паролі не співпадають')
         ];

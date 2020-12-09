@@ -19,3 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('new_post/search_cities', "Api\NewPostController@searchCities");
 Route::post('new_post/get_warehouses', "Api\NewPostController@getWarehouses");
+
+Route::post('new_post/search_streets', "Api\NewPostController@searchStreets");
+Route::post('new_post/get_payment', "Api\NewPostController@getPayment");

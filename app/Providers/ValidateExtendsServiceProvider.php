@@ -25,7 +25,7 @@ class ValidateExtendsServiceProvider extends ServiceProvider
     public function boot()
     {
         Validator::extend('phone', function ($attribute, $value, $parameters, $validator) {
-            return preg_match('@^[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}$@', $value);
+            return preg_match('@^[8-9]{1}[0-9]{2}-[0-9]{3}-[0-9]{2}-[0-9]{2}$@', $value);
         });
     }
 }

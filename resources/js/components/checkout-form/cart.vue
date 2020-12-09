@@ -16,6 +16,7 @@
           </li>
           <li class="clearfix">
             <em><strong>{{ translate('Вартість доставки') }}</strong></em>
+            
             <span>{{ deliveryPrice }}</span>
           </li>
         </ul>

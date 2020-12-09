@@ -106,7 +106,7 @@
                                                             <ul>
                                                                 @foreach($items as $item)
                                                                     <li>
-                                                                        <a href="{{ $item->url }}">
+                                                                        <a href="{{ url($item->url) }}">
                                                                             {{ $item->name }}
                                                                         </a>
                                                                     </li>

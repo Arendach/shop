@@ -32,8 +32,7 @@ class CustomerService
     public function register(array $data): Customer
     {
         $data = collect($data);
-
-        if (!$data->has(['first_name', 'last_name', 'email', 'password', 'phone'])) {
+        if (!$data->has(['first_name', 'email', 'password', 'phone'])) {
             throw new Exception('Реєстрація неможлива! Не заповнені всі поля!', 500);
         }
 
