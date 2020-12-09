@@ -22,7 +22,7 @@
         </ul>
         <div class="total clearfix">
           {{ translate('Сума') }}
-          <span>{{ deliveryPrice + sum}}</span>
+          <span>{{ parseFloat(deliveryPrice) + sum}}</span>
         </div>
         <button class="btn_1 full-width">
           {{ translate('Підтвердити') }}
