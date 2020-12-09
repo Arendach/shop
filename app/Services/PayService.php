@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use Log;
 use App\Models\Payment;
 use App\Models\Price;
+
 class PayService
 {
     private $pays;
@@ -73,13 +74,13 @@ class PayService
         //         'name' => $pay['name']
         //     ];
         // }
-        
+
         $result1 = [];
-        $results = Payment::where('active',true)->orderBy('id','ASC')->get();
+        $results = Payment::where('active', true)->orderBy('id', 'ASC')->get();
         foreach ($results as $res) {
             $result1[] = [
-                'key'  => $res['key'],
-                'name' => $res['name'],
+                'key'         => $res['key'],
+                'name'        => $res['name'],
                 'description' => $res['description']
             ];
         }
@@ -89,27 +90,16 @@ class PayService
     }
 
 
-
-    public function getPriceOne(): Array
+    public function getPriceOne(): array
     {
-
-        //dd((int) setting('get_day_no_one'));
-        $resultss = Price::where('id','=','1')->first();
-        // foreach ($resultss as $res) {
-        //     $result1[] = ;
-        // }
-        // dd(json_decode(json_encode($resultss)));
-        //$res = json_decode(json_encode($resultss));
-        //dd($res);
-        $resultss = [
-            'day_no_one'        => $resultss->day_no_one,
-            'day_one'           => $resultss->day_one,
-            'night_no_one'      => $resultss->night_no_one,
-            'night_one'         => $resultss->night_one,
-            'morning_no_one'    => $resultss->morning_no_one,
-            'morning_one'       => $resultss->morning_one
+        return [
+            'day_no_one'     => setting('Вартість достаки - День(сума < 1000)', '80'),
+            'day_one'        => setting('Вартість достаки - День(сума >= 1000', '0'),
+            'night_no_one'   => setting('Вартість достаки - Ніч(сума < 1000)', '200'),
+            'night_one'      => setting('Вартість достаки - Ніч(сума >= 1000)', '100'),
+            'morning_no_one' => setting('Вартість достаки - Ранок, Вечір (сума < 1000)', '100'),
+            'morning_one'    => setting('Вартість достаки - Ранок, Вечір (сума >= 1000)', '70')
         ];
-        return $resultss;
     }
 
 
