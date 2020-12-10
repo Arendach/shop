@@ -40,6 +40,13 @@ class Products extends Resource
         return translate('Товари');
     }
 
+    public function filters(Request $request)
+    {
+        return [
+            new Filters\Products,
+        ];
+    }
+
     public function fields(Request $request)
     {
         artisan('cache:clear');
@@ -51,13 +58,15 @@ class Products extends Resource
                     Text::make(translate('Артикул'), 'article')->sortable(),
                     Text::make(translate('Слаг'), 'slug')->sortable()->hideFromIndex(),
                     Text::make(translate('Стара адреса(url)'), 'old_url')->hideFromIndex(),
+                    Text::make(translate('Назва'), 'name_uk')->onlyOnIndex(),
                     Text::make(translate('Ціна'), 'price')->sortable(),
                     Text::make(translate('Знижка'), 'discount')->sortable()->hideFromIndex(),
                     Boolean::make(translate('На складі'), 'on_storage')->sortable(),
                     Boolean::make(translate('Новинка'), 'is_new')->hideFromIndex(),
                     Boolean::make(translate('Рекомендовано'), 'is_recommended')->hideFromIndex(),
                     Boolean::make(translate('Показувати на головній'), 'is_home')->hideFromIndex(),
-                    BelongsTo::make(translate('Категорія'), 'category', Categories::class)->onlyOnIndex(),
+                    BelongsTo::make(translate('Категорія'), 'category', Categories::class)->onlyOnIndex()->sortable(),
+                    BelongsTo::make(translate('Виробник'), 'manufacturer', Products::class)->onlyOnIndex()->sortable(),
                     Select::make(translate('Категорія'), 'category_id')->options($this->categoryList())->onlyOnForms(),
                     NovaPackingField::make('Пакування', 'packing')->placeholders()->hideFromIndex(),
                     NovaPackingField::make(translate('Розміри'), 'volume')->placeholders([
@@ -67,7 +76,7 @@ class Products extends Resource
                 ]),
 
                 new Panel(translate('Українська локалізація'), [
-                    Text::make(translate('Назва'), 'name_uk'),
+                    Text::make(translate('Назва'), 'name_uk')->hideFromIndex(),
                     Text::make(translate('Модель'), 'model_uk')->hideFromIndex(),
                     Text::make(translate('Заголовок (title)'), 'meta_title_uk')->hideFromIndex(),
                     Text::make(translate('Ключові слова(keywords)'), 'meta_keywords_uk')->hideFromIndex(),
@@ -94,7 +103,7 @@ class Products extends Resource
                 ]),
 
                 new Panel('Теги', [
-                    Text::make('name_uk'),
+                    Text::make('name_uk')->hideFromIndex(),
                     HasMany::make('', 'tags', ProductTags::class)
                 ])
             ]))->withToolbar()
