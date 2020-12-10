@@ -14,7 +14,7 @@ class ChangeCustomerIdOrdersTable extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->integer('customer_id',10)->nullable()->change();
+            $table->integer('customer_id')->nullable()->change();
         });
     }
 
