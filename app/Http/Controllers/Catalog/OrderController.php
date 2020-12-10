@@ -20,8 +20,7 @@ class OrderController extends CatalogController
         if ($cartService->isEmpty()) {
             return redirect(route('index'));
         }
-        $resultsPrice = Price::where('id','=','1')->first();
-        return view('catalog.pages.checkout',compact('resultsPrice'));
+        return view('catalog.pages.checkout');
     }
 
     public function create(CheckoutRequest $request)

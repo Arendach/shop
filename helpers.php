@@ -11,12 +11,6 @@ function isAuth(): bool
     return app(AuthService::class)->isAuth();
 }
 
-function getPrices(): object
-{
-    $resultsPrice = Price::where('id','=','1')->first();
-    return $resultsPrice;
-}
-
 
 function translate($text)
 {
