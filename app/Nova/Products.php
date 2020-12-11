@@ -1,6 +1,10 @@
 <?php
 
+
 namespace App\Nova;
+
+use Laravel\Nova\Fields\Textarea;
+
 
 use App\Models\Category;
 use Arendach\NovaPackingField\NovaPackingField;
@@ -19,10 +23,12 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Panel;
 use Media24si\NovaYoutubeField\Youtube;
+use OptimistDigital\NovaSortable\Traits\HasSortableRows;
 use Waynestate\Nova\CKEditor;
 
 class Products extends Resource
 {
+    use HasSortableRows;
     use TabsOnEdit;
 
     public static $model = 'App\Models\Product';

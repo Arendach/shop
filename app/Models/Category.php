@@ -133,7 +133,7 @@ class Category extends Model implements Sortable, TwoImageInterface
             ->orderBy('on_storage', 'desc');
 
         if (!$request->has('order'))
-            $products->orderBy('id', 'desc');
+            $products->orderBy('order', 'asc');
 
         $products = (new CategoryProductFilter($products, $request))
             ->apply()

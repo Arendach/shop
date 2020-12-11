@@ -2,6 +2,13 @@
 
 namespace App\Models;
 
+
+
+use App\Scopes\SortableScope;
+use App\Traits\Models\Image;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
+
 use App\Abstraction\Models\SeoMultiLangInterface;
 use App\Abstraction\Models\TwoImageInterface;
 use App\Casts\ProductDescriptionCast;
@@ -15,15 +22,39 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Spatie\EloquentSortable\Sortable;
+use Spatie\EloquentSortable\SortableTrait;
 
-class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
+class Product extends Model implements Sortable, TwoImageInterface, SeoMultiLangInterface
 {
     use SeoMultiLang;
     use TwoImage;
     use Editable;
 
+    use SoftDeletes;
+    use SortableTrait;
+    use Translatable;
+    use Image;
+
+
+    protected $table = 'products';
+
+
     protected $guarded = [];
-    protected $dates = ['created_at', 'updated_at'];
+
+    protected $fillable = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'order'
+    ];
+
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
 
     protected $casts = [
         'description'      => ProductTranslatableTemplateCast::class,
@@ -40,6 +71,19 @@ class Product extends Model implements TwoImageInterface, SeoMultiLangInterface
         'meta_description',
         'meta_keywords',
     ];
+
+    public $sortable = [
+        'order_column_name'  => 'order',
+        'sort_when_creating' => true,
+    ];
+    public $timestamps = true;
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new SortableScope());
+    }
 
     public function category()
     {
