@@ -55,10 +55,10 @@
                             </form>
                         </div>
                     </li>
-                    <!-- <li>
+                     {{--<li>
                         <a href="#0"><i class="ti-view-grid"></i></a>
                         <a href="listing-row-1-sidebar-left.html"><i class="ti-view-list"></i></a>
-                    </li> -->
+                    </li> --}}
                     <li>
                         <a href="#0" class="open_filters">
                             <i class="ti-filter"></i><span>Filters</span>

@@ -39,16 +39,7 @@ class Product extends Model implements Sortable, TwoImageInterface, SeoMultiLang
 
     protected $table = 'products';
 
-
     protected $guarded = [];
-
-    protected $fillable = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
-        'order'
-    ];
-
 
     protected $dates = [
         'created_at',
