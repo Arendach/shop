@@ -17,7 +17,7 @@
 
       <div class="form-group">
         <label><i class="text-danger">*</i> {{ translate('Номер телефону') }}</label>
-        <input required class="form-control" :value="getCustomer('phone')" name="phone" data-mask="phone">
+        <input required class="form-control" :value="getCustomer('phone')" name="phone" data-mask="phone" autocomplete="off">
       </div>
 
       <div class="form-group">
