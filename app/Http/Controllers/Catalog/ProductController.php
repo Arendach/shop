@@ -26,20 +26,21 @@ class ProductController extends CatalogController
             'characteristics'
         ])->where(is_numeric($slug) ? 'id' : 'slug', $slug)->firstOrFail();
         $template = new ProductTranslatableTemplateCast;
-        $template = $template->get($product,'meta_title','',[]);
-        //dd($template);
+        $title = $template->get($product,'meta_title','',[]);
+        $meta_keywords = $template->get($product,'meta_keywords','',[]);
+        $meta_description = $template->get($product,'meta_description','',[]);
+
         $data = [
-            'title'            => $product->meta_title,
-            'meta_keywords'    => $product->meta_keywords,
-            'meta_description' => $product->meta_description,
+            'title'            => $title,
+            'meta_keywords'    => $meta_keywords,
+            'meta_description' => $meta_description,
             'product'          => $product,
             'breadcrumbs'      => [
                 [$product->category->parent->name ?? '', $product->category->parent->url ?? ''],
                 [$product->category->name ?? '', $product->category->url ?? ''],
                 [$product->name]
             ],
-            'reviewTab'        => $reviewTab,
-            'templates'        => $template
+            'reviewTab'        => $reviewTab
         ];
 
         return view('catalog.product.detail', $data);
