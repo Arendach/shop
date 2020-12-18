@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ mix('css/product.css') }}">
 @endsection
 
-@section('title', $title)
+@section('title', $templates)
 
 @section('content')
     @php /** @var \App\Models\Product $product*/ @endphp
