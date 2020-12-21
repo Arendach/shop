@@ -38,6 +38,7 @@
 
 <!-- YOUR CUSTOM CSS -->
     <link rel="stylesheet" href="{{ mix('css/custom.css') }}">
+    <script async src="https://crm.streamtele.com/widget/getwidget/2b5889941b7aae1f3bdcf73f9f18bf0c" type="text/javascript" charset="UTF-8"></script>
 </head>
 
 <body>
