@@ -77,19 +77,19 @@
         <div class="row add_bottom_25">
             <div class="col-lg-6">
                 <ul class="footer-selector clearfix">
-                    <li>
-                        <div class="styled-select lang-selector">
-                            <select onchange="window.location.href = this.value">
-                                <option {{ config('locale.current') == "uk" ? 'selected': '' }} value="{{ route('locale', 'uk') }}">
-                                    @translate('Українська')
-                                </option>
-                                <option {{ config('locale.current') == "ru" ? 'selected': '' }} value="{{ route('locale', 'ru') }}">
-                                    @translate('Російська')
-                                </option>
-                            </select>
-                        </div>
-                    </li>
-                    <li>
+{{--                    <li>
+                                            <div class="styled-select lang-selector">
+                                                <select onchange="window.location.href = this.value">
+                                                    <option {{ config('locale.current') == "uk" ? 'selected': '' }} value="{{ route('locale', 'uk') }}">
+                                                        @translate('Українська')
+                                                    </option>
+                                                    <option {{ config('locale.current') == "ru" ? 'selected': '' }} value="{{ route('locale', 'ru') }}">
+                                                        @translate('Російська')
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </li>
+                    --}}                    <li>
                         <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
                              data-src="{{ asset('catalog/img/cards_all.svg') }}" alt="" width="198" height="30"
                              class="lazy"></li>

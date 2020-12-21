@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\ProductCollection;
+use App\Models\ProductImage;
 use Illuminate\Http\Response;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
@@ -27,6 +28,8 @@ class SitemapController extends Controller
         $this->products();
         $this->categories();
         $this->collections();
+        $this->pages();
+        $this->images();
 
         return response($this->sitemap->render())
             ->header('Content-Type', 'application/xml');
@@ -109,4 +112,39 @@ class SitemapController extends Controller
             }
         }
     }
+
+    private function pages()
+    {
+        $pages = Page::where('static', false)->get();
+        foreach ($pages as $page) {
+            foreach (config('locale.support') as $locale) {
+                $link = Locales::localizeUrl($locale, route('page', $page->uri_name));
+
+                $url = Url::create($link)
+                    ->setLastModificationDate($page->updated_at ?? now())
+                    ->setPriority('0.8')
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY);
+
+                $this->sitemap->add($url);
+            }
+        }
+    }
+    private function images()
+    {
+        $images = ProductImage::all();
+
+        foreach ($images as $image) {
+            foreach (config('locale.support') as $locale) {
+                $link = url($image->big);
+                $link = Locales::localizeUrl($locale, $link);
+
+                $url = Url::create($link)
+                    ->setPriority('0.6')
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY);
+
+                $this->sitemap->add($url);
+            }
+        }
+    }
+
 }

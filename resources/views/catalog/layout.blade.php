@@ -161,6 +161,16 @@
                                 <a class="dropdown-item" href="#">+38 (063) 342-33-32</a>
                             </div>--}}
                         </div>
+                        
+                        <div class="store-switcher header__item">
+                            <a class="a_select_lang {{config('locale.current') == "uk" ? 'a_select_lang_active': ''}}" href="{{ route('locale', 'uk') }}">
+                                    @translate('Укр')
+                            </a><hr class="d-inline">
+                            <a class="a_select_lang {{config('locale.current') == "ru" ? 'a_select_lang_active': ''}}" href="{{ route('locale', 'ru') }}">
+                                    @translate('Рос')
+                            </a>
+                        </div>
+
                     </div>
                 </div>
                 <!-- /row -->
