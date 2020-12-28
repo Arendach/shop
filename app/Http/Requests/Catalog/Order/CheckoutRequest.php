@@ -23,11 +23,10 @@ class CheckoutRequest extends FormRequest
         $rulesAuth = [];
 
 
-
         if (request('delivery') == 'delivery') {
             $rules = [
                 'city'          => 'required|max:256',
-                'street'          => 'max:256',
+                'street'        => 'max:256',
                 'address'       => 'nullable|max:256',
                 'date_delivery' => "nullable|after:{$thisDate}"
             ];
@@ -43,7 +42,7 @@ class CheckoutRequest extends FormRequest
         }
 
 
-        if (!isAuth() AND request('create_account')) {
+        if (!isAuth() and request('create_account')) {
             $rulesAuth = [
                 'email'    => ['nullable', 'email', 'max:256', new EmailUnique],
                 'phone'    => ['required', 'max:256', new PhoneUnique],
@@ -53,6 +52,7 @@ class CheckoutRequest extends FormRequest
 
         return array_merge($rules, [
             'first_name' => 'required|max:32',
+            'last_name'  => 'required|max:32',
             'phone'      => ['required', 'regex:/[0]{1}[0-9]{2}-[0-9]{3}-[0-9]{2}-[0-9]{2}/'],
             'comment'    => 'max:1024',
             'delivery'   => ['required', Rule::in($orderTypes)],
