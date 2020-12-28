@@ -4,7 +4,7 @@ return [
     'controller'                    => '',
 
     // кількість пунктів на сторінку
-    'items'                         => 10,
+    'items'                         => 11,
 
     // адреса бази
     'base_url'                      => env('BASE_URL', 'http://skyfire.pp.ua'),

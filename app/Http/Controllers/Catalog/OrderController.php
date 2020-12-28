@@ -12,6 +12,7 @@ use App\Services\NewPostService;
 use App\Services\OrderService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\StreamTele\Sms\Auth;
 
 class OrderController extends CatalogController
 {
@@ -26,8 +27,9 @@ class OrderController extends CatalogController
     public function create(CheckoutRequest $request)
     {
         $order = app(OrderService::class)->createOrder($request->validated());
-
         dispatch(new OrderEmailJob($order));
+
+        $result = app(Auth::class)->getSms($order->id);
 
         return response()->json([
             'orderId' => $order->id
