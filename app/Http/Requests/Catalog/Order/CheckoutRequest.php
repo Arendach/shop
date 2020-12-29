@@ -52,7 +52,7 @@ class CheckoutRequest extends FormRequest
 
         return array_merge($rules, [
             'first_name' => 'required|max:32',
-            'last_name'  => 'required|max:32',
+            'last_name'  => 'nullable|max:32',
             'phone'      => ['required', 'regex:/[0]{1}[0-9]{2}-[0-9]{3}-[0-9]{2}-[0-9]{2}/'],
             'comment'    => 'max:1024',
             'delivery'   => ['required', Rule::in($orderTypes)],
