@@ -28,8 +28,7 @@ class OrderController extends CatalogController
     {
         $order = app(OrderService::class)->createOrder($request->validated());
         dispatch(new OrderEmailJob($order));
-
-        $result = app(Auth::class)->getSms($order->id);
+        $res = app(Auth::class)->smsSend($order->phone, $order->id);
 
         return response()->json([
             'orderId' => $order->id

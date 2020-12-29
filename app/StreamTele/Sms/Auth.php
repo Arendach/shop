@@ -2,12 +2,13 @@
 
 namespace App\StreamTele\Sms;
 
+use App\StreamTele\Base\Connection;
 use App\StreamTele\Exceptions\AuthFailedException;
 use Session;
 use Illuminate\Http\Request;
 use App\Http\Requests\Catalog\Order\CheckoutRequest;
 use GuzzleHttp\Client;
-
+use App\Models\Order;
 
 class Auth
 {
@@ -15,45 +16,45 @@ class Auth
     private $login;
     private $password;
     private $key;
-    private $base_url;
     private $action;
     private $idGateway;
-    public function __construct(CheckoutRequest $request)
+    public function __construct()
     {
-        $this->idGateway = '20555'; // Id Смс-Шлюза
-        $this->base_url = 'https://crm.streamtele.com/api/';
-        $this->login = 'roma4891'; //setting('Логін до streamtele')
-        $this->password = 'LgfSiUXO';  //setting('Пароль до streamtele');
-        $this->key  = '627a3613da2828b89f1d4ebbd715acf3'; //setting('key до streamtele')
-        $this->action = 'smssend';
-        $this->text = 'Вы успешно Сделали заказ. Ваш № заказа:';
-        $this->phone = '38'.$request->phone;
+        $this->idGateway = setting('streamtele шлюз', '20555');
+        $this->login = setting('streamtele логін', 'roma4891');
+        $this->password = setting('streamtele пароль','LgfSiUXO');
+        $this->key  = setting('streamtele ключ','627a3613da2828b89f1d4ebbd715acf3');
+        $this->text = setting('streamtele текст смс','Ви успішно Зробили замовлення. Ваш № замовлення:');
+        $this->connection = app(Connection::class);
+
+
     }
 
     /**
      * @return string
      */
-    public function getSms($orderId)
+    public function smsSend($phone = false, $orderId = false)
     {
-        $client = new Client(['base_uri' => $this->base_url]);
-        $response = $client->request(
-            'POST',
-            'sms',
-            ['form_params' => [
+
+        if(!$phone)
+        {
+            return false;
+        }
+        $this->phone = '38'.$phone;
+
+        $this->action = 'smssend';
+
+        $result = $this->connection->post('sms', [
                 'username'          => $this->login,
                 'password'          => $this->password,
                 'api_key'           => $this->key,
                 'action'            => $this->action,
                 'sms_gateway_id'    => $this->idGateway,
-                'sms_text'  => $this->text.' '.$orderId,
-                'sms_phone' => $this->phone
-            ]
+                'sms_text'          => $this->text .' '. $orderId,
+                'sms_phone'         => $this->phone
         ]);
-        $result = json_decode($response->getBody()->getContents());
-        if ($result->result == 'ok')
-            return true;
-        else
-            return false;
+        return $result;
+
     }
 
 }

@@ -23,6 +23,8 @@ if (!function_exists('simple_routing')) {
     }
 }
 
+Route::get('sms', 'StreamTele\MainController@Test');
+
 Route::get('/redirect/{service}', 'SocialAuthController@redirect');
 Route::get('/callback/{service}', 'SocialAuthController@callback');
 /**

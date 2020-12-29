@@ -16,8 +16,7 @@ class MainController extends Controller
     public function Test()
     {
         try {
-            $result = app(Auth::class)->getSms();
-            $result = json_decode($result);
+            $result = app(Auth::class)->smsSend( '0988580982');
             dd($result);
         } catch (AuthFailedException $exception) {
 
