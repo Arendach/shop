@@ -31,7 +31,8 @@ class OrderController extends CatalogController
         $res = app(Auth::class)->smsSend($order->phone, $order->id);
 
         return response()->json([
-            'orderId' => $order->id
+            'orderId' => $order->id,
+            'paymethod' => $request->pay_method
         ]);
     }
 
