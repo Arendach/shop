@@ -31,7 +31,7 @@ class OrderController extends CatalogController
         // Вiдправка Повiдомлення на email Адмiнiстратору
         dispatch(new OrderEmailJob($order));
         // Вiдправка Смс замовнику
-        $res = app(Auth::class)->smsSend('', $order->id);
+        $res = app(Auth::class)->smsSend($order->phone, $order->id);
         //Вiдправка на email, якщо не вiдправлено по смс
 //       if($res->result != 'ok')
 //           dispatch(new OrderEmailJob($order));
