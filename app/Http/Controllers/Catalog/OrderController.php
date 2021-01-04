@@ -26,14 +26,20 @@ class OrderController extends CatalogController
 
     public function create(CheckoutRequest $request)
     {
+        // Створення замовлення в БД
         $order = app(OrderService::class)->createOrder($request->validated());
+        // Вiдправка Повiдомлення на email Адмiнiстратору
         dispatch(new OrderEmailJob($order));
-        $res = app(Auth::class)->smsSend($order->phone, $order->id);
+        // Вiдправка Смс замовнику
+        $res = app(Auth::class)->smsSend('', $order->id);
+        //Вiдправка на email, якщо не вiдправлено по смс
+//       if($res->result != 'ok')
+//           dispatch(new OrderEmailJob($order));
 
-        return response()->json([
+       return response()->json([
             'orderId' => $order->id,
             'paymethod' => $request->pay_method
-        ]);
+       ]);
     }
 
     public function action_order_type_form(string $form)

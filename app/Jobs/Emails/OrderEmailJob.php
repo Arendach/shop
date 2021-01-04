@@ -8,7 +8,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Mail;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Order as sendMail;
 
 class OrderEmailJob implements ShouldQueue
 {
@@ -24,11 +25,11 @@ class OrderEmailJob implements ShouldQueue
     public function handle()
     {
         Mail::to('zakaz@skyfire.kiev.ua')->send(
-            new \App\Mail\Order($this->order)
+            new sendMail($this->order)
         );
 
-        Mail::to('arendach.taras@gmail.com')->send(
-            new \App\Mail\Order($this->order)
-        );
+//        Mail::to('arendach.taras@gmail.com')->send(
+//            new sendMail($this->order)
+//        );
     }
 }
