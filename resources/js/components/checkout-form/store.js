@@ -11,7 +11,8 @@ const store = new Vuex.Store({
         sendingPrice: 3,
         orderSum: 0,
         isValidForm: true,
-        orderId: 0
+        orderId: 0,
+        PayMethod: ''
     },
     getters: {
         deliveryPrice: (state) => {
@@ -32,6 +33,10 @@ const store = new Vuex.Store({
 
         orderId(state) {
             return state.orderId
+        },
+
+        PayMethod(state) {
+            return state.PayMethod
         }
     },
     mutations: {
@@ -61,7 +66,12 @@ const store = new Vuex.Store({
 
         changeOrderId(state, id) {
             state.orderId = id
+        },
+
+        changePayMethod(state, pay) {
+            state.PayMethod = pay
         }
+
     },
     actions: {
         changeForm({commit}, form) {
@@ -90,7 +100,12 @@ const store = new Vuex.Store({
 
         changeOrderId(ctx, id) {
             ctx.commit('changeOrderId', id)
+        },
+
+        changePayMethod(ctx, payName) {
+            ctx.commit('changePayMethod', payName)
         }
+
     }
 })
 

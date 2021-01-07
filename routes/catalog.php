@@ -86,3 +86,9 @@ Route::any('assets/register_translate', 'AssetsController@registerTranslate');
 Route::post('catalog/{controller}/{action?}', function ($controller, $action = 'main') {
     return simple_routing($controller, $action, 'Catalog', 'action_');
 })->name('catalog.post');
+
+// Оформлення оплати
+Route::get('create.pay', 'OrderPayController@create')->name('order.pay.create');
+Route::post('pay.success', 'OrderPayController@store')->name('order.pay.success');
+Route::get('pay.error', 'OrderPayController@error')->name('order.pay.error');
+Route::get('pay.success', 'OrderPayController@success')->name('order.pay.success');

@@ -20,9 +20,16 @@
             {{ translate('Найближчим часом з вами звяжеться менеджер!') }}
             <br>
             {{ translate('Дякуємо що вибрали нас!') }}
+            <br>
+
           </p>
+          <div v-if="PayMethod == 'privat24'">
+            {{ translate('Вы выбрали онлайн оплату. Нажмите на кнопку чтобы оплатить') }}
+            <br>
+            <a class="btn btn-success" :href="'create.pay?order_id=' + orderId">{{ translate('Оплатити') }}</a>
+          </div>
           <p>
-            <a href="/">
+            <a class="btn btn-info m-3" href="/">
               {{ translate('На головну') }}
             </a>
           </p>
@@ -37,6 +44,6 @@ import {mapGetters} from 'vuex'
 
 export default {
   name: "success-page",
-  computed: mapGetters(['orderId']),
+  computed: mapGetters(['orderId','PayMethod']),
 }
 </script>

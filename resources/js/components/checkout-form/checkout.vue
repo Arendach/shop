@@ -35,7 +35,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['changeIsValidForm', 'changeOrderId']),
+    ...mapActions(['changeIsValidForm', 'changeOrderId','changePayMethod']),
 
     sendForm() {
       let form = document.getElementById('checkout')
@@ -43,6 +43,7 @@ export default {
 
       Api.post(this.data.url, data).then((response) => {
         this.changeOrderId(response.orderId)
+        this.changePayMethod(response.paymethod)
       }).catch((response) => {
         this.changeIsValidForm(false)
 

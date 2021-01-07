@@ -33,5 +33,10 @@ return [
         'name'   => translate('Виконано'),
         'update' => true,
         'color'  => '#fff',
+    ],
+    'payment'    => [
+        'name'   => translate('Оплачено'),
+        'update' => true,
+        'color'  => '#fff',
     ]
 ];

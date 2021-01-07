@@ -15,22 +15,26 @@ class CreateOrderPayTable extends Migration
     {
         Schema::create('order_pay', function (Blueprint $table) {
             $table->id();
+            $table->string('result')->default('ok');
             $table->string('action')->default('pay');
-            $table->integer('order_id');
-            $table->double('amount');
-            $table->string('currency');
-            $table->string('description')->default('Комментарий не указан');
-            $table->string('create_date')->nullable();
-            $table->string('err_code')->nullable();
-            $table->integer('payment_id');
-            $table->string('paytype');
-            $table->string('sender_card_bank');
-            $table->string('sender_card_mask2');
-            $table->string('sender_first_name');
-            $table->string('sender_last_name');
-            $table->string('sender_phone');
             $table->string('status');
-
+            $table->string('type')->nullable();
+            $table->string('paytype')->nullable();
+            $table->integer('order_id');
+            $table->integer('liqpay_order_id');
+            $table->string('description');
+            $table->string('sender_card_mask2');
+            $table->string('sender_card_bank');
+            $table->string('sender_card_type');
+            $table->float('amount', 11, 2);
+            $table->string('currency');
+            $table->float('sender_commission',8,2);
+            $table->float('receiver_commission',8,2);
+            $table->string('create_date');
+            $table->string('end_date');
+            $table->string('err_code')->nullable();
+            $table->string('err_description')->nullable();
+            $table->integer('payment_id')->nullable();
             $table->timestamps();
         });
     }
