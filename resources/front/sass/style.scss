@@ -1842,7 +1842,7 @@ hr {
 }
 
 /*General links color*/
-a{	
+a{
 	color: $color-1;
 	text-decoration: none;
 	@include transition-default;
@@ -2617,8 +2617,8 @@ header {
 
 /* Submenu styles */
 .main-menu ul li a {display: block; padding:3px 10px;}
-			
-/*First level styles version 1 */			
+
+/*First level styles version 1 */
 .main-menu > ul > li > a {padding: 30px 18px 25px 18px; @include fontSize(13px); font-weight: 700; line-height: 1; text-transform: uppercase;}
 
 header.version_1 .main-menu > ul > li > a {color: #fff;}
@@ -2646,7 +2646,7 @@ header.version_1 .main-menu > ul > li:hover > a {color: #fff;}
 	}
 }
 
-/*First level version 2 */			
+/*First level version 2 */
 header.version_2 .main-menu > ul > li > a, .main-menu > ul > li.submenu:hover > a {color: #282828;}
 header.version_2 .main-menu > ul > li:hover > a {color: $color-1;}
 header.version_2 .main-menu ul > li.submenu > a {&:after {color: #444;}}
@@ -2656,7 +2656,7 @@ header.version_2 .main-menu > ul > li.submenu:hover > a {
 	}
 }
 
-#header_menu{display:none;}	
+#header_menu{display:none;}
 
 nav a.open_close#close_in {
 	position: absolute;
@@ -2675,13 +2675,13 @@ nav a.open_close#close_in {
 	}
 	@include tablet {display: block;}
 }
-		
+
 /* All styles for screen size over 992px
 ================================================== */
 @media only screen and (min-width: 992px) {
-	
+
 .main-menu ul>li {display: inline-block;}
-		
+
 /* Submenu + megamenu*/
 .main-menu ul ul, .main-menu ul li .menu-wrapper {
 	position: absolute;
@@ -2713,14 +2713,14 @@ nav a.open_close#close_in {
 .main-menu ul .menu-wrapper ul {
 	@include box-shadow (none);
 	padding: 0;
-	position:static; 
+	position:static;
 	@include transform (translateY(0));
 	}
 
 .main-menu ul ul li {display: block;}
 .main-menu ul ul li a {color: #444;display: block; padding: 8px 10px;}
 .main-menu ul ul li:hover > a {color:$color-1; @include rgba(bg, $color-1, 0.05);}
-	
+
 /* Megamenu */
 .main-menu ul li.megamenu {position:static;}
 .main-menu ul li.megamenu .menu-wrapper {width:1110px;left:50%;margin-left: -555px; padding: 30px!important;}
@@ -2733,7 +2733,7 @@ nav a.open_close#close_in {
 	left: 100%;
 	top: 0;
 }
-	
+
 }
 
 
@@ -2746,7 +2746,7 @@ nav a.open_close#close_in {
 /* All styles for screen under 991px
 ================================================== */
 @media only screen and (max-width: 991px) {
-	
+
 #header_menu {
 	text-align: center;
 	padding: 25px 15px 10px 15px;
@@ -2758,7 +2758,7 @@ nav a.open_close#close_in {
 		width: auto!important;
 	}
 }
-	
+
 .main-menu ul > li.submenu > a {
 	&:after {
 		color: #444;
@@ -2772,21 +2772,21 @@ nav a.open_close#close_in {
 .main-menu ul li a:hover,
 a.show-submenu:hover,
 a.show-submenu-mega:hover{color:$color-1!important;@include rgba(bg, $color-1, 0.05);}
-		
+
 .main-menu ul li {border-bottom: 1px solid #ededed;}
 
-/* Menu mobile first level */	
+/* Menu mobile first level */
 .main-menu ul li > a  {padding:15px;}
 .main-menu h3 {font-size: 12px; padding: 15px 15px 0 15px;text-transform:uppercase;}
 .main-menu li,.main-menu a {display: block;color:#444 !important;}
 
-/* Menu mobile second level */	
+/* Menu mobile second level */
 .main-menu ul li.submenu ul{border-left:1px solid #ededed;margin:0 0 15px 25px;}
 .main-menu ul li.submenu ul li{border:0;}
 .main-menu ul li.submenu ul li a{padding: 10px;}
 
 
-/* Menu mobile left panel */	
+/* Menu mobile left panel */
 .main-menu {
 	overflow: auto;
 	transform: translateX(-200%);
@@ -2815,7 +2815,7 @@ a.show-submenu-mega + .menu-wrapper.show_mega,
 }
 
 @media only screen and (max-width: 580px) {
-	
+
 .main-menu {width: 100%;}
 
 }
@@ -3064,10 +3064,10 @@ a.show-submenu-mega + .menu-wrapper.show_mega,
   @include mobile {
 		width: 100%;
 	}
-  
+ 
 }
-.menu ul li ul.expanded li { 
-	margin-right: 300px; 
+.menu ul li ul.expanded li {
+	margin-right: 300px;
 	@include mobile {
 		margin-right: 0;
 	}
@@ -4258,7 +4258,7 @@ body.modal-open .mm-slideout {
 		@include mobile {height: 420px;}
 		
 	}
-		
+	
 	.owl-carousel .owl-slide-animated {
 		 @include transform (translateX(20px));
 		opacity: 0;
@@ -4322,7 +4322,7 @@ body.modal-open .mm-slideout {
 			@include mobile {@include fontSize(42px);}
 		}
 		p {
-			
+		
 		}
 		strong {
 			font-weight: 700;
@@ -4626,7 +4626,7 @@ body.modal-open .mm-slideout {
 		position: absolute;
 		left: -15px;
 		top:-6px;
-		content: ''; 
+		content: '';
 		background: url(../img/countdown_bg.svg) top left no-repeat;
 		width: 27px;
 		height: 30px;
@@ -4845,7 +4845,7 @@ input.qty2 {
     padding: 5px;
     border: none;
     margin-left: -20px;
-     &:focus { 
+     &:focus {
     outline: none;
          box-shadow: none;
   }
@@ -5425,17 +5425,17 @@ $arrow_color: $gray_light !default;
   box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.05);
   }
   // Arrow
-  &:after { 
+  &:after {
     border-bottom: 1px solid #777;
     border-right: 1px solid #777;
     content: '';
-    display: block; 
+    display: block;
     height: 8px;
     margin-top: -5px;
     pointer-events: none;
-    position: absolute; 
-    right: 15px; 
-    top: 50%; 
+    position: absolute;
+    right: 15px;
+    top: 50%;
     transform-origin: 66% 66%;
     transform: rotate(45deg);
     transition: all 0.15s ease-in-out;
@@ -5457,7 +5457,7 @@ $arrow_color: $gray_light !default;
     border-color: lighten($gray_light, 2%);
     color: $gray;
     pointer-events: none;
-    &:after { 
+    &:after {
       border-color: lighten($arrow_color, 20%);
     }
   }
@@ -5481,7 +5481,7 @@ $arrow_color: $gray_light !default;
     font-size: $font_size_small;
     height: $input_height_small;
     line-height: $input_height_small - 2;
-    &:after { 
+    &:after {
       height: 4px;
       width: 4px;
     }
@@ -5524,10 +5524,10 @@ $arrow_color: $gray_light !default;
     padding-right: $dropdown_padding + 11;
     text-align: left;
     transition: all 0.2s;
-    &:hover, &.focus, &.selected.focus { 
+    &:hover, &.focus, &.selected.focus {
       @include rgba(bg, $color-1, 0.04);
     }
-    &.selected { 
+    &.selected {
       font-weight: 500;
     }
     &.disabled {

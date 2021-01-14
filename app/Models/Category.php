@@ -122,7 +122,8 @@ class Category extends Model implements Sortable, TwoImageInterface
     {
         $items = in_array($request->get('items', null), [20, 50, 70, 100])
             ? $request->items
-            : config('app.items');
+            : setting('Кількість товарів в категоріях','11');
+//            : config('app.items');
 
         $products = Product::where('category_id', $category_id)
             ->with('characteristics')

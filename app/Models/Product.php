@@ -191,7 +191,8 @@ class Product extends Model implements Sortable, TwoImageInterface, SeoMultiLang
             ->orWhere('name_ru', 'like', "%$value%")
             ->orWhere('article', 'like', "%$value%")
             ->orderBy('on_storage', 'desc')
-            ->paginate(config('app.items'));
+            ->paginate(setting('Кількість товарів в категоріях', '11'));
+//            ->paginate(config('app.items'));
     }
 
 

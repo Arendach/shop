@@ -67,19 +67,24 @@
 </div>
 <ul class="grid_item_2">
     <li>
+        @if(!$product->on_storage)
+            @translate('Немає в наявності')
+        @else
         <a href="javascript:void(0)" @if($product->on_storage) data-type="cart_attach" @else disabled @endif
            data-id="{{ $product->id }}" class="tooltip-1 cart-button">
             <i class="ti-shopping-cart"></i>
             <span>@translate('В корзину')</span>
         </a>
+        @endif
     </li>
-
-    <li class="tooltip-1" @tooltip(translate('Придбати в 1 клік'), 'bottom')>
-        <a class="click-one-click-order" href="javascript:void(0)" data-toggle="modal"
-           data-target="#one-click-order-window" data-id="{{ $product->id }}">
-            <i class="ti-hand-point-up"></i>
-        </a>
-    </li>
+    @if($product->on_storage)
+        <li class="tooltip-1" @tooltip(translate('Придбати в 1 клік'), 'bottom')>
+            <a class="click-one-click-order" href="javascript:void(0)" data-toggle="modal"
+               data-target="#one-click-order-window" data-id="{{ $product->id }}">
+                <i class="ti-hand-point-up"></i>
+            </a>
+        </li>
+    @endif
 
     {{-- if customer is authtenticated in system then show "add to desire" button --}}
     @if(isAuth())

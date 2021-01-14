@@ -161,7 +161,6 @@
                                 <a class="dropdown-item" href="#">+38 (063) 342-33-32</a>
                             </div>--}}
                         </div>
-                        
                         <div class="store-switcher header__item">
                             <a class="a_select_lang {{config('locale.current') == "uk" ? 'a_select_lang_active': ''}}" href="{{ route('locale', 'uk') }}">
                                     @translate('Укр')
@@ -186,7 +185,7 @@
                             <ul class="clearfix">
                                 <li>
                                     <span>
-										<a href="#">
+										<a href="#" style="font-size: 14pt;font-weight:800;">
 											<span class="hamburger hamburger--spin">
 												<span class="hamburger-box">
 													<span class="hamburger-inner"></span>
@@ -200,7 +199,7 @@
                                             @foreach($categories as $category)
                                                 <li>
                                                     <span>
-                                                        <a href="{{ $category->url }}">
+                                                        <a style="font-size: 13pt;font-weight:800;" href="{{ $category->url }}">
                                                             {{ $category->name }}
                                                         </a>
                                                     </span>
@@ -208,7 +207,7 @@
                                                         @foreach($category->child as $child)
                                                             @continue(!$child->products_count)
                                                             <li>
-                                                                <a href="{{ $child->url }}">
+                                                                <a style="font-weight:800;" href="{{ $child->url }}">
                                                                     {{ $child->name }}
                                                                 </a>
                                                             </li>
