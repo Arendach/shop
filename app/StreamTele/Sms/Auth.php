@@ -21,9 +21,9 @@ class Auth
     public function __construct()
     {
         $this->idGateway = setting('streamtele шлюз', '20555');
-        $this->login = setting('streamtele логін', 'roma4891');
-        $this->password = setting('streamtele пароль','LgfSiUXO');
-        $this->key  = setting('streamtele ключ','627a3613da2828b89f1d4ebbd715acf3');
+        $this->login = setting('streamtele логін', 'login');
+        $this->password = setting('streamtele пароль','pass');
+        $this->key  = setting('streamtele ключ','627a3613');
         $this->text = setting('streamtele текст смс','Ви успішно Зробили замовлення. Ваш № замовлення:');
         $this->connection = app(Connection::class);
 
@@ -33,7 +33,7 @@ class Auth
     /**
      * @return string
      */
-    public function smsSend($phone = false, $orderId = false)
+    public function smsSend($phone = false, $orderId = false, $text = false)
     {
 
         if(!$phone)
@@ -50,7 +50,7 @@ class Auth
                 'api_key'           => $this->key,
                 'action'            => $this->action,
                 'sms_gateway_id'    => $this->idGateway,
-                'sms_text'          => $this->text .' '. $orderId,
+                'sms_text'          => $text ?? $this->text .' '. $orderId,
                 'sms_phone'         => $this->phone
         ]);
         return $result;

@@ -70,7 +70,6 @@
         @if(!$product->on_storage)
             @translate('Немає в наявності')
         @else
-            {{ $product_name ?? $product->name }}
         <a href="javascript:void(0)" @if($product->on_storage) data-type="cart_attach" @else disabled @endif
            data-id="{{ $product->id }}" class="tooltip-1 cart-button">
             <i class="ti-shopping-cart"></i>
