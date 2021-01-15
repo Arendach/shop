@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Catalog;
 
+use App\Casts\ProductTranslatableTemplateCast;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
@@ -33,9 +34,10 @@ class CategoryController extends CatalogController
         }
 
         $products = $categoryModel->filterProducts($category->id, $request);
-
+        $template = new ProductTranslatableTemplateCast;
         $data = array_merge($data, [
             'products'      => $products,
+            'template_name'      => $template,
             'filter'        => CategoryFilter::get($category->id),
             'requestFields' => $request->all()
         ]);

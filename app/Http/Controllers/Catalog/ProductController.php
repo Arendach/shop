@@ -29,12 +29,13 @@ class ProductController extends CatalogController
         $title = $template->get($product,'meta_title','',[]);
         $meta_keywords = $template->get($product,'meta_keywords','',[]);
         $meta_description = $template->get($product,'meta_description','',[]);
-
+        $product_name = $template->get($product,'name','',[]);
         $data = [
             'title'            => $title,
             'meta_keywords'    => $meta_keywords,
             'meta_description' => $meta_description,
             'product'          => $product,
+            'product_name'     => $product_name,
             'breadcrumbs'      => [
                 [$product->category->parent->name ?? '', $product->category->parent->url ?? ''],
                 [$product->category->name ?? '', $product->category->url ?? ''],
