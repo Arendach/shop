@@ -11,7 +11,7 @@
             </a>
         </div>
         <div class="feedback-item viber-feedback">
-            <a href="viber://{{ Agent::isMobile() ? 'add' : 'chat' }}?number={{ setting('feedback_viber', '#') }}" target="_blank">
+            <a href="viber://{{ $agent->isMobile() ? 'add' : 'chat' }}?number={{ setting('feedback_viber', '#') }}" target="_blank">
                 <img src="{{ asset('img/viber.svg') }}">
             </a>
         </div>

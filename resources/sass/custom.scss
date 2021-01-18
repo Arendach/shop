@@ -327,3 +327,45 @@ header.version_1 .menu ul li ul li a {
     height: auto !important;
   }
 }
+
+.store_switcher_mobile {
+  text-align: center;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0;
+}
+
+.lang-switcher-button {
+  background-color: #1e639a;
+  border: 1px solid #002f63;
+}
+
+.lang-switcher-button {
+  display: inline-block;
+  background: #fff;
+}
+
+.lang-switcher-button.active a {
+  color: #fff!important;
+  background-color: #004dda;
+}
+
+.main-menu .lang-switcher-button a {
+  padding: 10px 25px;
+}
+
+.lang-switcher-button a {
+  font-weight: bold;
+  padding: 5px;
+  margin: 0;
+  transition: all .2s;
+  text-decoration: none;
+}
+
+.lang-switcher-button a:hover {
+  color: #fff !important;
+  background-color: #004dda;
+  transition: all .2s;
+  text-decoration: none;
+}
