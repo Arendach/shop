@@ -11,14 +11,16 @@ use Illuminate\Support\Carbon;
 
 class OrderPayController extends Controller
 {
+    protected $client = null;
     protected $liqpay;
     private $public_key, $private_key;
+    public $orderCookie;
     public function __construct(Request $request)
     {
         $this->orderCookie = $request->session()->get('pay_order_id');
-//        $this->orderCookie = $request->cookie('pay_order_id');
-        $this->public_key = setting('Публичный ключ liqpay','sandbox_i73183214376');
-        $this->private_key = setting('Приватный ключ liqpay','sandbox_Wsy41Fq7D6L2nVMdmOx8A7CbO1scLPYvtt1EOsmu');
+        $this->public_key = config('api.liqpay_public_key');
+        $this->private_key = config('api.liqpay_private_key');
+        $this->client = new LiqPay($this->public_key, $this->private_key);
 
     }
     public function index()
@@ -30,10 +32,8 @@ class OrderPayController extends Controller
     {
         $order = Order::find($request->order_id);
         $request->session()->put('pay_order_id', $order->id);
-//        setCookie('pay_order_id', $order->id, Carbon::now()->addMinutes(50)->timestamp);
-        $liq = new LiqPay($this->public_key, $this->private_key);
         $dae = base64_encode('email:'.$order->email.'');
-        $form_pay = $liq->cnb_form(array(
+        $form_pay = $this->client->cnb_form(array(
             'action'         => 'pay',
             'amount'         => intval($order->sum),
             'currency'       => 'UAH',
@@ -61,8 +61,7 @@ class OrderPayController extends Controller
             return redirect()->route('order.pay.create', ['order_id' =>$this->orderCookie]);
         }
         // Подготовка API Статуса оплаты
-        $liq = new LiqPay( $this->public_key,  $this->private_key);
-        $res = $liq->api("request", array(
+        $res = $this->client->api("request", array(
             'action'        => 'status',
             'version'       => '3',
             'order_id'      =>  $this->orderCookie
@@ -91,7 +90,7 @@ class OrderPayController extends Controller
             }
             // Реализация отправки Квитанции на E-mail
             $email = ($orderFind->orderShow->email) ? true : false;
-            $ticket = $liq->api("request", array(
+            $ticket = $this->client->api("request", array(
                 'action'    => 'ticket',
                 'version'   => '3',
                 'order_id' => $res->order_id,
