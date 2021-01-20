@@ -74,6 +74,20 @@
                                     <i class="ti-close"></i>
                                 </a>
                             </div>
+                            @if($agent->isMobile())
+                                <div class="store_switcher_mobile">
+                                    <div class="lang-switcher-button {{config('locale.current') == "uk" ? 'active': ''}}">
+                                        <a href="{{ route('locale', 'uk') }}">
+                                            @translate('Укр')
+                                        </a>
+                                    </div>
+                                    <div class="lang-switcher-button {{config('locale.current') == "ru" ? 'active': ''}}">
+                                        <a href="{{ route('locale', 'ru') }}">
+                                            @translate('Рос')
+                                        </a>
+                                    </div>
+                                </div>
+                            @endif
                             <ul>
                                 @foreach($menu as $menuParts)
                                     <li class="@if($menuParts->role == 'menu') submenu @elseif($menuParts->role == 'megamenu') megamenu submenu @endif">
@@ -161,6 +175,7 @@
                                 <a class="dropdown-item" href="#">+38 (063) 342-33-32</a>
                             </div>--}}
                         </div>
+                        @if(!$agent->isMobile())
                         <div class="store-switcher header__item">
                             <a class="a_select_lang {{config('locale.current') == "uk" ? 'a_select_lang_active': ''}}" href="{{ route('locale', 'uk') }}">
                                     @translate('Укр')
@@ -169,7 +184,7 @@
                                     @translate('Рос')
                             </a>
                         </div>
-
+                        @endif
                     </div>
                 </div>
                 <!-- /row -->

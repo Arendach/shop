@@ -97,7 +97,7 @@
             </div>
             <div class="col-lg-6">
                 <ul class="additional_links">
-                    <li><a href="#0">Terms and conditions</a></li>
+                    <li><a href="{{ url('page/terms') }}">{{ translate('Умови погодження') }}</a></li>
                     <li><a href="#0">Privacy</a></li>
                     <li><span>©{{ date('Y') }} {{ $globalData->copyright }}</span></li>
                 </ul>
