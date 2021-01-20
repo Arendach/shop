@@ -93,6 +93,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         return [
             NovaBreadcrumbs::make(),
             new \Llaski\NovaScheduledJobs\NovaScheduledJobsTool,
+            new \Infinety\Filemanager\FilemanagerTool(),
         ];
     }
 

@@ -21,6 +21,7 @@
         "google/cloud-translate": "^1.6",
         "guzzlehttp/guzzle": "^6.4",
         "hisorange/browser-detect": "^4.3",
+        "infinety-es/nova-filemanager": "^2.8",
         "jenssegers/agent": "^2.6",
         "joshmoreno/nova-html-field": "^0.1.0",
         "laracasts/utilities": "^3.0",
