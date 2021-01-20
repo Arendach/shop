@@ -20,5 +20,4 @@ composer.phar
 /public/error_log
 /public/*.png
 /public/google*.html
-/project.sublime-project
-/project.sublime-workspace
+/.htaccess

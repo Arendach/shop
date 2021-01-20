@@ -11,12 +11,9 @@ use Illuminate\Http\Request;
 
 use App\Abstraction\Models\SeoMultiLangInterface;
 use App\Abstraction\Models\TwoImageInterface;
-use App\Casts\ProductDescriptionCast;
-use App\Casts\ProductName;
 use App\Casts\ProductTranslatableTemplateCast;
 use App\Traits\Models\Editable;
 use App\Traits\Models\SeoMultiLang;
-use App\Traits\Models\Translatable;
 use App\Traits\Models\TwoImage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -33,7 +30,6 @@ class Product extends Model implements Sortable, TwoImageInterface, SeoMultiLang
 
     use SoftDeletes;
     use SortableTrait;
-    use Translatable;
     use Image;
 
 

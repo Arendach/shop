@@ -33,7 +33,7 @@ class Auth
     /**
      * @return string
      */
-    public function smsSend($phone = false, $orderId = false, $text = false)
+    public function smsSend($phone = null, $orderId = '0', $text = null)
     {
 
         if(!$phone)
@@ -41,10 +41,9 @@ class Auth
             return false;
         }
         $this->phone = '38'.$phone;
-
+        try {
         $this->action = 'smssend';
-
-        $result = $this->connection->post('sms', [
+            $result = $this->connection->post('sms', [
                 'username'          => $this->login,
                 'password'          => $this->password,
                 'api_key'           => $this->key,
@@ -52,7 +51,12 @@ class Auth
                 'sms_gateway_id'    => $this->idGateway,
                 'sms_text'          => $text ?? $this->text .' '. $orderId,
                 'sms_phone'         => $this->phone
-        ]);
+            ]);
+        } catch (\GuzzleHttp\Exception\ConnectException $e) {
+            return $result = $e->getResponse()->getStatusCode();
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            return $result = $e->getResponse()->getStatusCode();
+        }
         return $result;
 
     }

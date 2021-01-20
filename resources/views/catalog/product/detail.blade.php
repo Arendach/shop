@@ -78,13 +78,13 @@
                                 </a>
                             </li>
                             <li>
-                                {{ $product_name ?? $product->name }}
+                                {{ $product->name }}
                             </li>
                         </ul>
                     </div>
                     <!-- /page_header -->
                     <div class="prod_info">
-                        <h1>{{ $product_name ?? $product->name }}</h1>
+                        <h1>{{ $product->name }}</h1>
                         <span class="rating">
                             {!! $product->stars !!}
                             <em>{{ $product->reviews->count() }} @editable('Відгук(ів)')</em>

@@ -79,9 +79,6 @@
                 <div class="col-lg-9">
                     <div class="row small-gutters">
                         @foreach($products as $product)
-                            @php
-                                $product_name = $template_name->get($product,'name','',[$product->attributes]);
-                            @endphp
                             <div class="col-6 col-md-4">
                                 @include('catalog.parts.product-card', ['col' => 3])
                             </div>

@@ -9,8 +9,6 @@ use App\Http\Resources\ReviewResource;
 use App\Models\Product;
 use App\Models\Review;
 use App\Services\Business\ReviewService;
-use Illuminate\Http\JsonResponse;
-use App\Casts\ProductTranslatableTemplateCast;
 
 class ProductController extends CatalogController
 {
@@ -25,17 +23,11 @@ class ProductController extends CatalogController
             'category.parent',
             'characteristics'
         ])->where(is_numeric($slug) ? 'id' : 'slug', $slug)->firstOrFail();
-        $template = new ProductTranslatableTemplateCast;
-        $title = $template->get($product,'meta_title','',[]);
-        $meta_keywords = $template->get($product,'meta_keywords','',[]);
-        $meta_description = $template->get($product,'meta_description','',[]);
-        $product_name = $template->get($product,'name','',[]);
         $data = [
-            'title'            => $title,
-            'meta_keywords'    => $meta_keywords,
-            'meta_description' => $meta_description,
+            'title'            => $product->meta_title,
+            'meta_keywords'    => $product->meta_keywords,
+            'meta_description' => $product->meta_description,
             'product'          => $product,
-            'product_name'     => $product_name,
             'breadcrumbs'      => [
                 [$product->category->parent->name ?? '', $product->category->parent->url ?? ''],
                 [$product->category->name ?? '', $product->category->url ?? ''],
