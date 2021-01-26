@@ -35,6 +35,12 @@
                  class="countdown"></div>
         @endif
     </figure>
+        @if($agent->isMobile())
+        Характеристики:
+        <br>
+        {!! $characteristics !!}
+        <br>
+        @endif
     <a href="{{ $product->url }}">
         {!! $product->stars !!}
         <em>{{ $product->reviews_count }} @translate('Відгук(ів)')</em>
