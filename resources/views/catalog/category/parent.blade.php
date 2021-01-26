@@ -31,18 +31,13 @@
 
         <div class="container margin_30">
             @foreach($category->child as $child)
-                <div class="container margin_60_35">
-                    <h2 style="margin-bottom: 50px"><a href="{{ $child->url }}">{{ $child->name }}</a></h2>
-                    <div class="owl-carousel owl-theme products_carousel">
-                        @foreach($child->products as $product)
-                            <div class="item">
-                                @include('catalog.parts.product-card')
-                            </div>
-                        @endforeach
+                    <div class="card border-0" style="width: 18rem;display: inline-flex">
+                        <img class="card-img-top" src="{{ $child->small_image }}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 style="text-align: center" class="card-title"><a href="{{ $child->url }}" >{{ $child->name }}</a></h5>
+                        </div>
                     </div>
-                </div>
 
-                <hr>
             @endforeach
 
             <div>{!! $category->description !!}</div>
