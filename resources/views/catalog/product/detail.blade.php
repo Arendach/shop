@@ -166,8 +166,10 @@
                                 <i class="ti-credit-card"></i>
                             </span>
                             <div>
-                                <span class="h4">@editable('Захищені платежі')</span>
-                                <div class="text-muted">{!! settingEditable('secure_payments', '100% захисту ваших платежів') !!}</div>
+                                <a class="text-dark" href="{{ url('page/terms') }}">
+                                    <span class="h4">@editable('Захищені платежі')</span>
+                                    <div class="text-muted">{!! settingEditable('secure_payments', '100% захисту ваших платежів') !!}</div>
+                                </a>
                             </div>
                             <div style="clear:both;"></div>
                         </div>
