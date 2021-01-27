@@ -164,7 +164,7 @@
                             <a class="phone_top" href="tel:{{ $globalData->phone('header_phone') }}" role="button" id="dropdownMenuLink">
                                 <strong>
                                     <span>
-                                        @translate('Потрібна допомога?')
+                                        @translate('НАШІ КОНТАКТИ')
                                     </span>
                                     {{ $globalData->header_phone }}
                                 </strong>

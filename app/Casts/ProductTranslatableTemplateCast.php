@@ -14,6 +14,9 @@ class ProductTranslatableTemplateCast implements CastsAttributes
 {
     protected $templates = [
         'name',
+        'meta_title',
+        'meta_keywords',
+        'meta_description',
         'article',
         'discountPercentage',
         'discountSum',

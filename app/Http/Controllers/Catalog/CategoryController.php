@@ -6,13 +6,11 @@ use App\Models\Category;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use CategoryFilter;
-use Jenssegers\Agent\Agent;
 
 class CategoryController extends CatalogController
 {
     public function show($slug, Request $request, Category $categoryModel)
     {
-        $agent = new Agent();
         $category = Category::with('parent', 'child')
             ->where(is_numeric($slug) ? 'id' : 'slug', $slug)
             ->firstOrFail();
@@ -21,8 +19,7 @@ class CategoryController extends CatalogController
             'title'            => $category->meta_title,
             'meta_description' => $category->meta_description,
             'meta_keywords'    => $category->meta_keywords,
-            'category'         => $category,
-            'agent'            => $agent
+            'category'         => $category
         ];
 
         if ($category->parent_id == 0) {
