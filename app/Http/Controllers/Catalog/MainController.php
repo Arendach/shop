@@ -12,8 +12,8 @@ class MainController extends CatalogController
 {
     public function index()
     {
-        $recommended = Product::recommended()->onStorage()->get();
-        $productsHome = Product::home()->onStorage()->get();
+        $recommended = Product::recommended()->onStorage()->isActive()->get();
+        $productsHome = Product::home()->onStorage()->isActive()->get();
         $page = Page::where('uri_name', 'index')->first();
 
         $data = [

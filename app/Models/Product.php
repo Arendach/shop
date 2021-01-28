@@ -206,4 +206,12 @@ class Product extends Model implements Sortable, TwoImageInterface, SeoMultiLang
     {
         $builder->where('is_recommended', $isRecommended);
     }
+
+    public function scopeIsActive (Builder $builder, bool $active = true)
+    {
+        $this->active = $active;
+        $builder->whereHas('category', function (Builder $query) {
+        $query->where('is_active', $this->active);
+        });
+    }
 }
