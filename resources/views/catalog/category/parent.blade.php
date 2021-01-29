@@ -36,8 +36,7 @@
                         <img class="card-img-top" src="{{ $child->small_image }}" alt="Card image cap">
                     @endif
                     <div class="card-body">
-                        <h5 style="text-align: center" class="card-title"><a
-                                    href="{{ $child->url }}">{{ $child->name }}</a></h5>
+                        <h5 style="text-align: center" class="card-title"><a href="{{ $child->url }}">{{ $child->name }}</a></h5>
                     </div>
                 </div>
 
