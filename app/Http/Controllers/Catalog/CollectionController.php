@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Catalog;
 
 use App\Models\ProductCollection;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Http\Request;
 
@@ -37,7 +38,7 @@ class CollectionController extends CatalogController
             'meta_keywords'    => $collection->meta_keywords,
             'meta_description' => $collection->meta_description,
             'collection'       => $collection,
-            'products'         => $collection->products()->paginate(12)
+            'products'         => $collection->products()->orderByDESC('on_storage')->paginate(12)
         ];
 
         if ($collection->parent_id == 0) {

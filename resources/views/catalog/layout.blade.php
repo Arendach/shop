@@ -169,11 +169,19 @@
                                     {{ $globalData->header_phone }}
                                 </strong>
                             </a>
-                            {{--<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#">+38 (063) 342-33-32</a>
-                                <a class="dropdown-item" href="#">+38 (063) 342-33-32</a>
-                                <a class="dropdown-item" href="#">+38 (063) 342-33-32</a>
-                            </div>--}}
+                            <div class="dropdown-menu p-3" aria-labelledby="dropdownMenuLink">
+                                @translate('Наши телефоны')
+                                <a class="dropdown-item" href="#"><img width="16px" src="{{ asset('/img/phone-header.png') }}" /> {{ setting('1 контактный телефон','+38 (093) 775-14-89') }}</a>
+                                <a class="dropdown-item" href="#"><img width="16px" src="{{ asset('/img/phone-header.png') }}" /> {{ setting('2 контактный телефон','+38 (093) 775-14-89') }}</a>
+                                <hr class="p-0 m-0 mb-1">
+                                @translate('Время работы')
+                                <a class="dropdown-item" href="#"><img width="16px" src="{{ asset('/img/time-header.png') }}" /> {{ setting('Время работы магазинов','Пн-Пт 10:00 - 22:00') }}</a>
+                                <hr class="p-0 m-0 mb-1">
+                                @translate('Наши адреса')
+                                @foreach($shopsHeader as $shop)
+                                    <a class="dropdown-item" href="{{$shop->url}}"><img width="16px" src="{{ asset('/img/zone-header.png') }}" /> {{ $shop->address }}, @translate('Київ')</a>
+                                @endforeach
+                            </div>
                         </div>
                         @if(!$agent->isMobile())
                         <div class="store-switcher header__item">

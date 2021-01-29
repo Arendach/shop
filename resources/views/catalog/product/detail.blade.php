@@ -199,6 +199,10 @@
                                     </div>
                                 </div>
                             @endforeach
+                        </div>
+                            @if(!$product->on_storage)
+                                <div class="btn btn-danger ml-3 p-1 pr-5 pl-5">@translate('Немає в наявності')</div>
+                            @else
                             <div class="row">
                                 <label class="col-xl-5 col-lg-5  col-md-6 col-6">
                                     <strong>
@@ -211,7 +215,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         <div class="row">
                             <div class="col-lg-5 col-md-6">
                                 <div class="price_main">
@@ -235,6 +238,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     <div class="product_actions">
                         <ul>
                             <li>
@@ -253,16 +257,18 @@
                                     </span>
                                 </a>
                             </li>
-                            <li>
-                                <a class="click-one-click-order" href="#0" data-toggle="modal"
-                                   data-target="#one-click-order-window"
-                                   data-id="{{ $product->id }}">
-                                    <i class="ti-hand-point-up"></i>
-                                    <span>
+                            @if($product->on_storage)
+                                <li>
+                                    <a class="click-one-click-order" href="#0" data-toggle="modal"
+                                       data-target="#one-click-order-window"
+                                       data-id="{{ $product->id }}">
+                                        <i class="ti-hand-point-up"></i>
+                                        <span>
                                         @editable('Швидке замовлення')
                                     </span>
-                                </a>
-                            </li>
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -279,8 +285,14 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a id="tab-B" href="#pane-B" class="nav-link @displayIf($reviewTab, 'active')" data-toggle="tab"
-                           role="tab">
+                        <a id="tab-D" href="#pane-D" class="nav-link"
+                           data-toggle="tab" role="tab">
+                            @editable('Характеристики')
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="tab-B" href="#pane-B" class="nav-link @displayIf($reviewTab, 'active')"
+                           data-toggle="tab" role="tab">
                             @editable('Відгуки')
                         </a>
                     </li>
@@ -312,39 +324,11 @@
                                     <div class="row justify-content-between">
 
                                         @if($product->description)
-                                            <div class="{{ $product->characteristics->count() ? 'col-lg-6': 'col-12' }}">
+                                            <div class="col-12">
                                                 <h3>@editable('Деталі')</h3>
                                                 {!! $product->description !!}
                                             </div>
                                         @endif
-
-                                        @if($product->characteristics->count())
-                                            <div class="{{ $product->description ? 'col-lg-5': 'col-12' }}">
-                                                <h3>@editable('Характеристики')</h3>
-                                                <div class="table-responsive">
-                                                    <table class="table table-sm table-striped">
-                                                        <tbody>
-                                                        @foreach($product->characteristics as $characteristic)
-                                                            @php /** @var \App\Models\ProductCharacteristic $characteristic */ @endphp
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>
-                                                                        {!! $characteristic->getName() !!}
-                                                                    </strong>
-                                                                </td>
-                                                                <td>
-                                                                    {!! $characteristic->getPrefix() !!}
-                                                                    {!! $characteristic->value !!}
-                                                                    {!! $characteristic->getPostfix() !!}
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        @endif
-
                                     </div>
                                 </div>
                             </div>
@@ -378,6 +362,52 @@
                             <div class="card-body">
                                 <div class="row justify-content-between">
                                     @editable('Доставка та оплата')
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="pane-D" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-D">
+                        <div class="card-header" role="tab" id="heading-D">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" href="#collapse-С" aria-expanded="false"
+                                   aria-controls="collapse-С">
+                                    @editable('Доставка та оплата')
+                                </a>
+                            </h5>
+                        </div>
+                        <div id="collapse-D" class="collapse" role="tabpanel" aria-labelledby="heading-D">
+                            <div class="card-body">
+                                <div class="row justify-content-between">
+                                    <div id="collapse-D" class="collapse" role="tabpanel" aria-labelledby="heading-D">
+                                        <div class="card-body">
+                                            <div class="row justify-content-between">
+                                                <div class="col-12">
+                                                    <h3>@editable('Характеристики')</h3>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-sm table-striped">
+                                                            <tbody>
+                                                            @foreach($product->characteristics as $characteristic)
+                                                                @php /** @var \App\Models\ProductCharacteristic $characteristic */ @endphp
+                                                                <tr>
+                                                                    <td>
+                                                                        <strong>
+                                                                            {!! $characteristic->getName() !!}
+                                                                        </strong>
+                                                                    </td>
+                                                                    <td>
+                                                                        {!! $characteristic->getPrefix() !!}
+                                                                        {!! $characteristic->value !!}
+                                                                        {!! $characteristic->getPostfix() !!}
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

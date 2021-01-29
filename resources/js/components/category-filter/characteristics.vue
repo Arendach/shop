@@ -13,7 +13,7 @@
         <ul>
           <li v-for="pc in characteristic.values">
             <label class="container_check">
-              {{ `${characteristic.prefix} ${pc.value} ${characteristic.postfix}` }}
+              <span v-html="characteristic.prefix + ` ` + pc.value + ` ` + characteristic.postfix"></span>
               <input
                   type="checkbox"
                   :name="`characteristics[${characteristic.id}][]`"

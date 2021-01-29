@@ -44,6 +44,16 @@ class Page extends Model
         return route('page', $this->uri_name);
     }
 
+    // Сначало сделать
+    // php -d memory_limit=-1 composer.phar require chriskonnertz/bbcode
+    // Потом раскоментить
+//    public function getContentAttribute($value)
+//    {
+//        $bbcode = new ChrisKonnertz\BBCode\BBCode();
+//        $rendered = $bbcode->render($value);
+//        return $rendered;
+//    }
+
     public static function created($callback)
     {
         Cache::forget('');

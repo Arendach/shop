@@ -35,21 +35,23 @@
                  class="countdown"></div>
         @endif
     </figure>
-        @if($agent->isMobile())
-        Характеристики:
+        <a href="{{ $product->url }}">
+            <h3>{{ $product->name }}</h3>
+        </a>
         <br>
-        {!! $characteristics !!}
-        <br>
-        @endif
     <a href="{{ $product->url }}">
         {!! $product->stars !!}
         <em>{{ $product->reviews_count }} @translate('Відгук(ів)')</em>
     </a>
-    <br>
-    <a href="{{ $product->url }}">
-        <h3>{{ $product->name }}</h3>
-    </a>
-    <div class="price_box">
+        <br>
+        @if($agent->isMobile())
+            Характеристики:
+            <br>
+            {!! $characteristics !!}
+            <br>
+        @endif
+
+        <div class="price_box">
         <span class="new_price">{{ $product->new_price }} грн</span>
         @if($product->is_discounted)
             <span class="old_price">{{ $product->old_price }} грн</span>
