@@ -52,7 +52,7 @@
                 enhance: true
             },
             navbar: {
-                title: 'MENU'
+                title: 'Категории'
             },
             offCanvas: {
                 pageSelector: "#page"
