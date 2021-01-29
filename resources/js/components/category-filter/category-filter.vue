@@ -7,7 +7,7 @@
         </a>
       </div>
 
-      <price :max-price="data.maxPrice" :min-price="data.minPrice"></price>
+      <price :value-view="data.valueView" :max-price="data.maxPrice" :min-price="data.minPrice"></price>
 
       <manufacturer :manufacturers="data.manufacturers"></manufacturer>
 

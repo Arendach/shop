@@ -39,6 +39,10 @@
 <!-- YOUR CUSTOM CSS -->
     <link rel="stylesheet" href="{{ mix('css/custom.css') }}">
     <script async src="https://crm.streamtele.com/widget/getwidget/2b5889941b7aae1f3bdcf73f9f18bf0c" type="text/javascript" charset="UTF-8"></script>
+
+    <!--Plugin CSS file with desired skin-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
+
 </head>
 
 <body>
@@ -417,6 +421,8 @@
 <script src="{{ asset('catalog/js/toastr.js') }}"></script>
 <script src="{{ asset('js/cart.js') }}"></script>
 <script src="{{ asset('catalog/js/modal_windows.js') }}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
 @stack('js')
 @yield('js')
 <script>
