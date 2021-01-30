@@ -84,6 +84,7 @@ class Category extends Model implements Sortable, TwoImageInterface
     public function child()
     {
         return $this->hasMany('App\Models\Category', 'parent_id', 'id')
+            ->where('is_active', '=',1)
             ->withCount('products');
     }
 
@@ -116,6 +117,11 @@ class Category extends Model implements Sortable, TwoImageInterface
         parent::boot();
 
         static::addGlobalScope(new SortableScope());
+    }
+
+    public function isActive(): bool
+    {
+        return $this->is_active;
     }
 
     public function filterProducts(int $category_id, Request $request)

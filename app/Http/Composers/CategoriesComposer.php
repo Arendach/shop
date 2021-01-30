@@ -15,6 +15,7 @@ class CategoriesComposer
 
         $categories = Cache::rememberForever('parentCategories', function () {
             return Category::where('parent_id', 0)
+                ->where('is_active',1)
                 ->with('child')
                 ->get();
         });
