@@ -6,7 +6,7 @@ use Cache;
 use App\Traits\Models\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-//use ChrisKonnertz\BBCode\BBCode;
+use ChrisKonnertz\BBCode\BBCode;
 class Page extends Model
 {
     use SoftDeletes;
