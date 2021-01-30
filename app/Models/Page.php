@@ -44,20 +44,20 @@ class Page extends Model
         return route('page', $this->uri_name);
     }
 
-//    public function getContentUkAttribute($value)
-//    {
-//        $bbcode = new BBCode();
-//        $rendered = $bbcode->render($value);
-//
-//        return html_entity_decode($rendered);
-//    }
-//    public function getContentRuAttribute($value)
-//    {
-//        $bbcode = new BBCode();
-//        $rendered = $bbcode->render($value);
-//
-//        return html_entity_decode($rendered);
-//    }
+    public function getContentUkAttribute($value)
+    {
+        $bbcode = new BBCode();
+        $rendered = $bbcode->render($value);
+
+        return html_entity_decode($rendered);
+    }
+    public function getContentRuAttribute($value)
+    {
+        $bbcode = new BBCode();
+        $rendered = $bbcode->render($value);
+
+        return html_entity_decode($rendered);
+    }
 
     public static function created($callback)
     {
