@@ -335,6 +335,52 @@
                         </div>
                 @endif
                 <!-- /TAB A -->
+                        <div id="pane-D" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-D">
+                            <div class="card-header" role="tab" id="heading-D">
+                                <h5 class="mb-0">
+                                    <a class="collapsed" data-toggle="collapse" href="#collapse-D" aria-expanded="false"
+                                       aria-controls="collapse-D">
+                                        @editable('Характеристики')
+                                    </a>
+                                </h5>
+                            </div>
+                            <div id="collapse-D" class="collapse" role="tabpanel" aria-labelledby="heading-D">
+                                <div class="card-body">
+                                    <div class="row justify-content-between">
+                                        <div id="collapse-D" class="collapse" role="tabpanel" aria-labelledby="heading-D">
+                                            <div class="card-body">
+                                                <div class="row justify-content-between">
+                                                    <div class="col-12">
+                                                        <h3>@editable('Характеристики')</h3>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-sm table-striped">
+                                                                <tbody>
+                                                                @foreach($product->characteristics as $characteristic)
+                                                                    @php /** @var \App\Models\ProductCharacteristic $characteristic */ @endphp
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>
+                                                                                {!! $characteristic->getName() !!}
+                                                                            </strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            {!! $characteristic->getPrefix() !!}
+                                                                            {!! $characteristic->value !!}
+                                                                            {!! $characteristic->getPostfix() !!}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     <div id="pane-B" class="card tab-pane fade @displayIf($reviewTab, 'active show')" role="tabpanel"
                          aria-labelledby="tab-B">
                         <div class="card-header" role="tab" id="heading-B">
@@ -366,52 +412,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="pane-D" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-D">
-                        <div class="card-header" role="tab" id="heading-D">
-                            <h5 class="mb-0">
-                                <a class="collapsed" data-toggle="collapse" href="#collapse-С" aria-expanded="false"
-                                   aria-controls="collapse-С">
-                                    @editable('Доставка та оплата')
-                                </a>
-                            </h5>
-                        </div>
-                        <div id="collapse-D" class="collapse" role="tabpanel" aria-labelledby="heading-D">
-                            <div class="card-body">
-                                <div class="row justify-content-between">
-                                    <div id="collapse-D" class="collapse" role="tabpanel" aria-labelledby="heading-D">
-                                        <div class="card-body">
-                                            <div class="row justify-content-between">
-                                                <div class="col-12">
-                                                    <h3>@editable('Характеристики')</h3>
-                                                    <div class="table-responsive">
-                                                        <table class="table table-sm table-striped">
-                                                            <tbody>
-                                                            @foreach($product->characteristics as $characteristic)
-                                                                @php /** @var \App\Models\ProductCharacteristic $characteristic */ @endphp
-                                                                <tr>
-                                                                    <td>
-                                                                        <strong>
-                                                                            {!! $characteristic->getName() !!}
-                                                                        </strong>
-                                                                    </td>
-                                                                    <td>
-                                                                        {!! $characteristic->getPrefix() !!}
-                                                                        {!! $characteristic->value !!}
-                                                                        {!! $characteristic->getPostfix() !!}
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>

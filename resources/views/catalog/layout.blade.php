@@ -165,7 +165,7 @@
                         </div>
                         <!--<a class="phone_top" href="tel://{{ $globalData->phone('header_phone') }}">-->
                         <div class="dropdown show dropdown-numbers">
-                            <a class="phone_top" href="tel:{{ $globalData->phone('header_phone') }}" role="button" id="dropdownMenuLink">
+                            <a class="phone_top" href="#" role="button" id="dropdownMenuLink">
                                 <strong>
                                     <span>
                                         @translate('НАШІ КОНТАКТИ')
@@ -175,15 +175,15 @@
                             </a>
                             <div class="dropdown-menu p-3" aria-labelledby="dropdownMenuLink">
                                 @translate('Наши телефоны')
-                                <a class="dropdown-item" href="#"><img width="16px" src="{{ asset('/img/phone-header.png') }}" /> {{ setting('1 контактный телефон','+38 (093) 775-14-89') }}</a>
-                                <a class="dropdown-item" href="#"><img width="16px" src="{{ asset('/img/phone-header.png') }}" /> {{ setting('2 контактный телефон','+38 (093) 775-14-89') }}</a>
+                                <a class="dropdown-item" href="tel:{{ setting('1 контактный телефон','+38 (093) 775-14-89') }}"><img width="16px" src="{{ asset('/img/phone-header.png') }}" /> {{ setting('1 контактный телефон','+38 (093) 775-14-89') }}</a>
+                                <a class="dropdown-item" href="tel:{{ setting('2 контактный телефон','+38 (093) 775-14-89') }}"><img width="16px" src="{{ asset('/img/phone-header.png') }}" /> {{ setting('2 контактный телефон','+38 (093) 775-14-89') }}</a>
                                 <hr class="p-0 m-0 mb-1">
                                 @translate('Время работы')
                                 <a class="dropdown-item" href="#"><img width="16px" src="{{ asset('/img/time-header.png') }}" /> {{ setting('Время работы магазинов','Пн-Пт 10:00 - 22:00') }}</a>
                                 <hr class="p-0 m-0 mb-1">
                                 @translate('Наши адреса')
                                 @foreach($shopsHeader as $shop)
-                                    <a class="dropdown-item" href="{{$shop->url}}"><img width="16px" src="{{ asset('/img/zone-header.png') }}" /> {{ $shop->address }}, @translate('Київ')</a>
+                                    <a class="dropdown-item" href="{{$shop->url}}" target="_blank"><img width="16px" src="{{ asset('/img/zone-header.png') }}" /> {{ $shop->address }}, @translate('Київ')</a>
                                 @endforeach
                             </div>
                         </div>
