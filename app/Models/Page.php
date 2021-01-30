@@ -6,7 +6,7 @@ use Cache;
 use App\Traits\Models\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use ChrisKonnertz\BBCode\BBCode;
 class Page extends Model
 {
     use SoftDeletes;
@@ -44,15 +44,20 @@ class Page extends Model
         return route('page', $this->uri_name);
     }
 
-    // Сначало сделать
-    // php -d memory_limit=-1 composer.phar require chriskonnertz/bbcode
-    // Потом раскоментить
-//    public function getContentAttribute($value)
-//    {
-//        $bbcode = new ChrisKonnertz\BBCode\BBCode();
-//        $rendered = $bbcode->render($value);
-//        return $rendered;
-//    }
+    public function getContentUkAttribute($value)
+    {
+        $bbcode = new BBCode();
+        $rendered = $bbcode->render($value);
+
+        return html_entity_decode($rendered);
+    }
+    public function getContentRuAttribute($value)
+    {
+        $bbcode = new BBCode();
+        $rendered = $bbcode->render($value);
+
+        return html_entity_decode($rendered);
+    }
 
     public static function created($callback)
     {
