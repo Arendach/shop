@@ -9,7 +9,7 @@
     <meta name="keywords" content="{{ $meta_keywords ?? $globalData->meta_keywords }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', $globalData->meta_title)</title>
+    <title>@yield('title', $title ?? $globalData->meta_title)</title>
 
     <!-- Favicons-->
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">

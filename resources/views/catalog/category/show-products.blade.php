@@ -1,6 +1,5 @@
 @extends('catalog.layout')
 
-@section('title', $category->name)
 
 @section('seo')
     <link rel="canonical" href="{{ url()->current() }}">
