@@ -36,7 +36,11 @@ class ProductsCharacteristic extends Resource
     }
 
     public static $search = [
-        'product_id'
+        'product_id',
+        'filter_uk',
+        'filter_ru',
+        'value_uk',
+        'value_ru'
     ];
 
     public function fields(Request $request)
