@@ -85,4 +85,10 @@ class ProductCharacteristic extends Model
 
         return $this->filter;
     }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
 }

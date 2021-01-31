@@ -17,6 +17,7 @@ use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 class Orders extends Resource
 {
     use TabsOnEdit;
+    public static $group = 'Відділ Замовлень';
 
     public static $model = 'App\Models\Order';
 

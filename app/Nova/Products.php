@@ -3,6 +3,7 @@
 
 namespace App\Nova;
 
+use App\Models\ProductCharacteristic;
 use Laravel\Nova\Fields\Textarea;
 
 
@@ -30,6 +31,9 @@ class Products extends Resource
 {
     use HasSortableRows;
     use TabsOnEdit;
+
+
+    public static $group = 'Відділ товарів';
 
     public static $model = 'App\Models\Product';
 

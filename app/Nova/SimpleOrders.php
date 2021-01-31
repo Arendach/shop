@@ -11,6 +11,8 @@ use Laravel\Nova\Fields\Text;
 
 class SimpleOrders extends Resource
 {
+    public static $group = 'Відділ Замовлень';
+
     public static $model = 'App\Models\SimpleOrder';
 
     public static $title = 'name';
