@@ -12,4 +12,9 @@ class MenuItem extends Model
     public $timestamps = false;
 
     public $translate = ['name'];
+
+    public function menu()
+    {
+        return $this->belongsTo(Menu::class);
+    }
 }
