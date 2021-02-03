@@ -71,7 +71,9 @@ final class ProductCollection extends Model
 
     public function child(): HasMany
     {
-        return $this->hasMany(ProductCollection::class, 'parent_id', 'id');
+        return $this->hasMany(ProductCollection::class, 'parent_id', 'id')
+                    ->orderByDesc('created_at')
+                    ->limit(3);
     }
 
     public function parent(): HasOne
@@ -79,9 +81,9 @@ final class ProductCollection extends Model
         return $this->hasOne(ProductCollection::class, 'id', 'parent_id');
     }
 
-    public function scopeActive($query)
+    public function scopeIsHome($query)
     {
-        return $query->where('is_active', 1);
+        return $query->where('is_home', 1)->orderByDesc('created_at');
     }
     public function scopePars($query)
     {

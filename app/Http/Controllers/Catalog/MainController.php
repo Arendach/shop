@@ -18,7 +18,7 @@ class MainController extends CatalogController
 
         $data = [
             'banners'          => BannerImage::all(),
-            'collections'      => ProductCollection::root()->paginate(3),
+            'collections'      => ProductCollection::isHome()->paginate(6),
             'recommended'      => $recommended,
             'productsHome'     => $productsHome,
             'title'            => $page->meta_title,

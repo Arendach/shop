@@ -127,7 +127,7 @@
                                                             </h3>
                                                             <div class="carus-party-in">
 
-                                                                @foreach($collection->child->where('is_active') as $child)
+                                                                @foreach($collection->child as $child)
                                                                     <div class="one-party">
                                                                         <a href="{{ url('collection/'.$child->slug) }}">
                                                                             <div class="one-party-thumb">

@@ -19,7 +19,7 @@ class MenuComposer
         $agent = new Agent();
 
         $shopsHeader = Shop::get();
-        $collectionMenu = ProductCollection::pars()->active()->limit(5)->get();
+        $collectionMenu = ProductCollection::pars()->orderByDesc('created_at')->limit(5)->get();
         $view->with(compact('menu','agent', 'shopsHeader','collectionMenu'));
     }
 }

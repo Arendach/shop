@@ -41,21 +41,21 @@ class CollectionController extends CatalogController
             'products'         => $collection->products()->orderByDESC('on_storage')->paginate(12)
         ];
 
-        if ($collection->parent_id == 0) {
+//        if ($collection->parent_id == 0) {
             $data['breadcrumbs'] = [
                 [translate('Колекції товарів'), route('collections')],
                 [$collection->name]
             ];
 
             return view('catalog.collection.show', $data);
-        } else {
-            $data['breadcrumbs'] = [
-                [translate('Колекції товарів'), route('collections')],
-                [$collection->parent->name, route('collection', $collection->parent->slug)],
-                [$collection->name]
-            ];
-
-            return view('catalog.collection.child', $data);
-        }
+//        } else {
+//            $data['breadcrumbs'] = [
+//                [translate('Колекції товарів'), route('collections')],
+//                [$collection->parent->name, route('collection', $collection->parent->slug)],
+//                [$collection->name]
+//            ];
+//
+//            return view('catalog.collection.child', $data);
+//        }
     }
 }

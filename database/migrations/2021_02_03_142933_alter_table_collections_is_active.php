@@ -14,7 +14,7 @@ class AlterTableCollectionsIsActive extends Migration
     public function up()
     {
         Schema::table('collections', function (Blueprint $table) {
-            $table->integer('is_active')->default(0);
+            $table->boolean('is_home')->default(0);
         });
     }
 
@@ -26,7 +26,7 @@ class AlterTableCollectionsIsActive extends Migration
     public function down()
     {
         Schema::table('collections', function (Blueprint $table) {
-            $table->dropColumn('is_active');
+            $table->dropColumn('is_home');
         });
     }
 }

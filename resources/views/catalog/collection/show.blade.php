@@ -25,6 +25,7 @@
                 <div class="breadcrumbs">
                     <ul>
                         <li><a href="{{ route('index') }}">@translate('Головна')</a></li>
+                        <li>Коллекции</li>
                         <li>{{ $collection->name }}</li>
                     </ul>
                 </div>
