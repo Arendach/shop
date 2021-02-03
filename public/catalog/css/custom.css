@@ -2,6 +2,59 @@
 /* Your custom styles below */
 /*============================================================================================*/
 
+.carus-party {
+    float: left;
+    width: 100%;
+    padding: 0 30px;
+    margin-bottom: 40px;
+}
+
+.carus-party h3 {
+    font-size: 30px;
+    margin-bottom: 12px;
+    font-weight: 400;
+}
+
+.one-party {
+    width: 185px;
+    float: left;
+    margin-right: 30px;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+}
+.one-party a {
+    color: #000;
+    text-decoration: none;
+}
+.one-party-thumb {
+    border: 1px solid #d8dfe5;
+    border-bottom: none;
+    text-align: center;
+}
+.one-party-thumb img {
+    vertical-align: top;
+    max-width: 100%;
+    height: auto;
+}
+.one-party-tit {
+    min-height: 41px;
+    float: left;
+    width: 100%;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid #d8dfe5;
+    border-top: none;
+    font-size: 15px;
+    font-weight: 700;
+    color: #2e81cd;
+}
+
+
+
+
+
 .header .store-switcher {
     position: relative;
     right: 0;

@@ -116,6 +116,38 @@
                                             <a href="javascript:void(0);" class="show-submenu-mega">
                                                 {{ $menuParts->name }}
                                             </a>
+                                            @if($menuParts->name_ru == 'Коллекции')
+                                                <div class="menu-wrapper">
+                                                    @foreach($collectionMenu as $collection)
+                                                        <div class="carus-party">
+                                                            <h3>
+                                                                <a class="text-dark font-bold" href="{{ url('collection/'.$collection->slug) }}">
+                                                                    {{ $collection->name }}
+                                                                </a>
+                                                            </h3>
+                                                            <div class="carus-party-in">
+
+                                                                @foreach($collection->child->where('is_active') as $child)
+                                                                    <div class="one-party">
+                                                                        <a href="{{ url('collection/'.$child->slug) }}">
+                                                                            <div class="one-party-thumb">
+                                                                                <img src="{{ $child->getImage('image', 'catalog/img/bg_cat_shoes.jpg') }}" width="185" height="80" alt="{{ $child->name }}">
+                                                                            </div>
+                                                                            <div class="one-party-tit">
+                                                                                <div class="one-party-tit-in">
+                                                                                    {{ $child->name }}
+                                                                                </div>
+                                                                            </div>
+                                                                        </a>
+                                                                    </div>
+                                                                @endforeach
+
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+
+                                            @else
 
                                             <div class="menu-wrapper">
                                                 <div class="row small-gutters">
@@ -144,6 +176,7 @@
                                                 </div>
                                                 <!-- /row -->
                                             </div>
+                                            @endif
                                         @endif
                                     </li>
                                 @endforeach

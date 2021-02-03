@@ -78,4 +78,13 @@ final class ProductCollection extends Model
     {
         return $this->hasOne(ProductCollection::class, 'id', 'parent_id');
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
+    public function scopePars($query)
+    {
+        $query->where('parent_id', 0);
+    }
 }
