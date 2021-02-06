@@ -16,7 +16,12 @@ class ManufacturersSyncController extends Controller
         Manufacturer::truncate();
 
         foreach (\GuzzleHttp\json_decode($manufacturers) as $manufacturer) {
-            Manufacturer::insert((array)$manufacturer);
+            $manufactur = new Manufacturer;
+            $manufactur->name_uk = $manufacturer->name_uk;
+            $manufactur->name_ru = translate_text($manufacturer->name_uk,'ru');
+            $manufactur->photo_uk = $manufacturer->photo_uk;
+            $manufactur->photo_ru = $manufacturer->photo_ru;
+            $manufactur->save();;
         }
 
         return redirect()
