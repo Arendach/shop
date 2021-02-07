@@ -29,7 +29,7 @@ class ProductsSyncController extends Controller
         $products = collect(json_decode($products));
 
         foreach ($products as $it => $item)
-            if (Product::where('product_key', $item->product_key)->count())
+            if (Product::where('article', $item->articul)->count())
                 unset($products[$it]);
 
         return view('bridge.products_list', [

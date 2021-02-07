@@ -4,6 +4,7 @@
         <input type="hidden" name="category_local" value="{{ $category_local }}">
         <div class="form-group">
             <div class="select" style="height: 100%" data-name="selected">
+                {{ $products }}
                 @foreach($products as $item)
                     <div class="option" data-value="{{ $item->id }}">
                         {{ $item->articul }}
@@ -18,5 +19,6 @@
             <button class="btn btn-primary">Імпортувати</button>
         </div>
     </form>
-
+@else
+    <div class="alert alert-warning">Упс. Результатов не найдено. Попробуйте еще...</div>
 @endif
