@@ -39,16 +39,17 @@ class OrderService
         $this->makeCustomerIfNotExists($data);
 
         $data = collect($data);
-
+//dd(intval($data->get('delivery_price')));
         $order = Order::create(array_merge($data->all(), [
             'customer_id' => $this->customer->id,
             'name'        => implode(' ', [$data->get('first_name'), $data->get('last_name')])
         ]));
-
+        $order->delivery_price = intval($data->get('delivery_price'));
+        $order->save();
         $products = $this->cartService->getProducts()->mapWithKeys(function (Product $product) {
             return [
                 $product->id => [
-                    'price'  => $product->price,
+                    'price'  => $product->new_price,
                     'amount' => $product->pivot->amount
                 ]
             ];

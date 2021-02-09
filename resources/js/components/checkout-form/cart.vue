@@ -16,7 +16,7 @@
           </li>
           <li class="clearfix">
             <em><strong>{{ translate('Вартість доставки') }}</strong></em>
-            
+            <input type="hidden" name="delivery_price" :value="deliveryPrice">
             <span>{{ deliveryPrice }}</span>
           </li>
         </ul>

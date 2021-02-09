@@ -57,7 +57,8 @@ class CheckoutRequest extends FormRequest
             'phone'      => ['required', 'regex:/[0]{1}[0-9]{2}-[0-9]{3}-[0-9]{2}-[0-9]{2}/'],
             'comment'    => 'max:1024',
             'delivery'   => ['required', Rule::in($orderTypes)],
-            'pay_method' => ['required', Rule::in($payMethods)]
+            'pay_method' => ['required', Rule::in($payMethods)],
+            'delivery_price' => 'nullable'
         ], $rulesAuth);
     }
 
