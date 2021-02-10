@@ -13,7 +13,10 @@
             <div class="owl-carousel owl-theme">
                 @foreach($banners as $banner)
                     <div class="owl-slide cover" style="background-image: url({{ $banner->getImage() }})">
-                        <div class="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+                        <div class="opacity-mask d-flex align-items-center"
+                             @if(setting('Затемнення банера на головній',0))data-opacity-mask="rgba(0, 0, 0, 0.5)"@endif
+                            style="{{ setting('Стилі для банера на головній','') }}"
+                        >
                             <div class="container">
                                 <div class="row justify-content-center justify-content-md-{{ $banner->position == 'right' ? 'end' : 'start' }}">
                                     <div class="{{ $banner->position == 'center' ? 'col-lg-12' : 'col-lg-6' }} static">
@@ -48,7 +51,10 @@
                     <a href="{{ route('collection', $collection->slug) }}" class="img_container">
                         <img src="{{ $collection->getImage('image') }}" data-src="{{ $collection->getImage('image') }}"
                              alt="{{ $collection->name }}" class="lazy">
-                        <div class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+                        <div class="short_info opacity-mask"
+                             @if(setting('Затемнення коллекцій на головній',0))data-opacity-mask="rgba(0, 0, 0, 0.5)"@endif
+                             style="{{ setting('Стилі для колекцій на головній','') }}"
+                        >
                             <h3>{{ $collection->name }}</h3>
                             <div><span class="btn_1">@translate('Детальніше')</span></div>
                         </div>

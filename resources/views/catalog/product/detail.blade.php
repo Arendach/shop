@@ -115,12 +115,12 @@
                         @endif
 
                         <div style="margin-bottom: 10px; cursor: pointer;">
-                            <span class="pull-left manufacturer">
-                                <i class="ti-package"></i>
+                            <span class="pull-left truck bg-info">
+                                    <i class="ti-agenda"></i>
                             </span>
-                            <div>
-                                <span class="h4">@editable('Виробник: ') {{$product->manufacturer->name}}</span>
-                            </div>
+                            <span class="h4">
+                                @editable('Артикул'): {!! $product->editable('article', false) !!}
+                            </span>
                             <div style="clear:both;"></div>
                         </div>
 
@@ -136,6 +136,16 @@
                             <div style="clear:both;"></div>
                         </div>
 
+                        <div style="margin-bottom: 10px; cursor: pointer;">
+                            <span class="pull-left manufacturer">
+                                <i class="ti-package"></i>
+                            </span>
+                            <div>
+                                <span class="h4">@editable('Виробник: ') {{$product->manufacturer->name}}</span>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+                        {{--
                         <div style="margin-bottom: 10px; cursor: pointer;"
                              onclick="$('.nav-tabs a[href=' + '\'#pane-C' + '\']').tab('show');">
                             <span class="pull-left truck">
@@ -159,24 +169,33 @@
                             </div>
                             <div style="clear:both;"></div>
                         </div>
-
-                        <div style="margin-bottom: 10px; cursor: pointer;"
-                             onclick="$('.nav-tabs a[href=' + '\'#pane-C' + '\']').tab('show');">
-                            <span class="pull-left secure-payments">
-                                <i class="ti-credit-card"></i>
-                            </span>
-                            <div>
-                                <a class="text-dark" href="{{ url('page/terms') }}">
-                                    <span class="h4">@editable('Захищені платежі')</span>
-                                    <div class="text-muted">{!! settingEditable('secure_payments', '100% захисту ваших платежів') !!}</div>
-                                </a>
+                        --}}
+                        <div>
+                            <h3>@editable('Характеристики')</h3>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-striped">
+                                    <tbody>
+                                    @foreach($product->characteristics as $characteristic)
+                                        @php /** @var \App\Models\ProductCharacteristic $characteristic */ @endphp
+                                        <tr>
+                                            <td>
+                                                <strong>
+                                                    {!! $characteristic->getName() !!}
+                                                </strong>
+                                            </td>
+                                            <td>
+                                                {!! $characteristic->getPrefix() !!}
+                                                {!! $characteristic->value !!}
+                                                {!! $characteristic->getPostfix() !!}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
                             </div>
-                            <div style="clear:both;"></div>
                         </div>
 
-                        <p style="font-size: 16px; font-weight: 600;">
-                            @editable('Артикул'): {!! $product->editable('article', false) !!}
-                        </p>
+
                         <div class="prod_options">
                             @foreach($product->attributes as $attribute)
                                 <div class="row" style="margin-bottom: 10px;">
@@ -271,6 +290,16 @@
                             @endif
                         </ul>
                     </div>
+                    <div class="pt-5">
+                        <span class="pull-left secure-payments">
+                            <i class="ti-credit-card"></i>
+                        </span>
+
+                        <a class="text-dark" href="{{ url('page/terms') }}">
+                            <span class="h4">@editable('Захищені платежі')</span>
+                            <div class="text-muted">{!! settingEditable('secure_payments', '100% захисту ваших платежів') !!}</div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -282,12 +311,6 @@
                         <a id="tab-A" href="#pane-A" class="nav-link @displayIf(!$reviewTab, 'active')"
                            data-toggle="tab" role="tab">
                             @editable('Опис')
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="tab-D" href="#pane-D" class="nav-link"
-                           data-toggle="tab" role="tab">
-                            @editable('Характеристики')
                         </a>
                     </li>
                     <li class="nav-item">
@@ -335,52 +358,6 @@
                         </div>
                 @endif
                 <!-- /TAB A -->
-                        <div id="pane-D" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-D">
-                            <div class="card-header" role="tab" id="heading-D">
-                                <h5 class="mb-0">
-                                    <a class="collapsed" data-toggle="collapse" href="#collapse-D" aria-expanded="false"
-                                       aria-controls="collapse-D">
-                                        @editable('Характеристики')
-                                    </a>
-                                </h5>
-                            </div>
-                            <div id="collapse-D" class="collapse" role="tabpanel" aria-labelledby="heading-D">
-                                <div class="card-body">
-                                    <div class="row justify-content-between">
-                                        <div id="collapse-D" class="collapse" role="tabpanel" aria-labelledby="heading-D">
-                                            <div class="card-body">
-                                                <div class="row justify-content-between">
-                                                    <div class="col-12">
-                                                        <h3>@editable('Характеристики')</h3>
-                                                        <div class="table-responsive">
-                                                            <table class="table table-sm table-striped">
-                                                                <tbody>
-                                                                @foreach($product->characteristics as $characteristic)
-                                                                    @php /** @var \App\Models\ProductCharacteristic $characteristic */ @endphp
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>
-                                                                                {!! $characteristic->getName() !!}
-                                                                            </strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            {!! $characteristic->getPrefix() !!}
-                                                                            {!! $characteristic->value !!}
-                                                                            {!! $characteristic->getPostfix() !!}
-                                                                        </td>
-                                                                    </tr>
-                                                                @endforeach
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     <div id="pane-B" class="card tab-pane fade @displayIf($reviewTab, 'active show')" role="tabpanel"
                          aria-labelledby="tab-B">
                         <div class="card-header" role="tab" id="heading-B">

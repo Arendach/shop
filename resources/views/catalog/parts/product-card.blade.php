@@ -36,7 +36,7 @@
         @endif
     </figure>
         <a href="{{ $product->url }}">
-            <h3>{{ $product->name }}</h3>
+            <h3 style="font-size: 18px;">{{ $product->name }}</h3>
         </a>
         <br>
     <a href="{{ $product->url }}">
