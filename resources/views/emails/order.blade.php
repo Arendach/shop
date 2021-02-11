@@ -202,7 +202,12 @@
 
     <tr>
         <td colspan="4" style="text-align:right; border: 1px solid white; padding: 10px; background-color: #FFCC99; color: #333366; font-family: Roboto, Arial, Helvetica, sans-serif">
-            Сума: {{ number_format($order->sum) }}
+            Сума: {{ number_format($order->sum()) }}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" style="text-align:right; border: 1px solid white; padding: 10px; background-color: #FFCC99; color: #333366; font-family: Roboto, Arial, Helvetica, sans-serif">
+            Доставка: {{ number_format($order->delivery_price) }}
         </td>
     </tr>
 </table>

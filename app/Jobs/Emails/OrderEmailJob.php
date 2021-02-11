@@ -24,7 +24,7 @@ class OrderEmailJob implements ShouldQueue
 
     public function handle()
     {
-        Mail::to('zakaz@skyfire.kiev.ua')->send(
+        Mail::to(setting('Email для получения заказов','zakaz@skyfire.kiev.ua'))->send(
             new sendMail($this->order)
         );
 
