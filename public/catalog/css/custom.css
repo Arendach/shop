@@ -65,7 +65,6 @@
     top: 0;
     right: -3.2%;
     height: 100%;
-    background: #002dda;
     margin-right: 0;
 }
 .header__item {
@@ -82,13 +81,13 @@
     color: #fff;
     text-decoration: none;
     vertical-align: middle;
-    background: #003dda;
+    background-color:rgba(0,0,0,.3);
     position: relative;
 }
 .a_select_lang:hover{
-    color:#F0E68C;
+    background-color:rgba(0,0,0,.5);
 }
 .a_select_lang_active {
-    background: #003dda;
+    background-color:rgba(0,0,0,.1);
     color: #696969;
 }

@@ -23,6 +23,7 @@ mix.js('resources/js/cart.js', 'public/js')
     .styles([
         'public/catalog/css/bootstrap.custom.min.css',
         'public/catalog/css/custom.css',
+        'public/css/custom.css',
         'public/catalog/css/style.css',
         'public/catalog/css/toastr.css',
     ], 'public/catalog/css/app.css')

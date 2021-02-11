@@ -1800,7 +1800,6 @@ hr {
 @media (max-width: 767px) {
   .main_title h1 {
     font-size: 32px;
-    font-size: 2rem;
   }
 }
 .main_title span {
@@ -1821,12 +1820,10 @@ hr {
 @media (max-width: 767px) {
   .main_title span {
     font-size: 45px;
-    font-size: 2.8125rem;
   }
 }
 .main_title p {
   font-size: 23px;
-  font-size: 1.4375rem;
   font-weight: 300;
   padding: 0 15%;
   position: relative;
@@ -1835,7 +1832,6 @@ hr {
 @media (max-width: 767px) {
   .main_title p {
     font-size: 18px;
-    font-size: 1.125rem;
     padding: 0;
   }
 }
@@ -1845,7 +1841,6 @@ hr {
 }
 .page_header h1 {
   font-size: 24px;
-  font-size: 1.5rem;
   margin: 0 0 5px 0;
 }
 
@@ -1857,7 +1852,6 @@ hr {
   margin: 0 0 10px 0;
   padding: 0;
   font-size: 12px;
-  font-size: 0.75rem;
 }
 .breadcrumbs ul li {
   display: inline-block;
@@ -1875,8 +1869,6 @@ hr {
   font-family: 'themify';
   content: "\e649";
   font-size: 10px;
-  font-size: 0.625rem;
-  position: absolute;
   display: inline-block;
   top: 2px;
   margin-left: 3px;
@@ -2631,19 +2623,14 @@ header.version_2 .search_mob_wp .btn_1:hover {
 .main-menu > ul > li > a {
   padding: 30px 18px 25px 18px;
   font-size: 13px;
-  font-size: 0.8125rem;
   font-weight: 700;
   line-height: 1;
   text-transform: uppercase;
 }
 
-header.version_1 .main-menu > ul > li > a {
-  color: #fff;
-}
 
-header.version_1 .main-menu > ul > li:hover > a {
-  color: #fff;
-}
+
+
 
 .main-menu > ul > li.submenu:hover > a:after {
   transform: rotate(180deg);
@@ -2659,9 +2646,7 @@ header.version_1 .main-menu > ul > li:hover > a {
 .main-menu ul > li.submenu > a:after {
   font-family: 'themify';
   font-size: 12px;
-  font-size: 0.75rem;
   content: "\e64b";
-  color: #fff;
   line-height: 1;
   padding: 0;
   margin: 0 0 0 5px;
@@ -2676,7 +2661,6 @@ header.version_1 .main-menu > ul > li:hover > a {
 @media (max-width: 991px) {
   .main-menu ul > li.submenu > a:after {
     font-size: 14px !important;
-    font-size: 14px !important/16pxrem;
     float: right;
   }
 }

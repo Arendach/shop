@@ -50,7 +50,7 @@
 <div id="page">
     <header class="version_1">
         <div class="layer"></div>
-        <div class="main_header">
+        <div class="main_header" style="background-color: {{ setting('колір шапки сайта','#004dda') }}; color:{{ setting('колір тексту шапки сайта','white') }};">
             <div class="container">
                 <div class="row small-gutters">
                     <div class="col-xl-2 col-lg-3 d-lg-flex align-items-center">
@@ -96,24 +96,24 @@
                                 @foreach($menu as $menuParts)
                                     <li class="@if($menuParts->role == 'menu') submenu @elseif($menuParts->role == 'megamenu') megamenu submenu @endif">
                                         @if($menuParts->role == 'link')
-                                            <a href="{{ $menuParts->url }}">
+                                            <a style="color:{{ setting('колір тексту шапки сайта','white') }};" href="{{ $menuParts->url }}">
                                                 {{ $menuParts->name }}
                                             </a>
                                         @elseif($menuParts->role == 'menu')
-                                            <a href="javascript:void(0);" class="show-submenu">
+                                            <a href="javascript:void(0);" class="show-submenu" style="color:{{ setting('колір тексту шапки сайта','white') }};">
                                                 {{ $menuParts->name }}
                                             </a>
                                             <ul>
                                                 @foreach($menuParts->items as $item)
                                                     <li>
-                                                        <a href="{{ $item->url }}">
+                                                        <a href="{{ $item->url }}" style="color:{{ setting('колір тексту шапки сайта','white') }};">
                                                             {{ $item->name }}
                                                         </a>
                                                     </li>
                                                 @endforeach
                                             </ul>
                                         @else
-                                            <a href="javascript:void(0);" class="show-submenu-mega">
+                                            <a href="javascript:void(0);" class="show-submenu-mega" style="color:{{ setting('колір тексту шапки сайта','white') }};">
                                                 {{ $menuParts->name }}
                                             </a>
                                             @if($menuParts->name_ru == 'Коллекции')
@@ -186,19 +186,19 @@
                     </nav>
                     <div class="col-xl-4 col-lg-3 d-lg-flex align-items-center justify-content-end text-right contacts">
                         <div class="sn">
-                            <a href="{{ setting('Посилання на facebook', 'https://facebook.com/vozdushno.com.ua') }}" class="social-links">
+                            <a href="{{ setting('Посилання на facebook', 'https://facebook.com/vozdushno.com.ua') }}" class="social-links" style="color:{{ setting('колір тексту шапки сайта','white') }};">
                                 <i class="ti-facebook"></i>
                             </a>
-                            <a href="{{ setting('Посилання на instagram', 'http://instagram.com/vozdushno') }}" class="social-links">
+                            <a href="{{ setting('Посилання на instagram', 'http://instagram.com/vozdushno') }}" class="social-links" style="color:{{ setting('колір тексту шапки сайта','white') }};">
                                 <i class="ti-instagram"></i>
                             </a>
-                            <a href="{{ setting('Посилання на youtube', 'https://www.youtube.com/channel/UCgetz4SbavYicHpsz0X9u1A') }}" class="social-links">
+                            <a href="{{ setting('Посилання на youtube', 'https://www.youtube.com/channel/UCgetz4SbavYicHpsz0X9u1A') }}" class="social-links" style="color:{{ setting('колір тексту шапки сайта','white') }};">
                                 <i class="ti-youtube"></i>
                             </a>
                         </div>
-                        <!--<a class="phone_top" href="tel://{{ $globalData->phone('header_phone') }}">-->
-                        <div class="dropdown show dropdown-numbers">
-                            <a class="phone_top" href="#" role="button" id="dropdownMenuLink">
+{{--                        <a class="phone_top" href="tel://{{ $globalData->phone('header_phone') }}">--}}
+                        <div class="dropdown show dropdown-numbers ml-3 pr-4">
+                            <a class="phone_top" href="#" role="button" id="dropdownMenuLink" style="color:{{ setting('колір тексту шапки сайта','white') }};">
                                 <strong>
                                     <span>
                                         @translate('НАШІ КОНТАКТИ')
