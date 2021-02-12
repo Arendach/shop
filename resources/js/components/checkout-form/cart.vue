@@ -17,12 +17,14 @@
           <li class="clearfix">
             <em><strong>{{ translate('Вартість доставки') }}</strong></em>
             <input type="hidden" name="delivery_price" :value="deliveryPrice">
-            <span>{{ deliveryPrice }}</span>
+            <span v-if="sum < 1500">{{ deliveryPrice }}</span>
+            <span v-else>0</span>
           </li>
         </ul>
         <div class="total clearfix">
           {{ translate('Сума') }}
-          <span>{{ parseFloat(deliveryPrice) + sum}}</span>
+          <span v-if="sum < 1500">{{ parseFloat(deliveryPrice) + sum }}</span>
+          <span v-else>{{ sum }}</span>
         </div>
         <button class="btn_1 full-width">
           {{ translate('Підтвердити') }}
