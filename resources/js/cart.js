@@ -27,6 +27,19 @@ $(document).on('click', '[data-type="cart_attach"]', function () {
     })
 })
 
+$(document).on('click', '[class="inc button_inc"]', function () {
+    let quantity = $('#quantity').length ? $('#quantity').val() : 1
+    $('#quantity').val(parseFloat(quantity)+1)
+})
+
+$(document).on('click', '[class="dec button_inc"]', function () {
+    let quantity = $('#quantity').length ? $('#quantity').val() : 1
+    if(parseFloat(quantity) < 1)
+        $('#quantity').val(1)
+    else
+        $('#quantity').val(parseFloat(quantity)-1)
+})
+
 $(document).on('click', '[data-type="cart_detach"]', function () {
     let id = $(this).data('id')
 

@@ -230,32 +230,32 @@
                                 </label>
                                 <div class="col-xl-4 col-lg-5 col-md-6 col-6">
                                     <div class="numbers-row">
-                                        <input type="text" value="1" id="quantity" class="qty2" name="quantity">
+                                        <input data-type="cart_detail_change_amount" type="text" value="1" id="quantity" class="qty2" name="quantity">
                                     </div>
                                 </div>
                             </div>
-                        <div class="row">
-                            <div class="col-lg-5 col-md-6">
-                                <div class="price_main">
-                                    <span class="new_price">{{ $product->new_price }} грн</span>
-                                    @if($product->is_discounted)
-                                        <span class="percentage">-{{ $product->discount_percentage }}%</span>
-                                        <span class="old_price">{{ $product->old_price }} грн</span>
-                                    @endif
+                            <div class="row">
+                                <div class="col-lg-5 col-md-6">
+                                    <div class="price_main">
+                                        <span class="new_price">{{ $product->new_price }} грн</span>
+                                        @if($product->is_discounted)
+                                            <span class="percentage">-{{ $product->discount_percentage }}%</span>
+                                            <span class="old_price">{{ $product->old_price }} грн</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="btn_add_to_cart"
+                                         @if($product->on_storage) data-type="cart_attach" @else style="" @endif
+                                         data-id="{{ $product->id }}"
+                                         data-dont-show-taastr="1"
+                                    >
+                                        <a href="#0" class="btn_1">
+                                            @editable('В корзину')
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="btn_add_to_cart"
-                                     @if($product->on_storage) data-type="cart_attach" @else style="" @endif
-                                     data-id="{{ $product->id }}"
-                                     data-dont-show-taastr="1"
-                                >
-                                    <a href="#0" class="btn_1">
-                                        @editable('В корзину')
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     @endif
                     <div class="product_actions">

@@ -79,7 +79,7 @@ class CartService
             $cart->products->where('id', $product_id)->first()->pivot->amount += $quantity;
             $cart->products->where('id', $product_id)->first()->pivot->save();
         } else {
-            $cart->products()->attach($product_id);
+            $cart->products()->attach($product_id, ['amount' => $quantity]);
         }
 
         $this->boot();
