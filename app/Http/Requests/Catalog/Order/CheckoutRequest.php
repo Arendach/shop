@@ -58,7 +58,8 @@ class CheckoutRequest extends FormRequest
             'comment'    => 'max:1024',
             'delivery'   => ['required', Rule::in($orderTypes)],
             'pay_method' => ['required', Rule::in($payMethods)],
-            'delivery_price' => 'nullable'
+            'delivery_price' => 'nullable',
+            'check_callback' => 'nullable'
         ], $rulesAuth);
     }
 

@@ -43,6 +43,7 @@ class OrderService
             'customer_id' => $this->customer->id,
             'name'        => implode(' ', [$data->get('first_name'), $data->get('last_name')])
         ]));
+        $order->check_callback = $data->get('check_callback') == 'on' ? 1 : 0;
         $order->delivery_price = ($this->cartService->getProductsSum() < 1500) ? intval($data->get('delivery_price')) : 0;
 
         $order->save();

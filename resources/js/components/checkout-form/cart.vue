@@ -26,6 +26,10 @@
           <span v-if="sum < 1500">{{ parseFloat(deliveryPrice) + sum }}</span>
           <span v-else>{{ sum }}</span>
         </div>
+        <div class="form-check mb-3">
+          <input type="checkbox" class="form-check-input" id="check-callback" name="check_callback">
+          <label class="form-check-label" for="check-callback">{{ translate('Не перезванивайте мне, Я уверен в своем заказе') }}</label>
+        </div>
         <button class="btn_1 full-width">
           {{ translate('Підтвердити') }}
         </button>
