@@ -34,7 +34,7 @@ $(document).on('click', '[class="inc button_inc"]', function () {
 
 $(document).on('click', '[class="dec button_inc"]', function () {
     let quantity = $('#quantity').length ? $('#quantity').val() : 1
-    if(parseFloat(quantity) < 1)
+    if(parseFloat(quantity) <= 1)
         $('#quantity').val(1)
     else
         $('#quantity').val(parseFloat(quantity)-1)
@@ -62,19 +62,71 @@ $(document).on('click', '[data-type="cart_detach"]', function () {
     })
 })
 
-$(document).on('click', '[data-type="cart_page_detach"]', function () {
+$(document).on('a', 'click', '[data-type="cart_detach_product"]', function () {
     let id = $(this).data('id')
 
-    axios.post('/catalog/cart/detach', {id}).then((response) => {
+    axios.post('/catalog/cart/detach_product', {id}).then((response) => {
         $(this).parents('tr').remove()
         $('.dropdown-cart-count').html(response.data.cartContProducts)
         $('.dropdown-cart-sum').html(response.data.cartSumProducts)
+        $('.sum_amount_product').html(response.data.cartSumProducts)
         toastr.success(response.data.message ?? '', response.data.title ?? undefined)
     })
 })
 
-$(document).on('input', '[data-type="cart_change_amount"]', function () {
-    alert(2)
+
+
+$(document).on('click', '[class="inc button_inc"]', function () {
+    let id = $(this).data('id')
+    const qty = $('#quantity_cart' + id).val()
+    axios.post('/catalog/cart/change_amount_up', {id,qty}).then((response) => {
+        $('.sum_amount_one_product' + id).html(response.data.cartSumOneProduct)
+        $('#all_product_sum').html(response.data.cartSumProduct)
+        toastr.success(response.data.message ?? '', response.data.title ?? undefined)
+    })
+})
+$(document).on('click', '[class="dec button_inc"]', function () {
+    let id = $(this).data('id')
+    const qty = $('#quantity_cart' + id).val()
+    axios.post('/catalog/cart/change_amount_up', {id,qty}).then((response) => {
+        console.log(response.data + '.sum_amount_one_product' + id)
+        $('.sum_amount_one_product' + id).html(response.data.cartSumOneProduct)
+        $('#all_product_sum').html(response.data.cartSumProduct)
+        if (qty != 0)
+            toastr.success(response.data.message ?? '', response.data.title ?? undefined)
+
+    })
+    if (qty == 0){
+        axios.post('/catalog/cart/detach_product', {id}).then((response) => {
+            $(this).parents('tr').remove()
+            $('.dropdown-cart-count').html(response.data.cartContProducts)
+            $('.dropdown-cart-sum').html(response.data.cartSumProducts)
+            $('.sum_amount_product').html(response.data.cartSumProducts)
+            toastr.success(response.data.message ?? '', response.data.title ?? undefined)
+        })
+    }
+})
+
+$(document).on('input', '[class="qty2"]', function () {
+    let id = $(this).data('id')
+    const qty = $('#quantity_cart' + id).val()
+    axios.post('/catalog/cart/change_amount_up', {id,qty}).then((response) => {
+        $('.sum_amount_one_product' + id).html(response.data.cartSumOneProduct)
+        $('#all_product_sum').html(response.data.cartSumProduct)
+        if (qty != 0)
+            toastr.success(response.data.message ?? '', response.data.title ?? undefined)
+    })
+    if (qty == 0){
+        axios.post('/catalog/cart/detach_product', {id}).then((response) => {
+            $(this).parents('tr').remove()
+            $('.dropdown-cart-count').html(response.data.cartContProducts)
+            $('.dropdown-cart-sum').html(response.data.cartSumProducts)
+            $('.sum_amount_product').html(response.data.cartSumProducts)
+            toastr.success(response.data.message ?? '', response.data.title ?? undefined)
+        })
+    }
+
+
 })
 
 $(document).on('click', '[data-type="switchDesire"]', function (event) {

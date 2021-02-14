@@ -30,7 +30,6 @@
                     <th>@translate('Ціна')</th>
                     <th>@translate('Кількість')</th>
                     <th>@translate('Сума')</th>
-                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -51,20 +50,14 @@
                             </strong>
                         </td>
                         <td>
-                            <div class="numbers-row">
-                                <input type="text" value="{{ $product->pivot->amount }}" class="qty2" data-type="cart_change_amount">
-                                <div class="inc button_inc">+</div>
-                                <div class="dec button_inc">-</div>
+                            <div class="numbers-rows">
+                                <input id="quantity_cart{{ $product->id }}" type="text" value="{{ $product->pivot->amount }}" class="qty2"  data-id="{{ $product->id }}">
+                                <div data-id="{{ $product->id }}" class="inc button_inc">+</div>
+                                <div data-id="{{ $product->id }}" class="dec button_inc">-</div>
                             </div>
                         </td>
-                        <td>
+                        <td class="sum_amount_one_product{{ $product->id }}">
                             <strong>{{ number_format($product->new_price * $product->pivot->amount) }}</strong>
-                        </td>
-                        <td class="options">
-                            <a href="#" @tooltip('Видалити товар з корзини') data-type="cart_page_detach"
-                               data-id="{{ $product->id }}">
-                                <i class="ti-trash"></i>
-                            </a>
                         </td>
                     </tr>
                 @endforeach
@@ -92,23 +85,14 @@
         <div class="box_cart">
             <div class="container">
                 <div class="row justify-content-end">
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <ul>
-                            <li>
-                                <span>@translate('Вартість товарів')</span> {{ number_format($cartService->getProductsSum()) }}
-                            </li>
-                            <li>
-                                <span>@translate('Доставка')</span> {{ number_format($cartService->getDeliverySum()) }}
-                            </li>
-                            <li>
-                                <span>
-                                    @translate('Сума')
+                    <div class="col-xl-4 col-md-6">
+                                <span class="text-danger" style="font-size: 26px;font-weight: 600;text-transform: uppercase;">
+                                    @translate('Сума'):
                                 </span>
-                                <i class="dropdown-cart-sum">
+                                <i id="all_product_sum" class="dropdown-cart-sum" style="font-size: 24px;font-weight: 600">
                                     {{ number_format($cartService->getProductsSum() + $cartService->getDeliverySum()) }}
                                 </i>
-                            </li>
-                        </ul>
+                        <br>
                         <a href="{{ route('checkout') }}"
                            class="btn_1 full-width cart">@translate('Оформити замовлення')</a>
                     </div>

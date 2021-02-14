@@ -64,4 +64,27 @@ class CartController extends CatalogController
         ]);
     }
 
+    public function action_change_amount_up(CartService $cartService, $id, $amount)
+    {
+        $result = $cartService->change_amount($id, $amount);
+        return response()->json([
+            'title'            => translate('Виконано'),
+            'message'          => translate('Кількість товару змінено'),
+            'cartSumOneProduct'  => $cartService->getProductOneSum($id, intval($amount)),
+            'cartSumProduct'  => $cartService->getProductsSum()
+        ],200);
+    }
+
+    public function action_detach_product(int $id, CartService $cartService)
+    {
+        $cartService->detach($id);
+
+        return response()->json([
+            'title'            => translate('Виконано'),
+            'message'          => translate('Товар видалений з корзини'),
+            'productsListHtml' => $cartService->getProductsListHtml(),
+            'cartSumProducts'  => $cartService->getProductsSum()
+        ]);
+    }
+
 }

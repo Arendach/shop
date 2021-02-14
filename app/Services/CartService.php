@@ -95,7 +95,7 @@ class CartService
     public function change_amount(int $id, int $amount): bool
     {
         $result = CartProduct::where('cart_id', $this->cart->id)
-            ->where('id', $id)
+            ->where('product_id', $id)
             ->firstOrFail()
             ->update(['amount' => $amount]);
 
@@ -129,7 +129,11 @@ class CartService
             return $product->new_price * $product->pivot->amount;
         });
     }
-
+    public function getProductOneSum($id, $amount)
+    {
+        $product = Product::where('id', $id)->firstOrFail();
+        return $product->new_price * $amount;
+    }
     /** Маса товарів у корзині */
     public function getProductsWeight(): float
     {
