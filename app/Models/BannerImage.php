@@ -5,11 +5,19 @@ namespace App\Models;
 use App\Traits\Models\Image;
 use App\Traits\Models\Translatable;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\EloquentSortable\Sortable;
+use Spatie\EloquentSortable\SortableTrait;
 
-class BannerImage extends Model
+class BannerImage extends Model implements Sortable
 {
     use Translatable;
     use Image;
+    use SortableTrait;
+
+    public $sortable = [
+        'order_column_name' => 'sort_order',
+        'sort_when_creating' => true,
+    ];
 
     protected $fillable = [
         'path',

@@ -10,9 +10,11 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Panel;
 use Timothyasp\Color\Color;
+use OptimistDigital\NovaSortable\Traits\HasSortableRows;
 
 class Banners extends Resource
 {
+    use HasSortableRows;
     public static $model = 'App\Models\BannerImage';
 
     public static $title = 'title_uk';

@@ -17,7 +17,7 @@ class MainController extends CatalogController
         $page = Page::where('uri_name', 'index')->first();
 
         $data = [
-            'banners'          => BannerImage::all(),
+            'banners'          => BannerImage::orderBy('sort_order')->get(),
             'collections'      => ProductCollection::isHome()->paginate(6),
             'recommended'      => $recommended,
             'productsHome'     => $productsHome,
