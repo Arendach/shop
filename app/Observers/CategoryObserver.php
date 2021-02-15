@@ -12,18 +12,18 @@ class CategoryObserver
 
     public function creating(Category $category)
     {
-        if (!empty($category->big)) {
-            $category->small = $this->generateSmallImage($category->big);
-        }
+//        if (!empty($category->big) AND empty($category->small)) {
+//            $category->small = $this->generateSmallImage($category->big);
+//        }
 
         $this->defaultTranslatableFields($category);
     }
 
     public function updating(Category $category)
     {
-        if ($category->isDirty('big')) {
-            $category->small = $this->generateSmallImage($category->big);
-        }
+//        if ($category->isDirty('big') AND !$category->small) {
+//            $category->small = $this->generateSmallImage($category->big);
+//        }
 
         $this->defaultTranslatableFields($category);
     }

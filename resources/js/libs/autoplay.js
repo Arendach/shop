@@ -117,10 +117,10 @@
      * @public
      */
     Autoplay.Defaults = {
-        autoplay: false,
+        autoplay: true,
         autoplayTimeout: 5000,
-        autoplayHoverPause: false,
-        autoplaySpeed: false
+        autoplayHoverPause: true,
+        autoplaySpeed: 100
     };
 
     /**

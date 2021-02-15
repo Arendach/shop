@@ -42,7 +42,8 @@ class Categories extends Resource
                     Select::make(translate('Батьківська категорія'), 'parent_id')->options($this->rootCategories())->displayUsingLabels(),
                     Text::make('Slug', 'slug'),
                     Boolean::make(translate('Активна'), 'is_active'),
-                    Image::make(translate('Зображення'), 'big')->path('images/categories')
+                    Image::make(translate('Зображення банеру'), 'big')->path('images/categories'),
+                    Image::make(translate('Зображення'), 'small')->path('images/categories')
                 ]),
 
                 new Panel(translate('Українська локалізація'), [
