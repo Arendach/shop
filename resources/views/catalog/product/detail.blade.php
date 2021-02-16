@@ -16,6 +16,31 @@
                 </div>
             @endif
             <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumbs">
+                        <ul>
+                            <li>
+                                <a href="{{ route('index') }}">
+                                    @translate('Головна')
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ $product->category->parent->url }}">
+                                    {{ $product->category->parent->name }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ $product->category->url }}">
+                                    {{ $product->category->name }}
+                                </a>
+                            </li>
+                            <li>
+                                {{ $product->name }}
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
                 <div class="col-md-6">
                     <div class="all">
                         <div class="slider">
@@ -64,24 +89,6 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="breadcrumbs">
-                        <ul>
-                            <li>
-                                <a href="{{ route('index') }}">
-                                    @translate('Головна')
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="{{ $product->category->url }}">
-                                    {{ $product->category->name }}
-                                </a>
-                            </li>
-                            <li>
-                                {{ $product->name }}
-                            </li>
-                        </ul>
-                    </div>
                     <!-- /page_header -->
                     <div class="prod_info">
                         <h1>{{ $product->name }}</h1>
