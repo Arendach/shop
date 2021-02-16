@@ -17,6 +17,7 @@ use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Panel;
 use NovaAttachMany\AttachMany;
 use OptimistDigital\NovaSortable\Traits\HasSortableRows;
+use Timothyasp\Color\Color;
 
 class Collections extends Resource
 {
@@ -49,7 +50,8 @@ class Collections extends Resource
                     })->displayUsingLabels(),
                     Boolean::make(translate('Показувати на головній'), 'is_home')->sortable(),
                     Text::make('Slug', 'slug')->required(),
-                    Image::make(translate('Зображення'), 'image')->path('images/collections')
+                    Image::make(translate('Зображення'), 'image')->path('images/collections'),
+                    Color::make(translate('Колір кнопки'), 'button_color')
                 ]),
                 new Panel(translate('Українська локалізація'), [
                     Text::make(translate('Назва'), 'name_uk'),

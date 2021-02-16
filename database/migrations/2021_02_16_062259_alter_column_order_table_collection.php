@@ -15,6 +15,7 @@ class AlterColumnOrderTableCollection extends Migration
     {
         Schema::table('collections', function (Blueprint $table) {
             $table->integer('sort_order');
+            $table->string('button_color',64)->default('#004dda');
         });
         DB::statement('UPDATE collections SET sort_order = id');
     }

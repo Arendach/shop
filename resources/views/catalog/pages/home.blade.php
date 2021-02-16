@@ -56,7 +56,7 @@
                              style="{{ setting('Стилі для колекцій на головній','') }}"
                         >
                             <h3>{{ $collection->name }}</h3>
-                            <div><span class="btn_1">@translate('Детальніше')</span></div>
+                            <div><span class="btn_1" style="background: {{ $collection->button_color }}">@translate('Детальніше')</span></div>
                         </div>
                     </a>
                 </li>
