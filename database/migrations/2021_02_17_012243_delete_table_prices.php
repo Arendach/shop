@@ -13,7 +13,7 @@ class DeleteTablePrices extends Migration
      */
     public function up()
     {
-        //
+        Schema::dropIfExists('prices');
     }
 
     /**
@@ -23,6 +23,6 @@ class DeleteTablePrices extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prices');
+        //
     }
 }
