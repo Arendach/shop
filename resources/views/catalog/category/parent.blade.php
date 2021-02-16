@@ -32,7 +32,7 @@
             @foreach($category->child as $child)
                 <div class="card border-0" style="width: 18rem;display: inline-flex">
                     @if(!$agent->isMobile())
-                        <img class="card-img-top" src="{{ $child->small_image }}" alt="Card image cap">
+                        <a href="{{ $child->url }}"><img class="card-img-top" src="{{ $child->small_image }}" alt="Card image cap"></a>
                     @endif
                     <div class="card-body">
                         <h5 style="text-align: center" class="card-title"><a href="{{ $child->url }}">{{ $child->name }}</a></h5>
