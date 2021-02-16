@@ -63,3 +63,10 @@ Route::group([
      */
     Route::namespace('Catalog')->group(base_path('routes/catalog.php'));
 });
+Route::get('/clear_cache', function() {
+    Artisan::call('cache:clear');
+    Artisan::call('config:cache');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
+    return redirect()->back();
+});

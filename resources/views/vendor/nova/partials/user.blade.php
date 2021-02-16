@@ -24,6 +24,11 @@
             </a>
         </li>
         <li>
+            <a href="{{ url('/clear_cache') }}" class="text-danger block no-underline text-90 hover:bg-30 p-3">
+                {{ translate('Чистка кешу') }}
+            </a>
+        </li>
+        <li>
             <a href="{{ route('nova.logout') }}" class="block no-underline text-90 hover:bg-30 p-3">
                 {{ __('Logout') }}
             </a>
