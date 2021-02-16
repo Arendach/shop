@@ -16,10 +16,12 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Panel;
 use NovaAttachMany\AttachMany;
+use OptimistDigital\NovaSortable\Traits\HasSortableRows;
 
 class Collections extends Resource
 {
     use TabsOnEdit;
+    use HasSortableRows;
 
     public static $model = ProductCollection::class;
 

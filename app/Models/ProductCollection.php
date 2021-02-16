@@ -10,12 +10,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\EloquentSortable\Sortable;
+use Spatie\EloquentSortable\SortableTrait;
 
-final class ProductCollection extends Model
+final class ProductCollection extends Model implements Sortable
 {
     use SoftDeletes;
     use Translatable;
     use Image;
+    use SortableTrait;
+
+    public $sortable = [
+        'order_column_name' => 'sort_order',
+        'sort_when_creating' => true,
+    ];
 
     public $translate = [
         'name',
@@ -83,7 +91,7 @@ final class ProductCollection extends Model
 
     public function scopeIsHome($query)
     {
-        return $query->where('is_home', 1)->orderByDesc('created_at');
+        return $query->where('is_home', 1)->orderBy('sort_order');
     }
     public function scopePars($query)
     {
