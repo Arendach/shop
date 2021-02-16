@@ -6,7 +6,7 @@
 
         <delivery :prices="data.prices" :pay-methods="data.payMethods" :shops="data.shops" :products="data.products"></delivery>
 
-        <cart :products="data.products"></cart>
+        <cart :prices="data.prices" :products="data.products"></cart>
       </div>
     </form>
 

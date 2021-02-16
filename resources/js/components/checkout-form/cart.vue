@@ -17,13 +17,13 @@
           <li class="clearfix">
             <em><strong>{{ translate('Вартість доставки') }}</strong></em>
             <input type="hidden" name="delivery_price" :value="deliveryPrice">
-            <span v-if="sum < 1500">{{ deliveryPrice }}</span>
+            <span v-if="sum < prices.free_delivery">{{ deliveryPrice }}</span>
             <span v-else>0</span>
           </li>
         </ul>
         <div class="total clearfix">
           {{ translate('Сума') }}
-          <span v-if="sum < 1500">{{ parseFloat(deliveryPrice) + sum }}</span>
+          <span v-if="sum < prices.free_delivery">{{ parseFloat(deliveryPrice) + sum }}</span>
           <span v-else>{{ sum }}</span>
         </div>
         <div class="form-check mb-3">
@@ -45,7 +45,8 @@ export default {
   name: "cart",
 
   props: {
-    products: Array
+    products: Array,
+    prices: Array
   },
 
   data() {
