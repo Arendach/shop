@@ -21,6 +21,7 @@ class ProductTranslatableTemplateCast implements CastsAttributes
         'weight',
         'attributes',
         'characteristics',
+        'characteristics2',
         'description',
         'manufacturer',
         'packing',
@@ -225,6 +226,62 @@ class ProductTranslatableTemplateCast implements CastsAttributes
 
             return $template;
 
+        } catch (Exception $exception) {
+            return $template;
+        }
+    }
+    protected function characteristics2(Product $model, string $template): string
+    {
+        try {
+            for ($i = 1; $i < 6; $i++){
+                /** @var Product $model */
+                $this->dom->load($template);
+
+                $elements = $this->dom->find('Characteristics' . $i);
+
+                if (!count($elements)) {
+                    return $template;
+                }
+
+                /** @var Dom\Tag $element */
+                foreach ($elements as $element) {
+                    $glue = is_null($element->glue) ? ',' : $element->glue;
+                    $ids = is_null($element->id) ? null : explode(',', $element->id);
+                    $title = $element->hasAttribute('title');
+                    $prefix = $element->hasAttribute('prefix');
+                    $postfix = $element->hasAttribute('postfix');
+
+                    $characteristics = $model->characteristics;
+
+                    if (!is_null($ids)) {
+                        $characteristics = $characteristics->whereIn('characteristic_id', $ids);
+                    }
+
+                    $characteristics = $characteristics->map(function (ProductCharacteristic $characteristic) use ($glue, $title, $prefix, $postfix) {
+                        $result = '';
+
+                        if ($title) {
+                            $result .= trim($characteristic->getName(), ':') . ': ';
+                        }
+
+                        if ($prefix) {
+                            $result .= " " . $characteristic->getPrefix() . ' ';
+                        }
+
+                        $result .= $characteristic->value;
+
+                        if ($postfix) {
+                            $result .= " " . $characteristic->getPostfix() . ' ';
+                        }
+
+                        return $result;
+                    })->implode($glue);
+
+                    $template = $this->replaceAttribute('Characteristics' . $i, $characteristics, $template);
+                }
+            }
+
+            return $template;
         } catch (Exception $exception) {
             return $template;
         }
