@@ -204,6 +204,7 @@ return [
         App\Providers\EloquentServiceProvider::class,
         App\Providers\GlobalDataServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
+        Genert\BBCode\BBCodeServiceProvider::class,
 
     ],
 
@@ -275,5 +276,6 @@ return [
         'StaticPage'     => App\Facades\StaticPageFacade::class,
         'CategoryFilter' => App\Facades\CategoryFilterFacade::class,
         'Translate'      => App\Facades\TranslateFacade::class,
+        'BBCode'         => \Genert\BBCode\Facades\BBCode::class,
     ],
 ];

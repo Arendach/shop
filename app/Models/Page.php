@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Casts\PageAttributeCasts;
 use Cache;
 use App\Traits\Models\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use ChrisKonnertz\BBCode\BBCode;
+
 class Page extends Model
 {
     use SoftDeletes;
@@ -31,6 +32,11 @@ class Page extends Model
         'is_fast_navigation'
     ];
 
+    protected $casts = [
+        'content_ru' => PageAttributeCasts::class,
+        'content_uk' => PageAttributeCasts::class
+    ];
+
     public $translate = [
         'name',
         'content',
@@ -44,20 +50,6 @@ class Page extends Model
         return route('page', $this->uri_name);
     }
 
-    public function getContentUkAttribute($value)
-    {
-        $bbcode = new BBCode();
-        $rendered = $bbcode->render($value);
-
-        return html_entity_decode($rendered);
-    }
-    public function getContentRuAttribute($value)
-    {
-        $bbcode = new BBCode();
-        $rendered = $bbcode->render($value);
-
-        return html_entity_decode($rendered);
-    }
 
     public static function created($callback)
     {
