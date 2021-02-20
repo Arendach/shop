@@ -14,17 +14,17 @@
 <dropdown-menu slot="menu" width="200" direction="rtl">
     <ul class="list-reset">
         <li>
-            <a href="{{ url('/bridge') }}" class="block no-underline text-90 hover:bg-30 p-3">
+            <a href="{{ url('/bridge') }}" class="block no-underline text-90 hover:bg-30 p-3" target="_blank">
                 {{ translate('Імпорт') }}
             </a>
         </li>
         <li>
-            <a href="{{ url('/page/templates') }}" class="block no-underline text-90 hover:bg-30 p-3">
+            <a href="{{ url('/page/templates') }}" class="block no-underline text-90 hover:bg-30 p-3" target="_blank">
                 {{ translate('Підказки по шаблонам') }}
             </a>
         </li>
         <li>
-            <a href="{{ url('/clear_cache') }}" class="text-danger block no-underline text-90 hover:bg-30 p-3">
+            <a href="{{ url('/clear_cache') }}" class="text-danger block no-underline text-90 hover:bg-30 p-3" target="_blank">
                 {{ translate('Чистка кешу') }}
             </a>
         </li>
