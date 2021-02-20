@@ -10,7 +10,6 @@ class PageAttributeCasts implements CastsAttributes
     protected $localeCurrent;
 
     protected $localeDefault;
-    public $render;
     public function __construct()
     {
         $this->localeCurrent = config('locale.current');
@@ -21,9 +20,12 @@ class PageAttributeCasts implements CastsAttributes
     {
         try
         {
-            $this->render = BBCode::convertFromHtml($value);
-            $this->render = BBCode::convertToHtml($this->render);
-            return $this->render;
+            if ($value)
+            {
+                $value = BBCode::convertFromHtml($value);
+                $value = BBCode::convertToHtml($value);
+            }
+            return $value;
         }
         catch (\Exception $exception)
         {
