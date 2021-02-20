@@ -22,9 +22,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
-class Product extends Model implements Sortable, TwoImageInterface, SeoMultiLangInterface
+class Product extends Model implements Sortable, TwoImageInterface
 {
-    use SeoMultiLang;
     use TwoImage;
     use Editable;
 

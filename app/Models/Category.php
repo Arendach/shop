@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Abstraction\Models\TwoImageInterface;
 use App\Scopes\SortableScope;
 use App\Traits\Models\Image;
-use App\Traits\Models\SeoMultiLang;
 use App\Traits\Models\Translatable;
 use App\Traits\Models\TwoImage;
 use Illuminate\Database\Eloquent\Builder;
@@ -20,7 +19,6 @@ use Spatie\EloquentSortable\SortableTrait;
 class Category extends Model implements Sortable, TwoImageInterface
 {
     use SoftDeletes;
-    use SeoMultiLang;
     use SortableTrait;
     use TwoImage;
     use Translatable;
