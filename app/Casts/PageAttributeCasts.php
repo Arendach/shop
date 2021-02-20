@@ -19,9 +19,16 @@ class PageAttributeCasts implements CastsAttributes
 
     public function get($model, string $key, $value, array $attributes)
     {
-        $this->render = BBCode::convertFromHtml($value);
-        $this->render = BBCode::convertToHtml($value);
-        return $this->render;
+        try
+        {
+            $this->render = BBCode::convertFromHtml($value);
+            $this->render = BBCode::convertToHtml($this->render);
+            return $this->render;
+        }
+        catch (\Exception $exception)
+        {
+            return $value;
+        }
     }
 
     public function set($model, string $key, $value, array $attributes)
