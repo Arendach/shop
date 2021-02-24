@@ -237,7 +237,7 @@
         </div>
         <!-- /main_header -->
 
-        <div class="main_nav Sticky">
+        <div class="main_nav Sticky" @if($agent->isMobile())style="background: linear-gradient(90deg, {{ setting('Колір мобільної кнопки категорії','#fff') }} 50%, #FFF 50%);"@endif>
             <div class="container">
                 <div class="row small-gutters">
                     <div class="col-xl-3 col-lg-3 col-md-3">
