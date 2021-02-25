@@ -245,7 +245,7 @@
                             <ul class="clearfix">
                                 <li>
                                     <span>
-										<a href="#" style="font-size: 14pt;font-weight:800;">
+										<a href="#" style="font-size: 15pt;font-weight:800;">
 											<span class="hamburger hamburger--spin">
 												<span class="hamburger-box">
 													<span class="hamburger-inner"></span>
@@ -400,7 +400,7 @@
                                    class="btn_search_mob"><span>@translate('Пошук')</span></a>
                             </li>
                             <li>
-                                <a href="#menu" class="btn_cat_mob">
+                                <a href="#menu" class="btn_cat_mob" style="font-weight: 800">
                                     <div class="hamburger hamburger--spin" id="hamburger">
                                         <div class="hamburger-box">
                                             <div class="hamburger-inner"></div>
