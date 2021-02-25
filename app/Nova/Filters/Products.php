@@ -48,7 +48,7 @@ class Products extends Filter
             $result[$category->name] = $category->id;
 
             foreach ($category->child as $childCategory) {
-                $result[" --- " . $childCategory->name] = $childCategory->id;
+                $result[" --- " . $childCategory->name . " (" . $childCategory->id . ")"] = $childCategory->id;
             }
         }
 
