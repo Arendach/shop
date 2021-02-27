@@ -35,7 +35,7 @@ class OrderPayController extends Controller
         $dae = base64_encode('email:'.$order->email.'');
         $form_pay = $this->client->cnb_form(array(
             'action'         => 'pay',
-            'amount'         => intval($order->sum),
+            'amount'         => intval($order->sum()),
             'currency'       => 'UAH',
             'description'    => $order->comment ?? 'Оплата заказа №'.$order->id,
             'order_id'       => $order->id,
