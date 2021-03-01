@@ -101,7 +101,7 @@ class OrderPayController extends Controller
                 setCookie('pay_order_id', '');
 
             }
-            return redirect()->route('order.pay.suc', ['id' =>$this->orderCookie]);
+            return redirect()->route('order.pay.suc');
         }
         return false;
     }
@@ -109,10 +109,9 @@ class OrderPayController extends Controller
     public function error() {
         return view('catalog.pay.error', ['order' =>$this->orderCookie]);
     }
-    public function success(Request $request)
+    public function success()
     {
-        $orderFind = Order::find($request->id);
-        return view('catalog.pay.success',compact('orderFind'));
+        return view('catalog.pay.success');
     }
 
 }
