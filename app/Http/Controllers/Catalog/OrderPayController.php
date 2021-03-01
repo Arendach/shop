@@ -98,7 +98,7 @@ class OrderPayController extends Controller
             ));
 
             if($ticket->result = 'ok'){
-                setCookie('pay_order_id', '');
+                $request->session()->put('pay_order_id', '');
             }
             return redirect()->route('order.pay.ok');
         }
