@@ -58,7 +58,6 @@ class OrderPayController extends Controller
         $signature = base64_encode( sha1($this->private_key . $request->data . $this->private_key,1));
         // Проверка на подлинность транзации.
         if ($signature !== $request->signature){
-            dd($signature, $request->all());
             return redirect()->route('order.pay.create', ['order_id' =>$this->orderCookie]);
         }
         // Подготовка API Статуса оплаты
@@ -69,7 +68,6 @@ class OrderPayController extends Controller
         ));
         //Если статус ошибка
         if($res->result == 'error'){
-            dd('ERROR');
             return redirect()->route('order.pay.create', ['order_id' =>$this->orderCookie,'canceled'=>1]);
         }
         elseif ($res->result == 'ok'){
@@ -101,11 +99,10 @@ class OrderPayController extends Controller
 
             if($ticket->result = 'ok'){
                 setCookie('pay_order_id', '');
-
             }
             return redirect()->route('order.pay.ok');
         }
-        return false;
+        return view('catalog.pay.success');
     }
 
     public function error() {
