@@ -101,7 +101,7 @@ class OrderPayController extends Controller
                 setCookie('pay_order_id', '');
 
             }
-            return redirect()->route('order.pay.success', ['id' =>$this->orderCookie]);
+            return redirect()->route('order.pay.suc', ['id' =>$this->orderCookie]);
         }
         return false;
     }
