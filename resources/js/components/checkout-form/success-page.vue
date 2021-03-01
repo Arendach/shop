@@ -23,7 +23,7 @@
             <br>
 
           </p>
-          <div v-if="PayMethod == 'privat24'">
+          <div v-if="PayMethod == 'online'">
             {{ translate('Вы выбрали онлайн оплату. Нажмите на кнопку чтобы оплатить') }}
             <br>
             <a class="btn btn-success" :href="'create.pay?order_id=' + orderId">{{ translate('Оплатити') }}</a>
