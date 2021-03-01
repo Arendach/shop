@@ -91,4 +91,5 @@ Route::post('catalog/{controller}/{action?}', function ($controller, $action = '
 Route::get('create.pay', 'OrderPayController@create')->name('order.pay.create');
 Route::post('pay.success', 'OrderPayController@store')->name('order.pay.success');
 Route::get('pay.error', 'OrderPayController@error')->name('order.pay.error');
+Route::post('success', 'OrderPayController@success')->name('order.pay.suc');
 Route::get('success', 'OrderPayController@success')->name('order.pay.suc');
