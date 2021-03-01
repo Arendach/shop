@@ -60,7 +60,7 @@
         </td>
 
         <td style="border: 1px solid black; padding: 10px; background-color: #9999CC; color: white; font-family: Roboto, Arial, Helvetica, sans-serif; font-weight: bold">
-            {{ asset_data('pay_methods')[$order->pay_method]['name'] }}
+            {{ $order->paymethods->name }}
         </td>
     </tr>
     @if($order->humanDate('delivery'))

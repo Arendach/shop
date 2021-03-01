@@ -71,4 +71,9 @@ class Order extends Model
             return $product->pivot->amount * $product->pivot->price;
         });
     }
+    public function paymethods()
+    {
+        return $this->belongsTo(Payment::class, 'pay_method','key');
+    }
+
 }
