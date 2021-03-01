@@ -89,7 +89,7 @@ Route::post('catalog/{controller}/{action?}', function ($controller, $action = '
 
 // Оформлення оплати
 Route::get('create.pay', 'OrderPayController@create')->name('order.pay.create');
-Route::post('pay.success', 'OrderPayController@store')->name('order.pay.success');
-Route::get('pay.error', 'OrderPayController@error')->name('order.pay.error');
-Route::post('pay.success', 'OrderPayController@success')->name('order.pay.ok');
-Route::get('pay.success', 'OrderPayController@success')->name('order.pay.ok');
+Route::get('pay/success', 'OrderPayController@store')->name('order.pay.success');
+Route::post('pay/success', 'OrderPayController@store')->name('order.pay.success');
+Route::get('pay/error', 'OrderPayController@error')->name('order.pay.error');
+Route::get('pay/ok', 'OrderPayController@success')->name('order.pay.ok');

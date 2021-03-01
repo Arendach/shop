@@ -1,6 +1,6 @@
 @extends('catalog.layout')
 
-@section('title', '')
+@section('title', 'Оплата заказа')
 
 @section('content')
     <main  class="bg_gray">
