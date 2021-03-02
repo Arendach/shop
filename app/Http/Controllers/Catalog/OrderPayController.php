@@ -90,12 +90,15 @@ class OrderPayController extends Controller
             }
             // Реализация отправки Квитанции на E-mail
             $email = ($orderFind->orderShow->email) ? true : false;
-            $ticket = $this->client->api("request", array(
-                'action'    => 'ticket',
-                'version'   => '3',
-                'order_id' => $res->order_id,
-                'email'   => $orderFind->orderShow->email
-            ));
+            if ($email)
+            {
+                $ticket = $this->client->api("request", array(
+                    'action'    => 'ticket',
+                    'version'   => '3',
+                    'order_id' => $res->order_id,
+                    'email'   => $orderFind->orderShow->email
+                ));
+            }
 
             if($ticket->result = 'ok'){
                 $request->session()->put('pay_order_id', '');
