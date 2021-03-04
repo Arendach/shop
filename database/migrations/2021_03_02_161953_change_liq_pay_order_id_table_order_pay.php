@@ -14,7 +14,7 @@ class ChangeLiqPayOrderIdTableOrderPay extends Migration
     public function up()
     {
         Schema::table('order_pay', function (Blueprint $table) {
-            $table->string('liqpay_order_id',255)->change();
+            $table->string('liqpay_order_id')->change();
         });
     }
 
