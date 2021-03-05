@@ -9,6 +9,9 @@ use ChrisWare\NovaBreadcrumbs\Traits\Breadcrumbs;
 abstract class Resource extends NovaResource
 {
     use Breadcrumbs;
+
+    public static $trafficCop = false;
+
     /**
      * Build an "index" query for the given resource.
      *
