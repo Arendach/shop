@@ -23,7 +23,12 @@
 
 @yield('seo')
 
-<!-- GOOGLE WEB FONT -->
+    @foreach(config('locale.support') as $locale)
+        <link rel="alternate" hreflang="{{ $locale }}" href="{{ app(\App\Services\LocaleService::class)->localizeUrl($locale, url()->current()) }}">
+    @endforeach
+    <link rel="alternate" hreflang="x-default" href="{{ config('locale.default') }}">
+
+    <!-- GOOGLE WEB FONT -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet">
 
     <!-- BASE CSS -->
