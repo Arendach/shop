@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Abstraction\Models\TwoImageInterface;
+use App\Casts\PageAttributeCasts;
 use App\Scopes\SortableScope;
 use App\Traits\Models\Image;
 use App\Traits\Models\Translatable;
@@ -23,6 +24,11 @@ class Category extends Model implements Sortable, TwoImageInterface
     use TwoImage;
     use Translatable;
     use Image;
+
+    protected $casts = [
+        'description_uk' => PageAttributeCasts::class,
+        'description_ru' => PageAttributeCasts::class
+    ];
 
     protected $fillable = [
         'name_uk',
