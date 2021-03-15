@@ -78,7 +78,7 @@ class CategoryFilterService
                     'postfix' => $characteristic->postfix,
                     'id'      => $characteristic->id,
                     'values'  => $characteristic->values->map(function ($characteristic) {
-                        return ['value' => $characteristic->value];
+                        return ['value' => $characteristic->filter];
                     })->unique('value')->sortBy('value')->toArray()
                 ];
             })->toArray();
