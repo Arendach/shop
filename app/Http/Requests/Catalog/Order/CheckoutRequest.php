@@ -56,7 +56,7 @@ class CheckoutRequest extends FormRequest
             'email'    => 'nullable|email|max:256',
             'phone'      => ['required', 'regex:/[0]{1}[0-9]{2}-[0-9]{3}-[0-9]{2}-[0-9]{2}/'],
             'comment'    => 'max:1024',
-            'delivery'   => ['required', Rule::in($orderTypes)],
+            'delivery'   => 'required',
             'pay_method' => 'required',
             'delivery_price' => 'nullable',
             'check_callback' => 'nullable'
