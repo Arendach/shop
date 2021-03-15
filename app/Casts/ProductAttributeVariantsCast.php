@@ -12,7 +12,7 @@ class ProductAttributeVariantsCast implements CastsAttributes
     {
         $result = [];
         try {
-            $variants = json_decode($value);
+            $variants = json_decode(json_decode($value));
 
             foreach ($variants as $variant) {
                 $result[] = $variant->{"value_" . config('locale.current')} ?? '';
