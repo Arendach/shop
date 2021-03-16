@@ -14,6 +14,11 @@
 <dropdown-menu slot="menu" width="200" direction="rtl">
     <ul class="list-reset">
         <li>
+            <a href="{{ url('/') }}" class="block no-underline text-90 hover:bg-30 p-3" target="_blank">
+                {{ translate('Перейти до сайту') }}
+            </a>
+        </li>
+        <li>
             <a href="{{ url('/bridge') }}" class="block no-underline text-90 hover:bg-30 p-3" target="_blank">
                 {{ translate('Імпорт') }}
             </a>
