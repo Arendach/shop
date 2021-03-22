@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ config('locale.default') }}">
+<html lang="{{ config('locale.current') }}">
 
 <head>
     <meta charset="utf-8">
