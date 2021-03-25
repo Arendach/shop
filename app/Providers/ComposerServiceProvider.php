@@ -8,6 +8,7 @@ use App\Http\Composers\CategoryFilterComposer;
 use App\Http\Composers\CheckoutPageComposer;
 use App\Http\Composers\MenuComposer;
 use App\Http\Composers\ProductComposer;
+use App\Http\Composers\QuestionComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,6 +22,7 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer('catalog.category.filter', CategoryFilterComposer::class);
         View::composer('catalog.pages.checkout', CheckoutPageComposer::class);
         View::composer('catalog.product.detail', ProductComposer::class);
+        View::composer('catalog.partials.footer.question', QuestionComposer::class);
     }
 
     public function register(){}

@@ -72,6 +72,11 @@ final class ProductCollection extends Model implements Sortable
         return $this->belongsToMany(Product::class, 'collection_products', 'collection_id');
     }
 
+    public function questions(): BelongsToMany
+    {
+        return $this->belongsToMany(Question::class, 'question_category', 'category_id', 'question_id');
+    }
+
     public function scopeRoot(Builder $builder): void
     {
         $builder->where('parent_id', 0);
@@ -80,8 +85,8 @@ final class ProductCollection extends Model implements Sortable
     public function child(): HasMany
     {
         return $this->hasMany(ProductCollection::class, 'parent_id', 'id')
-                    ->orderByDesc('created_at')
-                    ->limit(3);
+            ->orderByDesc('created_at')
+            ->limit(3);
     }
 
     public function parent(): HasOne
@@ -93,6 +98,7 @@ final class ProductCollection extends Model implements Sortable
     {
         return $query->where('is_home', 1)->orderBy('sort_order');
     }
+
     public function scopePars($query)
     {
         $query->where('parent_id', 0);

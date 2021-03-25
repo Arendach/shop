@@ -435,6 +435,8 @@
 
     @yield('content')
 
+    @include('catalog.partials.footer.question')
+
     @include('catalog.partials.footer.footer')
 </div>
 

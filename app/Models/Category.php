@@ -10,6 +10,7 @@ use App\Traits\Models\Translatable;
 use App\Traits\Models\TwoImage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Filters\CategoryProductFilter;
@@ -83,6 +84,10 @@ class Category extends Model implements Sortable, TwoImageInterface
     public function products(): HasMany
     {
         return $this->hasMany('App\Models\Product');
+    }
+    public function questions(): BelongsToMany
+    {
+        return $this->belongsToMany(Question::class,'question_category','category_id', 'question_id');
     }
 
     public function child()

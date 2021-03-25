@@ -320,7 +320,7 @@
 		closeMarkup: '<button title="%title%" type="button" class="mfp-close"></button>',
 		mainClass: 'my-mfp-zoom-in'
 	});
-	
+
 	// Image popups
 	$('.magnific-gallery').each(function () {
 		$(this).magnificPopup({
@@ -342,6 +342,17 @@
 			midClick: true // allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source.
 		});
 	});
+
+	$(".faq-card-header").on("click",function (){
+		$(this).children('.faq-card-arrow-icon').toggleClass('faq-card-arrow-icon-expanded')
+		// console.log($(this).data('id'))
+		let elem = $('#' + $(this).data('id'))
+		if(elem.css('display') == 'block')
+			elem.slideUp(200)
+		else
+			elem.slideDown(200)
+		console.log(elem.css('display'))
+	})
 
 	// Popup up
     setTimeout(function () {
