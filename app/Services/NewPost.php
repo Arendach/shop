@@ -211,7 +211,8 @@ class NewPost
             return false;
         }
 
-        return count($result['data']) == 0 ? false : $result['data'];
+        return $result['data'];
+//        return count($result['data']) == 0 ? false : $result['data'];
     }
 
 
@@ -230,6 +231,7 @@ class NewPost
             return false;
         }
 
-        return count($result['data']) == 0 ? false : $result['data'];
+        return $result['data'];
+//        return count($result['data']) == 0 ? false : $result['data'];
     }
 }

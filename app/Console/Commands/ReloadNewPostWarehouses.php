@@ -4,8 +4,8 @@ namespace App\Console\Commands;
 
 use App\Models\NewPostCity;
 use App\Models\NewPostWarehouse;
-use Illuminate\Console\Command;
 use App\Services\NewPost;
+use Illuminate\Console\Command;
 
 class ReloadNewPostWarehouses extends Command
 {
@@ -31,29 +31,33 @@ class ReloadNewPostWarehouses extends Command
 
     private function loadCity()
     {
-        $i = 1;
-        while ($cities = $this->service->getCities($i)) {
-            foreach ($cities as $city) {
-                if (isset($city['Ref']) && $city['Ref'] != '') {
-                    if (NewPostCity::where('ref', $city['Ref'])->count()) {
-                        NewPostCity::where('ref', $city['Ref'])->update([
-                            'name_uk' => $city['Description'],
-                            'name_ru' => $city['DescriptionRu'],
-                            'prefix'  => $city['SettlementTypeDescription'] ?? '',
-                        ]);
-                    } else {
-                        NewPostCity::create([
-                            'name_uk' => $city['Description'],
-                            'name_ru' => $city['DescriptionRu'],
-                            'ref'     => $city['Ref'],
-                            'prefix'  => $city['SettlementTypeDescription'] ?? '',
-                        ]);
+        try {
+            $i = 1;
+            while ($cities = $this->service->getCities($i)) {
+                foreach ($cities as $city) {
+                    if (isset($city['Ref']) && $city['Ref'] != '') {
+                        if (NewPostCity::where('ref', $city['Ref'])->count()) {
+                            NewPostCity::where('ref', $city['Ref'])->update([
+                                'name_uk' => $city['Description'],
+                                'name_ru' => $city['DescriptionRu'],
+                                'prefix'  => $city['SettlementTypeDescription'] ?? '',
+                            ]);
+                        } else {
+                            NewPostCity::create([
+                                'name_uk' => $city['Description'],
+                                'name_ru' => $city['DescriptionRu'],
+                                'ref' => $city['Ref'],
+                                'prefix' => $city['SettlementTypeDescription'] ?? '',
+                            ]);
+                        }
                     }
                 }
-            }
 
-            echo "City: $i \n";
-            $i++;
+                echo "City: $i \n";
+                $i++;
+            }
+        } catch (\Exception $e) {
+            echo $e->getMessage();
         }
     }
 
@@ -64,14 +68,20 @@ class ReloadNewPostWarehouses extends Command
             foreach ($warehouses as $warehouse) {
                 if (isset($warehouse['Ref']) && $warehouse['Ref'] != '') {
                     if (NewPostWarehouse::where('ref', $warehouse['Ref'])->count()) {
-                        NewPostWarehouse::where('ref', $warehouse['Ref'])->update([
-                            'name_uk'          => $warehouse['Description'],
-                            'name_ru'          => $warehouse['DescriptionRu'],
-                            'number'           => $warehouse['Number'],
-                            'max_weight_place' => $warehouse['PlaceMaxWeightAllowed'],
-                            'max_weight_all'   => $warehouse['TotalMaxWeightAllowed'],
-                            'phone'            => $warehouse['Phone'],
-                        ]);
+                        try {
+                            NewPostWarehouse::where('ref', $warehouse['Ref'])->update([
+                                'name_uk'          => $warehouse['Description'],
+                                'name_ru'          => $warehouse['DescriptionRu'],
+                                'number'           => $warehouse['Number'],
+                                'max_weight_place' => $warehouse['PlaceMaxWeightAllowed'],
+                                'max_weight_all'   => $warehouse['TotalMaxWeightAllowed'],
+                                'phone'            => $warehouse['Phone'],
+                            ]);
+
+                        } catch (\Exception $e) {
+                            echo $e;
+                        }
+
                     } else {
                         try {
                             $city = NewPostCity::where('ref', $warehouse['CityRef'])->first();
