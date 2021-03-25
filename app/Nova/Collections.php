@@ -68,7 +68,7 @@ class Collections extends Resource
                     Trix::make(translate('Опис'), 'description_ru')->withFiles(),
                 ]),
                 new Panel(translate('Товари'), [
-                    AttachMany::make(translate('Товари'), 'products', Products::class)->hideFromIndex()->showPreview()
+                    AttachMany::make(translate('Товари'), 'products', Products::class)->hideFromIndex()->showPreview()->showCounts()
                 ])
             ]))->withToolbar()
         ];
