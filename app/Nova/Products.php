@@ -3,6 +3,7 @@
 
 namespace App\Nova;
 
+use App\Models\Manufacturer;
 use App\Models\ProductCharacteristic;
 use Laravel\Nova\Fields\Textarea;
 
@@ -77,6 +78,7 @@ class Products extends Resource
                     Boolean::make(translate('Показувати на головній'), 'is_home')->hideFromIndex(),
                     BelongsTo::make(translate('Категорія'), 'category', Categories::class)->onlyOnIndex()->sortable(),
                     BelongsTo::make(translate('Виробник'), 'manufacturer', Products::class)->onlyOnIndex()->sortable(),
+                    Select::make(translate('Виробник'), 'manufacturer_id')->options($this->manufacturerList())->onlyOnForms(),
                     Select::make(translate('Категорія'), 'category_id')->options($this->categoryList())->onlyOnForms(),
                     NovaPackingField::make('Пакування', 'packing')->placeholders()->hideFromIndex(),
                     NovaPackingField::make(translate('Розміри'), 'volume')->placeholders([
@@ -132,6 +134,16 @@ class Products extends Resource
             }
         }
 
+        return $result;
+    }
+
+    private function manufacturerList()
+    {
+        $manufacturers = Manufacturer::get();
+        $result = [];
+        foreach ($manufacturers as $manufacturer) {
+            $result[$manufacturer->id] = $manufacturer->name;
+        }
         return $result;
     }
 }
