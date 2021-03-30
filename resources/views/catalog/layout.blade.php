@@ -111,7 +111,7 @@
                                             <ul>
                                                 @foreach($menuParts->items as $item)
                                                     <li>
-                                                        <a href="{{ $item->url }}" style="color:{{ setting('колір тексту шапки сайта','white') }};">
+                                                        <a href="{{ $item->url }}" {{--style="color:{{ setting('колір тексту шапки сайта','white') }};"--}}>
                                                             {{ $item->name }}
                                                         </a>
                                                     </li>
