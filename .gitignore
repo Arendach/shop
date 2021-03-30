@@ -19,7 +19,13 @@ composer.phar
 /error_log
 /public/error_log
 /public/*.png
+/public/*.jpg
 /public/google*.html
 /.htaccess
 /vozdushno.com.ua
 /public/favicon.ico
+/public/.well-known/
+/public/Tyagelyj_dym/
+/public/nazem/
+/public/pina/
+/public/salt/
