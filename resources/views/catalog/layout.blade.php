@@ -13,13 +13,13 @@
 
     <!-- Favicons-->
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
-    <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('img/apple-touch-icon-57x57-precomposed.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('catalog/img/apple-touch-icon-57x57-precomposed.png') }}">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72"
-          href="{{ asset('img/apple-touch-icon-72x72-precomposed.png') }}">
+          href="{{ asset('catalog/img/apple-touch-icon-72x72-precomposed.png') }}">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
-          href="{{ asset('img/apple-touch-icon-114x114-precomposed.png') }}">
+          href="{{ asset('catalog/img/apple-touch-icon-114x114-precomposed.png') }}">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
-          href="{{ asset('img/apple-touch-icon-144x144-precomposed.png') }}">
+          href="{{ asset('catalog/img/apple-touch-icon-144x144-precomposed.png') }}">
 
 @yield('seo')
 
@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="{{ asset('catalog/css/bootstrap.custom.min.css') }}">
     <link rel="stylesheet" href="{{ asset('catalog/css/app.css') }}">
     <link href="{{ asset('catalog/css/listing.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('catalog/css/ion.rangeSlider.min.css') }}">
 
     <!-- SPECIFIC CSS -->
 @yield('css')
@@ -44,9 +45,6 @@
 <!-- YOUR CUSTOM CSS -->
     <link rel="stylesheet" href="{{ mix('css/custom.css') }}">
     <script async src="https://crm.streamtele.com/widget/getwidget/2b5889941b7aae1f3bdcf73f9f18bf0c" type="text/javascript" charset="UTF-8"></script>
-
-    <!--Plugin CSS file with desired skin-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
 
 </head>
 
@@ -61,7 +59,7 @@
                     <div class="col-xl-2 col-lg-3 d-lg-flex align-items-center">
                         <div id="logo">
                             <a href="{{ route('index') }}">
-                                <img src="{{ $globalData->logo_image }}" width="100" height="35">
+                                <img src="{{ $globalData->logo_image }}" width="100" height="35" alt="logo">
                             </a>
                         </div>
                     </div>
@@ -77,7 +75,7 @@
                         <div class="main-menu">
                             <div id="header_menu">
                                 <a href="{{ route('index') }}">
-                                    <img src="{{ $globalData->logo_image }}" width="100" height="35">
+                                    <img src="{{ $globalData->logo_image }}" width="100" height="35" alt="logoImage">
                                 </a>
                                 <a href="#" class="open_close" id="close_in">
                                     <i class="ti-close"></i>
@@ -172,9 +170,9 @@
                                                     @endforeach
                                                     <div class="col-lg-3 d-xl-block d-lg-block d-md-none d-sm-none d-none">
                                                         <div class="banner_menu">
-                                                            <a href="#0">
+                                                            <a href="#">
                                                                 <img src="{{ $menuParts->getImage('photo', 'catalog/img/banner_menu.jpg') }}"
-                                                                     width="400" height="550" class="img-fluid">
+                                                                     width="400" height="550" class="img-fluid" alt="BannerMenu">
                                                             </a>
                                                         </div>
                                                     </div>
@@ -213,15 +211,15 @@
                             </a>
                             <div class="dropdown-menu p-3" aria-labelledby="dropdownMenuLink">
                                 @translate('Наши телефоны')
-                                <a class="dropdown-item" href="tel:{{ setting('1 контактный телефон','+38 (093) 775-14-89') }}"><img width="16px" src="{{ asset('/img/phone-header.png') }}" /> {{ setting('1 контактный телефон','+38 (093) 775-14-89') }}</a>
-                                <a class="dropdown-item" href="tel:{{ setting('2 контактный телефон','+38 (093) 775-14-89') }}"><img width="16px" src="{{ asset('/img/phone-header.png') }}" /> {{ setting('2 контактный телефон','+38 (093) 775-14-89') }}</a>
+                                <a class="dropdown-item" href="tel:{{ setting('1 контактный телефон','+38 (093) 775-14-89') }}"><img width="16px" src="{{ asset('/img/phone-header.png') }}" alt="phone" /> {{ setting('1 контактный телефон','+38 (093) 775-14-89') }}</a>
+                                <a class="dropdown-item" href="tel:{{ setting('2 контактный телефон','+38 (093) 775-14-89') }}"><img width="16px" src="{{ asset('/img/phone-header.png') }}" alt="phone2" /> {{ setting('2 контактный телефон','+38 (093) 775-14-89') }}</a>
                                 <hr class="p-0 m-0 mb-1">
                                 @translate('Время работы')
-                                <a class="dropdown-item" href="#"><img width="16px" src="{{ asset('/img/time-header.png') }}" /> {{ setting('Время работы магазинов','Пн-Пт 10:00 - 22:00') }}</a>
+                                <a class="dropdown-item" href="#"><img width="16px" src="{{ asset('/img/time-header.png') }}" alt="timeWorkShop" /> {{ setting('Время работы магазинов','Пн-Пт 10:00 - 22:00') }}</a>
                                 <hr class="p-0 m-0 mb-1">
                                 @translate('Наши адреса')
                                 @foreach($shopsHeader as $shop)
-                                    <a class="dropdown-item" href="{{$shop->url}}" target="_blank"><img width="16px" src="{{ asset('/img/zone-header.png') }}" /> {{ $shop->address }}, @translate('Київ')</a>
+                                    <a class="dropdown-item" href="{{$shop->url}}" target="_blank"><img width="16px" src="{{ asset('/img/zone-header.png') }}" alt="addressShop" /> {{ $shop->address }}, @translate('Київ')</a>
                                 @endforeach
                             </div>
                         </div>
@@ -289,8 +287,10 @@
                     <div class="col-xl-6 col-lg-7 col-md-6 d-none d-md-block">
                         <form action="{{ route('search') }}" method="GET">
                             <div class="custom-search-input">
-                                <input type="text" name="query" placeholder="@translate('Пошук товарів')" autocomplete="off"
-                                       value="{{ $searchString ?? '' }}" class="search-pc">
+                                <label>
+                                    <input type="text" name="query" placeholder="@translate('Пошук товарів')" autocomplete="off"
+                                           value="{{ $searchString ?? '' }}" class="search-pc">
+                                </label>
                                 <button type="submit"><i class="header-icon_search_custom"></i></button>
                             </div>
                             <div class="search-results">
@@ -422,8 +422,10 @@
             <div class="search_mob_wp"
                  style="display: {{ isset($searchString) && Agent::isMobile() ? 'block' : 'none' }}">
                 <form action="{{ route('search') }}" method="GET">
-                    <input name="query" class="form-control" placeholder="@translate('Пошук товарів...')"
-                           value="{{ $searchString ?? '' }}">
+                    <label>
+                        <input name="query" class="form-control" placeholder="@translate('Пошук товарів...')"
+                               value="{{ $searchString ?? '' }}">
+                    </label>
                     <input type="submit" class="btn_1 full-width" value="@translate('Шукати')">
                 </form>
             </div>
@@ -455,18 +457,18 @@
         return `/${langPrefix}/${path}`
     }
 </script>
-<script src="/assets/translates.js"></script>
+{{--<script src="/assets/translates.js"></script>--}}
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('catalog/js/main.js') }}"></script>
 <script src="{{ asset('catalog/js/toastr.js') }}"></script>
 <script src="{{ asset('js/cart.js') }}"></script>
 <script src="{{ asset('catalog/js/modal_windows.js') }}"></script>
+<script src="{{ asset('catalog/js/ion.rangeSlider.min.js') }}"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
 @stack('js')
 @yield('js')
 <script>
-    var pc_search = $('.search-pc');
+    let pc_search = $('.search-pc');
 
     $('.menu-feedback a').on('click', function(){
         $('#feedback-contacts').fadeToggle();

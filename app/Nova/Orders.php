@@ -2,7 +2,6 @@
 
 namespace App\Nova;
 
-use App\Models\NewPostCity;
 use Eminiarts\Tabs\Tabs;
 use Eminiarts\Tabs\TabsOnEdit;
 use Illuminate\Http\Request;
@@ -11,7 +10,6 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Panel;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
 
 
 class Orders extends Resource

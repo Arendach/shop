@@ -4,8 +4,6 @@
 namespace App\Nova;
 
 use App\Models\Manufacturer;
-use App\Models\ProductCharacteristic;
-use Laravel\Nova\Fields\Textarea;
 
 
 use App\Models\Category;
@@ -19,10 +17,8 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\KeyValue;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Panel;
 use Media24si\NovaYoutubeField\Youtube;
 use OptimistDigital\NovaSortable\Traits\HasSortableRows;

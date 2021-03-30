@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Bridge;
 
 use App\Library\BaseConnection;
 use App\Models\Manufacturer;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ManufacturersSyncController extends Controller

@@ -7,15 +7,6 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Panel;
 
-use App\Models\Payment;
-use Eminiarts\Tabs\Tabs;
-use Eminiarts\Tabs\TabsOnEdit;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Select;
-use Orlyapps\NovaBelongsToDepend\NovaBelongsToDepend;
-
-
-
 
 class Payments extends Resource
 {
