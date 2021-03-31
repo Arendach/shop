@@ -457,7 +457,7 @@
         return `/${langPrefix}/${path}`
     }
 </script>
-{{--<script src="/assets/translates.js"></script>--}}
+<script src="/assets/translates.js"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('catalog/js/main.js') }}"></script>
 <script src="{{ asset('catalog/js/toastr.js') }}"></script>
