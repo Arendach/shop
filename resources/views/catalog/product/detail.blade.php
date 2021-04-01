@@ -202,69 +202,73 @@
                             </div>
                         </div>
 
+                        <form data-type="detail_cart_attach">
+                            <div class="prod_options">
+                                @foreach(collect($product->attributes()->orderBy('value_uk')->get()->groupBy('attribute_id')) as $key => $value)
+                                    @php($attribute = app(\App\Models\Attribute::class)->firstWhere('id',$key))
+                                    <div class="row" style="margin-bottom: 10px;">
+                                        <label class="col-xl-5 col-lg-5 col-md-6 col-6">
+                                            {{ $attribute->name }}
+    {{--                                        <a href="#0" data-toggle="modal" data-target="#size-modal">--}}
+    {{--                                            <i class="ti-help-alt"></i>--}}
+    {{--                                        </a>--}}
+                                        </label>
+                                        <div class="col-xl-4 col-lg-5 col-md-6 col-6">
+                                            <div class="custom-select-form">
+                                                <select class="wide" name="attributes">
 
-                        <div class="prod_options">
-                            @foreach($product->attributes as $attribute)
-                                <div class="row" style="margin-bottom: 10px;">
-                                    <label class="col-xl-5 col-lg-5 col-md-6 col-6">
-                                        {{ $attribute->attribute->name }}
-                                        <a href="#0" data-toggle="modal" data-target="#size-modal">
-                                            <i class="ti-help-alt"></i>
-                                        </a>
-                                    </label>
-                                    <div class="col-xl-4 col-lg-5 col-md-6 col-6">
-                                        <div class="custom-select-form">
-                                            <select class="wide" name="attributes[{{ $attribute->id }}][]">
-                                                @foreach($attribute->variants as $variant)
-                                                    <option value="{{ $variant }}">
-                                                        {{ $variant }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                                    @foreach($value as $attr)
+                                                        <option value="{{ $attr->id }}">
+                                                                {{ $attr->value }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
-                        </div>
+                                @endforeach
+                            </div>
                             @if(!$product->on_storage)
                                 <div class="btn btn-danger ml-3 p-1 pr-5 pl-5">@translate('Немає в наявності')</div>
                             @else
-                            <div class="row">
-                                <label class="col-xl-5 col-lg-5  col-md-6 col-6">
-                                    <strong>
-                                        @editable('Кількість')
-                                    </strong>
-                                </label>
-                                <div class="col-xl-4 col-lg-5 col-md-6 col-6">
-                                    <div class="numbers-row">
-                                        <input data-type="cart_detail_change_amount" type="text" value="1" id="quantity" class="qty2" name="quantity">
+                                <div class="row">
+                                    <label class="col-xl-5 col-lg-5  col-md-6 col-6">
+                                        <strong>
+                                            @editable('Кількість')
+                                        </strong>
+                                    </label>
+                                    <div class="col-xl-4 col-lg-5 col-md-6 col-6">
+                                        <div class="numbers-row">
+                                            <input data-type="cart_detail_change_amount" type="text" value="1" id="quantity" class="qty2" name="quantity">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-5 col-md-6">
-                                    <div class="price_main">
-                                        <span class="new_price">{{ $product->new_price }} грн</span>
-                                        @if($product->is_discounted)
-                                            <span class="percentage">-{{ $product->discount_percentage }}%</span>
-                                            <span class="old_price">{{ $product->old_price }} грн</span>
-                                        @endif
+                                <div class="row">
+                                    <div class="col-lg-5 col-md-6">
+                                        <div class="price_main">
+                                            <span class="new_price">{{ $product->new_price }} грн</span>
+                                            @if($product->is_discounted)
+                                                <span class="percentage">-{{ $product->discount_percentage }}%</span>
+                                                <span class="old_price">{{ $product->old_price }} грн</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="btn_add_to_cart"
+                                             @if($product->on_storage) data-type="detail_cart_attach" @else style="" @endif
+                                             data-id="{{ $product->id }}"
+                                             data-dont-show-taastr="1"
+                                        >
+                                            <button type="submit" class="btn_1 pl-5 pr-5 ml-2">
+                                                @editable('В корзину')
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="btn_add_to_cart"
-                                         @if($product->on_storage) data-type="cart_attach" @else style="" @endif
-                                         data-id="{{ $product->id }}"
-                                         data-dont-show-taastr="1"
-                                    >
-                                        <a href="#0" class="btn_1">
-                                            @editable('В корзину')
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                            @endif
+                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                        </form>
                     </div>
-                    @endif
                     <div class="product_actions">
                         <ul>
                             <li>

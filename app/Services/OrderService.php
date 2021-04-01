@@ -47,16 +47,28 @@ class OrderService
         $order->delivery_price = ($this->cartService->getProductsSum() < setting('Безкоштовна доставка від',1500)) ? intval($data->get('delivery_price')) : 0;
 
         $order->save();
-        $products = $this->cartService->getProducts()->mapWithKeys(function (Product $product) {
-            return [
-                $product->id => [
-                    'price'  => $product->new_price,
-                    'amount' => $product->pivot->amount
-                ]
-            ];
-        });
 
-        $order->products()->attach($products->toArray());
+        foreach ($this->cartService->getProductsCart() as $cart_product){
+            $products = [];
+            $products = [
+                $cart_product->product->id => [
+                'price'     => $cart_product->product->new_price,
+                'amount'    => $cart_product->amount,
+                'attribute' => $cart_product->attributes
+            ]];
+            $order->products()->attach($products);
+        }
+
+//        $products = $this->cartService->getProducts()->mapWithKeys(function (Product $product) {
+//            return [
+//                $product->id => [
+//                    'price'  => $product->new_price,
+//                    'amount' => $product->pivot->amount
+//                ]
+//            ];
+//        });
+//
+//        $order->products()->attach($products->toArray());
 
         $this->cartService->cleanCart();
 

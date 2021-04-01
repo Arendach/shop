@@ -1,5 +1,22 @@
 import axios from 'axios'
 
+
+
+$(document).on('submit', '[data-type="detail_cart_attach"]', function (e) {
+    e.preventDefault()
+    let $form = $(e.currentTarget)
+    let data = $form.serializeArray()
+
+    axios.post('/catalog/cart/attach_detail', {data}).then((response) => {
+        $('.dropdown-cart-count').html(response.data.cartContProducts)
+        $('.dropdown-cart-products').html(response.data.productsListHtml)
+        $('.dropdown-cart-sum').html(response.data.cartSumProducts)
+        if (!dontShowToastr) {
+            toastr.success('success message', 'title')
+        }
+    })
+})
+
 // init add to cart button
 $(document).on('click', '[data-type="cart_attach"]', function () {
     let id = $(this).data('id')
@@ -89,7 +106,6 @@ $(document).on('click', '[class="dec button_inc"]', function () {
     let id = $(this).data('id')
     const qty = $('#quantity_cart' + id).val()
     axios.post('/catalog/cart/change_amount_up', {id,qty}).then((response) => {
-        console.log(response.data + '.sum_amount_one_product' + id)
         $('.sum_amount_one_product' + id).html(response.data.cartSumOneProduct)
         $('#all_product_sum').html(response.data.cartSumProduct)
         if (qty != 0)

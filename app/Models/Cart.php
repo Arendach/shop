@@ -24,6 +24,11 @@ class Cart extends Model
             ->withPivot('amount', 'attributes');
     }
 
+    public function cartProduct()
+    {
+        return $this->hasMany('App\Models\CartProduct');
+    }
+
     public function delete()
     {
         $this->products()->detach();

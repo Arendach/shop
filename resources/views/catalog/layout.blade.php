@@ -310,7 +310,7 @@
                                         <div class="has-products"
                                              style="display: {{ Cart::hasProducts() ? 'block' : 'none' }}">
                                             <ul class="dropdown-cart-products">
-                                                @foreach(Cart::getProducts() as $product)
+                                                @foreach(Cart::getProductsCart() as $cart)
                                                     @include('catalog.parts.dropdown-cart-product')
                                                 @endforeach
                                             </ul>

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\CartProduct;
 use App\Models\Customer;
 use App\Models\Product;
+use App\Models\ProductAttribute;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use Illuminate\Support\Collection;
@@ -74,12 +75,31 @@ class CartService
     public function attach(int $product_id, int $quantity): void
     {
         $cart = $this->getOrCreate();
-
-        if ($cart->products->where('id', $product_id)->count()) {
-            $cart->products->where('id', $product_id)->first()->pivot->amount += $quantity;
-            $cart->products->where('id', $product_id)->first()->pivot->save();
+        $this_product_cart = CartProduct::where('cart_id', $cart->id)->where('product_id', $product_id)->whereNull('attributes');
+        if ($this_product_cart->count()) {
+            $quantity = $this_product_cart->first()->amount + $quantity;
+            $this_product_cart->first()->update(['amount' => $quantity]);
+            $this_product_cart->first()->save();
         } else {
             $cart->products()->attach($product_id, ['amount' => $quantity]);
+        }
+
+        $this->boot();
+    }
+
+    // Додати товар до корзини із деталей продукта
+    public function attach_detail(int $product_id, array $attribute, int $quantity): void
+    {
+        $cart = $this->getOrCreate();
+        $attributes = implode(',', $attribute);
+        $attributes_array = explode(',', $attributes);
+        $this_product_cart = CartProduct::where('cart_id', $cart->id)->where('product_id', $product_id)->where('attributes', $attributes);
+        if ($this_product_cart->count()) {
+            $quantity = $this_product_cart->first()->amount + $quantity;
+            $this_product_cart->first()->update(['amount' => $quantity]);
+            $this_product_cart->first()->save();
+        } else {
+            $cart->products()->attach($product_id, ['amount' => $quantity, 'attributes' => $attributes]);
         }
 
         $this->boot();
@@ -94,8 +114,7 @@ class CartService
      */
     public function change_amount(int $id, int $amount): bool
     {
-        $result = CartProduct::where('cart_id', $this->cart->id)
-            ->where('product_id', $id)
+        $result = CartProduct::where('id', $id)
             ->firstOrFail()
             ->update(['amount' => $amount]);
 
@@ -116,7 +135,7 @@ class CartService
     public function detach(int $product_id): void
     {
         if ($this->cartIsSet()) {
-            $this->cart->products()->detach($product_id);
+            $this->cart->cartProduct()->where('id', $product_id)->first()->delete();
         }
     }
 
@@ -129,11 +148,14 @@ class CartService
             return $product->new_price * $product->pivot->amount;
         });
     }
+
     public function getProductOneSum($id, $amount)
     {
-        $product = Product::where('id', $id)->firstOrFail();
+        $product_id = $this->getProductsCart()->where('id', $id)->first()->product_id;
+        $product = Product::where('id', $product_id)->firstOrFail();
         return $product->new_price * $amount;
     }
+
     /** Маса товарів у корзині */
     public function getProductsWeight(): float
     {
@@ -149,7 +171,7 @@ class CartService
     {
         $result = '';
         $this->cart->products()->get()->each(function (Product $product) use (&$result) {
-            $result .= view('catalog.parts.dropdown-cart-product', compact('product'))->render();
+            $result .= view('catalog.parts.dropdown-cart-product', ['cart' => $product])->render();
         });
 
         return $result;
@@ -212,6 +234,11 @@ class CartService
         return $this->cart->products ?? new Collection([]);
     }
 
+    public function getProductsCart()
+    {
+        return $this->cart->cartProduct ?? new Collection([]);
+    }
+
     public function hasProducts(): bool
     {
         return count($this->cart->products ?? []);
@@ -242,5 +269,18 @@ class CartService
         }
 
         return $result;
+    }
+
+    public function getAttributeList($id)
+    {
+        $attributes = $this->cart->cartProduct()->where('id', $id)->first()->attributes;
+        $attributes_array_list = explode(',', $attributes);
+        $collect_attributes = [];
+        foreach ($attributes_array_list as $oneAttribute){
+             $old_attr = ProductAttribute::with('attribute')->where('id',$oneAttribute)->first();
+            $collect_attributes[$old_attr->attribute->name] = $old_attr->value;
+        }
+        return count($attributes_array_list) ? $collect_attributes : [];
+
     }
 }

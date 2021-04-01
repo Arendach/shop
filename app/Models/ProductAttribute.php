@@ -2,25 +2,29 @@
 
 namespace App\Models;
 
-use App\Casts\ProductAttributeVariantsCast;
+use App\Traits\Models\Translatable;
 use Illuminate\Database\Eloquent\Model;
 
 class ProductAttribute extends Model
 {
-    public $timestamps = false;
+    use Translatable;
 
     protected $table = 'product_attributes';
 
-    protected $fillable = ['product_id', 'attribute_id', 'variants'];
+    public $timestamps = false;
 
-    protected $casts = [
-        'variants' => ProductAttributeVariantsCast::class
+    protected $fillable = ['product_id', 'attribute_id', 'value_uk', 'value_ru'];
+
+
+    public $translate = [
+        'value'
     ];
 
     public function attribute()
     {
         return $this->belongsTo(Attribute::class);
     }
+
     public function product()
     {
         return $this->belongsTo(Product::class);

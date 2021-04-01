@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Catalog;
 
 use App\Http\Requests\Catalog\Cart\ChangeAmountRequest;
-use App\Models\Product;
 use App\Services\CartService;
-use Illuminate\Http\Request;
 
 class CartController extends CatalogController
 {
@@ -23,6 +21,32 @@ class CartController extends CatalogController
     public function action_attach(int $id, int $quantity, CartService $cartService)
     {
         $cartService->attach($id, $quantity);
+
+        return response()->json([
+            'title'            => translate('Виконано'),
+            'message'          => translate('Товар вдало доданий в корзину'),
+            'productsListHtml' => $cartService->getProductsListHtml(),
+            'cartSumProducts'  => number_format($cartService->getProductsSum()),
+            'cartContProducts' => $cartService->countProducts()
+        ]);
+    }
+
+    public function action_attach_detail(array $data, CartService $cartService)
+    {
+        $data = json_decode(json_encode($data));
+        $data_attribute = [];
+        $quantity = 1;
+        $id = null;
+        foreach ($data as $value) {
+            if ($value->name == 'product_id' && $value->value != '0')
+                $id = $value->value;
+            if ($value->name == 'attributes')
+                $data_attribute[] = $value->value;
+            if ($value->name == 'quantity' && $value->value != '0')
+                $quantity = $value->value;
+        }
+
+        $cartService->attach_detail($id, $data_attribute, $quantity);
 
         return response()->json([
             'title'            => translate('Виконано'),
@@ -68,11 +92,11 @@ class CartController extends CatalogController
     {
         $result = $cartService->change_amount($id, $amount);
         return response()->json([
-            'title'            => translate('Виконано'),
-            'message'          => translate('Кількість товару змінено'),
-            'cartSumOneProduct'  => $cartService->getProductOneSum($id, intval($amount)),
-            'cartSumProduct'  => $cartService->getProductsSum()
-        ],200);
+            'title'             => translate('Виконано'),
+            'message'           => translate('Кількість товару змінено'),
+            'cartSumOneProduct' => "<strong>{$cartService->getProductOneSum($id, intval($amount))}</strong>",
+            'cartSumProduct'    => $cartService->getProductsSum()
+        ], 200);
     }
 
     public function action_detach_product(int $id, CartService $cartService)

@@ -27,6 +27,7 @@
                 <thead>
                 <tr>
                     <th>@translate('Товар')</th>
+                    <th width="30%">@translate('Атрибути')</th>
                     <th>@translate('Ціна')</th>
                     <th>@translate('Кількість')</th>
                     <th>@translate('Сума')</th>
@@ -34,30 +35,39 @@
                 </thead>
                 <tbody>
                 @php /** @var $cartService \App\Services\CartService */ @endphp
-                @foreach($cartService->getProducts() as $product)
+                @foreach($cartService->getProductsCart() as $product)
                     <tr>
                         <td>
                             <div class="thumb_cart">
-                                <img src="{{ $product->small_image }}" width="60px">
+                                <img src="{{ $product->product->small_image }}" width="60px">
                             </div>
                             <span class="item_cart">
-                                {{ $product->name }}
+                                {{ $product->product->name }}
                             </span>
+                        </td>
+                        <td width="30%">
+                            @isset($product->attributes)
+                                @foreach($cartService->getAttributeList($product->id) as $key => $value)
+                                    <strong>{{ $key }}</strong> - {{ $value }}<br>
+                                @endforeach
+                            @else
+                                @translate('Атрибути товару не були вказані')
+                            @endisset
                         </td>
                         <td>
                             <strong>
-                                {{ number_format($product->new_price) }}
+                                {{ number_format($product->product->new_price) }}
                             </strong>
                         </td>
                         <td>
                             <div class="numbers-rows">
-                                <input id="quantity_cart{{ $product->id }}" type="text" value="{{ $product->pivot->amount }}" class="qty2"  data-id="{{ $product->id }}">
+                                <input id="quantity_cart{{ $product->id }}" type="text" value="{{ $product->amount }}" class="qty2"  data-id="{{ $product->id }}">
                                 <div data-id="{{ $product->id }}" class="inc button_inc">+</div>
                                 <div data-id="{{ $product->id }}" class="dec button_inc">-</div>
                             </div>
                         </td>
                         <td class="sum_amount_one_product{{ $product->id }}">
-                            <strong>{{ number_format($product->new_price * $product->pivot->amount) }}</strong>
+                            <strong>{{ number_format($product->product->new_price * $product->amount) }}</strong>
                         </td>
                     </tr>
                 @endforeach
