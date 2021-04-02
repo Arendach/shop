@@ -26,7 +26,7 @@ class ChangeOrderProductTable extends Migration
     public function down()
     {
         Schema::table('order_products', function (Blueprint $table) {
-            //
+            $table->dropColumn('attribute');
         });
     }
 }
