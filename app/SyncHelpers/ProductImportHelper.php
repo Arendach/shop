@@ -141,11 +141,16 @@ class ProductImportHelper
         try {
             if (count($attributes) > 0) {
                 foreach ($attributes as $item) {
-                    $attribute = new ProductAttribute;
+                    foreach ($item->variants as $variant){
+                        $attribute = new ProductAttribute;
 
-                    $attribute->product_id = $product_id;
-                    $attribute->attribute_id = $item->attribute_id;
-                    $attribute->variants = json_encode($item->variants);
+                        $attribute->product_id = $product_id;
+                        $attribute->attribute_id = $item->attribute_id;
+//                        $attribute->variants = json_encode($item->variants);
+                        $attribute->value_ru = $variant->value_ru;
+                        $attribute->value_uk = $variant->value_uk;
+
+                    }
 
                     $attribute->save();
                 }
