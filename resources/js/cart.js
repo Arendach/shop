@@ -6,14 +6,26 @@ $(document).on('submit', '[data-type="detail_cart_attach"]', function (e) {
     e.preventDefault()
     let $form = $(e.currentTarget)
     let data = $form.serializeArray()
+    let dontShowToastr = $(this).data('dont-show-toastr')
 
     axios.post('/catalog/cart/attach_detail', {data}).then((response) => {
         $('.dropdown-cart-count').html(response.data.cartContProducts)
         $('.dropdown-cart-products').html(response.data.productsListHtml)
         $('.dropdown-cart-sum').html(response.data.cartSumProducts)
         if (!dontShowToastr) {
-            toastr.success('success message', 'title')
+            toastr.success(response.data.message, response.data.title)
         }
+        let hasProducts = $('.has-products')
+        let notProducts = $('.not-products')
+
+        if (response.data.productsListHtml.length) {
+            hasProducts.show()
+            notProducts.hide()
+        } else {
+            hasProducts.hide()
+            notProducts.show()
+        }
+
     })
 })
 

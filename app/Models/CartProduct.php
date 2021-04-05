@@ -10,7 +10,8 @@ class CartProduct extends Model
         'cart_id',
         'product_id',
         'amount',
-        'attributes'
+        'attributes',
+        'created_at'
     ];
 
     public $timestamps = true;

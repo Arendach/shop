@@ -91,8 +91,7 @@ class CartService
     public function attach_detail(int $product_id, array $attribute, int $quantity): void
     {
         $cart = $this->getOrCreate();
-        $attributes = implode(',', $attribute);
-        $attributes_array = explode(',', $attributes);
+        $attributes = count($attribute) ? implode(',', $attribute) : null;
         $this_product_cart = CartProduct::where('cart_id', $cart->id)->where('product_id', $product_id)->where('attributes', $attributes);
         if ($this_product_cart->count()) {
             $quantity = $this_product_cart->first()->amount + $quantity;
@@ -170,9 +169,13 @@ class CartService
     public function getProductsListHtml(): string
     {
         $result = '';
-        $this->cart->products()->get()->each(function (Product $product) use (&$result) {
-            $result .= view('catalog.parts.dropdown-cart-product', ['cart' => $product])->render();
-        });
+
+        foreach($this->getProductsCart() as $cart){
+            $result .= view('catalog.parts.dropdown-cart-product', ['cart' => $cart])->render();
+        }
+//        $this->cart->cartProduct()->get()->each(function (Product $product) use (&$result) {
+//            $result .= view('catalog.parts.dropdown-cart-product', ['cart' => $product])->render();
+//        });
 
         return $result;
     }
