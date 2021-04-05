@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+disallow: /ru/page/index
+disallow: /page/index
