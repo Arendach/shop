@@ -150,9 +150,10 @@ class ProductImportHelper
                         $attribute->value_ru = $variant->value_ru;
                         $attribute->value_uk = $variant->value_uk;
 
+                        $attribute->save();
+
                     }
 
-                    $attribute->save();
                 }
             }
         } catch (Exception $exception) {
