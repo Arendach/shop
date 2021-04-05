@@ -12,12 +12,14 @@ mix.alias({
 })
 
 mix.js('resources/js/cart.js', 'public/js')
+    .js('resources/js/drop-menu.js', 'public/js')
     .js('resources/js/components/checkout-form/main.js', 'public/js/checkout.js')
     .js('resources/js/components/product/product.js', 'public/js/product.js')
     .js('resources/js/customer/login.ts', 'public/js/customer.js')
     .js('resources/js/app.js', 'public/js/app.js')
     .js('resources/js/components/category-filter/main.js', 'public/js/category-filter.js')
     .sass('resources/sass/custom.scss', 'public/css/custom.css')
+    .sass('resources/sass/drop-menu.scss', 'public/css/drop-menu.css')
     .sass('resources/sass/checkout.scss', 'public/css/checkout.css')
     .sass('resources/sass/pages/product.scss', 'public/css/product.css')
     .styles([

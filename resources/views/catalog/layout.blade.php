@@ -35,8 +35,9 @@
     <link rel="stylesheet" href="{{ asset('catalog/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('catalog/css/bootstrap.custom.min.css') }}">
     <link rel="stylesheet" href="{{ asset('catalog/css/app.css') }}">
-    <link href="{{ asset('catalog/css/listing.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('catalog/css/listing.css') }}">
     <link rel="stylesheet" href="{{ asset('catalog/css/ion.rangeSlider.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/drop-menu.css') }}">
 
     <!-- SPECIFIC CSS -->
 @yield('css')
@@ -464,7 +465,7 @@
 <script src="{{ asset('js/cart.js') }}"></script>
 <script src="{{ asset('catalog/js/modal_windows.js') }}"></script>
 <script src="{{ asset('catalog/js/ion.rangeSlider.min.js') }}"></script>
-
+<script src="{{ asset('js/drop-menu.js') }}"></script>
 @stack('js')
 @yield('js')
 <script>
