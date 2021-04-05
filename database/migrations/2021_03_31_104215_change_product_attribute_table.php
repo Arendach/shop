@@ -15,12 +15,10 @@ class ChangeProductAttributeTable extends Migration
     {
         Schema::table('product_attributes', function (Blueprint $table) {
             $table->unsignedInteger('attribute_id')->change();
-            $table->foreign('attribute_id')->references('id')->on('attributes');
             $table->unsignedInteger('product_id')->change();
-            $table->foreign('product_id')->references('id')->on('products');
             $table->dropColumn('variants');
-            $table->string('value_ru');
-            $table->string('value_uk');
+            $table->string('value_ru')->nullable();
+            $table->string('value_uk')->nullable();
         });
     }
 
@@ -32,6 +30,7 @@ class ChangeProductAttributeTable extends Migration
     public function down()
     {
         Schema::table('product_attributes', function (Blueprint $table) {
+            $table->json('variants');
             $table->dropColumn('value_ru');
             $table->dropColumn('value_uk');
         });
