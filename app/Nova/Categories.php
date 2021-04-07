@@ -40,6 +40,7 @@ class Categories extends Resource
                     ID::make()->sortable(),
                     Select::make(translate('Батьківська категорія'), 'parent_id')->options($this->rootCategories())->displayUsingLabels(),
                     Text::make('Slug', 'slug'),
+                    Boolean::make(translate('Вибрати як кореневе посилання'), 'slug')->hideFromIndex(),
                     Boolean::make(translate('Активна'), 'is_active'),
                     Image::make(translate('Зображення банеру'), 'big')->path('images/categories'),
                     Image::make(translate('Зображення'), 'small')->path('images/categories')
