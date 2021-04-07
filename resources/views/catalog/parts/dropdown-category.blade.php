@@ -7,7 +7,7 @@
                 @foreach($categories as $category)
                     @if($category->is_link)
                         <li>
-                            <a class="b-hbsc-link" href="{{ url($category->slug) }}">
+                            <a class="b-hbsc-link" href="{{ url($category->root_link) }}">
                                 <span><i class="b-help-inner">{{ $category->name }}</i></span>
                             </a>
                         </li>

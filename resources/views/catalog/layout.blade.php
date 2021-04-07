@@ -264,7 +264,7 @@
                                                 @foreach($categories as $category)
                                                     <li>
                                                         <span>
-                                                            <a style="font-size: 13pt;font-weight:800;" href="{{ $category->is_link ? url($category->slug) : $category->url }}">
+                                                            <a style="font-size: 13pt;font-weight:800;" href="{{ $category->is_link ? url($category->root_link) : $category->url }}">
                                                                 {{ $category->name }}
                                                             </a>
                                                         </span>
