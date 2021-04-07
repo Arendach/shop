@@ -16,10 +16,17 @@ class MenuComposer
         $menu = Cache::rememberForever('menu', function () {
             return Menu::with('items')->get();
         });
+
         $agent = new Agent();
 
-        $shopsHeader = Shop::get();
-        $collectionMenu = ProductCollection::pars()->orderBy('sort_order')->limit(5)->get();
-        $view->with(compact('menu','agent', 'shopsHeader','collectionMenu'));
+        $shopsHeader = Cache::rememberForever('shopsHeaders', function () {
+            return Shop::get();
+        });
+
+        $collectionMenu = Cache::rememberForever('collectionMenu', function () {
+            return ProductCollection::pars()->orderBy('sort_order')->limit(5)->get();;
+        });
+
+        $view->with(compact('menu', 'agent', 'shopsHeader', 'collectionMenu'));
     }
 }
