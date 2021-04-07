@@ -35,8 +35,9 @@
     <link rel="stylesheet" href="{{ asset('catalog/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('catalog/css/bootstrap.custom.min.css') }}">
     <link rel="stylesheet" href="{{ asset('catalog/css/app.css') }}">
-    <link href="{{ asset('catalog/css/listing.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('catalog/css/listing.css') }}">
     <link rel="stylesheet" href="{{ asset('catalog/css/ion.rangeSlider.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/drop-menu.css') }}">
 
     <!-- SPECIFIC CSS -->
 @yield('css')
@@ -243,47 +244,53 @@
         <div class="main_nav Sticky" @if($agent->isMobile())style="background: linear-gradient(90deg, {{ setting('Колір мобільної кнопки категорії','#fff') }} 50%, #FFF 50%);"@endif>
             <div class="container">
                 <div class="row small-gutters">
-                    <div class="col-xl-3 col-lg-3 col-md-3">
-                        <nav class="categories">
-                            <ul class="clearfix">
-                                <li>
-                                    <span>
-										<a href="#" style="font-size: 15pt;font-weight:800;">
-											<span class="hamburger hamburger--spin">
-												<span class="hamburger-box">
-													<span class="hamburger-inner"></span>
-												</span>
-											</span>
-											@translate('Категорії')
-										</a>
-									</span>
-                                    <div id="menu">
-                                        <ul>
-                                            @foreach($categories as $category)
-                                                <li>
-                                                    <span>
-                                                        <a style="font-size: 13pt;font-weight:800;" href="{{ $category->url }}">
-                                                            {{ $category->name }}
-                                                        </a>
+                    @if($agent->isMobile())
+                        <div class="col-xl-3 col-lg-3 col-md-3">
+                            <nav class="categories">
+                                <ul class="clearfix">
+                                    <li>
+                                        <span>
+                                            <a href="#" style="font-size: 15pt;font-weight:800;">
+                                                <span class="hamburger hamburger--spin">
+                                                    <span class="hamburger-box">
+                                                        <span class="hamburger-inner"></span>
                                                     </span>
-                                                    <ul>
-                                                        @foreach($category->child as $child)
-                                                            @continue(!$child->products_count)
-                                                            <li>
-                                                                <a style="font-weight:800;" href="{{ $child->url }}">
-                                                                    {{ $child->name }}
-                                                                </a>
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
+                                                </span>
+                                                @translate('Категорії')
+                                            </a>
+                                        </span>
+                                        <div id="menu">
+                                            <ul>
+                                                @foreach($categories as $category)
+                                                    <li>
+                                                        <span>
+                                                            <a style="font-size: 13pt;font-weight:800;" href="{{ $category->is_link ? url($category->slug) : $category->url }}">
+                                                                {{ $category->name }}
+                                                            </a>
+                                                        </span>
+                                                        @if(!$category->is_link)
+                                                            <ul>
+                                                                @foreach($category->child as $child)
+                                                                    @continue(!$child->products_count)
+                                                                    <li>
+                                                                        <a style="font-weight:800;" href="{{ $child->url }}">
+                                                                            {{ $child->name }}
+                                                                        </a>
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        @endif
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    @else
+                        @include('catalog.parts.dropdown-category')
+                    @endif
                     <div class="col-xl-6 col-lg-7 col-md-6 d-none d-md-block">
                         <form action="{{ route('search') }}" method="GET">
                             <div class="custom-search-input">
@@ -464,7 +471,7 @@
 <script src="{{ asset('js/cart.js') }}"></script>
 <script src="{{ asset('catalog/js/modal_windows.js') }}"></script>
 <script src="{{ asset('catalog/js/ion.rangeSlider.min.js') }}"></script>
-
+<script src="{{ asset('js/drop-menu.js') }}"></script>
 @stack('js')
 @yield('js')
 <script>
