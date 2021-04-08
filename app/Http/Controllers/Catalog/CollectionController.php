@@ -12,6 +12,7 @@ class CollectionController extends CatalogController
     public function index()
     {
         $collections = ProductCollection::where('parent_id', 0)
+            ->isActive()
             ->with('child')
             ->get();
 

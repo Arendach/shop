@@ -24,7 +24,7 @@ class MenuComposer
         });
 
         $collectionMenu = Cache::rememberForever('collectionMenu', function () {
-            return ProductCollection::pars()->orderBy('sort_order')->limit(5)->get();;
+            return ProductCollection::isParent()->isActive()->orderBy('sort_order')->limit(5)->get();
         });
 
         $view->with(compact('menu', 'agent', 'shopsHeader', 'collectionMenu'));

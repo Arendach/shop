@@ -21,7 +21,7 @@ final class ProductCollection extends Model implements Sortable
     use SortableTrait;
 
     public $sortable = [
-        'order_column_name' => 'sort_order',
+        'order_column_name'  => 'sort_order',
         'sort_when_creating' => true,
     ];
 
@@ -85,8 +85,9 @@ final class ProductCollection extends Model implements Sortable
     public function child(): HasMany
     {
         return $this->hasMany(ProductCollection::class, 'parent_id', 'id')
-            ->orderByDesc('created_at')
-            ->limit(3);
+                    ->isActive()
+                    ->orderBy('sort_order')
+                    ->orderByDesc('created_at');
     }
 
     public function parent(): HasOne
@@ -99,8 +100,13 @@ final class ProductCollection extends Model implements Sortable
         return $query->where('is_home', 1)->orderBy('sort_order');
     }
 
-    public function scopePars($query)
+    public function scopeIsParent($query)
     {
         $query->where('parent_id', 0);
+    }
+
+    public function scopeIsActive($query)
+    {
+        $query->where('is_active', 1);
     }
 }

@@ -45,14 +45,16 @@ class Collections extends Resource
                         return ProductCollection::where('parent_id', 0)->get()->mapWithKeys(function (ProductCollection $collection) {
                             return [$collection->id => $collection->name];
                         })->put(0, translate('Коренева категорія'))->toArray();
-                    })->displayUsingLabels(),
-                    Boolean::make(translate('Показувати на головній'), 'is_home')->sortable(),
+                    })->displayUsingLabels()->sortable(),
+                    Text::make(translate('Назва'), 'name_uk')->onlyOnIndex()->sortable(),
+                    Boolean::make(translate('Показувати на головній'), 'is_home'),
+                    Boolean::make(translate('Активна'), 'is_active'),
                     Text::make('Slug', 'slug')->required(),
                     Image::make(translate('Зображення'), 'image')->path('images/collections'),
-                    Color::make(translate('Колір кнопки'), 'button_color')
+                    Color::make(translate('Колір кнопки'), 'button_color')->hideFromIndex(),
                 ]),
                 new Panel(translate('Українська локалізація'), [
-                    Text::make(translate('Назва'), 'name_uk'),
+                    Text::make(translate('Назва'), 'name_uk')->hideFromIndex(),
                     Text::make(translate('Meta title'), 'meta_title_uk')->hideFromIndex(),
                     Text::make(translate('Meta keywords'), 'meta_keywords_uk')->hideFromIndex(),
                     Text::make(translate('Meta description'), 'meta_description_uk')->hideFromIndex(),
