@@ -28,34 +28,34 @@ class Banners extends Resource
 
     public static function label()
     {
-        return translate('Банери');
+        return 'Банери';
     }
 
     public function fields(Request $request)
     {
         return [
-            new Panel(translate('Основна інформація'), [
+            new Panel('Основна інформація', [
                 ID::make()->hideFromIndex(),
-                Image::make(translate('Зображення'), 'image')->path('/images/banner'),
-                Color::make(translate('Колір тексту'), 'color'),
-                Text::make(translate('Посилання'), 'url'),
-                Select::make(translate('Позиція тексту'), 'position')->options([
+                Image::make('Зображення', 'image')->path('/images/banner'),
+                Color::make('Колір тексту', 'color'),
+                Text::make('Посилання', 'url'),
+                Select::make('Позиція тексту', 'position')->options([
                     'left'   => 'Зліва',
                     'right'  => 'Зправа',
                     'center' => 'По центру'
                 ])
             ]),
 
-            new Panel(translate('Українська локалізація'), [
-                Text::make(translate('Заголовок'), 'title_uk'),
-                Textarea::make(translate('Опис'), 'description_uk'),
-                Text::make(translate('Текст кнопки'), 'button_uk')
+            new Panel('Українська локалізація', [
+                Text::make('Заголовок', 'title_uk'),
+                Textarea::make('Опис', 'description_uk'),
+                Text::make('Текст кнопки', 'button_uk')
             ]),
 
-            new Panel(translate('Російська локалізація'), [
-                Text::make(translate('Заголовок'), 'title_ru')->hideFromIndex(),
-                Textarea::make(translate('Опис'), 'description_ru')->hideFromIndex(),
-                Text::make(translate('Текст кнопки'), 'button_ru')->hideFromIndex()
+            new Panel('Російська локалізація', [
+                Text::make('Заголовок', 'title_ru')->hideFromIndex(),
+                Textarea::make('Опис', 'description_ru')->hideFromIndex(),
+                Text::make('Текст кнопки', 'button_ru')->hideFromIndex()
             ])
         ];
     }

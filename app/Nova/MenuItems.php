@@ -22,7 +22,7 @@ class MenuItems extends Resource
 
     public static function label()
     {
-        return translate('Підпункти меню');
+        return 'Підпункти меню';
     }
 
     public function fields(Request $request)
@@ -31,13 +31,13 @@ class MenuItems extends Resource
 
         return [
             ID::make()->sortable(),
-            BelongsTo::make(translate('Родитель'), 'menu', Menu::class)->onlyOnIndex()->sortable(),
-            Select::make(translate('Родитель'), 'menu_id')->options($this->MenuList())->displayUsingLabels()->onlyOnForms(),
-            Text::make(translate('Назва (ук)'), 'name_uk'),
-            Text::make(translate('Назва (ру)'), 'name_ru')->hideFromIndex(),
-            Text::make(translate('Колонка (ук)'), 'column_uk'),
-            Text::make(translate('Колонка (ру)'), 'column_ru')->hideFromIndex(),
-            Text::make(translate('Посилання'), 'url')
+            BelongsTo::make('БАТЬКІВСЬКА КАТЕГОРІЯ', 'menu', Menu::class)->onlyOnIndex()->sortable(),
+            Select::make('БАТЬКІВСЬКА КАТЕГОРІЯ', 'menu_id')->options($this->MenuList())->displayUsingLabels()->onlyOnForms(),
+            Text::make('Назва (ук)', 'name_uk'),
+            Text::make('Назва (ру)', 'name_ru')->hideFromIndex(),
+            Text::make('Колонка (ук)', 'column_uk'),
+            Text::make('Колонка (ру)', 'column_ru')->hideFromIndex(),
+            Text::make('Посилання', 'url')
         ];
     }
     private function MenuList()

@@ -19,26 +19,26 @@ class Shops extends Resource
 
     public static function label()
     {
-        return translate('Магазини');
+        return 'Магазини';
     }
 
     public function fields(Request $request)
     {
         return [
-            new Panel(translate('Загальна інформація'), [
+            new Panel('Загальна інформація', [
                 ID::make()->sortable(),
                 Text::make('url')->hideFromIndex(),
                 Text::make('base_id')->hideFromIndex()
             ]),
 
-            new Panel(translate('Українська локалізація'), [
-                Text::make(translate('Назва'), 'name_uk'),
-                Text::make(translate('Адреса'), 'address_uk')
+            new Panel('Українська локалізація', [
+                Text::make('Назва', 'name_uk'),
+                Text::make('Адреса', 'address_uk')
             ]),
 
-            new Panel(translate('Російська локалізація'), [
-                Text::make(translate('Назва'), 'name_ru')->hideFromIndex(),
-                Text::make(translate('Адреса'), 'address_ru')->hideFromIndex()
+            new Panel('Російська локалізація', [
+                Text::make('Назва', 'name_ru')->hideFromIndex(),
+                Text::make('Адреса', 'address_ru')->hideFromIndex()
             ])
         ];
     }

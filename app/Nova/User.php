@@ -20,7 +20,7 @@ class User extends Resource
 
     public static function label()
     {
-        return translate('Користувачі (адм)');
+        return 'Користувачі (адм)';
     }
 
     public function fields(Request $request)

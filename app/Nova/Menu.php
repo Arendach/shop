@@ -22,7 +22,7 @@ class Menu extends Resource
 
     public static function label()
     {
-        return translate('Меню');
+        return 'Меню';
     }
 
     public function fields(Request $request)
@@ -30,20 +30,20 @@ class Menu extends Resource
         Artisan::call('cache:clear');
 
         return [
-            new Panel(translate('Загальна інформація'), [
+            new Panel('Загальна інформація', [
                 ID::make()->sortable(),
-                Select::make(translate('Тип'), 'role')->options([
-                    'link'     => translate('Посилання'),
-                    'menu'     => translate('Меню'),
-                    'megamenu' => translate('Мегаменю')
+                Select::make('Тип', 'role')->options([
+                    'link'     => 'Посилання',
+                    'menu'     => 'Меню',
+                    'megamenu' => 'Мегаменю'
                 ]),
-                Text::make(translate('Посилання'), 'url'),
-                Text::make(translate('Назва (ук)'), 'name_uk'),
-                Text::make(translate('Назва (рос)'), 'name_ru'),
-                Image::make(translate('Зображення (для мегаменю)'), 'photo')->hideFromIndex()->path('images/megamenu')
+                Text::make('Посилання', 'url'),
+                Text::make('Назва (ук)', 'name_uk'),
+                Text::make('Назва (рос)', 'name_ru'),
+                Image::make('Зображення (для мегаменю)', 'photo')->hideFromIndex()->path('images/megamenu')
             ]),
-            new Panel(translate('Пункти'), [
-                HasMany::make(translate(''), 'items', MenuItems::class)
+            new Panel('Пункти', [
+                HasMany::make('', 'items', MenuItems::class)
             ])
         ];
     }

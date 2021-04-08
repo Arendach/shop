@@ -22,7 +22,7 @@ class Pages extends Resource
 
     public static function label()
     {
-        return translate('Сторінки');
+        return 'Сторінки';
     }
 
     public function fields(Request $request)
@@ -34,7 +34,7 @@ class Pages extends Resource
                 Boolean::make('Швидка навігація', 'is_fast_navigation'),
             ]),
 
-            new Panel(translate('Українська локалізація'), [
+            new Panel('Українська локалізація', [
                 Text::make('Назва', 'name_uk'),
                 Text::make('Заголовок(title)', 'meta_title_uk')->hideFromIndex(),
                 Text::make('Ключові слова(keywords)', 'meta_keywords_uk')->hideFromIndex(),
@@ -42,7 +42,7 @@ class Pages extends Resource
                 CKEditor::make('Контент', 'content_uk')->hideFromIndex(),
             ]),
 
-            new Panel(translate('Російська локалізація'), [
+            new Panel('Російська локалізація', [
                 Text::make('Назва', 'name_ru')->hideFromIndex(),
                 Text::make('Заголовок(title)', 'meta_title_ru')->hideFromIndex(),
                 Text::make('Ключові слова(keywords)', 'meta_keywords_ru')->hideFromIndex(),

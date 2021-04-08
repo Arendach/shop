@@ -25,28 +25,28 @@ class Customers extends Resource
 
     public static function label()
     {
-        return translate('Покупці');
+        return 'Покупці';
     }
 
     public function fields(Request $request)
     {
         return [
-            new Panel(translate('Загальна інформація'), [
+            new Panel('Загальна інформація', [
                 ID::make()->sortable(),
-                Text::make(translate('Електронна пошта'), 'email'),
-                Text::make(translate('Номер телефону'), 'phone'),
-                Password::make(translate('Пароль'), 'password'),
+                Text::make('Електронна пошта', 'email'),
+                Text::make('Номер телефону', 'phone'),
+                Password::make('Пароль', 'password'),
                 Boolean::make('Можливість редагувати контент', 'is_editable')->hideFromIndex()
             ]),
 
-            new Panel(translate(''), [
-                Text::make(translate('Імя'), 'first_name'),
-                Text::make(translate('Прізвище'), 'last_name'),
+            new Panel('ФІО', [
+                Text::make('Імя', 'first_name'),
+                Text::make('Прізвище', 'last_name'),
             ]),
 
 
-            new Panel(translate('Інше'), [
-                Select::make(translate('Мова'), 'locale')->options([
+            new Panel('Інше', [
+                Select::make('Мова', 'locale')->options([
                     'uk' => 'Українська',
                     'ru' => 'Російська'
                 ])->hideFromIndex()

@@ -29,7 +29,7 @@ class ProductsCharacteristic extends Resource
 
     public static function label()
     {
-        return translate('Характеристики товарів');
+        return 'Характеристики товарів';
     }
 
     public static $search = [
@@ -44,14 +44,14 @@ class ProductsCharacteristic extends Resource
     {
         return [
             ID::make()->sortable(),
-            BelongsTo::make(translate('Характеристика'), 'characteristic', Products::class)->onlyOnIndex()->sortable(),
-            BelongsTo::make(translate('Продукт'), 'product', Products::class)->onlyOnIndex()->sortable(),
-            Select::make(translate('Характеристика'), 'characteristic_id')->options($this->CharacteristicsList())->displayUsingLabels()->onlyOnForms(),
-            Select::make(translate('Продукт'), 'product_id')->options($this->ProductList())->displayUsingLabels()->onlyOnForms(),
-            Text::make(translate('value_uk'), 'value_uk')->sortable(),
-            Text::make(translate('value_ru'), 'value_ru')->sortable(),
-            Text::make(translate('filter_uk'), 'filter_uk')->sortable(),
-            Text::make(translate('filter_ru'), 'filter_ru')->sortable()
+            BelongsTo::make('Характеристика', 'characteristic', Products::class)->onlyOnIndex()->sortable(),
+            BelongsTo::make('Продукт', 'product', Products::class)->onlyOnIndex()->sortable(),
+            Select::make('Характеристика', 'characteristic_id')->options($this->CharacteristicsList())->displayUsingLabels()->onlyOnForms(),
+            Select::make('Продукт', 'product_id')->options($this->ProductList())->displayUsingLabels()->onlyOnForms(),
+            Text::make('value_uk', 'value_uk')->sortable(),
+            Text::make('value_ru', 'value_ru')->sortable(),
+            Text::make('filter_uk', 'filter_uk')->sortable(),
+            Text::make('filter_ru', 'filter_ru')->sortable()
         ];
     }
 

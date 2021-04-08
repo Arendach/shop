@@ -32,43 +32,43 @@ class Collections extends Resource
 
     public static function label()
     {
-        return translate('Колекції');
+        return 'Колекції';
     }
 
     public function fields(Request $request)
     {
         return [
             (new Tabs('Колекції', [
-                new Panel(translate('Основна інформація'), [
+                new Panel('Основна інформація', [
                     ID::make()->sortable(),
-                    Select::make(translate('Батьківська категорія'), 'parent_id')->options(function () {
+                    Select::make('Батьківська категорія', 'parent_id')->options(function () {
                         return ProductCollection::where('parent_id', 0)->get()->mapWithKeys(function (ProductCollection $collection) {
                             return [$collection->id => $collection->name];
-                        })->put(0, translate('Коренева категорія'))->toArray();
+                        })->put(0, 'Коренева категорія')->toArray();
                     })->displayUsingLabels()->sortable(),
-                    Text::make(translate('Назва'), 'name_uk')->onlyOnIndex()->sortable(),
-                    Boolean::make(translate('Показувати на головній'), 'is_home'),
-                    Boolean::make(translate('Активна'), 'is_active'),
+                    Text::make('Назва', 'name_uk')->onlyOnIndex()->sortable(),
+                    Boolean::make('Показувати на головній', 'is_home'),
+                    Boolean::make('Активна', 'is_active'),
                     Text::make('Slug', 'slug')->required(),
-                    Image::make(translate('Зображення'), 'image')->path('images/collections'),
-                    Color::make(translate('Колір кнопки'), 'button_color')->hideFromIndex(),
+                    Image::make('Зображення', 'image')->path('images/collections'),
+                    Color::make('Колір кнопки', 'button_color')->hideFromIndex(),
                 ]),
-                new Panel(translate('Українська локалізація'), [
-                    Text::make(translate('Назва'), 'name_uk')->hideFromIndex(),
-                    Text::make(translate('Meta title'), 'meta_title_uk')->hideFromIndex(),
-                    Text::make(translate('Meta keywords'), 'meta_keywords_uk')->hideFromIndex(),
-                    Text::make(translate('Meta description'), 'meta_description_uk')->hideFromIndex(),
-                    Trix::make(translate('Опис'), 'description_uk')->withFiles()->hideFromIndex(),
+                new Panel('Українська локалізація', [
+                    Text::make('Назва', 'name_uk')->hideFromIndex(),
+                    Text::make('Meta title', 'meta_title_uk')->hideFromIndex(),
+                    Text::make('Meta keywords', 'meta_keywords_uk')->hideFromIndex(),
+                    Text::make('Meta description', 'meta_description_uk')->hideFromIndex(),
+                    Trix::make('Опис', 'description_uk')->withFiles()->hideFromIndex(),
                 ]),
-                new Panel(translate('Російська локалізація'), [
-                    Text::make(translate('Назва'), 'name_ru')->hideFromIndex(),
-                    Text::make(translate('Meta title'), 'meta_title_ru')->hideFromIndex(),
-                    Text::make(translate('Meta keywords'), 'meta_keywords_ru')->hideFromIndex(),
-                    Text::make(translate('Meta description'), 'meta_description_ru')->hideFromIndex(),
-                    Trix::make(translate('Опис'), 'description_ru')->withFiles(),
+                new Panel('Російська локалізація', [
+                    Text::make('Назва', 'name_ru')->hideFromIndex(),
+                    Text::make('Meta title', 'meta_title_ru')->hideFromIndex(),
+                    Text::make('Meta keywords', 'meta_keywords_ru')->hideFromIndex(),
+                    Text::make('Meta description', 'meta_description_ru')->hideFromIndex(),
+                    Trix::make('Опис', 'description_ru')->withFiles(),
                 ]),
-                new Panel(translate('Товари'), [
-                    AttachMany::make(translate('Товари'), 'products', Products::class)->hideFromIndex()->showPreview()->showCounts()
+                new Panel('Товари', [
+                    AttachMany::make('Товари', 'products', Products::class)->hideFromIndex()->showPreview()->showCounts()
                 ])
             ]))->withToolbar()
         ];

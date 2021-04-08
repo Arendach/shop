@@ -18,7 +18,7 @@ class Translates extends Resource
 
     public static function label()
     {
-        return translate('Переклади');
+        return 'Переклади';
     }
 
     public function fields(Request $request)

@@ -23,44 +23,44 @@ class Indexes extends Resource
 
     public static function label()
     {
-        return translate('Налаштування сайту');
+        return 'Налаштування сайту';
     }
 
     public function fields(Request $request)
     {
         return [
-            (new Tabs(translate('Налаштування сайту'), [
-                new Panel(translate('Загальна інформація'), [
+            (new Tabs('Налаштування сайту', [
+                new Panel('Загальна інформація', [
                     ID::make()->sortable(),
-                    Text::make(translate('Назва'), 'name'),
-                    Boolean::make(translate('За замовчуванням'), 'is_main')
+                    Text::make('Назва', 'name'),
+                    Boolean::make('За замовчуванням', 'is_main')
                 ]),
 
-                new Panel(translate('Шапка сайту'), [
-                    Image::make(translate('Логотип'), 'logo')->path('images/logo'),
-                    Text::make(translate('Номер телефону'), 'header_phone')->hideFromIndex()
+                new Panel('Шапка сайту', [
+                    Image::make('Логотип', 'logo')->path('images/logo'),
+                    Text::make('Номер телефону', 'header_phone')->hideFromIndex()
                 ]),
 
-                new Panel(translate('Низ сайту'), [
-                    Text::make(translate('Номер телефону'), 'footer_phone')->hideFromIndex(),
-                    Text::make(translate('Адреса магазину(uk)'), 'footer_address_uk')->hideFromIndex(),
-                    Text::make(translate('Адреса магазину(ru)'), 'footer_address_ru')->hideFromIndex(),
-                    Text::make(translate('Електронна пошта'), 'footer_email')->hideFromIndex(),
+                new Panel('Низ сайту', [
+                    Text::make('Номер телефону', 'footer_phone')->hideFromIndex(),
+                    Text::make('Адреса магазину(uk)', 'footer_address_uk')->hideFromIndex(),
+                    Text::make('Адреса магазину(ru)', 'footer_address_ru')->hideFromIndex(),
+                    Text::make('Електронна пошта', 'footer_email')->hideFromIndex(),
 
                 ]),
 
-                new Panel(translate('Сео'), [
-                    Html::make('')->html('<h2 style="margin: 30px">' . translate('Українська локалізація') . '</h2>'),
-                    Text::make(translate('Заголовок (title)'), 'meta_title_uk')->hideFromIndex(),
-                    Text::make(translate('Ключові слова (keywords)'), 'meta_keywords_uk')->hideFromIndex(),
-                    Text::make(translate('Опис (description)'), 'meta_description_uk')->hideFromIndex(),
-                    CKEditor::make(translate('Стаття'), 'article_uk'),
+                new Panel('Сео', [
+                    Html::make('')->html('<h2 style="margin: 30px">' . 'Українська локалізація' . '</h2>'),
+                    Text::make('Заголовок (title)', 'meta_title_uk')->hideFromIndex(),
+                    Text::make('Ключові слова (keywords)', 'meta_keywords_uk')->hideFromIndex(),
+                    Text::make('Опис (description)', 'meta_description_uk')->hideFromIndex(),
+                    CKEditor::make('Стаття', 'article_uk'),
 
-                    Html::make('')->html('<h2 style="margin: 30px">' . translate('Російська локалізація') . '</h2>'),
-                    Text::make(translate('Заголовок (title)'), 'meta_title_ru')->hideFromIndex(),
-                    Text::make(translate('Ключові слова (keywords)'), 'meta_keywords_ru')->hideFromIndex(),
-                    Text::make(translate('Опис (description)'), 'meta_description_ru')->hideFromIndex(),
-                    CKEditor::make(translate('Стаття'), 'article_ru'),
+                    Html::make('')->html('<h2 style="margin: 30px">' . 'Російська локалізація' . '</h2>'),
+                    Text::make('Заголовок (title)', 'meta_title_ru')->hideFromIndex(),
+                    Text::make('Ключові слова (keywords)', 'meta_keywords_ru')->hideFromIndex(),
+                    Text::make('Опис (description)', 'meta_description_ru')->hideFromIndex(),
+                    CKEditor::make('Стаття', 'article_ru'),
                 ])
             ]))->withToolbar()
         ];

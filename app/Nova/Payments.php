@@ -20,7 +20,7 @@ class Payments extends Resource
 
     public static function label()
     {
-        return translate('Оплата');
+        return 'Оплата';
     }
 
     public function fields(Request $request)
@@ -28,13 +28,13 @@ class Payments extends Resource
                 artisan('cache:clear');
 
         return [
-            new Panel(translate('Загальна інформація'), [
+            new Panel('Загальна інформація', [
                 ID::make()->sortable(),
-                Text::make(translate('Назва'), 'name'),
-                Text::make(translate('Опис'), 'description'),
-                Text::make(translate('Ключ'), 'key')->hideFromIndex(),
-                Text::make(translate('Активація'), 'active')->hideFromIndex(),
-                Text::make(translate('Показ'), 'simple')->hideFromIndex()
+                Text::make('Назва', 'name'),
+                Text::make('Опис', 'description'),
+                Text::make('Ключ', 'key')->hideFromIndex(),
+                Text::make('Активація', 'active')->hideFromIndex(),
+                Text::make('Показ', 'simple')->hideFromIndex()
             ])
 
         ];

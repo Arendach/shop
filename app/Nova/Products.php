@@ -44,7 +44,7 @@ class Products extends Resource
 
     public static function label()
     {
-        return translate('Товари');
+        return 'Товари';
     }
 
     public function filters(Request $request)
@@ -59,55 +59,55 @@ class Products extends Resource
         artisan('cache:clear');
 
         return [
-            (new Tabs(translate('Товари'), [
-                new Panel(translate('Основна інформація'), [
+            (new Tabs('Товари', [
+                new Panel('Основна інформація', [
                     ID::make()->sortable(),
-                    Text::make(translate('Артикул'), 'article')->sortable(),
-                    Text::make(translate('Слаг'), 'slug')->sortable()->hideFromIndex(),
-                    Text::make(translate('Стара адреса(url)'), 'old_url')->hideFromIndex(),
-                    Text::make(translate('Назва'), 'name_uk')->onlyOnIndex(),
-                    Text::make(translate('Ціна'), 'price')->sortable(),
-                    Text::make(translate('Знижка'), 'discount')->sortable()->hideFromIndex(),
-                    Boolean::make(translate('На складі'), 'on_storage')->sortable(),
-                    Boolean::make(translate('Новинка'), 'is_new')->hideFromIndex(),
-                    Boolean::make(translate('Рекомендовано'), 'is_recommended')->hideFromIndex(),
-                    Boolean::make(translate('Показувати на головній'), 'is_home')->hideFromIndex(),
-                    BelongsTo::make(translate('Категорія'), 'category', Categories::class)->onlyOnIndex()->sortable(),
-                    BelongsTo::make(translate('Виробник'), 'manufacturer', Products::class)->onlyOnIndex()->sortable(),
-                    Select::make(translate('Виробник'), 'manufacturer_id')->options($this->manufacturerList())->onlyOnForms(),
-                    Select::make(translate('Категорія'), 'category_id')->options($this->categoryList())->onlyOnForms(),
+                    Text::make('Артикул', 'article')->sortable(),
+                    Text::make('Слаг', 'slug')->sortable()->hideFromIndex(),
+                    Text::make('Стара адреса(url)', 'old_url')->hideFromIndex(),
+                    Text::make('Назва', 'name_uk')->onlyOnIndex(),
+                    Text::make('Ціна', 'price')->sortable(),
+                    Text::make('Знижка', 'discount')->sortable()->hideFromIndex(),
+                    Boolean::make('На складі', 'on_storage')->sortable(),
+                    Boolean::make('Новинка', 'is_new')->hideFromIndex(),
+                    Boolean::make('Рекомендовано', 'is_recommended')->hideFromIndex(),
+                    Boolean::make('Показувати на головній', 'is_home')->hideFromIndex(),
+                    BelongsTo::make('Категорія', 'category', Categories::class)->onlyOnIndex()->sortable(),
+                    BelongsTo::make('Виробник', 'manufacturer', Products::class)->onlyOnIndex()->sortable(),
+                    Select::make('Виробник', 'manufacturer_id')->options($this->manufacturerList())->onlyOnForms(),
+                    Select::make('Категорія', 'category_id')->options($this->categoryList())->onlyOnForms(),
                     NovaPackingField::make('Пакування', 'packing')->placeholders()->hideFromIndex(),
-                    NovaPackingField::make(translate('Розміри'), 'volume')->placeholders([
+                    NovaPackingField::make('Розміри', 'volume')->placeholders([
                         'Висота', 'Ширина', 'Довжина'
                     ])->hideFromIndex(),
                     Text::make('Вага', 'weight')->hideFromIndex()
                 ]),
 
-                new Panel(translate('Українська локалізація'), [
-                    Text::make(translate('Назва'), 'name_uk')->hideFromIndex(),
-                    Text::make(translate('Модель'), 'model_uk')->hideFromIndex(),
-                    Text::make(translate('Заголовок (title)'), 'meta_title_uk')->hideFromIndex(),
-                    Text::make(translate('Ключові слова(keywords)'), 'meta_keywords_uk')->hideFromIndex(),
-                    Text::make(translate('Опис(description)'), 'meta_description_uk')->hideFromIndex(),
+                new Panel('Українська локалізація', [
+                    Text::make('Назва', 'name_uk')->hideFromIndex(),
+                    Text::make('Модель', 'model_uk')->hideFromIndex(),
+                    Text::make('Заголовок (title)', 'meta_title_uk')->hideFromIndex(),
+                    Text::make('Ключові слова(keywords)', 'meta_keywords_uk')->hideFromIndex(),
+                    Text::make('Опис(description)', 'meta_description_uk')->hideFromIndex(),
                     CKEditor::make('Опис', 'description_uk')->hideFromIndex(),
                 ]),
 
-                new Panel(translate('Російська локалізація'), [
-                    Text::make(translate('Назва'), 'name_ru')->hideFromIndex(),
-                    Text::make(translate('Модель'), 'model_ru')->hideFromIndex(),
-                    Text::make(translate('Заголовок (title)'), 'meta_title_ru')->hideFromIndex(),
-                    Text::make(translate('Ключові слова(keywords)'), 'meta_keywords_ru')->hideFromIndex(),
-                    Text::make(translate('Опис(description)'), 'meta_description_ru')->hideFromIndex(),
+                new Panel('Російська локалізація', [
+                    Text::make('Назва', 'name_ru')->hideFromIndex(),
+                    Text::make('Модель', 'model_ru')->hideFromIndex(),
+                    Text::make('Заголовок (title)', 'meta_title_ru')->hideFromIndex(),
+                    Text::make('Ключові слова(keywords)', 'meta_keywords_ru')->hideFromIndex(),
+                    Text::make('Опис(description)', 'meta_description_ru')->hideFromIndex(),
                     CKEditor::make('Опис', 'description_ru')->hideFromIndex()
                 ]),
 
-                new Panel(translate('Медіа'), [
-                    Image::make(translate('Зображення'), 'big')->path('/images/products'),
-                    Youtube::make(translate('Відео'), 'video')->hideFromIndex()
+                new Panel('Медіа', [
+                    Image::make('Зображення', 'big')->path('/images/products'),
+                    Youtube::make('Відео', 'video')->hideFromIndex()
                 ]),
 
-                new Panel(translate('Повязані товари'), [
-                    BelongsToMany::make(translate('Повязані товари'), 'related', Products::class)
+                new Panel('Повязані товари', [
+                    BelongsToMany::make('Повязані товари', 'related', Products::class)
                 ]),
 
                 new Panel('Теги', [

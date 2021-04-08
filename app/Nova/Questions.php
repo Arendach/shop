@@ -2,9 +2,6 @@
 
 namespace App\Nova;
 
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\ProductCollection;
 use App\Models\Question;
 use Eminiarts\Tabs\Tabs;
 use Eminiarts\Tabs\TabsOnEdit;
@@ -36,41 +33,41 @@ class Questions extends Resource
 
     public static function label()
     {
-        return translate('FAQ нова версія');
+        return 'FAQ нова версія';
     }
 
     public function fields(Request $request)
     {
         return [
             (new Tabs('FAQ нова версія', [
-                new Panel(translate('Де показувати?'), [
+                new Panel('Де показувати?', [
                     ID::make()->sortable(),
-                    Boolean::make(translate('Показувати на головній'), 'is_home')->hideFromIndex(),
-                    Boolean::make(translate('Показувати в категоріях'), 'is_category')->hideFromIndex(),
-                    Boolean::make(translate('Показувати в колекціях'), 'is_collection')->hideFromIndex(),
-                    Boolean::make(translate('Показувати на інших сторінках'), 'is_other')->hideFromIndex(),
+                    Boolean::make('Показувати на головній', 'is_home')->hideFromIndex(),
+                    Boolean::make('Показувати в категоріях', 'is_category')->hideFromIndex(),
+                    Boolean::make('Показувати в колекціях', 'is_collection')->hideFromIndex(),
+                    Boolean::make('Показувати на інших сторінках', 'is_other')->hideFromIndex(),
                 ]),
-                new Panel(translate('Російська локалізація'), [
-                    Text::make(translate('Питання РУС'), 'question_ru')->sortable(),
-                    Trix::make(translate('Відповідь РУС'), 'answer_ru')->sortable()->hideFromIndex()
+                new Panel('Російська локалізація', [
+                    Text::make('Питання РУС', 'question_ru')->sortable(),
+                    Trix::make('Відповідь РУС', 'answer_ru')->sortable()->hideFromIndex()
                 ]),
-                new Panel(translate('Українська локалізація'), [
-                    Text::make(translate('Питання УКР'), 'question_uk')->sortable(),
-                    Trix::make(translate('Відповідь УКР'), 'answer_uk')->sortable()->hideFromIndex(),
+                new Panel('Українська локалізація', [
+                    Text::make('Питання УКР', 'question_uk')->sortable(),
+                    Trix::make('Відповідь УКР', 'answer_uk')->sortable()->hideFromIndex(),
                 ]),
-                new Panel(translate('Категорії'), [
-                    AttachMany::make(translate('Категорії'), 'categories', Categories::class)
+                new Panel('Категорії', [
+                    AttachMany::make('Категорії', 'categories', Categories::class)
                         ->hideFromIndex()
                         ->showPreview()
                         ->showCounts()
-                        ->help(translate('Якщо не стоїть чекбокс, показуватись все рівно не будуть, не залежно вибрані Категорії чи ні'))
+                        ->help('Якщо не стоїть чекбокс, показуватись все рівно не будуть, не залежно вибрані Категорії чи ні')
                 ]),
-                new Panel(translate('Колекції'), [
-                    AttachMany::make(translate('Колекції'), 'collections', Collections::class)
+                new Panel('Колекції', [
+                    AttachMany::make('Колекції', 'collections', Collections::class)
                         ->hideFromIndex()
                         ->showPreview()
                         ->showCounts()
-                        ->help(translate('Якщо не стоїть чекбокс, показуватись все рівно не будуть, не залежно вибрані Колекції чи ні'))
+                        ->help('Якщо не стоїть чекбокс, показуватись все рівно не будуть, не залежно вибрані Колекції чи ні')
                 ])
             ]))->withToolbar()
         ];

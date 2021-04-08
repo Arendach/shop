@@ -29,19 +29,19 @@ class Orders extends Resource
 
     public static function label(): string
     {
-        return translate('Замовлення');
+        return 'Замовлення';
     }
 
     public function fields(Request $request)
     {
         $fields = [
-            new Panel(translate('Загальна інформація'), [
+            new Panel('Загальна інформація', [
                 ID::make()->sortable(),
-                Text::make(translate('Імя'), 'name'),
-                Text::make(translate('Електронна пошта'), 'email'),
-                Text::make(translate('Номер телефону'), 'phone'),
-                Select::make(translate('Варіант доставки'), 'delivery')->options($this->getOrderTypes())->displayUsingLabels(),
-                Select::make(translate('Статус'), 'status')->options($this->getOrderStatuses())->displayUsingLabels()
+                Text::make('Імя', 'name'),
+                Text::make('Електронна пошта', 'email'),
+                Text::make('Номер телефону', 'phone'),
+                Select::make('Варіант доставки', 'delivery')->options($this->getOrderTypes())->displayUsingLabels(),
+                Select::make('Статус', 'status')->options($this->getOrderStatuses())->displayUsingLabels()
             ]),
         ];
 
@@ -51,7 +51,7 @@ class Orders extends Resource
 
 
         return [
-            new Tabs(translate('Замовлення'), $fields)
+            new Tabs('Замовлення', $fields)
         ];
     }
 
@@ -68,9 +68,9 @@ class Orders extends Resource
     private function getOrderTypes(): array
     {
         return [
-            'delivery' => translate('Доставка по місту'),
-            'self'     => translate('Самовивіз'),
-            'sending'  => translate('Відправка')
+            'delivery' => 'Доставка по місту',
+            'self'     => 'Самовивіз',
+            'sending'  => 'Відправка'
         ];
     }
 
