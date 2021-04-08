@@ -7,7 +7,7 @@
                         <div class="faq-card">
                             <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
                                 <div class="faq-card-header" data-id="faq-card-body-{{ $i }}">
-                                    <span itemprop="name"> {{ $question->question }}</span>
+                                    <h3 itemprop="name"> {{ $question->question }}</h3>
                                     <span class="faq-card-arrow-icon">
                                         <svg viewBox="0 0 512 512" height="14px" width="10px">
                                             <path d="M400.7 478.5L367.2 512l-256-256 256-256 33.5 33.5-222.5 222.6 222.5 222.4z"></path>

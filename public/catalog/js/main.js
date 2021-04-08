@@ -351,7 +351,6 @@
 			elem.slideUp(200)
 		else
 			elem.slideDown(200)
-		console.log(elem.css('display'))
 	})
 
 	// Popup up
