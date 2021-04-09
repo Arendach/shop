@@ -16,6 +16,7 @@ class ManufacturersSyncController extends Controller
 
         foreach (\GuzzleHttp\json_decode($manufacturers) as $manufacturer) {
             $manufactur = new Manufacturer;
+            $manufactur->id = $manufacturer->id;
             $manufactur->name_uk = $manufacturer->name_uk;
             $manufactur->name_ru = translate($manufacturer->name_uk);
             $manufactur->photo_uk = $manufacturer->photo_uk;
