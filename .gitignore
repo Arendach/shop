@@ -29,3 +29,5 @@ composer.phar
 /public/nazem/
 /public/pina/
 /public/salt/
+/.well-known/
+/worker.log
