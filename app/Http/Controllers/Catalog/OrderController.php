@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Catalog;
 
 use App\Http\Requests\Catalog\Order\CheckoutRequest;
 use App\Jobs\Emails\OrderEmailJob;
+use App\Jobs\Sms\OrderSendSmsJob;
 use App\Models\Order;
 use App\Models\Price;
 use App\Models\Streets;
@@ -29,12 +30,9 @@ class OrderController extends CatalogController
         // Створення замовлення в БД
         $order = app(OrderService::class)->createOrder($request->validated());
         // Вiдправка Повiдомлення на email Адмiнiстратору
-        dispatch(new OrderEmailJob($order));
+        dispatch((new OrderEmailJob($order))->onQueue('emails'));
         // Вiдправка Смс замовнику
-        $res = app(Auth::class)->smsSend($order->phone, $order->id);
-        //Вiдправка на email, якщо не вiдправлено по смс
-//       if($res->result != 'ok')
-//           dispatch(new OrderEmailJob($order));
+        dispatch((new OrderSendSmsJob($order))->onQueue('sms')->delay(60 * 5));
 
        return response()->json([
             'orderId' => $order->id,

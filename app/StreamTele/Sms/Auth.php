@@ -3,12 +3,6 @@
 namespace App\StreamTele\Sms;
 
 use App\StreamTele\Base\Connection;
-use App\StreamTele\Exceptions\AuthFailedException;
-use Session;
-use Illuminate\Http\Request;
-use App\Http\Requests\Catalog\Order\CheckoutRequest;
-use GuzzleHttp\Client;
-use App\Models\Order;
 
 class Auth
 {
@@ -20,19 +14,20 @@ class Auth
     private $idGateway;
     public function __construct()
     {
-        $this->idGateway = setting('streamtele шлюз', '20555');
-        $this->login = setting('streamtele логін', 'login');
-        $this->password = setting('streamtele пароль','pass');
-        $this->key  = setting('streamtele ключ','627a3613');
+        $this->idGateway = env('STREAMTELE_PORT', '20555');
+        $this->key  = env('STREAMTELE_KEY','key');
+        $this->login = env('STREAMTELE_LOGIN', 'login');
+        $this->password = env('STREAMTELE_PASSWORD','pass');
         $this->text = setting('streamtele текст смс','Ви успішно Зробили замовлення. Ваш № замовлення:');
         $this->connection = app(Connection::class);
 
 
     }
 
-    /**
-     * @return string
-     */
+    public static function jobSendSms($phone = null, $orderId = '0', $text = null){
+        return app(Auth::class)->smsSend($phone, $orderId, $text);
+    }
+
     public function smsSend($phone = null, $orderId = '0', $text = null)
     {
 
