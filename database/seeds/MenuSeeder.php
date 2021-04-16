@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Menu;
-use App\Models\MenuItems;
+use App\Models\MenuItem;
 use Illuminate\Database\Seeder;
 
 class MenuSeeder extends Seeder
@@ -22,7 +22,7 @@ class MenuSeeder extends Seeder
             'role'    => 'menu'
         ]);
 
-        MenuItems::insert([
+        MenuItem::insert([
             [
                 'menu_id' => $menu->id,
                 'name_uk' => 'Пункт 1',
@@ -55,7 +55,7 @@ class MenuSeeder extends Seeder
             'photo'   => '/catalog/img/banner_menu.jpg'
         ]);
 
-        MenuItems::insert([
+        MenuItem::insert([
             [
                 'menu_id'   => $megamenu->id,
                 'name_uk'   => 'Пункт 1',
