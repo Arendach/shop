@@ -4,10 +4,10 @@ namespace App\Providers;
 
 use ChrisWare\NovaBreadcrumbs\NovaBreadcrumbs;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Nova\Actions\ActionEvent;
 use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
-use Laravel\Nova\Actions\ActionEvent;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {

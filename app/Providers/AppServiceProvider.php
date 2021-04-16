@@ -4,16 +4,16 @@ namespace App\Providers;
 
 use App\Services\AuthService;
 use App\Services\BaseConnectionService;
+use App\Services\CartService;
 use App\Services\CategoryFilterService;
 use App\Services\CheckoutService;
+use App\Services\CustomerService;
 use App\Services\DeliveryService;
 use App\Services\NewPostService;
 use App\Services\OrderStatusService;
 use App\Services\StaticPageService;
-use App\Services\CustomerService;
-use App\Services\CartService;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Schema\Builder;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {

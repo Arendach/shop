@@ -2,9 +2,6 @@
 
 namespace App\Providers;
 
-use Cache;
-use App\Models\Index;
-use App\Models\Page;
 use Illuminate\Support\ServiceProvider;
 
 class GlobalDataServiceProvider extends ServiceProvider

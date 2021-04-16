@@ -205,6 +205,7 @@ return [
         App\Providers\GlobalDataServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
         Genert\BBCode\BBCodeServiceProvider::class,
+		App\Providers\DropboxServiceProvider::class,
 
     ],
 
