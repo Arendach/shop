@@ -30,7 +30,7 @@ return [
          * The name of this application. You can use this name to monitor
          * the backups.
          */
-        'name' => env('APP_NAME'),
+        'name' => env('APP_NAME', 'laravel-backup'),
 
         'source' => [
 
@@ -57,6 +57,18 @@ return [
                  * Determines if symlinks should be followed.
                  */
                 'follow_links' => false,
+
+                /*
+                 * Determines if it should avoid unreadable folders.
+                 */
+                'ignore_unreadable_directories' => false,
+
+                /*
+                 * This path is used to make directories in resulting zip-file relative
+                 * Set to `null` to include complete absolute path
+                 * Example: base_path()
+                 */
+                'relative_path' => null,
             ],
 
             /*
@@ -76,14 +88,14 @@ return [
              *       ],
              * ],
              *
-             * If you are using only InnoDB tables on a MySQL server, you can 
+             * If you are using only InnoDB tables on a MySQL server, you can
              * also supply the useSingleTransaction option to avoid table locking.
              *
              * E.g.
              * 'mysql' => [
              *       ...
              *      'dump' => [
-             *           'useSingleTransaction' => true,             
+             *           'useSingleTransaction' => true,
              *       ],
              * ],
              *
@@ -107,6 +119,14 @@ return [
          */
         'database_dump_compressor' => null,
 
+        /*
+         * The file extension used for the database dump files.
+         *
+         * If not specified, the file extension will be .archive for MongoDB and .sql for all other databases
+         * The file extension should be specified without a leading .
+         */
+        'database_dump_file_extension' => '',
+
         'destination' => [
 
             /*
@@ -126,11 +146,23 @@ return [
          * The directory where the temporary files will be stored.
          */
         'temporary_directory' => storage_path('app/backup-temp'),
+
+        /*
+         * The password to be used for archive encryption.
+         * Set to `null` to disable encryption.
+         */
+        'password' => env('BACKUP_ARCHIVE_PASSWORD'),
+
+        /*
+         * The encryption algorithm to be used for archive encryption.
+         * You can set it to `null` or `false` to disable encryption.
+         */
+        'encryption' => \ZipArchive::EM_AES_256,
     ],
 
     /*
      * You can get notified when specific events occur. Out of the box you can use 'mail' and 'slack'.
-     * For Slack you need to install guzzlehttp/guzzle.
+     * For Slack you need to install laravel/slack-notification-channel.
      *
      * You can also use your own notification classes, just make sure the class is named after one of
      * the `Spatie\Backup\Events` classes.
@@ -154,6 +186,11 @@ return [
 
         'mail' => [
             'to' => 'your@example.com',
+
+            'from' => [
+                'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+                'name' => env('MAIL_FROM_NAME', 'Example'),
+            ],
         ],
 
         'slack' => [
@@ -178,7 +215,7 @@ return [
      */
     'monitor_backups' => [
         [
-            'name' => config('app.name'),
+            'name' => env('APP_NAME', 'laravel-backup'),
             'disks' => ['local'],
             'health_checks' => [
                 \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumAgeInDays::class => 1,
@@ -247,6 +284,11 @@ return [
 ];
 ```
 
+## Configuring the backup disk
+
+By default, the backup will be saved into the `public/laravel-backup/` directory of your laravel application. This folder most probably is configured to be public.
+We recommand to create a disk named `backups` (you can use any name you prefer) in `filesystems.php` and specify that name in the `disk` key of the `backup.php` config file.
+
 ## Scheduling
 
 After you have performed the basic installation you can start using the `backup:run`, `backup:clean`, `backup:list` and `backup:monitor`-commands. In most cases you'll want to schedule these commands so you don't have to manually run `backup:run` everytime you need a new backup.
@@ -304,10 +346,25 @@ Here's an example for MySQL:
 		   'use_single_transaction',
 		   'timeout' => 60 * 5, // 5 minute timeout
 		   'exclude_tables' => ['table1', 'table2'],
-		   'add_extra_option' => '--optionname=optionvalue', 
-		]  
+		   'add_extra_option' => '--optionname=optionvalue', // for example '--column_statistics=0'
+		]
 	],
 ```
+
+### File extensions of database dumps
+
+By default, database dump files are named `.sql`, except for the MongoDB driver which are named `.archive`. If you would like to override this, you can set the file extension to be used in the config.
+
+For example, to save a database dump as a `.txt` file:
+```php
+//config/backup.php
+'backup' => [
+    ...,
+    'database_dump_file_extension' => 'txt',
+  ],
+```
+
+> This relates to the names of the database dump files **within** the overall backup `zip` file that is generated.
 
 ### Custom database dumpers
 

@@ -2,6 +2,76 @@
 
 All notable changes to `laravel-backup` will be documented in this file.
 
+## 6.15.1 - 2021-03-16
+
+- avoid exception when ZipArchive::EM_AES_256 is not available
+
+## 6.15.0 - 2021-03-02
+
+- allow to encrypt backup archives (#1239)
+
+## 6.14.3 - 2021-01-29
+
+- fix for #1225 (#1227)
+
+## 6.14.2 - 2020-12-27
+
+- add norwegian
+
+## 6.14.1 - 2020-12-16
+
+- fix exception messages
+
+## 6.14.0 - 2020-12-08
+
+- add option to add files to zip-file using relative path (#1158)
+
+## 6.13.1 - 2020-12-01
+
+- Update README.md, docs and comment in config file (#1154)
+
+## 6.13.0 - 2020-11-25
+
+- add support for PHP 8.0
+- drop support for Laravel 5.8
+
+## 6.12.0 - 2020-11-19
+
+- allow a `CleanupStrategy` to access its intended `BackupDestination` (#1149)
+
+## 6.11.6 - 2020-10-19
+
+- add funding section
+
+## 6.11.4 - 2020-09-30
+
+- add Portuguese translations
+
+## 6.11.3 - 2020-09-29
+
+- add Japanse translations
+
+## 6.11.2 - 2020-09-07
+
+- add support for Laravel 8
+
+## 6.11.1 - 2020-06-17
+
+- reduce number of filesystem calls for Backup `exists` and `date` (#1084)
+
+## 6.11.0 - 2020-06-15
+
+- avoid unreadable folders errors, can be set from config (#1081)
+
+## 6.10.0 - 2020-05-20
+
+- add support for the `unix_socket` database config option (#1072)
+
+## 6.9.0 - 2020-04-20
+
+- add right-aligned numbers in console output
+- don't resolve notifications from the IoC container, as per Laravel docs
+
 ## 6.8.1 - 2020-03-11
 
 - added support to set execution timeout (#1046)
@@ -45,7 +115,6 @@ All notable changes to `laravel-backup` will be documented in this file.
 ## 6.7.0 - 2019-10-16
 
 - handle database urls for database connections (#980)
->>>>>>> 1f3d26cad457083fc18889db96335c293b6290d4
 
 ## 6.6.1 - 2019-10-09
 
