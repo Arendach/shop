@@ -31,7 +31,7 @@
 		"laravel/nova": "3.0.0",
 		"laravel/socialite": "^4.3",
 		"laravel/tinker": "^2.0",
-		"league/flysystem": "1.0.8",
+		"league/flysystem": "1.*",
 		"lis-dev/nova-poshta-api-2": "^0.1.1",
 		"llaski/nova-scheduled-jobs": "^3.0",
 		"media24si/nova-youtube-field": "^1.0",
