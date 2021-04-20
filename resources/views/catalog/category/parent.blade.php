@@ -41,11 +41,9 @@
 
             @endforeach
 
-            <div>{!! $category->description !!}</div>
-
-                <div id="main-category">
-                    <main-category data="{{ json_encode($categoryResource) }}" />
-                </div>
+            <div id="main-category">
+                <main-category :data="{{ json_encode($categoryResource) }}"/>
+            </div>
         </div>
     </main>
 @endsection

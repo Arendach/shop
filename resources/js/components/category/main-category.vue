@@ -1,7 +1,6 @@
 <template>
-  <div>Описание:
-    {{ category.description }}
-<!--    <category-description :data="categoryDescription"/>-->
+  <div>
+    <category-description :datas="data.description" />
   </div>
 </template>
 
@@ -12,18 +11,11 @@ export default {
   name: "main-category",
 
   data() {
-    return {
-      category: JSON.parse(this.data)
-    }
+    return {}
   },
   props: ['data'],
   components: {
     categoryDescription,
-  },
-  methods: {
-    categoryDescription() {
-      return this.category.description
-    }
   }
 
 }

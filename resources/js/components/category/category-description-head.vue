@@ -1,19 +1,19 @@
 <template>
   <div>
-    <h1>Category Description</h1>
-    <h2>{{ description }}</h2>
+    <div v-html="datas"></div>
   </div>
 </template>
 
 <script>
 export default {
   name: "category-description-head",
-  props:{
-    data: {
-      type: String,
-      default: translate("Описание отсутствует")
+  data() {
+    return {
     }
-  }
+  },
+  props:[
+      'datas'
+  ]
 }
 </script>
 
