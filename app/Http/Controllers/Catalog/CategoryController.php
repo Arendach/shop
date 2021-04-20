@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Catalog;
 
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
@@ -14,6 +15,8 @@ class CategoryController extends CatalogController
         $category = Category::with('parent', 'child')
             ->where(is_numeric($slug) ? 'id' : 'slug', $slug)
             ->firstOrFail();
+
+        $categoryResource = new CategoryResource($category);
 
         $data = [
             'title'            => $category->meta_title,
@@ -29,14 +32,17 @@ class CategoryController extends CatalogController
                 }]);
             });
 
-            return view('catalog.category.parent', $data);
+            return view('catalog.category.parent', array_merge($data, [
+                'categoryResource' => $categoryResource
+            ]));
         }
 
         $products = $categoryModel->filterProducts($category->id, $request);
         $data = array_merge($data, [
-            'products'      => $products,
-            'filter'        => CategoryFilter::get($category->id),
-            'requestFields' => $request->all()
+            'products'         => $products,
+            'filter'           => CategoryFilter::get($category->id),
+            'requestFields'    => $request->all(),
+            'categoryResource' => $categoryResource
         ]);
 
         return view('catalog.category.show-products', $data);

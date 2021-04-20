@@ -44,7 +44,7 @@
             <div>{!! $category->description !!}</div>
 
                 <div id="main-category">
-                    <main-category data="{{ $category }}" />
+                    <main-category data="{{ json_encode($categoryResource) }}" />
                 </div>
         </div>
     </main>
