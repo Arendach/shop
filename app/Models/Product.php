@@ -3,17 +3,14 @@
 namespace App\Models;
 
 
-
+use App\Abstraction\Models\SearchableInterface;
 use App\Scopes\SortableScope;
 use App\Traits\Models\Image;
+use App\Traits\Searchable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Http\Request;
-
-use App\Abstraction\Models\SeoMultiLangInterface;
 use App\Abstraction\Models\TwoImageInterface;
 use App\Casts\ProductTranslatableTemplateCast;
 use App\Traits\Models\Editable;
-use App\Traits\Models\SeoMultiLang;
 use App\Traits\Models\TwoImage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -22,15 +19,14 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
-class Product extends Model implements Sortable, TwoImageInterface
+class Product extends Model implements Sortable, TwoImageInterface, SearchableInterface
 {
     use TwoImage;
     use Editable;
-
     use SoftDeletes;
     use SortableTrait;
     use Image;
-
+    use Searchable;
 
     protected $table = 'products';
 
@@ -179,6 +175,29 @@ class Product extends Model implements Sortable, TwoImageInterface
         return route('product.view', $this->slug);
     }
 
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function toSearchArray(): array
+    {
+        return [
+            'id'                  => $this->id,
+            'name_uk'             => $this->name_uk,
+            'name_ru'             => $this->name_ru,
+            'description_uk'      => $this->description_uk,
+            'description_ru'      => $this->description_ru,
+            'meta_title_uk'       => $this->meta_title_uk,
+            'meta_title_ru'       => $this->meta_title_ru,
+            'meta_keywords_uk'    => $this->meta_keywords_uk,
+            'meta_keywords_ru'    => $this->meta_keywords_ru,
+            'meta_description_uk' => $this->meta_description_uk,
+            'meta_description_ru' => $this->meta_description_ru,
+            'url'                 => $this->getUrl()
+        ];
+    }
+
 
     public function getSearchProducts(string $value): LengthAwarePaginator
     {
@@ -206,11 +225,11 @@ class Product extends Model implements Sortable, TwoImageInterface
         $builder->where('is_recommended', $isRecommended);
     }
 
-    public function scopeIsActive (Builder $builder, bool $active = true)
+    public function scopeIsActive(Builder $builder, bool $active = true)
     {
         $this->active = $active;
         $builder->whereHas('category', function (Builder $query) {
-        $query->where('is_active', $this->active);
+            $query->where('is_active', $this->active);
         });
     }
 }

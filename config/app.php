@@ -206,7 +206,7 @@ return [
         App\Providers\ComposerServiceProvider::class,
         Genert\BBCode\BBCodeServiceProvider::class,
 		App\Providers\DropboxServiceProvider::class,
-
+        App\Providers\ElasticServiceProvider::class,
     ],
 
     /*

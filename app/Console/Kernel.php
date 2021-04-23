@@ -2,6 +2,9 @@
 
 namespace App\Console;
 
+use App\Console\Commands\Elastic\ClearCommand;
+use App\Console\Commands\Elastic\CreateIndexCommand;
+use App\Console\Commands\Elastic\ReindexCommand;
 use App\Console\Commands\AdminGenerateUser;
 use App\Console\Commands\GenerateMinify;
 use App\Console\Commands\GenerateRedirectRoutes;
@@ -20,6 +23,9 @@ class Kernel extends ConsoleKernel
         GenerateTranslations::class,
         GenerateMinify::class,
         GenerateRedirectRoutes::class,
+        ReindexCommand::class,
+        ClearCommand::class,
+        CreateIndexCommand::class,
     ];
 
     protected function schedule(Schedule $schedule)

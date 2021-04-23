@@ -2,30 +2,36 @@
 
 namespace App\Http\Controllers\Catalog;
 
+use App\Models\Product;
 use App\Models\SearchLog;
-use App\Repositories\ProductsRepository;
+use App\Services\Search\SearchService;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class SearchController extends CatalogController
 {
-    private $productsRepository;
+    private $searchService;
 
-    public function __construct(ProductsRepository $productsRepository)
+    public function __construct(SearchService $searchService)
     {
-        $this->productsRepository = $productsRepository;
+        $this->searchService = $searchService;
     }
 
-    public function index()
+    public function index(): View
     {
         abort_if(!request('query'), 404);
 
-        $products = $this->productsRepository->searchProducts(request('query'));
+        $products = $this->searchService->search(request('query'));
+
+        foreach ($products as $product) {
+            dump($product);
+        }
+
+        dd(1);
 
         $data = [
-//            'meta_keywords'    => __('search.meta_keywords'),
-//            'meta_description' => __('search.meta_description'),
-            'products'         => $products,
-            'searchString'     => request('query'),
+            'products'     => $products,
+            'searchString' => request('query'),
         ];
 
         $this->saveLog();
@@ -41,25 +47,25 @@ class SearchController extends CatalogController
         $htmlResultSearch = '';
         $i = 0;
         foreach ($products as $product) {
-            $htmlResultSearch .= '<a href="' . $product->url .'">';
-            $htmlResultSearch .= '<img src="' . $product->small . '" alt="' . $product->name .'" width="50">';
-            $htmlResultSearch .= '<span style="color: black;">' . $product->name .'</span><br>';
+            $htmlResultSearch .= '<a href="' . $product->url . '">';
+            $htmlResultSearch .= '<img src="' . $product->small . '" alt="' . $product->name . '" width="50">';
+            $htmlResultSearch .= '<span style="color: black;">' . $product->name . '</span><br>';
             if ($product->is_discounted) {
                 $htmlResultSearch .= '<span style="color: black; text-decoration: line-through;">' . $product->new_price . ' грн </span>';
                 $htmlResultSearch .= '<span style="color: black; font-weight: 600">' . $product->old_price . ' грн</span>';
             } else {
-                $htmlResultSearch .= '<span style="color: black;">' . $product->new_price .' грн</span>';
+                $htmlResultSearch .= '<span style="color: black;">' . $product->new_price . ' грн</span>';
             }
             $htmlResultSearch .= '</a>';
             $i++;
-            
+
             if ($i == 4) {
                 break;
             }
         }
-        
+
         if ($countProducts > 4) {
-            $htmlResultSearch .= '<a href="' . route('search') . '?query=' . str_replace(' ', '+', $request->input('query')) .'" class="all-results">Показать всё</a>';
+            $htmlResultSearch .= '<a href="' . route('search') . '?query=' . str_replace(' ', '+', $request->input('query')) . '" class="all-results">Показать всё</a>';
         }
 
         if (empty($htmlResultSearch)) {
