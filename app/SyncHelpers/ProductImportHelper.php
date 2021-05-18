@@ -37,7 +37,7 @@ class ProductImportHelper
         $slug = Str::slug($data->get('name_uk'));
 
         if (Product::where('slug', $slug)->count()) {
-            $slug .= rand(10, 99);
+            $slug .= '-'.$data->get('article');
         }
 
         $data->put('slug', $slug);
