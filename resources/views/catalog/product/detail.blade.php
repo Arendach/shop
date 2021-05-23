@@ -8,7 +8,7 @@
 
 @section('content')
     @php /** @var \App\Models\Product $product*/ @endphp
-    <main id="product-page">
+    <main id="product-page"  itemscope itemtype="https://schema.org/Product">
         <div class="container margin_30">
             @if($product->is_discounted)
                 <div class="countdown_inner">-{{ $product->discount_percent }}% @editable('Ця знижка закічиться через')
@@ -58,7 +58,7 @@
 
                                 @foreach($product->images as $image)
                                     <div class="item-box">
-                                        <img src="{{ $image->big_image }}">
+                                        <img itemprop="image" src="{{ $image->big_image }}" alt="{{ $image->big_image }}">
                                     </div>
                                 @endforeach
                             </div>
@@ -91,7 +91,7 @@
                 <div class="col-md-6">
                     <!-- /page_header -->
                     <div class="prod_info">
-                        <h1>{{ $product->name }}</h1>
+                        <h1 itemprop="name">{{ $product->name }}</h1>
                         <span class="rating">
                             {!! $product->stars !!}
                             <em>{{ $product->reviews->count() }} @editable('Відгук(ів)')</em>
@@ -209,9 +209,9 @@
                                     <div class="row" style="margin-bottom: 10px;">
                                         <label class="col-xl-5 col-lg-5 col-md-6 col-6">
                                             {{ $attribute->name }}
-    {{--                                        <a href="#0" data-toggle="modal" data-target="#size-modal">--}}
-    {{--                                            <i class="ti-help-alt"></i>--}}
-    {{--                                        </a>--}}
+                                            {{--                                        <a href="#0" data-toggle="modal" data-target="#size-modal">--}}
+                                            {{--                                            <i class="ti-help-alt"></i>--}}
+                                            {{--                                        </a>--}}
                                         </label>
                                         <div class="col-xl-4 col-lg-5 col-md-6 col-6">
                                             <div class="custom-select-form">
@@ -219,7 +219,7 @@
 
                                                     @foreach($value as $attr)
                                                         <option value="{{ $attr->id }}">
-                                                                {{ $attr->value }}
+                                                            {{ $attr->value }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -231,6 +231,7 @@
                             @if(!$product->on_storage)
                                 <div class="btn btn-danger ml-3 p-1 pr-5 pl-5">@translate('Немає в наявності')</div>
                             @else
+                                <link itemprop="availability" href="https://schema.org/InStock" />
                                 <div class="row">
                                     <label class="col-xl-5 col-lg-5  col-md-6 col-6">
                                         <strong>
@@ -239,14 +240,15 @@
                                     </label>
                                     <div class="col-xl-4 col-lg-5 col-md-6 col-6">
                                         <div class="numbers-row">
-                                            <input data-type="cart_detail_change_amount" type="text" value="1" id="quantity" class="qty2" name="quantity">
+                                            <input data-type="cart_detail_change_amount" type="text" value="1"
+                                                   id="quantity" class="qty2" name="quantity">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-5 col-md-6">
-                                        <div class="price_main">
-                                            <span class="new_price">{{ $product->new_price }} грн</span>
+                                        <div class="price_main" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                                            <span class="new_price" itemprop="price" content="{{ $product->new_price }}">{{ $product->new_price }}</span> <span class="new_price" itemprop="priceCurrency" content="UAH">грн</span>
                                             @if($product->is_discounted)
                                                 <span class="percentage">-{{ $product->discount_percentage }}%</span>
                                                 <span class="old_price">{{ $product->old_price }} грн</span>
@@ -255,7 +257,8 @@
                                     </div>
                                     <div class="col-lg-4 col-md-6">
                                         <div class="btn_add_to_cart"
-                                             @if($product->on_storage) data-type="detail_cart_attach" @else style="" @endif
+                                             @if($product->on_storage) data-type="detail_cart_attach" @else style=""
+                                             @endif
                                              data-id="{{ $product->id }}"
                                              data-dont-show-taastr="1"
                                         >
@@ -358,7 +361,7 @@
                                     <div class="row justify-content-between">
 
                                         @if($product->description)
-                                            <div class="col-12">
+                                            <div class="col-12" itemprop="description">
                                                 <h3>@editable('Деталі')</h3>
                                                 {!! $product->description !!}
                                             </div>
