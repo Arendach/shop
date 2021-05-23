@@ -148,6 +148,9 @@
                                 <i class="ti-package"></i>
                             </span>
                             <div>
+                                <div itemprop="brand" itemtype="http://schema.org/Brand" itemscope>
+                                    <meta itemprop="name" content="{{$product->manufacturer->name}}" />
+                                </div>
                                 <span class="h4">@editable('Виробник: ') {{$product->manufacturer->name}}</span>
                             </div>
                             <div style="clear:both;"></div>
@@ -248,6 +251,7 @@
                                 <div class="row">
                                     <div class="col-lg-5 col-md-6">
                                         <div class="price_main" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                                            <link itemprop="url" href="{{$product->url}}" />
                                             <span class="new_price" itemprop="price" content="{{ $product->new_price }}">{{ $product->new_price }}</span> <span class="new_price" itemprop="priceCurrency" content="UAH">грн</span>
                                             @if($product->is_discounted)
                                                 <span class="percentage">-{{ $product->discount_percentage }}%</span>
