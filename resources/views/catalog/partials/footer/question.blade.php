@@ -1,8 +1,8 @@
 <main style="margin-top: -1.8%;">
     <div class="container mt-0">
         <div class="row mt-0">
-            <div class="col-md-12 p-3" itemscope itemtype="https://schema.org/FAQPage">
-                @if($questions->count())
+            @if($questions->count())
+                <div class="col-md-12 p-3" itemscope itemtype="https://schema.org/FAQPage">
                     @foreach($questions as $i => $question)
                         <div class="faq-card">
                             <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
@@ -23,9 +23,9 @@
                             </div>
                         </div>
                     @endforeach
-                @endif
+                </div>
+            @endif
 
-            </div>
         </div>
     </div>
 
