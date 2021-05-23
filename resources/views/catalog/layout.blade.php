@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ config('locale.current') }}" itemscope itemtype="https://schema.org/FAQPage">
+<html lang="{{ config('locale.current') }}">
 
 <head>
     <meta charset="utf-8">
