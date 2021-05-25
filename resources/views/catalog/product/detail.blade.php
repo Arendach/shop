@@ -8,7 +8,9 @@
 
 @section('content')
     @php /** @var \App\Models\Product $product*/ @endphp
-    <main id="product-page"  itemscope itemtype="https://schema.org/Product">
+    <main id="product-page" itemscope itemtype="https://schema.org/Product">
+        <meta itemprop="sku" content="{{ $product->article }}" />
+        <meta itemprop="mpn" content="{{ $product->article }}" />
         <div class="container margin_30">
             @if($product->is_discounted)
                 <div class="countdown_inner">-{{ $product->discount_percent }}% @editable('Ця знижка закічиться через')
@@ -58,7 +60,8 @@
 
                                 @foreach($product->images as $image)
                                     <div class="item-box">
-                                        <img itemprop="image" src="{{ $image->big_image }}" alt="{{ $image->big_image }}">
+                                        <img itemprop="image" src="{{ $image->big_image }}"
+                                             alt="{{ $image->big_image }}">
                                     </div>
                                 @endforeach
                             </div>
@@ -149,7 +152,7 @@
                             </span>
                             <div>
                                 <div itemprop="brand" itemtype="http://schema.org/Brand" itemscope>
-                                    <meta itemprop="name" content="{{$product->manufacturer->name}}" />
+                                    <meta itemprop="name" content="{{$product->manufacturer->name}}"/>
                                 </div>
                                 <span class="h4">@editable('Виробник: ') {{$product->manufacturer->name}}</span>
                             </div>
@@ -185,21 +188,21 @@
                             <div class="table-responsive">
                                 <table class="table table-sm table-striped">
                                     <tbody>
-                                    @foreach($product->characteristics as $characteristic)
-                                        @php /** @var \App\Models\ProductCharacteristic $characteristic */ @endphp
-                                        <tr>
-                                            <td>
-                                                <strong>
-                                                    {!! $characteristic->getName() !!}
-                                                </strong>
-                                            </td>
-                                            <td>
-                                                {!! $characteristic->getPrefix() !!}
-                                                {!! $characteristic->value !!}
-                                                {!! $characteristic->getPostfix() !!}
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                        @foreach($product->characteristics as $characteristic)
+                                            @php /** @var \App\Models\ProductCharacteristic $characteristic */ @endphp
+                                            <tr>
+                                                <td>
+                                                    <strong>
+                                                        {!! $characteristic->getName() !!}
+                                                    </strong>
+                                                </td>
+                                                <td>
+                                                    {!! $characteristic->getPrefix() !!}
+                                                    {!! $characteristic->value !!}
+                                                    {!! $characteristic->getPostfix() !!}
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -234,41 +237,47 @@
                             @if(!$product->on_storage)
                                 <div class="btn btn-danger ml-3 p-1 pr-5 pl-5">@translate('Немає в наявності')</div>
                             @else
-                                <link itemprop="availability" href="https://schema.org/InStock" />
-                                <div class="row">
-                                    <label class="col-xl-5 col-lg-5  col-md-6 col-6">
-                                        <strong>
-                                            @editable('Кількість')
-                                        </strong>
-                                    </label>
-                                    <div class="col-xl-4 col-lg-5 col-md-6 col-6">
-                                        <div class="numbers-row">
-                                            <input data-type="cart_detail_change_amount" type="text" value="1"
-                                                   id="quantity" class="qty2" name="quantity">
+                                <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                                    <div class="row">
+                                        <link itemprop="availability" href="https://schema.org/InStock"/>
+                                        <label class="col-xl-5 col-lg-5  col-md-6 col-6">
+                                            <strong>
+                                                @editable('Кількість')
+                                            </strong>
+                                        </label>
+                                        <div class="col-xl-4 col-lg-5 col-md-6 col-6">
+                                            <div class="numbers-row">
+                                                <input data-type="cart_detail_change_amount" type="text" value="1"
+                                                       id="quantity" class="qty2" name="quantity">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-5 col-md-6">
-                                        <div class="price_main" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                                            <link itemprop="url" href="{{$product->url}}" />
-                                            <span class="new_price" itemprop="price" content="{{ $product->new_price }}">{{ $product->new_price }}</span> <span class="new_price" itemprop="priceCurrency" content="UAH">грн</span>
-                                            @if($product->is_discounted)
-                                                <span class="percentage">-{{ $product->discount_percentage }}%</span>
-                                                <span class="old_price">{{ $product->old_price }} грн</span>
-                                            @endif
+                                    <div class="row">
+                                        <div class="col-lg-5 col-md-6">
+                                            <div class="price_main">
+                                                <link itemprop="url" href="{{$product->url}}"/>
+                                                <span class="new_price" itemprop="price"
+                                                      content="{{ $product->new_price }}">{{ $product->new_price }}</span>
+                                                <span class="new_price" itemprop="priceCurrency"
+                                                      content="UAH">грн</span>
+                                                <meta itemprop="priceValidUntil" content="{{ date('Y-m-d') }}" />
+                                                @if($product->is_discounted)
+                                                    <span class="percentage">-{{ $product->discount_percentage }}%</span>
+                                                    <span class="old_price">{{ $product->old_price }} грн</span>
+                                                @endif
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-6">
-                                        <div class="btn_add_to_cart"
-                                             @if($product->on_storage) data-type="detail_cart_attach" @else style=""
-                                             @endif
-                                             data-id="{{ $product->id }}"
-                                             data-dont-show-taastr="1"
-                                        >
-                                            <button type="submit" class="btn_1 pl-5 pr-5 ml-2">
-                                                @editable('В корзину')
-                                            </button>
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="btn_add_to_cart"
+                                                 @if($product->on_storage) data-type="detail_cart_attach" @else style=""
+                                                 @endif
+                                                 data-id="{{ $product->id }}"
+                                                 data-dont-show-taastr="1"
+                                            >
+                                                <button type="submit" class="btn_1 pl-5 pr-5 ml-2">
+                                                    @editable('В корзину')
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
