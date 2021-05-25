@@ -64,6 +64,13 @@ class Kernel extends HttpKernel
         'cart'              => \App\Http\Middleware\Cart::class,
         'loadCategories'    => \App\Http\Middleware\LoadCategories::class,
         'onlyLogged'        => \App\Http\Middleware\OnlyLogged::class,
+        /**** OTHER MIDDLEWARE ****/
+        'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
+        'localizationRedirect'    => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
+        'localeSessionRedirect'   => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
+        'localeCookieRedirect'    => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
+        'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class
+
     ];
 
     /**

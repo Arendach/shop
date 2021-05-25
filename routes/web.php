@@ -1,6 +1,7 @@
 <?php
 
 use \Illuminate\Support\Str;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 if (!function_exists('simple_routing')) {
     function simple_routing($controller, $action, $namespace_part, $action_prefix = '')
@@ -43,8 +44,11 @@ Route::post('assets/content-editable', 'Catalog\\AssetsController@contentEditabl
  * START LOAD ROUTES
  */
 Route::group([
-    'prefix'     => Locales::getPrefix(),
+    'prefix'     => LaravelLocalization::setLocale(),
     'middleware' => [
+        'localeSessionRedirect',
+        'localizationRedirect',
+        'localeViewPath',
         'setUserLocale',
         'cart'
     ]
