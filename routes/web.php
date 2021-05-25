@@ -1,7 +1,7 @@
 <?php
 
 use \Illuminate\Support\Str;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use \Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 if (!function_exists('simple_routing')) {
     function simple_routing($controller, $action, $namespace_part, $action_prefix = '')
