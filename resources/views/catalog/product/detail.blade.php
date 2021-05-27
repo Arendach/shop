@@ -373,12 +373,14 @@
                                 <div class="card-body">
                                     <div class="row justify-content-between">
 
-                                        @if($product->description)
-                                            <div class="col-12" itemprop="description">
-                                                <h3>@editable('Деталі')</h3>
-                                                {!! $product->description !!}
-                                            </div>
-                                        @endif
+                                        <div class="col-12" itemprop="description">
+                                            <h3>@editable('Деталі')</h3>
+                                            @if($product->description)
+                                                    {!! $product->description !!}
+                                            @else
+                                                Описание товара скоро появится на сайте.
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
