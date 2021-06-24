@@ -27,7 +27,7 @@
                 <thead>
                 <tr>
                     <th>@translate('Товар')</th>
-                    <th width="30%">@translate('Атрибути')</th>
+                    <th>@translate('Атрибути')</th>
                     <th>@translate('Ціна')</th>
                     <th>@translate('Кількість')</th>
                     <th>@translate('Сума')</th>
@@ -51,7 +51,7 @@
                                     <strong>{{ $key }}</strong> - {{ $value }}<br>
                                 @endforeach
                             @else
-                                @translate('Атрибути товару не були вказані')
+                                @translate('Без атрибутiв')
                             @endisset
                         </td>
                         <td>
