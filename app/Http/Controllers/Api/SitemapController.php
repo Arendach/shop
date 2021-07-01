@@ -87,8 +87,7 @@ class SitemapController extends Controller
 
     private function categories($setLocale = null)
     {
-        $categories = Category::all();
-
+        $categories = Category::isActiveScope()->get();
         foreach ($categories as $category) {
             $link = route('category.show', $category->slug);
             $link = Locales::localizeUrl($setLocale ?? $this->locale, $link);

@@ -133,6 +133,11 @@ class Category extends Model implements Sortable, TwoImageInterface
         return $this->is_active;
     }
 
+    public function scopeIsActiveScope(Builder $query)
+    {
+        $query->where('is_active', 1);
+    }
+
     public function filterProducts(int $category_id, Request $request)
     {
         $items = in_array($request->get('items', null), [20, 50, 70, 100])
