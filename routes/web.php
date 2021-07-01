@@ -34,6 +34,7 @@ Route::get('/callback/{service}', 'SocialAuthController@callback');
 Route::get('locale/{locale}', 'Catalog\\MainController@locale')->name('locale');
 
 Route::get('sitemap.xml', 'Api\SitemapController@show');
+Route::get('sitemap_uk.xml', 'Api\SitemapController@showUk');
 
 /**
  * Динамічне редагування контенту
