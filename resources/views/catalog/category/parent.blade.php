@@ -41,12 +41,15 @@
 
             @endforeach
 
-            <div>{!! $category->description !!}</div>
+            <div id="main-category">
+                <main-category :data="{{ json_encode($categoryResource) }}"/>
+            </div>
         </div>
     </main>
 @endsection
 
 @section('js')
+    <script src="{{ asset('js/main-category.js') }}"></script>
     <script src="{{ asset('catalog/js/sticky_sidebar.min.js') }}"></script>
     <script src="{{ asset('catalog/js/specific_listing.js') }}"></script>
 @endsection
