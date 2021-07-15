@@ -15,7 +15,8 @@ class CategoryFilterService
 
     public function get(int $category_id): self
     {
-        $this->filter = Cache::rememberForever("category.filters.$category_id", function () use ($category_id) {
+        $lang = config('locale.current');
+        $this->filter = Cache::rememberForever("category.filters.$lang.$category_id", function () use ($category_id) {
             return $this->make($category_id);
         });
 
