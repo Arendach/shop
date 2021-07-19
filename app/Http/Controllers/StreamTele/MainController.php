@@ -20,7 +20,7 @@ class MainController extends Controller
     {
         $order = Order::first();
         $mail = Mail::to('s5660max@gmail.com')->send(
-            new sendMail()
+            new sendMail($order)
         );
         dd($mail, $order);
 
